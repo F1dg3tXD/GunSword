@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://baflohi8rvqbr" path="res://mainMenu/scenes/menus/main_menu/main_menu_with_animations.gd" id="2_lpr86"]
 [ext_resource type="PackedScene" uid="uid://ce0grov8ii452" path="res://mainMenu/scenes/windows/main_menu_options_window.tscn" id="3_eog7t"]
 [ext_resource type="PackedScene" uid="uid://umr1a6w6er5h" path="res://mainMenu/scenes/windows/main_menu_credits_window.tscn" id="4_shdm2"]
+[ext_resource type="AudioStream" uid="uid://cbtyvad1nwdm1" path="res://music/when bro asks for a neo future title theme.ogg" id="5_h5b51"]
 
 [sub_resource type="Animation" id="1"]
 resource_name = "Intro"
@@ -326,6 +327,9 @@ libraries/ = SubResource("AnimationLibrary_2kqig")
 tree_root = SubResource("AnimationNodeStateMachine_vikuh")
 anim_player = NodePath("../MenuAnimationPlayer")
 parameters/conditions/intro_done = false
+
+[node name="BackgroundMusicPlayer" parent="." index="3" unique_id=1141822549]
+stream = ExtResource("5_h5b51")
 
 [node name="TitleContainer" parent="MenuContainer/TitleMargin" parent_id_path=PackedInt32Array(2112060331) index="0" unique_id=556427956]
 modulate = Color(1, 1, 1, 0)

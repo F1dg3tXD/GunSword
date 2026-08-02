@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://ckllv2jbbnif7"
+path="res://.godot/imported/pov you wake up and remember nothing.ogg-34cbadb613eff5e86b5e768ddb2e9ae9.oggvorbisstr"
+
+[deps]
+
+source_file="res://music/pov you wake up and remember nothing.ogg"
+dest_files=["res://.godot/imported/pov you wake up and remember nothing.ogg-34cbadb613eff5e86b5e768ddb2e9ae9.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

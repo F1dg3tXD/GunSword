@@ -4,12 +4,17 @@
 [ext_resource type="Script" uid="uid://qhmr1nkubph3" path="res://mainMenu/scenes/menus/main_menu/main_menu.gd" id="2_rlm7n"]
 [ext_resource type="PackedScene" uid="uid://ce0grov8ii452" path="res://mainMenu/scenes/windows/main_menu_options_window.tscn" id="3_lgwxj"]
 [ext_resource type="PackedScene" uid="uid://umr1a6w6er5h" path="res://mainMenu/scenes/windows/main_menu_credits_window.tscn" id="4_uoljb"]
+[ext_resource type="AudioStream" uid="uid://cbtyvad1nwdm1" path="res://music/when bro asks for a neo future title theme.ogg" id="5_carfq"]
 
 [node name="MainMenu" unique_id=869232425 instance=ExtResource("1_ljtgg")]
 script = ExtResource("2_rlm7n")
 game_scene_path = "uid://bvcfmtsvkoalb"
 options_packed_scene = ExtResource("3_lgwxj")
 credits_packed_scene = ExtResource("4_uoljb")
+
+[node name="BackgroundMusicPlayer" parent="." index="1" unique_id=1141822549]
+stream = ExtResource("5_carfq")
+parameters/looping = false
 
 [node name="TitleLabel" parent="MenuContainer/TitleMargin/TitleContainer" parent_id_path=PackedInt32Array(556427956) index="0" unique_id=359406872]
 text = "top-down-narative"

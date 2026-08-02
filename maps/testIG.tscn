@@ -2,11 +2,14 @@
 
 [ext_resource type="Texture2D" uid="uid://c07stp16p1pcl" path="res://images/giphy_s.png" id="1_qrv42"]
 [ext_resource type="PackedScene" uid="uid://g3r12cwpvpos" path="res://player/playerTopDown.tscn" id="1_ri632"]
+[ext_resource type="Script" uid="uid://c57s6seasqpdt" path="res://scripts/test_ig.gd" id="1_ud7vo"]
+[ext_resource type="AudioStream" uid="uid://ckllv2jbbnif7" path="res://music/pov you wake up and remember nothing.ogg" id="4_11w4q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yxyn3"]
 size = Vector2(1920, 20)
 
 [node name="TestIg" type="Node2D" unique_id=210884647]
+script = ExtResource("1_ud7vo")
 
 [node name="GiphyS" type="Sprite2D" parent="." unique_id=537376321]
 position = Vector2(576, 337)
@@ -45,3 +48,6 @@ shape = SubResource("RectangleShape2D_yxyn3")
 
 [node name="PlayerTopDown" parent="." unique_id=722353571 instance=ExtResource("1_ri632")]
 position = Vector2(149, 498)
+
+[node name="music" type="AudioStreamPlayer2D" parent="." unique_id=250614282]
+stream = ExtResource("4_11w4q")
