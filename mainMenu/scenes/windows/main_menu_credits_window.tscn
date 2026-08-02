@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://umr1a6w6er5h"]
+
+[ext_resource type="PackedScene" uid="uid://crndfbb22ri4s" path="res://addons/maaacks_menus_template/base/nodes/windows/overlaid_window_scene_container.tscn" id="1_ijm0i"]
+[ext_resource type="Script" uid="uid://dp5tm17vnr863" path="res://mainMenu/scenes/windows/main_menu_credits_window.gd" id="2_f0yu1"]
+[ext_resource type="PackedScene" uid="uid://boojwci1qncbi" path="res://mainMenu/scenes/credits/scrollable_credits.tscn" id="3_em255"]
+
+[node name="MainMenuCreditsOverlaidWindow" unique_id=1453761674 instance=ExtResource("1_ijm0i")]
+anchors_preset = 15
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+script = ExtResource("2_f0yu1")
+packed_scene = ExtResource("3_em255")
+
+[node name="TitleMargin" parent="ContentContainer/BoxContainer" parent_id_path=PackedInt32Array(394030069) index="0" unique_id=1262022916]
+visible = false
+
+[node name="CloseButton" parent="ContentContainer/BoxContainer/MenuButtonsMargin/MenuButtons" parent_id_path=PackedInt32Array(1371114575) index="0" unique_id=314526102]
+size_flags_horizontal = 0
+text = "Back"

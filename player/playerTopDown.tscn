@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://g3r12cwpvpos"]
+
+[ext_resource type="Script" uid="uid://dik7bxb6g4k0o" path="res://player/player_top_down.gd" id="1_jcfv7"]
+[ext_resource type="Texture2D" uid="uid://ya8mt3kc3ch1" path="res://icon.svg" id="1_jhh2b"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yxyn3"]
+radius = 93.0
+height = 196.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j3pel"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_jhh2b")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_2s5nj"]
+graph_offset = Vector2(-351.36005, 168.96005)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yxyn3"]
+
+[node name="PlayerTopDown" type="CharacterBody2D" unique_id=722353571]
+script = ExtResource("1_jcfv7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=475939901]
+shape = SubResource("CapsuleShape2D_yxyn3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=362259257]
+sprite_frames = SubResource("SpriteFrames_j3pel")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=905009846]
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=915950116]
+tree_root = SubResource("AnimationNodeBlendTree_2s5nj")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="DampedSpringJoint2D" type="DampedSpringJoint2D" parent="." unique_id=445479169]
+node_a = NodePath("..")
+node_b = NodePath("CameraCollider")
+damping = 2.17
+
+[node name="CameraCollider" type="RigidBody2D" parent="DampedSpringJoint2D" unique_id=736130828]
+
+[node name="Camera2D" type="Camera2D" parent="DampedSpringJoint2D/CameraCollider" unique_id=616328406]
+zoom = Vector2(0.7, 0.7)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DampedSpringJoint2D/CameraCollider" unique_id=219111300]
+shape = SubResource("CircleShape2D_yxyn3")
