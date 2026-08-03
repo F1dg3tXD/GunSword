@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cta68t2hlck7g"]
+
+[ext_resource type="AudioStream" uid="uid://calsw3vpura5v" path="res://music/when bro asks for a neo future title theme.tres" id="1_g84o6"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" unique_id=1543298317]
+stream = ExtResource("1_g84o6")
+bus = &"Music"

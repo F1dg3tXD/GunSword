@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://c4cx51131s82o"
+path="res://.godot/imported/intro.ogg-29f525f89f0a58440eedede2cf5372f4.oggvorbisstr"
+
+[deps]
+
+source_file="res://music/when bro asks for a neo future title theme/intro.ogg"
+dest_files=["res://.godot/imported/intro.ogg-29f525f89f0a58440eedede2cf5372f4.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

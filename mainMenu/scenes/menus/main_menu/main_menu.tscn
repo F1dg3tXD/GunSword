@@ -1,12 +1,14 @@
 [gd_scene format=3 uid="uid://j3chlhd3bl54"]
 
 [ext_resource type="PackedScene" uid="uid://c6k5nnpbypshi" path="res://addons/maaacks_menus_template/base/nodes/menus/main_menu/main_menu.tscn" id="1_ljtgg"]
+[ext_resource type="Theme" uid="uid://d3rh5lhgctad7" path="res://resources/themes/gravity.tres" id="2_420of"]
 [ext_resource type="Script" uid="uid://qhmr1nkubph3" path="res://mainMenu/scenes/menus/main_menu/main_menu.gd" id="2_rlm7n"]
 [ext_resource type="PackedScene" uid="uid://ce0grov8ii452" path="res://mainMenu/scenes/windows/main_menu_options_window.tscn" id="3_lgwxj"]
 [ext_resource type="PackedScene" uid="uid://umr1a6w6er5h" path="res://mainMenu/scenes/windows/main_menu_credits_window.tscn" id="4_uoljb"]
 [ext_resource type="AudioStream" uid="uid://cbtyvad1nwdm1" path="res://music/when bro asks for a neo future title theme.ogg" id="5_carfq"]
 
 [node name="MainMenu" unique_id=869232425 instance=ExtResource("1_ljtgg")]
+theme = ExtResource("2_420of")
 script = ExtResource("2_rlm7n")
 game_scene_path = "uid://bvcfmtsvkoalb"
 options_packed_scene = ExtResource("3_lgwxj")
@@ -18,3 +20,6 @@ parameters/looping = false
 
 [node name="TitleLabel" parent="MenuContainer/TitleMargin/TitleContainer" parent_id_path=PackedInt32Array(556427956) index="0" unique_id=359406872]
 text = "top-down-narative"
+
+[node name="SubTitleLabel" parent="MenuContainer/SubTitleMargin/SubTitleContainer" parent_id_path=PackedInt32Array(930520368) index="0" unique_id=1037003361]
+text = "You are the Gunman"

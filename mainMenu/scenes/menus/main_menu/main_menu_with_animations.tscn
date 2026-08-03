@@ -1,10 +1,11 @@
 [gd_scene format=3 uid="uid://bc51g12opif0b"]
 
 [ext_resource type="PackedScene" uid="uid://c6k5nnpbypshi" path="res://addons/maaacks_menus_template/base/nodes/menus/main_menu/main_menu.tscn" id="1_r2jx6"]
+[ext_resource type="Theme" uid="uid://d3rh5lhgctad7" path="res://resources/themes/gravity.tres" id="2_bdw0q"]
 [ext_resource type="Script" uid="uid://baflohi8rvqbr" path="res://mainMenu/scenes/menus/main_menu/main_menu_with_animations.gd" id="2_lpr86"]
 [ext_resource type="PackedScene" uid="uid://ce0grov8ii452" path="res://mainMenu/scenes/windows/main_menu_options_window.tscn" id="3_eog7t"]
 [ext_resource type="PackedScene" uid="uid://umr1a6w6er5h" path="res://mainMenu/scenes/windows/main_menu_credits_window.tscn" id="4_shdm2"]
-[ext_resource type="AudioStream" uid="uid://cbtyvad1nwdm1" path="res://music/when bro asks for a neo future title theme.ogg" id="5_h5b51"]
+[ext_resource type="AudioStream" uid="uid://calsw3vpura5v" path="res://music/when bro asks for a neo future title theme.tres" id="6_bdw0q"]
 
 [sub_resource type="Animation" id="1"]
 resource_name = "Intro"
@@ -315,6 +316,7 @@ transitions = ["Intro", "OpenMainMenu", SubResource("11"), "OpenMainMenu", "Open
 graph_offset = Vector2(-180.277, 49)
 
 [node name="MainMenu" unique_id=589811630 instance=ExtResource("1_r2jx6")]
+theme = ExtResource("2_bdw0q")
 script = ExtResource("2_lpr86")
 game_scene_path = "uid://bvcfmtsvkoalb"
 options_packed_scene = ExtResource("3_eog7t")
@@ -329,7 +331,7 @@ anim_player = NodePath("../MenuAnimationPlayer")
 parameters/conditions/intro_done = false
 
 [node name="BackgroundMusicPlayer" parent="." index="3" unique_id=1141822549]
-stream = ExtResource("5_h5b51")
+stream = ExtResource("6_bdw0q")
 
 [node name="TitleContainer" parent="MenuContainer/TitleMargin" parent_id_path=PackedInt32Array(2112060331) index="0" unique_id=556427956]
 modulate = Color(1, 1, 1, 0)
@@ -339,6 +341,9 @@ text = "top-down-narative"
 
 [node name="SubTitleContainer" parent="MenuContainer/SubTitleMargin" parent_id_path=PackedInt32Array(1510335937) index="0" unique_id=930520368]
 modulate = Color(1, 1, 1, 0)
+
+[node name="SubTitleLabel" parent="MenuContainer/SubTitleMargin/SubTitleContainer" index="0" unique_id=1037003361]
+text = "You are the Gunman"
 
 [node name="MenuButtonsContainer" parent="MenuContainer/MenuButtonsMargin" parent_id_path=PackedInt32Array(210553886) index="0" unique_id=116448484]
 modulate = Color(1, 1, 1, 0)

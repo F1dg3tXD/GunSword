@@ -41,7 +41,9 @@ anim_player = NodePath("../AnimationPlayer")
 [node name="DampedSpringJoint2D" type="DampedSpringJoint2D" parent="." unique_id=445479169]
 node_a = NodePath("..")
 node_b = NodePath("CameraCollider")
-damping = 2.17
+length = 25.0
+rest_length = 10.0
+damping = 0.5
 
 [node name="CameraCollider" type="RigidBody2D" parent="DampedSpringJoint2D" unique_id=736130828]
 

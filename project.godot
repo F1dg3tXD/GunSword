@@ -10,12 +10,15 @@ config_version=5
 
 [application]
 
-config/name="top-down-narative"
+config/name="GunSword"
+config/description="You are the Gunman."
+config/version="0.0.1a"
 run/main_scene="res://mainMenu/scenes/opening/opening.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="GunSword"
 config/features=PackedStringArray("4.7", "Forward Plus")
-config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0, 0, 0, 1)
+config/icon="uid://ya8mt3kc3ch1"
 
 [audio]
 
