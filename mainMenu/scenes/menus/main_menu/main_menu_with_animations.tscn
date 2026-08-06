@@ -1,11 +1,125 @@
 [gd_scene format=3 uid="uid://bc51g12opif0b"]
 
 [ext_resource type="PackedScene" uid="uid://c6k5nnpbypshi" path="res://addons/maaacks_menus_template/base/nodes/menus/main_menu/main_menu.tscn" id="1_r2jx6"]
-[ext_resource type="Theme" uid="uid://d3rh5lhgctad7" path="res://resources/themes/gravity.tres" id="2_bdw0q"]
 [ext_resource type="Script" uid="uid://baflohi8rvqbr" path="res://mainMenu/scenes/menus/main_menu/main_menu_with_animations.gd" id="2_lpr86"]
 [ext_resource type="PackedScene" uid="uid://ce0grov8ii452" path="res://mainMenu/scenes/windows/main_menu_options_window.tscn" id="3_eog7t"]
 [ext_resource type="PackedScene" uid="uid://umr1a6w6er5h" path="res://mainMenu/scenes/windows/main_menu_credits_window.tscn" id="4_shdm2"]
-[ext_resource type="AudioStream" uid="uid://calsw3vpura5v" path="res://music/when bro asks for a neo future title theme.tres" id="6_bdw0q"]
+[ext_resource type="VideoStream" uid="uid://gg05j0mpxc22" path="res://images/temp.ogv" id="5_h5b51"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w50h3"]
+content_margin_left = 16.0
+content_margin_top = 4.0
+content_margin_right = 16.0
+content_margin_bottom = 4.0
+bg_color = Color(0.125911, 0.125911, 0.125911, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.95, 0.95, 0.95, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6tkof"]
+content_margin_left = 16.0
+content_margin_top = 4.0
+content_margin_right = 16.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.95, 0.95, 0.95, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ftays"]
+content_margin_left = 16.0
+content_margin_top = 4.0
+content_margin_right = 16.0
+content_margin_bottom = 4.0
+bg_color = Color(0.95, 0.95, 0.95, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.125911, 0.125911, 0.125911, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sucf2"]
+bg_color = Color(0.0619267, 0.0619267, 0.0619266, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u30hj"]
+content_margin_left = 8.0
+content_margin_right = 8.0
+bg_color = Color(0.125536, 0.125536, 0.125536, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_color = Color(0.945281, 0.945281, 0.945281, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h5y6c"]
+content_margin_left = 8.0
+content_margin_right = 8.0
+bg_color = Color(0.945281, 0.945281, 0.945281, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_color = Color(0.0195315, 0.0195315, 0.0195315, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g0qsc"]
+content_margin_left = 8.0
+content_margin_right = 8.0
+bg_color = Color(0, 0, 0, 0.933333)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_color = Color(0.945281, 0.945281, 0.945281, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_detail = 1
+
+[sub_resource type="Theme" id="Theme_xn58h"]
+Button/colors/font_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_pressed_color = Color(0.125911, 0.125911, 0.125911, 1)
+Button/styles/disabled = null
+Button/styles/focus = null
+Button/styles/hover = SubResource("StyleBoxFlat_w50h3")
+Button/styles/normal = SubResource("StyleBoxFlat_6tkof")
+Button/styles/pressed = SubResource("StyleBoxFlat_ftays")
+Panel/styles/panel = SubResource("StyleBoxFlat_sucf2")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_sucf2")
+TabContainer/colors/font_hovered_color = Color(0.945281, 0.945281, 0.945281, 1)
+TabContainer/colors/font_selected_color = Color(0.0195315, 0.0195315, 0.0195315, 1)
+TabContainer/colors/font_unselected_color = Color(0.945281, 0.945281, 0.945281, 1)
+TabContainer/styles/panel = SubResource("StyleBoxFlat_sucf2")
+TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_u30hj")
+TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_h5y6c")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_g0qsc")
 
 [sub_resource type="Animation" id="1"]
 resource_name = "Intro"
@@ -316,7 +430,7 @@ transitions = ["Intro", "OpenMainMenu", SubResource("11"), "OpenMainMenu", "Open
 graph_offset = Vector2(-180.277, 49)
 
 [node name="MainMenu" unique_id=589811630 instance=ExtResource("1_r2jx6")]
-theme = ExtResource("2_bdw0q")
+theme = SubResource("Theme_xn58h")
 script = ExtResource("2_lpr86")
 game_scene_path = "uid://bvcfmtsvkoalb"
 options_packed_scene = ExtResource("3_eog7t")
@@ -331,13 +445,39 @@ anim_player = NodePath("../MenuAnimationPlayer")
 parameters/conditions/intro_done = false
 
 [node name="BackgroundMusicPlayer" parent="." index="3" unique_id=1141822549]
-stream = ExtResource("6_bdw0q")
+autoplay = false
+
+[node name="BG" type="Control" parent="." index="4" unique_id=1437633813]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="BG" index="0" unique_id=199471642]
+layout_mode = 0
+offset_left = -52.0
+offset_right = 1228.0
+offset_bottom = 720.0
+stream = ExtResource("5_h5b51")
+autoplay = true
+loop = true
+
+[node name="ColorRect" type="ColorRect" parent="BG" index="1" unique_id=636565926]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.5803922, 0, 0.38431373, 0.3882353)
 
 [node name="TitleContainer" parent="MenuContainer/TitleMargin" parent_id_path=PackedInt32Array(2112060331) index="0" unique_id=556427956]
 modulate = Color(1, 1, 1, 0)
 
 [node name="TitleLabel" parent="MenuContainer/TitleMargin/TitleContainer" index="0" unique_id=359406872]
-text = "top-down-narative"
+text = "GunSword"
 
 [node name="SubTitleContainer" parent="MenuContainer/SubTitleMargin" parent_id_path=PackedInt32Array(1510335937) index="0" unique_id=930520368]
 modulate = Color(1, 1, 1, 0)
@@ -354,7 +494,10 @@ lock = true
 [node name="VersionContainer" parent="VersionMargin" parent_id_path=PackedInt32Array(1732528471) index="0" unique_id=1603969262]
 modulate = Color(1, 1, 1, 0)
 
-[node name="MouseFilter" type="Control" parent="." index="8" unique_id=33285267]
+[node name="VersionLabel" parent="VersionMargin/VersionContainer" index="0" unique_id=793266470]
+text = "v0.0.1a"
+
+[node name="MouseFilter" type="Control" parent="." index="9" unique_id=33285267]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

@@ -11,6 +11,7 @@ main_menu_scene_path = ""
 force_mouse_mode_visible = false
 
 [node name="BackgroundMusicPlayer" parent="." index="0" unique_id=1411252862 instance=ExtResource("3_xf83i")]
+autoplay = false
 
 [node name="BackgroundColor" type="ColorRect" parent="." index="1" unique_id=813188635]
 layout_mode = 1

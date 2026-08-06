@@ -1,25 +1,140 @@
 [gd_scene format=3 uid="uid://j3chlhd3bl54"]
 
 [ext_resource type="PackedScene" uid="uid://c6k5nnpbypshi" path="res://addons/maaacks_menus_template/base/nodes/menus/main_menu/main_menu.tscn" id="1_ljtgg"]
-[ext_resource type="Theme" uid="uid://d3rh5lhgctad7" path="res://resources/themes/gravity.tres" id="2_420of"]
 [ext_resource type="Script" uid="uid://qhmr1nkubph3" path="res://mainMenu/scenes/menus/main_menu/main_menu.gd" id="2_rlm7n"]
 [ext_resource type="PackedScene" uid="uid://ce0grov8ii452" path="res://mainMenu/scenes/windows/main_menu_options_window.tscn" id="3_lgwxj"]
 [ext_resource type="PackedScene" uid="uid://umr1a6w6er5h" path="res://mainMenu/scenes/windows/main_menu_credits_window.tscn" id="4_uoljb"]
-[ext_resource type="AudioStream" uid="uid://cbtyvad1nwdm1" path="res://music/when bro asks for a neo future title theme.ogg" id="5_carfq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w50h3"]
+content_margin_left = 16.0
+content_margin_top = 4.0
+content_margin_right = 16.0
+content_margin_bottom = 4.0
+bg_color = Color(0.125911, 0.125911, 0.125911, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.95, 0.95, 0.95, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6tkof"]
+content_margin_left = 16.0
+content_margin_top = 4.0
+content_margin_right = 16.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.95, 0.95, 0.95, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ftays"]
+content_margin_left = 16.0
+content_margin_top = 4.0
+content_margin_right = 16.0
+content_margin_bottom = 4.0
+bg_color = Color(0.95, 0.95, 0.95, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.125911, 0.125911, 0.125911, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sucf2"]
+bg_color = Color(0.0619267, 0.0619267, 0.0619266, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u30hj"]
+content_margin_left = 8.0
+content_margin_right = 8.0
+bg_color = Color(0.125536, 0.125536, 0.125536, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_color = Color(0.945281, 0.945281, 0.945281, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h5y6c"]
+content_margin_left = 8.0
+content_margin_right = 8.0
+bg_color = Color(0.945281, 0.945281, 0.945281, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_color = Color(0.0195315, 0.0195315, 0.0195315, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g0qsc"]
+content_margin_left = 8.0
+content_margin_right = 8.0
+bg_color = Color(0, 0, 0, 0.933333)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_color = Color(0.945281, 0.945281, 0.945281, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_detail = 1
+
+[sub_resource type="Theme" id="Theme_xn58h"]
+Button/colors/font_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_pressed_color = Color(0.125911, 0.125911, 0.125911, 1)
+Button/styles/disabled = null
+Button/styles/focus = null
+Button/styles/hover = SubResource("StyleBoxFlat_w50h3")
+Button/styles/normal = SubResource("StyleBoxFlat_6tkof")
+Button/styles/pressed = SubResource("StyleBoxFlat_ftays")
+Panel/styles/panel = SubResource("StyleBoxFlat_sucf2")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_sucf2")
+TabContainer/colors/font_hovered_color = Color(0.945281, 0.945281, 0.945281, 1)
+TabContainer/colors/font_selected_color = Color(0.0195315, 0.0195315, 0.0195315, 1)
+TabContainer/colors/font_unselected_color = Color(0.945281, 0.945281, 0.945281, 1)
+TabContainer/styles/panel = SubResource("StyleBoxFlat_sucf2")
+TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_u30hj")
+TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_h5y6c")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_g0qsc")
 
 [node name="MainMenu" unique_id=869232425 instance=ExtResource("1_ljtgg")]
-theme = ExtResource("2_420of")
+theme = SubResource("Theme_xn58h")
 script = ExtResource("2_rlm7n")
 game_scene_path = "uid://bvcfmtsvkoalb"
 options_packed_scene = ExtResource("3_lgwxj")
 credits_packed_scene = ExtResource("4_uoljb")
 
 [node name="BackgroundMusicPlayer" parent="." index="1" unique_id=1141822549]
-stream = ExtResource("5_carfq")
-parameters/looping = false
+autoplay = false
 
 [node name="TitleLabel" parent="MenuContainer/TitleMargin/TitleContainer" parent_id_path=PackedInt32Array(556427956) index="0" unique_id=359406872]
-text = "top-down-narative"
+text = "GunSword"
 
 [node name="SubTitleLabel" parent="MenuContainer/SubTitleMargin/SubTitleContainer" parent_id_path=PackedInt32Array(930520368) index="0" unique_id=1037003361]
 text = "You are the Gunman"
+
+[node name="VersionLabel" parent="VersionMargin/VersionContainer" parent_id_path=PackedInt32Array(1603969262) index="0" unique_id=793266470]
+text = "v0.0.1a"

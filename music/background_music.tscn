@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://e6ifvfy8mkau"]
+
+[ext_resource type="Script" uid="uid://d5cak6gfsy84" path="res://music/background_music.gd" id="1_script"]
+[ext_resource type="AudioStream" uid="uid://calsw3vpura5v" path="res://music/when bro asks for a neo future title theme.tres" id="2_audio"]
+
+[node name="BackgroundMusic" type="Node" unique_id=656560260]
+process_mode = 3
+script = ExtResource("1_script")
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="." unique_id=837240114]
+process_mode = 3
+stream = ExtResource("2_audio")
+autoplay = true
+bus = &"Music"

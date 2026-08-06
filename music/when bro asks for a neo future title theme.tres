@@ -1,39 +1,31 @@
 [gd_resource type="AudioStreamInteractive" format=3 uid="uid://calsw3vpura5v"]
 
 [ext_resource type="AudioStream" uid="uid://c4cx51131s82o" path="res://music/when bro asks for a neo future title theme/intro.ogg" id="1_13uvo"]
-[ext_resource type="AudioStream" uid="uid://cwhpyme2mm8mi" path="res://music/when bro asks for a neo future title theme/loop0.ogg" id="2_xebjh"]
-[ext_resource type="AudioStream" uid="uid://6qhbb421dw8t" path="res://music/when bro asks for a neo future title theme/loop1.ogg" id="3_aey4o"]
-[ext_resource type="AudioStream" uid="uid://2extj7le65u0" path="res://music/when bro asks for a neo future title theme/loop2.ogg" id="4_vvcdp"]
+[ext_resource type="AudioStream" uid="uid://d00md0icboo0b" path="res://music/when bro asks for a neo future title theme/allLoops.ogg" id="2_b1aau"]
 
 [resource]
-clip_count = 4
+clip_count = 2
 clip_0/name = &"Intro"
 clip_0/stream = ExtResource("1_13uvo")
 clip_0/auto_advance = 1
 clip_0/next_clip = 1
-clip_1/name = &"Loop 0"
-clip_1/stream = ExtResource("2_xebjh")
+clip_1/name = &"Loop 2"
+clip_1/stream = ExtResource("2_b1aau")
 clip_1/auto_advance = 1
-clip_1/next_clip = 2
-clip_2/name = &"Loop 1"
-clip_2/stream = ExtResource("3_aey4o")
-clip_2/auto_advance = 1
-clip_2/next_clip = 3
-clip_3/name = &"Loop 2"
-clip_3/stream = ExtResource("4_vvcdp")
-clip_3/auto_advance = 1
-clip_3/next_clip = 1
+clip_1/next_clip = 1
 _transitions = {
 Vector2i(0, 0): {
 "fade_beats": 1.0,
-"fade_mode": 0,
-"from_time": 0,
-"to_time": 1
-},
-Vector2i(3, 0): {
-"fade_beats": 1.0,
-"fade_mode": 0,
+"fade_mode": 4,
 "from_time": 3,
 "to_time": 1
+},
+Vector2i(1, 0): {
+"fade_beats": 1.0,
+"fade_mode": 4,
+"filler_clip": 1,
+"from_time": 3,
+"to_time": 1,
+"use_filler_clip": true
 }
 }

@@ -2,10 +2,28 @@
 
 [ext_resource type="PackedScene" uid="uid://sikc02ddepyt" path="res://addons/maaacks_menus_template/base/nodes/opening/opening.tscn" id="1_flg6k"]
 [ext_resource type="Texture2D" uid="uid://dplom0d67jdpb" path="res://images/saturnGames.png" id="2_flg6k"]
+[ext_resource type="AudioStream" uid="uid://calsw3vpura5v" path="res://music/when bro asks for a neo future title theme.tres" id="3_x2nc4"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_x2nc4"]
+load_path = "res://.godot/imported/SPLITE.png-c1c8b00e00e6885bac2f7779dbccc93b.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_woque"]
+load_path = "res://.godot/imported/F1dg3t.png-af0a95df798f076f14d069613e967d18.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4023f"]
+load_path = "res://.godot/imported/DinoWasCool.png-d7a81d0ee54e76a5641136d40d528d11.ctex"
 
 [node name="Opening" unique_id=1930105641 instance=ExtResource("1_flg6k")]
 next_scene_path = "uid://bc51g12opif0b"
-images = Array[Texture2D]([ExtResource("2_flg6k")])
+images = Array[Texture2D]([ExtResource("2_flg6k"), SubResource("CompressedTexture2D_x2nc4"), SubResource("CompressedTexture2D_woque"), SubResource("CompressedTexture2D_4023f")])
+fade_in_time = 0.4
+fade_out_time = 0.4
+visible_time = 4.0
+show_loading_screen = true
+
+[node name="BackgroundMusicPlayer" parent="." index="0" unique_id=1317385298]
+stream = ExtResource("3_x2nc4")
+autoplay = false
 
 [node name="ColorRect" type="ColorRect" parent="." index="1" unique_id=303829087]
 layout_mode = 1
