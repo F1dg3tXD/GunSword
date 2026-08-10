@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://yi4c4rfl7ecp" path="res://mainMenu/scenes/windows/pause_menu_layer.gd" id="1_cbkim"]
 [ext_resource type="PackedScene" uid="uid://6gdbfi0172ji" path="res://addons/maaacks_menus_template/base/nodes/windows/overlaid_window.tscn" id="2_vtdt5"]
 [ext_resource type="Script" uid="uid://blcuig8pfudhj" path="res://mainMenu/scenes/windows/pause_menu.gd" id="3_ky3sh"]
+[ext_resource type="Theme" uid="uid://ci5yymp3kg1am" path="res://mainMenu/resources/themes/gravity.tres" id="3_vb3q6"]
 [ext_resource type="PackedScene" uid="uid://b36djul7kyrvr" path="res://mainMenu/scenes/windows/pause_menu_options_window.tscn" id="4_p6eag"]
 [ext_resource type="PackedScene" uid="uid://cwt4p3bufkke5" path="res://addons/maaacks_menus_template/base/nodes/windows/confirmation_overlaid_window.tscn" id="5_0sk7x"]
 
@@ -14,9 +15,10 @@ script = ExtResource("1_cbkim")
 unique_name_in_owner = true
 process_mode = 3
 custom_minimum_size = Vector2(256, 312)
+theme = ExtResource("3_vb3q6")
 script = ExtResource("3_ky3sh")
 options_menu_scene = ExtResource("4_p6eag")
-main_menu_scene_path = ""
+main_menu_scene_path = "uid://bc51g12opif0b"
 restart_confirmation_node_path = NodePath("../RestartConfirmation")
 main_menu_confirmation_node_path = NodePath("../MainMenuConfirmation")
 exit_confirmation_node_path = NodePath("../ExitConfirmation")
