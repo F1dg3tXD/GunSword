@@ -15,9 +15,9 @@ load_path = "res://.godot/imported/DinoWasCool.png-d7a81d0ee54e76a5641136d40d528
 
 [node name="Opening" unique_id=1930105641 instance=ExtResource("1_flg6k")]
 next_scene_path = "uid://bc51g12opif0b"
-images = Array[Texture2D]([ExtResource("2_flg6k"), SubResource("CompressedTexture2D_x2nc4"), SubResource("CompressedTexture2D_woque"), SubResource("CompressedTexture2D_4023f")])
-fade_in_time = 0.4
-fade_out_time = 0.4
+images = Array[Texture2D]([SubResource("CompressedTexture2D_x2nc4"), SubResource("CompressedTexture2D_woque"), SubResource("CompressedTexture2D_4023f"), ExtResource("2_flg6k")])
+fade_in_time = 0.5
+fade_out_time = 0.5
 visible_time = 4.0
 show_loading_screen = true
 
