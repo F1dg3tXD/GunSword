@@ -13,6 +13,8 @@ const COMMON_REPLACE_STRINGS: Dictionary = {
 	"Rt": "Right Trigger",
 	"Lb": "Left Shoulder",
 	"Rb": "Right Shoulder",
+	"Zl": "Left Trigger",
+	"Zr": "Right Trigger",
 } # Dictionary[String, String]
 ## Gives priority to icons with occurrences of the provided strings.
 @export var prioritized_strings : Array[String]
@@ -72,10 +74,10 @@ func _match_icon_to_file(file : String) -> void:
 	matching_string = _get_standard_joy_name(matching_string)
 	matching_string = matching_string.strip_edges()
 	if add_stick_directions and matching_string.ends_with("Stick"):
-		matching_icons[matching_string + " Up"] = icon
-		matching_icons[matching_string + " Down"] = icon
-		matching_icons[matching_string + " Left"] = icon
-		matching_icons[matching_string + " Right"] = icon
+		for direction in [" Up", " Down", " Left", " Right"]:
+			var direction_key : String = matching_string + direction
+			if not direction_key in matching_icons:
+				matching_icons[direction_key] = icon
 		return
 	if matching_string in matching_icons:
 		return
@@ -111,13 +113,32 @@ func _match_icons_to_inputs() -> void:
 	all_icons.clear()
 	for prioritized_file in _prioritized_files():
 		_match_icon_to_file(prioritized_file)
-	for file in files:
+	var sorted_files : Array[String] = files.duplicate()
+	sorted_files.sort_custom(_is_direction_variant_first)
+	for file in sorted_files:
 		_match_icon_to_file(file)
 
+## Directional stick icons should take priority over the undirected stick icon.
+func _is_direction_variant_first(a : String, b : String) -> bool:
+	return _is_direction_variant(a) and not _is_direction_variant(b)
+
+func _is_direction_variant(file : String) -> bool:
+	var name : String = file.get_file().get_basename().to_lower()
+	return name.contains("stick") and (name.ends_with("_up") or name.ends_with("_down") or name.ends_with("_left") or name.ends_with("_right"))
+
 func get_icon(input_event : InputEvent) -> Texture:
-	var device_text = InputEventHelper.get_event_device_text(input_event, last_joypad_device)
+	## Generic controllers follow the Xbox 360 layout, so use the Xbox icons for them.
+	var device_name : String = last_joypad_device
+	if device_name == InputEventHelper.DEVICE_GENERIC:
+		device_name = InputEventHelper.DEVICE_XBOX_CONTROLLER
+	var device_text = InputEventHelper.get_event_device_text(input_event, device_name)
 	if device_text in matching_icons:
 		return matching_icons[device_text]
+	## Fall back to the generic icons for anything the Xbox set does not cover.
+	if device_name != last_joypad_device:
+		var generic_text = InputEventHelper.get_event_device_text(input_event, last_joypad_device)
+		if generic_text in matching_icons:
+			return matching_icons[generic_text]
 	return null
 
 func _assign_joypad_0_to_last() -> void:

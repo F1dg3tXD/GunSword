@@ -1,10 +1,8 @@
-extends Node2D
+extends Area2D
 
 @export var dialogue: DialogueResource
 @export var interact_required := false
 @export var can_interrupt := false
-
-@onready var trigger: Area2D = $trigger
 
 var _player_in_range := false
 var _auto_started := false
@@ -13,8 +11,8 @@ var _player: Node = null
 
 
 func _ready() -> void:
-	trigger.body_entered.connect(_on_trigger_body_entered)
-	trigger.body_exited.connect(_on_trigger_body_exited)
+	body_entered.connect(_on_trigger_body_entered)
+	body_exited.connect(_on_trigger_body_exited)
 
 
 func _physics_process(_delta: float) -> void:

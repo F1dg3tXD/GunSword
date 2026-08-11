@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://bcamiq5e5x4th" path="res://items/item_sword_test.gd" id="1_viniy"]
 [ext_resource type="PackedScene" uid="uid://bstwqf0ujpm6e" path="res://UI/dialogue_trigger.tscn" id="4_6ex6h"]
 [ext_resource type="Resource" uid="uid://ddqqmsbkb1fk7" path="res://dialogues/test_sword.dialogue" id="4_dlg"]
+[ext_resource type="PackedScene" uid="uid://c1b4ivmy0x2iw" path="res://UI/input_prompt.tscn" id="5_f3i2y"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_viniy"]
 atlas = ExtResource("1_f72m4")
@@ -193,7 +194,6 @@ radius = 215.69655
 
 [node name="item_swordTest" type="Node2D" unique_id=1635029874]
 script = ExtResource("1_viniy")
-dialogue = ExtResource("4_dlg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2134087492]
 sprite_frames = SubResource("SpriteFrames_yxyn3")
@@ -203,7 +203,10 @@ animation = &"idle"
 dialogue = ExtResource("4_dlg")
 interact_required = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DialogueTrigger/trigger" parent_id_path=PackedInt32Array(141662482, 1770287259) index="0" unique_id=1372814031]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DialogueTrigger" unique_id=1372814031]
 shape = SubResource("CircleShape2D_2s5nj")
 
-[editable path="DialogueTrigger"]
+[node name="input_prompt" parent="DialogueTrigger" unique_id=2053000391 node_paths=PackedStringArray("area") instance=ExtResource("5_f3i2y")]
+position = Vector2(0, -229)
+scale = Vector2(3, 3)
+area = NodePath("..")

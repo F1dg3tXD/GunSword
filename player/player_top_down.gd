@@ -43,6 +43,28 @@ var _pan_strength := 0.0
 var _mouse_idle_time := 1.0
 var _camera_on_collider := true
 
+var _movement_locked := false
+var _dialogue_locked := false
+var _move_dir := Vector2.ZERO
+var _moving := false
+var cutscene_velocity := Vector2.ZERO
+
+
+func lock_movement() -> void:
+	## Blocks input-driven movement, e.g. while a cutscene plays.
+	## Scripted movement (set_cutscene_velocity) still works.
+	_movement_locked = true
+
+
+func unlock_movement() -> void:
+	_movement_locked = false
+
+
+func set_cutscene_velocity(new_velocity: Vector2) -> void:
+	## Moves the player while movement is locked, for cutscenes.
+	## Pass Vector2.ZERO to stop.
+	cutscene_velocity = new_velocity
+
 
 func _ready() -> void:
 	#add_to_group("player")
@@ -70,7 +92,16 @@ func _physics_process(delta: float) -> void:
 	move_stick = Input.get_vector("left", "right", "up", "down")
 	aim_stick = Input.get_vector("aim_left", "aim_right", "aim_up", "aim_down")
 
-	velocity = move_stick * SPEED
+	_dialogue_locked = _dialogue_on_screen()
+	var input_move := move_stick if not (_movement_locked or _dialogue_locked) else Vector2.ZERO
+	if cutscene_velocity != Vector2.ZERO:
+		velocity = cutscene_velocity
+		_move_dir = cutscene_velocity.normalized()
+		_moving = true
+	else:
+		velocity = input_move * SPEED
+		_moving = input_move.length() > 0.01
+		_move_dir = input_move.normalized() if _moving else Vector2.ZERO
 	move_and_slide()
 
 	_update_weapon()
@@ -113,13 +144,12 @@ func _update_animation() -> void:
 
 func _update_movement_anim() -> void:
 	var anim := "idle"
-	if move_stick.length() > 0.01:
-		var dir := move_stick.normalized()
-		if dir.y < 0.0 and abs(dir.x) <= abs(dir.y):
+	if _moving:
+		if _move_dir.y < 0.0 and abs(_move_dir.x) <= abs(_move_dir.y):
 			anim = "walkUp"
-		elif dir.y > 0.0 and abs(dir.x) <= abs(dir.y):
+		elif _move_dir.y > 0.0 and abs(_move_dir.x) <= abs(_move_dir.y):
 			anim = "walkDown"
-		elif dir.y < 0.0:
+		elif _move_dir.y < 0.0:
 			anim = "walkUpLeft"
 		else:
 			anim = "runLeft"
@@ -127,10 +157,9 @@ func _update_movement_anim() -> void:
 	if _pan_strength > 0.0:
 		if abs(_aim_offset.x) > 1.0:
 			facing_right = _aim_offset.x > 0.0
-	elif move_stick.length() > 0.01:
-		var dir := move_stick.normalized()
-		if abs(dir.x) > 0.1:
-			facing_right = dir.x > 0.0
+	elif _moving:
+		if abs(_move_dir.x) > 0.1:
+			facing_right = _move_dir.x > 0.0
 
 	if sprite.flip_h != facing_right:
 		sprite.flip_h = facing_right
