@@ -191,7 +191,7 @@ func _update_pause() -> void:
 
 
 func _update_mobile_controls() -> void:
-	var on_mobile := OS.has_feature("mobile")
+	var on_mobile := OS.has_feature("mobile") or OS.has_feature("web_ios") or OS.has_feature("web_android")
 	mobile_controls.visible = on_mobile
 	if not on_mobile:
 		return
