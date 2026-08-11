@@ -63,9 +63,6 @@ node_connections = [&"output", 0, &"Animation"]
 [node name="PlayerTopDown" type="CharacterBody2D" unique_id=722353571 groups=["player"]]
 script = ExtResource("1_jcfv7")
 
-[node name="PauseMenuLayer" parent="." unique_id=914002369 instance=ExtResource("2_4v0de")]
-visible = false
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=475939901]
 shape = SubResource("CapsuleShape2D_yxyn3")
 
@@ -94,6 +91,10 @@ gravity_scale = 0.0
 
 [node name="Camera2D" type="Camera2D" parent="DampedSpringJoint2D/CameraCollider" unique_id=616328406]
 
+[node name="MobileControls" parent="DampedSpringJoint2D/CameraCollider/Camera2D" unique_id=1624332671 instance=ExtResource("6_dm3jn")]
+layer = 1
+visible = false
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DampedSpringJoint2D/CameraCollider" unique_id=219111300]
 shape = SubResource("CircleShape2D_yxyn3")
 
@@ -111,5 +112,5 @@ region_rect = Rect2(26.98, 0, 20, 72)
 texture = ExtResource("5_dm3jn")
 region_rect = Rect2(0, 0, 74, 74)
 
-[node name="MobileControls" parent="." unique_id=1011943610 instance=ExtResource("6_dm3jn")]
+[node name="PauseMenuLayer" parent="." unique_id=914002369 instance=ExtResource("2_4v0de")]
 visible = false

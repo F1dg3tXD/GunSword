@@ -27,7 +27,7 @@ enum AimScheme { NONE, STICK, MOUSE }
 @onready var pause_menu_layer: CanvasLayer = $PauseMenuLayer
 @onready var camera_2d: Camera2D = $DampedSpringJoint2D/CameraCollider/Camera2D
 @onready var camera_collider: RigidBody2D = $DampedSpringJoint2D/CameraCollider
-@onready var mobile_controls: Control = $MobileControls
+@onready var mobile_controls: CanvasLayer = $DampedSpringJoint2D/CameraCollider/Camera2D/MobileControls
 
 var move_stick := Vector2.ZERO
 var aim_stick := Vector2.ZERO
@@ -192,10 +192,11 @@ func _update_pause() -> void:
 
 func _update_mobile_controls() -> void:
 	var on_mobile := OS.has_feature("mobile") or OS.has_feature("web_ios") or OS.has_feature("web_android")
-	mobile_controls.visible = on_mobile
+	var ui_open := _is_menu_visible() or _dialogue_on_screen()
+	mobile_controls.visible = on_mobile and not ui_open
 	if not on_mobile:
 		return
-	Input.emulate_mouse_from_touch = _is_menu_visible() or _dialogue_on_screen()
+	Input.emulate_mouse_from_touch = ui_open
 
 
 func _is_menu_visible() -> bool:

@@ -11,16 +11,11 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_2s5nj"]
 radius = 30.0
 
-[node name="MobileControls" type="Control" unique_id=1011943610]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="MobileControls" type="CanvasLayer" unique_id=586010774]
+layer = 0
 
 [node name="Interact" type="TouchScreenButton" parent="." unique_id=243133712]
-position = Vector2(941, 399)
+position = Vector2(1016, 383.99997)
 scale = Vector2(1.9600012, 1.9600012)
 texture_normal = ExtResource("1_7migo")
 texture_pressed = ExtResource("1_7migo")
@@ -28,7 +23,7 @@ shape = SubResource("CircleShape2D_2s5nj")
 action = "interact"
 
 [node name="Jump" type="TouchScreenButton" parent="." unique_id=1679291481]
-position = Vector2(941, 525)
+position = Vector2(1016, 510)
 scale = Vector2(1.9600012, 1.9600012)
 texture_normal = ExtResource("2_opr3r")
 texture_pressed = ExtResource("2_opr3r")
@@ -36,7 +31,7 @@ shape = SubResource("CircleShape2D_2s5nj")
 action = "jump"
 
 [node name="fire0" type="TouchScreenButton" parent="." unique_id=2006832668]
-position = Vector2(780, 525)
+position = Vector2(855, 510)
 scale = Vector2(1.9600012, 1.9600012)
 texture_normal = ExtResource("3_y1uec")
 texture_pressed = ExtResource("3_y1uec")
@@ -44,7 +39,7 @@ shape = SubResource("CircleShape2D_2s5nj")
 action = "fire0"
 
 [node name="fire1" type="TouchScreenButton" parent="." unique_id=1127511185]
-position = Vector2(781, 400)
+position = Vector2(856, 384.99997)
 scale = Vector2(1.9600012, 1.9600012)
 texture_normal = ExtResource("4_kiph3")
 texture_pressed = ExtResource("4_kiph3")
@@ -52,7 +47,7 @@ shape = SubResource("CircleShape2D_2s5nj")
 action = "fire1"
 
 [node name="fire2" type="TouchScreenButton" parent="." unique_id=995867050]
-position = Vector2(640, 334.00003)
+position = Vector2(715, 319)
 scale = Vector2(1.9600012, 1.9600012)
 texture_normal = ExtResource("5_7migo")
 texture_pressed = ExtResource("5_7migo")
@@ -61,24 +56,21 @@ action = "fire3"
 
 [node name="pause" type="TouchScreenButton" parent="." unique_id=615251442]
 position = Vector2(1029, 28.00003)
-scale = Vector2(1.9600012, 1.9600012)
+scale = Vector2(1.33, 1.33)
 texture_normal = ExtResource("6_ok521")
 texture_pressed = ExtResource("6_ok521")
 shape = SubResource("CircleShape2D_2s5nj")
 action = "pause"
 
 [node name="MoveJoystick" type="VirtualJoystick" parent="." unique_id=1049626332]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -576.0
-offset_top = -324.0
-offset_bottom = 327.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 13.0
+offset_top = -621.0
+offset_right = 513.0
+offset_bottom = -21.0
+grow_vertical = 0
 theme = ExtResource("2_btn5m")
 joystick_mode = 1
 action_left = &"left"
@@ -88,10 +80,14 @@ action_down = &"down"
 visibility_mode = 1
 
 [node name="AimJoystick" type="VirtualJoystick" parent="." unique_id=335054004]
-layout_mode = 0
-offset_left = 633.0
-offset_right = 1152.0
-offset_bottom = 648.0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -531.0
+offset_top = 113.0
+offset_right = -31.0
+offset_bottom = 613.0
+grow_horizontal = 0
 theme = ExtResource("2_btn5m")
 joystick_mode = 1
 action_left = &"aim_left"
