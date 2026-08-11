@@ -5,6 +5,7 @@
 [ext_resource type="SpriteFrames" uid="uid://bgon6dq353i6" path="res://player/new_sprite_frames.tres" id="2_676ey"]
 [ext_resource type="Texture2D" uid="uid://dxf40xl34o248" path="res://addons/kenney_crosshair-pack/Vector/Light/crosshair-079.svg" id="4_4v0de"]
 [ext_resource type="Texture2D" uid="uid://cnu058ve3e4gg" path="res://addons/kenney_crosshair-pack/Vector/Light/crosshair-006.svg" id="5_dm3jn"]
+[ext_resource type="PackedScene" uid="uid://687dwq6o4eqo" path="res://UI/mobile_controls.tscn" id="6_dm3jn"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yxyn3"]
 radius = 93.0
@@ -59,7 +60,7 @@ node_connections = [&"output", 0, &"Animation"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yxyn3"]
 
-[node name="PlayerTopDown" type="CharacterBody2D" unique_id=722353571]
+[node name="PlayerTopDown" type="CharacterBody2D" unique_id=722353571 groups=["player"]]
 script = ExtResource("1_jcfv7")
 
 [node name="PauseMenuLayer" parent="." unique_id=914002369 instance=ExtResource("2_4v0de")]
@@ -86,12 +87,12 @@ node_b = NodePath("CameraCollider")
 length = 25.0
 rest_length = 10.0
 stiffness = 6.0
+damping = 0.4
 
 [node name="CameraCollider" type="RigidBody2D" parent="DampedSpringJoint2D" unique_id=736130828]
 gravity_scale = 0.0
 
 [node name="Camera2D" type="Camera2D" parent="DampedSpringJoint2D/CameraCollider" unique_id=616328406]
-zoom = Vector2(0.7, 0.7)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DampedSpringJoint2D/CameraCollider" unique_id=219111300]
 shape = SubResource("CircleShape2D_yxyn3")
@@ -109,3 +110,6 @@ region_rect = Rect2(26.98, 0, 20, 72)
 [node name="crosshair_sprite" type="Sprite2D" parent="crosshair" unique_id=944082354]
 texture = ExtResource("5_dm3jn")
 region_rect = Rect2(0, 0, 74, 74)
+
+[node name="MobileControls" parent="." unique_id=1011943610 instance=ExtResource("6_dm3jn")]
+visible = false

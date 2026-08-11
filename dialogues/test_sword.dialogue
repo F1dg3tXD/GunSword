@@ -1,0 +1,11 @@
+~ start
+???: It's a sword
+???: Weird, it's just floating there.
+- Grab it
+	???: That's not in the game yet.
+- Leave it alone
+	???: You physically can't grab it anyway.
+- Back => start
+- End => END
+???: There's nothing here.
+=> END

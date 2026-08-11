@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://g3r12cwpvpos" path="res://player/playerTopDown.tscn" id="1_ri632"]
 [ext_resource type="Script" uid="uid://c57s6seasqpdt" path="res://scripts/test_ig.gd" id="1_ud7vo"]
 [ext_resource type="AudioStream" uid="uid://ckllv2jbbnif7" path="res://music/pov you wake up and remember nothing.ogg" id="4_11w4q"]
+[ext_resource type="PackedScene" uid="uid://243u7nsam20o" path="res://items/item_sword_test.tscn" id="5_11w4q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yxyn3"]
 size = Vector2(1920, 20)
@@ -51,3 +52,7 @@ position = Vector2(149, 498)
 
 [node name="music" type="AudioStreamPlayer2D" parent="." unique_id=250614282]
 stream = ExtResource("4_11w4q")
+
+[node name="item_swordTest" parent="." unique_id=1635029874 instance=ExtResource("5_11w4q")]
+position = Vector2(787, 277)
+scale = Vector2(0.5, 0.5)

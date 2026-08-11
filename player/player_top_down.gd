@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal damaged
+
 const SPEED := 300.0
 
 const MAX_AIM_DIST := 500.0
@@ -25,6 +27,7 @@ enum AimScheme { NONE, STICK, MOUSE }
 @onready var pause_menu_layer: CanvasLayer = $PauseMenuLayer
 @onready var camera_2d: Camera2D = $DampedSpringJoint2D/CameraCollider/Camera2D
 @onready var camera_collider: RigidBody2D = $DampedSpringJoint2D/CameraCollider
+@onready var mobile_controls: Control = $MobileControls
 
 var move_stick := Vector2.ZERO
 var aim_stick := Vector2.ZERO
@@ -42,12 +45,14 @@ var _camera_on_collider := true
 
 
 func _ready() -> void:
+	#add_to_group("player")
 	if HIDE_OS_CURSOR:
 		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	look_arrow.position = Vector2.ZERO
 	look_arrow.scale = Vector2.ZERO
 	crosshair_sprite.scale = Vector2.ZERO
 	sprite.play("idle")
+	_update_mobile_controls()
 
 
 func _exit_tree() -> void:
@@ -73,6 +78,7 @@ func _physics_process(delta: float) -> void:
 	_update_aim(delta)
 	_update_camera(delta)
 	_update_pause()
+	_update_mobile_controls()
 
 
 func _update_weapon() -> void:
@@ -182,3 +188,19 @@ func _update_camera(delta: float) -> void:
 func _update_pause() -> void:
 	if Input.is_action_just_pressed("pause"):
 		pause_menu_layer.show()
+
+
+func _update_mobile_controls() -> void:
+	var on_mobile := OS.has_feature("mobile")
+	mobile_controls.visible = on_mobile
+	if not on_mobile:
+		return
+	Input.emulate_mouse_from_touch = _is_menu_visible() or _dialogue_on_screen()
+
+
+func _is_menu_visible() -> bool:
+	return pause_menu_layer.visible
+
+
+func _dialogue_on_screen() -> bool:
+	return get_tree().get_first_node_in_group("dialogue_balloon") != null
