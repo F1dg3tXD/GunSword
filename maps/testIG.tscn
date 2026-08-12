@@ -5,9 +5,14 @@
 [ext_resource type="Script" uid="uid://c57s6seasqpdt" path="res://scripts/test_ig.gd" id="1_ud7vo"]
 [ext_resource type="AudioStream" uid="uid://ckllv2jbbnif7" path="res://music/pov you wake up and remember nothing.ogg" id="4_11w4q"]
 [ext_resource type="PackedScene" uid="uid://243u7nsam20o" path="res://items/item_sword_test.tscn" id="5_11w4q"]
+[ext_resource type="PackedScene" uid="uid://d3467gvines7j" path="res://entities/autosave_trigger.tscn" id="6_d5c0w"]
+[ext_resource type="Texture2D" uid="uid://c3w7pmvj1w4p2" path="res://addons/mobile-controls-1/Vector/Icons/icon_save.svg" id="7_hb5pu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yxyn3"]
 size = Vector2(1920, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2s5nj"]
+size = Vector2(132, 124)
 
 [node name="TestIg" type="Node2D" unique_id=210884647]
 script = ExtResource("1_ud7vo")
@@ -56,3 +61,15 @@ stream = ExtResource("4_11w4q")
 [node name="item_swordTest" parent="." unique_id=1635029874 instance=ExtResource("5_11w4q")]
 position = Vector2(787, 277)
 scale = Vector2(0.5, 0.5)
+
+[node name="autosave_trigger" parent="." unique_id=363177188 instance=ExtResource("6_d5c0w")]
+position = Vector2(1047, 101)
+collision_layer = 1
+trigger_once = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="autosave_trigger" unique_id=2029045806]
+shape = SubResource("RectangleShape2D_2s5nj")
+
+[node name="Sprite2D" type="Sprite2D" parent="autosave_trigger" unique_id=966011197]
+scale = Vector2(2.6399999, 2.44)
+texture = ExtResource("7_hb5pu")

@@ -1,0 +1,350 @@
+extends Node
+
+signal save_loaded(save_id: String, save_data: Dictionary)
+signal save_written(save_id: String, save_data: Dictionary)
+signal save_deleted(save_id: String)
+
+var _manager := preload("res://addons/godot_xmb/scripts/save_manager.gd").new()
+
+enum MenuMode {
+	LOAD,
+	SAVE,
+	CREATE
+}
+
+const DEFAULT_NEW_GAME_SCENE := "res://addons/godot_xmb/examples/game_scene.tscn"
+const GAME_UI_LAYER := 16
+const AUTOSAVE_PREF_PATH := "user://autosave_pref.cfg"
+
+var default_game_scene_path := DEFAULT_NEW_GAME_SCENE
+var current_save_id := ""
+
+var _state_provider: Callable
+var _state_applier: Callable
+var _icon_provider: Callable
+var _pending_loaded_save: Dictionary = {}
+var _pending_create_scene_path := ""
+var _playtime_seconds := 0.0
+
+# UI Protection freezes any inputs to background menus behind the save UI
+var ui_protection := true
+
+
+func _ready():
+	add_child(_manager)
+
+
+func _process(delta: float) -> void:
+	_playtime_seconds += delta
+
+
+func open_create_menu(scene_path := ""):
+	if _has_open_menu():
+		return
+	_pending_create_scene_path = scene_path if scene_path != "" else default_game_scene_path
+	var menu = preload("res://addons/godot_xmb/scenes/save_menu.tscn").instantiate()
+	menu.mode = MenuMode.CREATE
+	get_tree().root.add_child(menu)
+
+
+func open_load_menu():
+	if _has_open_menu():
+		return
+	var menu = preload("res://addons/godot_xmb/scenes/save_menu.tscn").instantiate()
+	menu.mode = MenuMode.LOAD
+	get_tree().root.add_child(menu)
+
+
+func open_save_menu():
+	if _has_open_menu():
+		return
+	var menu = preload("res://addons/godot_xmb/scenes/save_menu.tscn").instantiate()
+	menu.mode = MenuMode.SAVE
+	get_tree().root.add_child(menu)
+
+
+func register_save_adapter(target: Object, capture_method: StringName = &"capture_save_state", apply_method: StringName = &"apply_save_state", icon_method: StringName = &"capture_save_icon") -> void:
+	if target == null:
+		return
+
+	if target.has_method(capture_method):
+		_state_provider = Callable(target, capture_method)
+	else:
+		_state_provider = Callable()
+
+	if target.has_method(apply_method):
+		_state_applier = Callable(target, apply_method)
+	else:
+		_state_applier = Callable()
+
+	if target.has_method(icon_method):
+		_icon_provider = Callable(target, icon_method)
+	else:
+		_icon_provider = Callable()
+
+	_apply_pending_loaded_save()
+
+
+func unregister_save_adapter(target: Object) -> void:
+	if _state_provider.is_valid() and _state_provider.get_object() == target:
+		_state_provider = Callable()
+
+	if _state_applier.is_valid() and _state_applier.get_object() == target:
+		_state_applier = Callable()
+
+	if _icon_provider.is_valid() and _icon_provider.get_object() == target:
+		_icon_provider = Callable()
+
+
+func save_new(extra_data: Dictionary = {}, icon: Image = null) -> bool:
+	var save_id = str(Time.get_unix_time_from_system())
+	var target_scene_path := _pending_create_scene_path if _pending_create_scene_path != "" else default_game_scene_path
+	var previous_save_id := current_save_id
+	var previous_playtime := _playtime_seconds
+	current_save_id = save_id
+	_playtime_seconds = 0.0
+	var payload = _build_save_payload(extra_data, target_scene_path)
+	payload["id"] = save_id
+	icon = _resolve_save_icon(icon)
+
+	if not _manager.save_game(save_id, payload, icon):
+		current_save_id = previous_save_id
+		_playtime_seconds = previous_playtime
+		return false
+
+	_playtime_seconds = payload.get("playtime_seconds", 0.0)
+	_pending_create_scene_path = ""
+
+	save_written.emit(save_id, payload)
+
+	if target_scene_path != "":
+		get_tree().change_scene_to_file(target_scene_path)
+
+	return true
+
+
+func _load(id: String):
+	var payload = _manager.load_game(id)
+	if payload.is_empty():
+		return
+
+	current_save_id = id
+	_playtime_seconds = float(payload.get("playtime_seconds", 0.0))
+	_pending_loaded_save = payload.duplicate(true)
+
+	var target_scene_path: String = payload.get("scene_path", default_game_scene_path)
+	if target_scene_path == "":
+		target_scene_path = default_game_scene_path
+
+	save_loaded.emit(id, payload)
+
+	if get_tree().current_scene and get_tree().current_scene.scene_file_path == target_scene_path:
+		_apply_pending_loaded_save()
+	else:
+		get_tree().change_scene_to_file(target_scene_path)
+
+
+func _save_overwrite(id: String, extra_data: Dictionary = {}, icon: Image = null) -> bool:
+	if id == "":
+		return false
+
+	var payload = _build_save_payload(extra_data)
+	payload["id"] = id
+	icon = _resolve_save_icon(icon)
+	if not _manager.save_game(id, payload, icon):
+		return false
+
+	current_save_id = id
+	_playtime_seconds = payload.get("playtime_seconds", 0.0)
+	save_written.emit(id, payload)
+	return true
+
+
+func save_current_as_new(extra_data: Dictionary = {}, icon: Image = null) -> bool:
+	var new_id = str(Time.get_unix_time_from_system())
+	return _save_overwrite(new_id, extra_data, icon)
+
+
+## Saves to a fixed slot id (e.g. "autosave"), overwriting whatever was there.
+func save_to_slot(slot_id: String, extra_data: Dictionary = {}, icon: Image = null) -> bool:
+	return _save_overwrite(slot_id, extra_data, icon)
+
+
+## Loads the most recently saved game. Returns false if no save exists.
+func load_latest_save() -> bool:
+	var saves = _manager.get_saves()
+	if saves.is_empty():
+		return false
+	_load(str(saves[0].get("id", "")))
+	return true
+
+
+## Returns the stored autosave mode: "overwrite", "separate", or "" if unset.
+func get_autosave_mode() -> String:
+	var cfg := ConfigFile.new()
+	if cfg.load(AUTOSAVE_PREF_PATH) != OK:
+		return ""
+	return str(cfg.get_value("autosave", "mode", ""))
+
+
+func set_autosave_mode(mode: String) -> void:
+	var cfg := ConfigFile.new()
+	cfg.load(AUTOSAVE_PREF_PATH)
+	cfg.set_value("autosave", "mode", mode)
+	cfg.save(AUTOSAVE_PREF_PATH)
+
+
+## Performs an autosave according to the chosen mode:
+## "overwrite" overwrites the current save slot, otherwise a new slot is created.
+func autosave() -> bool:
+	var slot := str(Time.get_unix_time_from_system())
+	if get_autosave_mode() == "overwrite" and current_save_id != "":
+		slot = current_save_id
+	return _save_overwrite(slot, {"save_type": "autosave"})
+
+
+
+func delete_save(id: String) -> void:
+	if id == "":
+		return
+
+	_manager.delete_save(id)
+
+	if current_save_id == id:
+		current_save_id = ""
+
+	save_deleted.emit(id)
+
+
+func copy_save(id: String) -> bool:
+	if id == "":
+		return false
+		
+	var payload = _manager.load_game(id)
+	if payload.is_empty():
+		return false
+		
+	var icon_path = "user://saves/%s/icon.png" % id
+	var icon: Image = null
+	if FileAccess.file_exists(icon_path):
+		var loaded_icon = Image.load_from_file(icon_path)
+		if loaded_icon != null and not loaded_icon.is_empty():
+			icon = loaded_icon
+			
+	var new_id = str(Time.get_unix_time_from_system())
+	if not _manager.save_game(new_id, payload, icon):
+		return false
+		
+	save_written.emit(new_id, payload)
+	return true
+
+
+func get_current_playtime() -> float:
+	return _playtime_seconds
+
+
+func has_saves() -> bool:
+	return not _manager.get_saves().is_empty()
+
+
+## Returns true if at least one save entry is flagged as an autosave.
+func has_autosaves() -> bool:
+	for save in _manager.get_saves():
+		if str(save.get("save_type", "")) == "autosave":
+			return true
+	return false
+
+
+func is_menu_open() -> bool:
+	return _has_open_menu()
+
+
+func get_project_title() -> String:
+	return str(ProjectSettings.get_setting("application/config/name", "Untitled Game"))
+
+
+func format_playtime(playtime_seconds: float) -> String:
+	var total_seconds := maxi(int(round(playtime_seconds)), 0)
+	var hours := total_seconds / 3600
+	var minutes := (total_seconds % 3600) / 60
+	var seconds := total_seconds % 60
+	return "%02d:%02d:%02d" % [hours, minutes, seconds]
+
+
+func _build_save_payload(extra_data: Dictionary = {}, scene_override := "") -> Dictionary:
+	var captured_state := {}
+	if _state_provider.is_valid():
+		var result = _state_provider.call()
+		if result is Dictionary:
+			captured_state = result.duplicate(true)
+
+	for key in extra_data.keys():
+		if key == "save_type":
+			continue
+		captured_state[key] = extra_data[key]
+
+	var scene_path := scene_override
+	if scene_path == "" and get_tree().current_scene:
+		scene_path = get_tree().current_scene.scene_file_path
+	if scene_path == "":
+		scene_path = default_game_scene_path
+
+	return {
+		"id": current_save_id,
+		"game_title": get_project_title(),
+		"scene_path": scene_path,
+		"playtime_seconds": _playtime_seconds,
+		"timestamp": Time.get_datetime_string_from_system(),
+		"save_type": extra_data.get("save_type", "manual"),
+		"state": captured_state
+	}
+
+
+func _apply_pending_loaded_save() -> void:
+	if _pending_loaded_save.is_empty():
+		return
+
+	if not _state_applier.is_valid():
+		return
+
+	var payload = _pending_loaded_save.duplicate(true)
+	_pending_loaded_save.clear()
+	_state_applier.call_deferred(payload)
+
+
+func _resolve_save_icon(icon: Image) -> Image:
+	if icon != null:
+		return icon
+
+	if _icon_provider.is_valid():
+		var captured_icon = _icon_provider.call()
+		if captured_icon is Image:
+			return captured_icon
+
+	var viewport = get_viewport()
+	if viewport and DisplayServer.get_name() != "headless":
+		# Hide the game UI rendering layer so thumbnails are clean.
+		var hidden := []
+		for child in viewport.get_tree().root.get_children():
+			if child is CanvasLayer and child.visible and child.layer == GAME_UI_LAYER:
+				hidden.append(child)
+				child.visible = false
+
+		var capture = viewport.get_texture().get_image()
+
+		for child in hidden:
+			if is_instance_valid(child):
+				child.visible = true
+
+		if capture != null:
+			capture.resize(144, 80)
+			return capture
+
+	return null
+
+
+func _has_open_menu() -> bool:
+	for child in get_tree().root.get_children():
+		if child is CanvasLayer and child.get_script() != null and child.get_script().resource_path == "res://addons/godot_xmb/scripts/save_menu.gd":
+			return true
+	return false

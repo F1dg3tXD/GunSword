@@ -34,6 +34,7 @@ BackgroundMusic="*uid://e6ifvfy8mj9u"
 Console="*uid://ouiu5xh1cs8n"
 DialogueManager="*uid://c3rodes2l3gxb"
 InputIcons="*res://UI/input_icon_mapper_singleton.gd"
+XMBSave="*uid://l0v1uvul8mvx"
 
 [display]
 
@@ -42,7 +43,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/PointMaker/plugin.cfg", "res://addons/console/plugin.cfg", "res://addons/dialogue_manager/plugin.cfg", "res://addons/maaacks_menus_template/plugin.cfg")
+enabled=PackedStringArray("res://addons/PointMaker/plugin.cfg", "res://addons/console/plugin.cfg", "res://addons/dialogue_manager/plugin.cfg", "res://addons/godot_xmb/plugin.cfg", "res://addons/maaacks_menus_template/plugin.cfg")
 
 [global_group]
 
@@ -153,6 +154,10 @@ pause={
 
 locale/translations=PackedStringArray("res://addons/maaacks_menus_template/base/translations/menus_translations.en.translation", "res://addons/maaacks_menus_template/base/translations/menus_translations.fr.translation")
 locale/translations_pot_files=PackedStringArray("res://dialogues/test_sword.dialogue")
+
+[layer_names]
+
+2d_render/layer_16="UI"
 
 [maaacks_menus_template]
 

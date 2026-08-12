@@ -12,7 +12,7 @@
 radius = 30.0
 
 [node name="MobileControls" type="CanvasLayer" unique_id=586010774]
-layer = 0
+layer = 16
 
 [node name="Interact" type="TouchScreenButton" parent="." unique_id=243133712]
 position = Vector2(1016, 383.99997)

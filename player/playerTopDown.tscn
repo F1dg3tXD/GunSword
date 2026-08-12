@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://dxf40xl34o248" path="res://addons/kenney_crosshair-pack/Vector/Light/crosshair-079.svg" id="4_4v0de"]
 [ext_resource type="Texture2D" uid="uid://cnu058ve3e4gg" path="res://addons/kenney_crosshair-pack/Vector/Light/crosshair-006.svg" id="5_dm3jn"]
 [ext_resource type="PackedScene" uid="uid://687dwq6o4eqo" path="res://UI/mobile_controls.tscn" id="6_dm3jn"]
+[ext_resource type="PackedScene" uid="uid://wq74pl0jbpqw" path="res://UI/player_ui.tscn" id="6_grj6g"]
+[ext_resource type="PackedScene" uid="uid://d3d5grr7hl0yr" path="res://entities/savable.tscn" id="8_kts7d"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yxyn3"]
 radius = 93.0
@@ -95,6 +97,9 @@ gravity_scale = 0.0
 layer = 1
 visible = false
 
+[node name="playerUI" parent="DampedSpringJoint2D/CameraCollider/Camera2D" unique_id=590561827 instance=ExtResource("6_grj6g")]
+layer = 1
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DampedSpringJoint2D/CameraCollider" unique_id=219111300]
 shape = SubResource("CircleShape2D_yxyn3")
 
@@ -113,4 +118,7 @@ texture = ExtResource("5_dm3jn")
 region_rect = Rect2(0, 0, 74, 74)
 
 [node name="PauseMenuLayer" parent="." unique_id=914002369 instance=ExtResource("2_4v0de")]
-visible = false
+layer = 1
+
+[node name="Savable" parent="." unique_id=2135107505 node_paths=PackedStringArray("targets") instance=ExtResource("8_kts7d")]
+targets = [NodePath("..")]

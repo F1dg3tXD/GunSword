@@ -111,7 +111,7 @@ _data = {
 }
 
 [node name="ExampleBalloon" type="CanvasLayer"]
-layer = 100
+layer = 16
 script = ExtResource("1_s2gbs")
 
 [node name="Balloon" type="Control" parent="."]

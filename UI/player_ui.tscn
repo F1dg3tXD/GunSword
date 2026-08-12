@@ -1,0 +1,312 @@
+[gd_scene format=3 uid="uid://wq74pl0jbpqw"]
+
+[ext_resource type="Texture2D" uid="uid://c3w7pmvj1w4p2" path="res://addons/mobile-controls-1/Vector/Icons/icon_save.svg" id="1_c8xti"]
+[ext_resource type="Script" uid="uid://b4j6flobkonbu" path="res://UI/player_ui.gd" id="1_nplvd"]
+[ext_resource type="Texture2D" uid="uid://2t8cjbl8b3ql" path="res://images/HealthBar.png" id="3_ccqt3"]
+[ext_resource type="Texture2D" uid="uid://cqaeqcada8v3n" path="res://images/HealthBarTop.png" id="4_xmsn8"]
+[ext_resource type="Texture2D" uid="uid://dbnlnvdrfryi8" path="res://images/healthGreen.png" id="5_8w2om"]
+
+[sub_resource type="Animation" id="Animation_c8xti"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("autosave_icon:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.5707964]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("autosave_icon:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+
+[sub_resource type="Animation" id="Animation_nplvd"]
+resource_name = "saveIn"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("autosave_icon:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-1.5707964, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("autosave_icon:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1.5, 1.5)]
+}
+
+[sub_resource type="Animation" id="Animation_kwigr"]
+resource_name = "saveLoop"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("autosave_icon:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.7853982, 0.0, -0.7853982, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("autosave_icon:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(-0.008333334, 1, 1.9916666),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1.5, 1.5), Vector2(1, 1), Vector2(1.5, 1.5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kwigr"]
+_data = {
+&"RESET": SubResource("Animation_c8xti"),
+&"saveIn": SubResource("Animation_nplvd"),
+&"saveLoop": SubResource("Animation_kwigr")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nplvd"]
+bg_color = Color(0.83137256, 0.6313726, 0, 0)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.988144, 0.7656573, 0, 1)
+border_blend = true
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kwigr"]
+bg_color = Color(0.9609116, 0.75023544, 0, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.97774905, 0.7675626, 0.22371763, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b8q8m"]
+bg_color = Color(0.9609116, 0.75023544, 0, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.97774905, 0.7675626, 0.22371763, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ccqt3"]
+bg_color = Color(0.9609116, 0.75023544, 0, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.97774905, 0.7675626, 0.22371763, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xmsn8"]
+bg_color = Color(0.83137256, 0.6313726, 0, 0)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.988144, 0.7656573, 0, 1)
+border_blend = true
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="Theme" id="Theme_8w2om"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_nplvd")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_kwigr")
+VSlider/styles/grabber_area = SubResource("StyleBoxFlat_b8q8m")
+VSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_ccqt3")
+VSlider/styles/slider = SubResource("StyleBoxFlat_xmsn8")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qf5vc"]
+bg_color = Color(1.540184e-06, 0.7438634, 0.8623648, 0)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0, 0.9032034, 0.97435087, 1)
+border_blend = true
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_an3gc"]
+bg_color = Color(0.20282611, 0.86692184, 1, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(2.887845e-06, 0.90944815, 0.9403124, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8w2om"]
+bg_color = Color(0.20282611, 0.86692184, 1, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(2.887845e-06, 0.90944815, 0.9403124, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_byocv"]
+bg_color = Color(0.20282611, 0.86692184, 1, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(2.887845e-06, 0.90944815, 0.9403124, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fwocb"]
+bg_color = Color(1.540184e-06, 0.7438634, 0.8623648, 0)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0, 0.9032034, 0.97435087, 1)
+border_blend = true
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="Theme" id="Theme_yxyn3"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_qf5vc")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_an3gc")
+VSlider/styles/grabber_area = SubResource("StyleBoxFlat_8w2om")
+VSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_byocv")
+VSlider/styles/slider = SubResource("StyleBoxFlat_fwocb")
+
+[node name="playerUI" type="CanvasLayer" unique_id=590561827]
+layer = 16
+script = ExtResource("1_nplvd")
+
+[node name="autosave_icon" type="Sprite2D" parent="." unique_id=333169568]
+position = Vector2(1068, 69)
+rotation = -1.5707964
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("1_c8xti")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1214469684]
+libraries/ = SubResource("AnimationLibrary_kwigr")
+
+[node name="Gauges" type="Control" parent="." unique_id=941066353]
+layout_mode = 3
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -190.0
+offset_right = 40.0
+offset_bottom = 190.0
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Gauges" unique_id=332954261]
+layout_mode = 0
+offset_top = -52.0
+offset_right = 112.0
+offset_bottom = 378.0
+alignment = 1
+
+[node name="blasterChargeGauge" type="ProgressBar" parent="Gauges/HBoxContainer" unique_id=779538990]
+layout_mode = 2
+size_flags_vertical = 1
+theme = SubResource("Theme_8w2om")
+value = 30.0
+rounded = true
+fill_mode = 3
+show_percentage = false
+
+[node name="laserChargeGauge" type="ProgressBar" parent="Gauges/HBoxContainer" unique_id=1831443291]
+layout_mode = 2
+size_flags_vertical = 1
+theme = SubResource("Theme_yxyn3")
+value = 30.0
+rounded = true
+fill_mode = 3
+show_percentage = false
+
+[node name="HealthBars" type="Control" parent="." unique_id=930872867]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 37.0
+offset_top = 560.0
+offset_right = 585.0
+offset_bottom = 600.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HealthBars" unique_id=104185982]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="HealthBars/VBoxContainer" unique_id=276799258]
+custom_minimum_size = Vector2(90, 30)
+layout_mode = 2
+value = 90.0
+nine_patch_stretch = true
+stretch_margin_left = 5
+stretch_margin_top = 5
+stretch_margin_right = 5
+stretch_margin_bottom = 5
+texture_under = ExtResource("3_ccqt3")
+texture_over = ExtResource("4_xmsn8")
+texture_progress = ExtResource("5_8w2om")

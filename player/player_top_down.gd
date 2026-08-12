@@ -1,8 +1,15 @@
 extends CharacterBody2D
 
 signal damaged
+signal health_changed(health: float, max_health: float)
 
 const SPEED := 300.0
+
+enum FireMode { BLASTER, LASER }
+
+const SWORD_SLASH_FUEL := 0.1
+const BLASTER_DRAIN_PER_SHOT := 0.05
+const LASER_DRAIN_PER_SECOND := 0.1
 
 const MAX_AIM_DIST := 500.0
 const LOOK_ARROW_MAX_POS := 100.0
@@ -36,6 +43,14 @@ var facing_right := false
 var is_gun := false
 var _action_anim := ""
 
+var fire_mode: FireMode = FireMode.BLASTER
+var blaster_charge := 1.0
+var laser_charge := 1.0
+var _laser_was_firing := false
+
+var max_health := 100
+var health := 100
+
 var _aim_scheme := AimScheme.NONE
 var _aim_offset := Vector2.ZERO
 var _aim_strength := 0.0
@@ -67,7 +82,7 @@ func set_cutscene_velocity(new_velocity: Vector2) -> void:
 
 
 func _ready() -> void:
-	#add_to_group("player")
+	add_to_group("player")
 	if HIDE_OS_CURSOR:
 		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	look_arrow.position = Vector2.ZERO
@@ -75,6 +90,7 @@ func _ready() -> void:
 	crosshair_sprite.scale = Vector2.ZERO
 	sprite.play("idle")
 	_update_mobile_controls()
+	XMBSave.register_save_adapter(self)
 
 
 func _exit_tree() -> void:
@@ -105,6 +121,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 	_update_weapon()
+	_update_charge(delta)
 	_update_animation()
 	_update_aim(delta)
 	_update_camera(delta)
@@ -120,7 +137,61 @@ func _update_weapon() -> void:
 		is_gun = false
 
 	if Input.is_action_just_pressed("fire0"):
-		_play_action("gunFire" if is_gun else "slash")
+		if is_gun:
+			if fire_mode == FireMode.BLASTER:
+				_fire_blaster()
+		else:
+			_play_action("slash")
+			add_kinetic_fuel(SWORD_SLASH_FUEL)
+
+
+func _update_charge(delta: float) -> void:
+	var laser_active := is_gun and fire_mode == FireMode.LASER and Input.is_action_pressed("fire0")
+	if laser_active and laser_charge > 0.0:
+		laser_charge = maxf(laser_charge - LASER_DRAIN_PER_SECOND * delta, 0.0)
+		if not _laser_was_firing:
+			_play_action("gunFire")
+		_laser_was_firing = true
+	else:
+		_laser_was_firing = false
+
+
+func set_fire_mode(mode: FireMode) -> void:
+	fire_mode = mode
+
+
+func take_damage(amount: float) -> void:
+	if amount <= 0.0 or health <= 0:
+		return
+	health = maxi(health - int(round(amount)), 0)
+	health_changed.emit(health, max_health)
+	damaged.emit()
+
+
+func add_kinetic_fuel(amount: float) -> void:
+	## Slash attacks charge the gauge of the current fire mode.
+	## If that gauge is full, overflow goes to the other gauge.
+	if amount <= 0.0:
+		return
+
+	var primary := "blaster_charge" if fire_mode == FireMode.BLASTER else "laser_charge"
+	var current: float = get(primary)
+	var room := 1.0 - current
+	if room >= amount:
+		set(primary, current + amount)
+		return
+
+	set(primary, 1.0)
+	var overflow := amount - room
+	var other := "laser_charge" if fire_mode == FireMode.BLASTER else "blaster_charge"
+	set(other, clampf(get(other) + overflow, 0.0, 1.0))
+
+
+func _fire_blaster() -> void:
+	if blaster_charge < BLASTER_DRAIN_PER_SHOT:
+		return
+	blaster_charge = maxf(blaster_charge - BLASTER_DRAIN_PER_SHOT, 0.0)
+	_play_action("gunFire")
 
 
 func _play_action(anim: String) -> void:
@@ -234,3 +305,53 @@ func _is_menu_visible() -> bool:
 
 func _dialogue_on_screen() -> bool:
 	return get_tree().get_first_node_in_group("dialogue_balloon") != null
+
+
+func capture_save_state() -> Dictionary:
+	var savables := {}
+	for savable in get_tree().get_nodes_in_group("savable"):
+		if not savable.has_method("capture"):
+			continue
+		var data = savable.capture()
+		if data is Dictionary and not data.is_empty():
+			savables[str(savable.get_path())] = data
+
+	return {
+		"position": global_position,
+		"health": health,
+		"max_health": max_health,
+		"is_gun": is_gun,
+		"fire_mode": fire_mode,
+		"blaster_charge": blaster_charge,
+		"laser_charge": laser_charge,
+		"savables": savables,
+	}
+
+
+func apply_save_state(payload: Dictionary) -> void:
+	var state: Dictionary = payload.get("state", {})
+	if state.is_empty():
+		return
+
+	if state.has("position"):
+		global_position = state["position"]
+	if state.has("max_health"):
+		max_health = maxi(int(state["max_health"]), 1)
+	if state.has("health"):
+		health = clampi(int(state["health"]), 0, max_health)
+	if state.has("is_gun"):
+		is_gun = state["is_gun"]
+	if state.has("fire_mode"):
+		fire_mode = state["fire_mode"]
+	if state.has("blaster_charge"):
+		blaster_charge = clampf(state["blaster_charge"], 0.0, 1.0)
+	if state.has("laser_charge"):
+		laser_charge = clampf(state["laser_charge"], 0.0, 1.0)
+
+	health_changed.emit(health, max_health)
+
+	var savables: Dictionary = state.get("savables", {})
+	for path_str in savables:
+		var node := get_tree().root.get_node_or_null(NodePath(path_str))
+		if node != null and node.has_method("apply"):
+			node.apply(savables[path_str])

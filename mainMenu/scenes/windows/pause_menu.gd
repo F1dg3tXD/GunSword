@@ -17,6 +17,8 @@ extends OverlaidWindow
 @onready var options_button = %OptionsButton
 @onready var main_menu_button = %MainMenuButton
 @onready var exit_button = %ExitButton
+@onready var save_game_button = %SaveGameButton
+@onready var load_game_button = %LoadGameButton
 
 var open_window : Node
 var restarting : bool = false
@@ -77,6 +79,14 @@ func _ready() -> void:
 
 func _on_restart_button_pressed() -> void:
 	_show_window(restart_confirmation)
+
+func _on_save_game_button_pressed() -> void:
+	close()
+	XMBSave.open_save_menu()
+
+func _on_load_game_button_pressed() -> void:
+	close()
+	XMBSave.open_load_menu()
 
 func _on_options_button_pressed() -> void:
 	_load_and_show_menu(options_menu_scene)

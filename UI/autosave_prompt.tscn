@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://comgds5gvalfi"]
+
+[ext_resource type="Script" uid="uid://duqt4pkoll8xn" path="res://UI/autosave_prompt.gd" id="1_ap"]
+[ext_resource type="Theme" uid="uid://ci5yymp3kg1am" path="res://mainMenu/resources/themes/gravity.tres" id="2_1olib"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.08, 0.08, 0.09, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.85, 0.85, 0.85, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="AutosavePrompt" type="CanvasLayer" unique_id=590601550]
+layer = 16
+script = ExtResource("1_ap")
+
+[node name="Dim" type="ColorRect" parent="." unique_id=809275610]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.45)
+
+[node name="Panel" type="Panel" parent="." unique_id=1581890079]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -110.0
+offset_right = 280.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_1olib")
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=2002480551]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer" unique_id=488934118]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Panel/MarginContainer/VBoxContainer" unique_id=531718732]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Autosaving"
+horizontal_alignment = 1
+
+[node name="Body" type="Label" parent="Panel/MarginContainer/VBoxContainer" unique_id=166456080]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "How should autosaves be saved?"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="Panel/MarginContainer/VBoxContainer" unique_id=428196388]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="OverwriteButton" type="Button" parent="Panel/MarginContainer/VBoxContainer" unique_id=2025014211]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Overwrite my save slot"
+
+[node name="SeparateButton" type="Button" parent="Panel/MarginContainer/VBoxContainer" unique_id=1809194642]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Save to new autosave slots"
+
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/OverwriteButton" to="." method="_on_overwrite_button_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/SeparateButton" to="." method="_on_separate_button_pressed"]
