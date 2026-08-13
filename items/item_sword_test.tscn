@@ -1,10 +1,30 @@
-[gd_scene format=3 uid="uid://243u7nsam20o"]
+[gd_scene format=4 uid="uid://243u7nsam20o"]
 
 [ext_resource type="Texture2D" uid="uid://ok2t30c5cx6p" path="res://images/sprite_sheet_2.png" id="1_f72m4"]
 [ext_resource type="Script" uid="uid://bcamiq5e5x4th" path="res://items/item_sword_test.gd" id="1_viniy"]
+[ext_resource type="Shader" uid="uid://cadnte8s5ipk7" path="res://addons/lit/shaders/receiver/lit_receiver_fast.gdshader" id="2_4yeuh"]
 [ext_resource type="PackedScene" uid="uid://bstwqf0ujpm6e" path="res://UI/dialogue_trigger.tscn" id="4_6ex6h"]
 [ext_resource type="Resource" uid="uid://ddqqmsbkb1fk7" path="res://dialogues/test_sword.dialogue" id="4_dlg"]
+[ext_resource type="Script" uid="uid://cpa2qb3trjq4k" path="res://addons/lit/nodes/lit_point_light_2d.gd" id="4_mrfkj"]
 [ext_resource type="PackedScene" uid="uid://c1b4ivmy0x2iw" path="res://UI/input_prompt.tscn" id="5_f3i2y"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bvrdq"]
+shader = ExtResource("2_4yeuh")
+shader_parameter/emissive_strength = 0.0
+shader_parameter/receiver_mask = 1
+shader_parameter/self_shadow = false
+shader_parameter/self_rect_count = 0
+shader_parameter/self_rects = PackedVector4Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/specular_strength = 0.5
+shader_parameter/specular_k = 32.0
+shader_parameter/has_specular_map = false
+shader_parameter/metallic_value = 0.0
+shader_parameter/roughness_value = 1.0
+shader_parameter/shadow_steps = 64
+shader_parameter/shadow_min_step = 0.2
+shader_parameter/footprint_shadow = 16.0
+shader_parameter/directional_horizontal_scale = 32.0
+shader_parameter/directional_shadow_reach = 1.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_viniy"]
 atlas = ExtResource("1_f72m4")
@@ -196,8 +216,15 @@ radius = 215.69655
 script = ExtResource("1_viniy")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2134087492]
+material = SubResource("ShaderMaterial_bvrdq")
 sprite_frames = SubResource("SpriteFrames_yxyn3")
 animation = &"idle"
+
+[node name="LitPointLight2D" type="Node2D" parent="AnimatedSprite2D" unique_id=576209806]
+script = ExtResource("4_mrfkj")
+color = Color(1.1551381e-06, 0.7479858, 0.89947486, 1)
+energy = 50.0
+metadata/_custom_type_script = "uid://cpa2qb3trjq4k"
 
 [node name="DialogueTrigger" parent="." unique_id=141662482 instance=ExtResource("4_6ex6h")]
 dialogue = ExtResource("4_dlg")

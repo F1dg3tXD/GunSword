@@ -1,12 +1,38 @@
-[gd_scene format=3 uid="uid://bvcfmtsvkoalb"]
+[gd_scene format=4 uid="uid://bvcfmtsvkoalb"]
 
 [ext_resource type="Texture2D" uid="uid://c07stp16p1pcl" path="res://images/giphy_s.png" id="1_qrv42"]
 [ext_resource type="PackedScene" uid="uid://g3r12cwpvpos" path="res://player/playerTopDown.tscn" id="1_ri632"]
 [ext_resource type="Script" uid="uid://c57s6seasqpdt" path="res://scripts/test_ig.gd" id="1_ud7vo"]
+[ext_resource type="Shader" uid="uid://cadnte8s5ipk7" path="res://addons/lit/shaders/receiver/lit_receiver_fast.gdshader" id="2_tvb77"]
 [ext_resource type="AudioStream" uid="uid://ckllv2jbbnif7" path="res://music/pov you wake up and remember nothing.ogg" id="4_11w4q"]
+[ext_resource type="Script" uid="uid://drrhypxeb6nsg" path="res://addons/lit/nodes/lit_sprite_2d.gd" id="4_d84fx"]
 [ext_resource type="PackedScene" uid="uid://243u7nsam20o" path="res://items/item_sword_test.tscn" id="5_11w4q"]
 [ext_resource type="PackedScene" uid="uid://d3467gvines7j" path="res://entities/autosave_trigger.tscn" id="6_d5c0w"]
 [ext_resource type="Texture2D" uid="uid://c3w7pmvj1w4p2" path="res://addons/mobile-controls-1/Vector/Icons/icon_save.svg" id="7_hb5pu"]
+[ext_resource type="Script" uid="uid://dtbtq2iowg33y" path="res://addons/lit/nodes/lit_canvas_modulate.gd" id="10_2l241"]
+[ext_resource type="Script" uid="uid://7156lwdhmrod" path="res://addons/lit/nodes/lit_directional_light_2d.gd" id="11_gugr4"]
+[ext_resource type="Script" uid="uid://cpa2qb3trjq4k" path="res://addons/lit/nodes/lit_point_light_2d.gd" id="12_gugr4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2l241"]
+shader = ExtResource("2_tvb77")
+shader_parameter/emissive_strength = 0.0
+shader_parameter/receiver_mask = 1
+shader_parameter/self_shadow = false
+shader_parameter/self_rect_count = 0
+shader_parameter/self_rects = PackedVector4Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/specular_strength = 0.5
+shader_parameter/specular_k = 32.0
+shader_parameter/has_specular_map = false
+shader_parameter/metallic_value = 0.0
+shader_parameter/roughness_value = 1.0
+shader_parameter/shadow_steps = 64
+shader_parameter/shadow_min_step = 0.2
+shader_parameter/footprint_shadow = 16.0
+shader_parameter/directional_horizontal_scale = 32.0
+shader_parameter/directional_shadow_reach = 1.0
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_gugr4"]
+diffuse_texture = ExtResource("1_qrv42")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yxyn3"]
 size = Vector2(1920, 20)
@@ -18,9 +44,11 @@ size = Vector2(132, 124)
 script = ExtResource("1_ud7vo")
 
 [node name="GiphyS" type="Sprite2D" parent="." unique_id=537376321]
+material = SubResource("ShaderMaterial_2l241")
 position = Vector2(576, 337)
 scale = Vector2(2.4000025, 2.04)
-texture = ExtResource("1_qrv42")
+texture = SubResource("CanvasTexture_gugr4")
+script = ExtResource("4_d84fx")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=553530816]
 position = Vector2(-130, 633)
@@ -73,3 +101,20 @@ shape = SubResource("RectangleShape2D_2s5nj")
 [node name="Sprite2D" type="Sprite2D" parent="autosave_trigger" unique_id=966011197]
 scale = Vector2(2.6399999, 2.44)
 texture = ExtResource("7_hb5pu")
+
+[node name="LitCanvasModulate" type="Node2D" parent="." unique_id=1648644902]
+script = ExtResource("10_2l241")
+metadata/_custom_type_script = "uid://dtbtq2iowg33y"
+
+[node name="LitDirectionalLight2D" type="Node2D" parent="." unique_id=769556281]
+script = ExtResource("11_gugr4")
+energy = 1.5
+shadow_enabled = true
+exclude_scene_occluders = true
+metadata/_custom_type_script = "uid://7156lwdhmrod"
+
+[node name="LitPointLight2D" type="Node2D" parent="." unique_id=1644685487]
+position = Vector2(1056, 89)
+script = ExtResource("12_gugr4")
+energy = 10.0
+metadata/_custom_type_script = "uid://cpa2qb3trjq4k"

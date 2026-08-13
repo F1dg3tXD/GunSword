@@ -1,6 +1,7 @@
 ~ start
 ???: It's a sword
 ???: Weird, it's just floating there.
+???: Press [input_ui_accept] to continue.
 - Grab it
 	???: That's not in the game yet.
 	% ???: Although, if you did, use [input_fire0] to do a shalsh.

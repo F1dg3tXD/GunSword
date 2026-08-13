@@ -1,8 +1,9 @@
-[gd_scene format=3 uid="uid://g3r12cwpvpos"]
+[gd_scene format=4 uid="uid://g3r12cwpvpos"]
 
 [ext_resource type="Script" uid="uid://dik7bxb6g4k0o" path="res://player/player_top_down.gd" id="1_jcfv7"]
 [ext_resource type="PackedScene" uid="uid://hm7ibntrkvyy" path="res://mainMenu/scenes/windows/pause_menu_layer.tscn" id="2_4v0de"]
 [ext_resource type="SpriteFrames" uid="uid://bgon6dq353i6" path="res://player/new_sprite_frames.tres" id="2_676ey"]
+[ext_resource type="Shader" uid="uid://cadnte8s5ipk7" path="res://addons/lit/shaders/receiver/lit_receiver_fast.gdshader" id="2_ydmpb"]
 [ext_resource type="Texture2D" uid="uid://dxf40xl34o248" path="res://addons/kenney_crosshair-pack/Vector/Light/crosshair-079.svg" id="4_4v0de"]
 [ext_resource type="Texture2D" uid="uid://cnu058ve3e4gg" path="res://addons/kenney_crosshair-pack/Vector/Light/crosshair-006.svg" id="5_dm3jn"]
 [ext_resource type="PackedScene" uid="uid://687dwq6o4eqo" path="res://UI/mobile_controls.tscn" id="6_dm3jn"]
@@ -12,6 +13,24 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yxyn3"]
 radius = 93.0
 height = 196.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b8ww2"]
+shader = ExtResource("2_ydmpb")
+shader_parameter/emissive_strength = 0.0
+shader_parameter/receiver_mask = 1
+shader_parameter/self_shadow = false
+shader_parameter/self_rect_count = 0
+shader_parameter/self_rects = PackedVector4Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/specular_strength = 0.5
+shader_parameter/specular_k = 32.0
+shader_parameter/has_specular_map = false
+shader_parameter/metallic_value = 0.0
+shader_parameter/roughness_value = 1.0
+shader_parameter/shadow_steps = 64
+shader_parameter/shadow_min_step = 0.2
+shader_parameter/footprint_shadow = 16.0
+shader_parameter/directional_horizontal_scale = 32.0
+shader_parameter/directional_shadow_reach = 1.0
 
 [sub_resource type="Animation" id="Animation_676ey"]
 length = 0.001
@@ -69,6 +88,7 @@ script = ExtResource("1_jcfv7")
 shape = SubResource("CapsuleShape2D_yxyn3")
 
 [node name="sprite" type="AnimatedSprite2D" parent="." unique_id=362259257]
+material = SubResource("ShaderMaterial_b8ww2")
 scale = Vector2(4.25, 4.25)
 sprite_frames = ExtResource("2_676ey")
 animation = &"idle"

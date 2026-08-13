@@ -60,17 +60,14 @@ vertical_alignment = 1
 [node name="CursorSound" type="AudioStreamPlayer" parent="root" unique_id=1263939848]
 unique_name_in_owner = true
 stream = ExtResource("3_s656k")
-volume_db = -10.0
 
 [node name="ConfirmSound" type="AudioStreamPlayer" parent="root" unique_id=1873340502]
 unique_name_in_owner = true
 stream = ExtResource("4_juohi")
-volume_db = -10.0
 
 [node name="CancelSound" type="AudioStreamPlayer" parent="root" unique_id=1917464516]
 unique_name_in_owner = true
 stream = ExtResource("5_6j3np")
-volume_db = -10.0
 
 [node name="onSlotSelected" type="Control" parent="root" unique_id=1636468591]
 unique_name_in_owner = true
