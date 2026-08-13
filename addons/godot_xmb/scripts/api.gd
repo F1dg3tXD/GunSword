@@ -15,6 +15,9 @@ enum MenuMode {
 const DEFAULT_NEW_GAME_SCENE := "res://addons/godot_xmb/examples/game_scene.tscn"
 const GAME_UI_LAYER := 16
 const AUTOSAVE_PREF_PATH := "user://autosave_pref.cfg"
+const MAX_SAVE_SLOTS := 10
+## Fixed slot used by overwrite-mode autosaves so the manual save is never replaced.
+const AUTOSAVE_SLOT_ID := "autosave"
 
 var default_game_scene_path := DEFAULT_NEW_GAME_SCENE
 var current_save_id := ""
@@ -116,6 +119,7 @@ func save_new(extra_data: Dictionary = {}, icon: Image = null) -> bool:
 	_pending_create_scene_path = ""
 
 	save_written.emit(save_id, payload)
+	_trim_autosaves()
 
 	if target_scene_path != "":
 		get_tree().change_scene_to_file(target_scene_path)
@@ -157,7 +161,25 @@ func _save_overwrite(id: String, extra_data: Dictionary = {}, icon: Image = null
 	current_save_id = id
 	_playtime_seconds = payload.get("playtime_seconds", 0.0)
 	save_written.emit(id, payload)
+	_trim_autosaves()
 	return true
+
+
+## Keeps the total number of saves within the slot limit. Only autosaves are
+## ever evicted (oldest first), so manual saves are always kept.
+func _trim_autosaves() -> void:
+	var saves := _manager.get_saves()
+	var excess := saves.size() - MAX_SAVE_SLOTS
+	if excess <= 0:
+		return
+
+	var evicted := 0
+	for i in range(saves.size() - 1, -1, -1):
+		if evicted >= excess:
+			break
+		if str(saves[i].get("save_type", "")) == "autosave":
+			delete_save(str(saves[i].get("id", "")))
+			evicted += 1
 
 
 func save_current_as_new(extra_data: Dictionary = {}, icon: Image = null) -> bool:
@@ -195,11 +217,12 @@ func set_autosave_mode(mode: String) -> void:
 
 
 ## Performs an autosave according to the chosen mode:
-## "overwrite" overwrites the current save slot, otherwise a new slot is created.
+## "overwrite" writes to a single dedicated autosave slot, otherwise a new
+## autosave slot is created each time (old autosaves are trimmed to make room).
 func autosave() -> bool:
+	if get_autosave_mode() == "overwrite":
+		return _save_overwrite(AUTOSAVE_SLOT_ID, {"save_type": "autosave"})
 	var slot := str(Time.get_unix_time_from_system())
-	if get_autosave_mode() == "overwrite" and current_save_id != "":
-		slot = current_save_id
 	return _save_overwrite(slot, {"save_type": "autosave"})
 
 
@@ -236,6 +259,7 @@ func copy_save(id: String) -> bool:
 		return false
 		
 	save_written.emit(new_id, payload)
+	_trim_autosaves()
 	return true
 
 

@@ -83,8 +83,10 @@ shape = SubResource("RectangleShape2D_yxyn3")
 [node name="PlayerTopDown" parent="." unique_id=722353571 instance=ExtResource("1_ri632")]
 position = Vector2(149, 498)
 
-[node name="music" type="AudioStreamPlayer2D" parent="." unique_id=250614282]
+[node name="music" type="AudioStreamPlayer" parent="." unique_id=250614282]
+process_mode = 3
 stream = ExtResource("4_11w4q")
+bus = &"Music"
 
 [node name="item_swordTest" parent="." unique_id=1635029874 instance=ExtResource("5_11w4q")]
 position = Vector2(787, 277)

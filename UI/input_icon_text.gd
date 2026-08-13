@@ -3,13 +3,18 @@ class_name InputIconText
 ## current input device. Used by the dialogue balloon to show button prompts.
 
 const MOBILE_ICON_BASE := "res://addons/mobile-controls-1/Vector/Icons/"
+const MOBILE_ICON_STYLE_C_BASE := "res://addons/mobile-controls-1/Vector/Style C/"
 const MOBILE_ICONS := {
-	&"interact": "icon_search.svg",
-	&"jump": "icon_star.svg",
-	&"fire0": "icon_sword.svg",
-	&"fire1": "icon_target.svg",
-	&"fire3": "icon_crosshair.svg",
-	&"pause": "icon_pause.svg",
+	&"interact": MOBILE_ICON_BASE + "icon_search.svg",
+	&"jump": MOBILE_ICON_BASE + "icon_star.svg",
+	&"fire0": MOBILE_ICON_BASE + "icon_sword.svg",
+	&"fire1": MOBILE_ICON_BASE + "icon_target.svg",
+	&"fire3": MOBILE_ICON_BASE + "icon_crosshair.svg",
+	&"pause": MOBILE_ICON_BASE + "icon_pause.svg",
+	&"shot_type_cycle": MOBILE_ICON_BASE + "icon_arrow_rotate.svg",
+	&"shot_type_up": MOBILE_ICON_STYLE_C_BASE + "dpad_element_north.svg",
+	&"shot_type_down": MOBILE_ICON_STYLE_C_BASE + "dpad_element_south.svg",
+	&"ui_accept": MOBILE_ICON_BASE + "icon_hand.svg",
 }
 
 const ICON_WIDTH := 24
@@ -70,5 +75,5 @@ static func _is_mobile() -> bool:
 
 static func _get_mobile_icon(action_name: StringName) -> Texture2D:
 	if action_name in MOBILE_ICONS:
-		return load(MOBILE_ICON_BASE + MOBILE_ICONS[action_name])
+		return load(MOBILE_ICONS[action_name])
 	return null

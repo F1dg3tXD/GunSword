@@ -146,10 +146,10 @@ func _clone_music_player(stream_player : AudioStreamPlayer) -> void:
 	music_stream_player.play.call_deferred(playback_position)
 
 func _reparent_music_player(stream_player : AudioStreamPlayer) -> void:
-	var playback_position := stream_player.get_playback_position() + AudioServer.get_time_since_last_mix()
 	stream_player.owner = null
 	stream_player.reparent.call_deferred(self)
-	stream_player.play.call_deferred(playback_position)
+	if not stream_player.playing:
+		stream_player.play.call_deferred(stream_player.get_playback_position() + AudioServer.get_time_since_last_mix())
 
 func _node_matches_checks(node : Node)  -> bool:
 	return node is AudioStreamPlayer and node.autoplay and node.bus == audio_bus

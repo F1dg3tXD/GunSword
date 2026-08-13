@@ -1,11 +1,10 @@
 extends Node2D
 
-@onready var music: AudioStreamPlayer2D = $music
+@onready var music: AudioStreamPlayer = $music
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), -80)
-	music.play()
+	ProjectMusicController.play_stream_player(music)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

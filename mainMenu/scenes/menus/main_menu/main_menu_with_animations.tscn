@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://baflohi8rvqbr" path="res://mainMenu/scenes/menus/main_menu/main_menu_with_animations.gd" id="2_lpr86"]
 [ext_resource type="PackedScene" uid="uid://ce0grov8ii452" path="res://mainMenu/scenes/windows/main_menu_options_window.tscn" id="3_eog7t"]
 [ext_resource type="PackedScene" uid="uid://umr1a6w6er5h" path="res://mainMenu/scenes/windows/main_menu_credits_window.tscn" id="4_shdm2"]
+[ext_resource type="AudioStream" uid="uid://calsw3vpura5v" path="res://music/when bro asks for a neo future title theme.tres" id="5_bdw0q"]
 [ext_resource type="VideoStream" uid="uid://gg05j0mpxc22" path="res://images/temp.ogv" id="5_h5b51"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w50h3"]
@@ -445,6 +446,7 @@ anim_player = NodePath("../MenuAnimationPlayer")
 parameters/conditions/intro_done = false
 
 [node name="BackgroundMusicPlayer" parent="." index="3" unique_id=1141822549]
+stream = ExtResource("5_bdw0q")
 autoplay = false
 
 [node name="BG" type="Control" parent="." index="4" unique_id=1437633813]

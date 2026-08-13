@@ -180,6 +180,7 @@ libraries/ = SubResource("AnimationLibrary_1337t")
 autoplay = &"progress"
 
 [node name="ui_accept" type="TouchScreenButton" parent="Balloon/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Control" unique_id=2045981101]
+unique_name_in_owner = true
 position = Vector2(9, -34)
 texture_normal = ExtResource("3_nlsx6")
 texture_pressed = ExtResource("3_nlsx6")

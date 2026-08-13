@@ -23,6 +23,9 @@ class_name DialogueManagerExampleBalloon extends CanvasLayer
 ## A sound player for voice lines (if they exist).
 @onready var audio_stream_player: AudioStreamPlayer = %AudioStreamPlayer
 
+## A touch button for mobile platforms to process dialogue.
+@onready var ui_accept: TouchScreenButton = %ui_accept
+
 ## Temporary game states
 var temporary_game_states: Array = []
 
@@ -87,11 +90,14 @@ func _ready() -> void:
 			assert(false, DMConstants.get_error_message(DMConstants.ERR_MISSING_RESOURCE_FOR_AUTOSTART))
 		start()
 
-
 func _process(delta: float) -> void:
 	if is_instance_valid(dialogue_line):
 		progress.visible = not dialogue_label.is_typing and dialogue_line.responses.size() == 0 and not dialogue_line.has_tag("voice")
 
+	if OS.has_feature("mobile") or OS.has_feature("web_ios") or OS.has_feature("web_android"):
+		ui_accept.show()
+	else:
+		ui_accept.hide()
 
 func _unhandled_input(_event: InputEvent) -> void:
 	# Only the balloon is allowed to handle input while it's showing

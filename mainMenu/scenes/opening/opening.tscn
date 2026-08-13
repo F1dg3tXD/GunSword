@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://sikc02ddepyt" path="res://addons/maaacks_menus_template/base/nodes/opening/opening.tscn" id="1_flg6k"]
 [ext_resource type="Texture2D" uid="uid://dplom0d67jdpb" path="res://images/saturnGames.png" id="2_flg6k"]
 [ext_resource type="AudioStream" uid="uid://calsw3vpura5v" path="res://music/when bro asks for a neo future title theme.tres" id="3_x2nc4"]
+[ext_resource type="Script" uid="uid://qp0cc4b41x1c" path="res://music/opening_music_starter.gd" id="4_starter"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_x2nc4"]
 load_path = "res://.godot/imported/SPLITE.png-c1c8b00e00e6885bac2f7779dbccc93b.ctex"
@@ -24,6 +25,7 @@ show_loading_screen = true
 [node name="BackgroundMusicPlayer" parent="." index="0" unique_id=1317385298]
 stream = ExtResource("3_x2nc4")
 autoplay = false
+script = ExtResource("4_starter")
 
 [node name="ColorRect" type="ColorRect" parent="." index="1" unique_id=303829087]
 layout_mode = 1

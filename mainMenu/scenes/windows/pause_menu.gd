@@ -81,11 +81,11 @@ func _on_restart_button_pressed() -> void:
 	_show_window(restart_confirmation)
 
 func _on_save_game_button_pressed() -> void:
-	close()
+	# Keep this menu open so the game stays paused and the mouse stays usable
+	# while the save menu is up. The save menu renders above this one.
 	XMBSave.open_save_menu()
 
 func _on_load_game_button_pressed() -> void:
-	close()
 	XMBSave.open_load_menu()
 
 func _on_options_button_pressed() -> void:

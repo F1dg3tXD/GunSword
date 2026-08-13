@@ -7,14 +7,46 @@ signal autosave_completed
 
 var _saving := false
 var _has_triggered := false
+var _player_inside := false
+## Disarmed while the player spawns inside the trigger (e.g. right after
+## loading a save), so loading never immediately re-triggers an autosave.
+## Armed once the player leaves the area.
+var _armed := false
 
 
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
+	body_exited.connect(_on_body_exited)
+	_arm_after_spawn()
+
+
+## The load system restores the player's saved position via a deferred call
+## after this scene's _ready, and the physics server may not register the
+## resulting overlap until a few steps later. Poll every physics frame until
+## the spawn window closes: if the player shows up at any point, they spawned
+## inside, so stay disarmed until they exit the area.
+func _arm_after_spawn() -> void:
+	for i in 8:
+		await get_tree().physics_frame
+		if _player_inside or _overlaps_player():
+			return
+	_armed = true
+
+
+func _overlaps_player() -> bool:
+	for body in get_overlapping_bodies():
+		if body.is_in_group("player"):
+			return true
+	return false
 
 
 func _on_body_entered(body: Node2D) -> void:
 	if _saving or not body.is_in_group("player"):
+		return
+	if _player_inside:
+		return
+	_player_inside = true
+	if not _armed:
 		return
 	if trigger_once and _has_triggered:
 		return
@@ -34,3 +66,12 @@ func _on_body_entered(body: Node2D) -> void:
 
 	_saving = false
 	autosave_completed.emit()
+
+
+func _on_body_exited(body: Node2D) -> void:
+	if not body.is_in_group("player"):
+		return
+	if not _player_inside:
+		return
+	_player_inside = false
+	_armed = true

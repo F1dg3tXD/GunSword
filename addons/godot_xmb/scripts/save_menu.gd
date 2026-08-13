@@ -13,6 +13,8 @@ extends CanvasLayer
 @onready var copy_save: Button = %copySave
 @onready var cancel: Button = %cancel
 
+@onready var root_control: Control = $root
+
 var previous_focus_control: Control = null
 
 enum UIState {
@@ -28,7 +30,6 @@ var selected_entry = null
 
 var mode: int = XMBSave.MenuMode.LOAD
 
-const MAX_SLOTS := 10
 const VISIBLE_RANGE := 4
 const SPACING := 110
 const CENTER_Y := 360  # adjust to your screen center
@@ -38,6 +39,10 @@ func _ready():
 		previous_focus_control = get_viewport().gui_get_focus_owner()
 		if previous_focus_control:
 			previous_focus_control.release_focus()
+		# Keep focus inside this menu while it's open so background menus
+		# can't be triggered by stray ui_accept/ui_cancel input.
+		root_control.focus_mode = Control.FOCUS_ALL
+		root_control.grab_focus()
 
 	cursor_sfx.stream = load("res://addons/godot_xmb/assets/sounds/Cursor.mp3")
 	confirm_sfx.stream = load("res://addons/godot_xmb/assets/sounds/Confirm.mp3")
@@ -79,7 +84,7 @@ func refresh():
 	match mode:
 		XMBSave.MenuMode.LOAD:
 			modeLabel.text = "Load"
-			for i in range(MAX_SLOTS):
+			for i in range(XMBSave.MAX_SAVE_SLOTS):
 				if i < saves.size():
 					add_entry(saves[i])
 				else:
@@ -88,7 +93,7 @@ func refresh():
 
 		XMBSave.MenuMode.SAVE, XMBSave.MenuMode.CREATE:
 			modeLabel.text = "Save" if mode == XMBSave.MenuMode.SAVE else "Create Save"
-			for i in range(MAX_SLOTS):
+			for i in range(XMBSave.MAX_SAVE_SLOTS):
 				if i < saves.size():
 					add_entry(saves[i])
 				else:
@@ -265,6 +270,8 @@ func exit_slot_selected():
 	ui_state = UIState.BROWSE
 	selected_entry = null
 	on_slot_selected.visible = false
+	if XMBSave.ui_protection:
+		root_control.grab_focus()
 
 
 func _on_confirm_save_pressed() -> void:
@@ -332,3 +339,8 @@ func _on_copy_save_pressed() -> void:
 		
 	exit_slot_selected()
 	refresh()
+
+
+func _on_back_pressed() -> void:
+	cancel_sfx.play()
+	queue_free()

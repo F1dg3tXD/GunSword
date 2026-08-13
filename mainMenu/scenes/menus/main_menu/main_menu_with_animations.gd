@@ -3,6 +3,14 @@ extends MainMenu
 ## The animation can be skipped by the player with any input.
 @onready var background_music_player: AudioStreamPlayer = $BackgroundMusicPlayer
 
+## Index of the "Loop 2" clip in the opening theme's interactive stream.
+const LOOP_2_CLIP_INDEX : int = 1
+
+## Set by the opening scene when it hands its music over to the controller.
+## While true, the opening's music is still playing (reparented to the music
+## controller), so this menu must not start its own background music.
+static var came_from_opening : bool = false
+
 var animation_state_machine : AnimationNodeStateMachinePlayback
 
 func intro_done() -> void:
@@ -35,7 +43,19 @@ func _ready() -> void:
 	super._ready()
 	animation_state_machine = $MenuAnimationTree.get("parameters/playback")
 	%ContinueGameButton.visible = XMBSave.has_saves()
+	if came_from_opening:
+		came_from_opening = false
+		return
+	else:
+		_play_background_music()
 
+func _play_background_music() -> void:
+	var stream := background_music_player.stream.duplicate() as AudioStreamInteractive
+	if stream == null:
+		return
+	stream.initial_clip = LOOP_2_CLIP_INDEX
+	background_music_player.stream = stream
+	ProjectMusicController.play_stream_player(background_music_player)
 
 func new_game() -> void:
 	XMBSave.open_create_menu(get_game_scene_path())
