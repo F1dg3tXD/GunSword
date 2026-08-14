@@ -1,0 +1,47 @@
+[gd_scene format=4 uid="uid://s5u5tj4brg6v"]
+
+[ext_resource type="Shader" uid="uid://cadnte8s5ipk7" path="res://addons/lit/shaders/receiver/lit_receiver_fast.gdshader" id="1_gow5g"]
+[ext_resource type="Texture2D" uid="uid://cggsjhnxu0uw3" path="res://images/Game Boy _ GBC - The Legend of Zelda_ Link's Awakening _ DX - Tilesets - Overworld Tileset.png" id="2_c6kw8"]
+[ext_resource type="Script" uid="uid://drrhypxeb6nsg" path="res://addons/lit/nodes/lit_sprite_2d.gd" id="3_8v2ki"]
+[ext_resource type="Texture2D" uid="uid://dqa7avi1pwate" path="res://images/Game Boy _ GBC - The Legend of Zelda_ Link's Awakening _ DX - Tilesets - Overworld Tileset_n.png" id="3_gow5g"]
+[ext_resource type="Texture2D" uid="uid://cd1ipqo5rhifn" path="res://images/Game Boy _ GBC - The Legend of Zelda_ Link's Awakening _ DX - Tilesets - Overworld Tileset_s.png" id="4_c6kw8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2pg3f"]
+shader = ExtResource("1_gow5g")
+shader_parameter/emissive_strength = 0.0
+shader_parameter/receiver_mask = 1
+shader_parameter/self_shadow = true
+shader_parameter/self_rect_count = 0
+shader_parameter/self_rects = PackedVector4Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/specular_strength = 0.5
+shader_parameter/specular_k = 32.0
+shader_parameter/has_specular_map = false
+shader_parameter/metallic_value = 0.0
+shader_parameter/roughness_value = 1.0
+shader_parameter/shadow_steps = 64
+shader_parameter/shadow_min_step = 0.2
+shader_parameter/footprint_shadow = 16.0
+shader_parameter/directional_horizontal_scale = 32.0
+shader_parameter/directional_shadow_reach = 1.0
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_eshr6"]
+diffuse_texture = ExtResource("2_c6kw8")
+normal_texture = ExtResource("3_gow5g")
+specular_texture = ExtResource("4_c6kw8")
+texture_filter = 1
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_yxyn3"]
+polygon = PackedVector2Array(-4, -11, -4, -12, -2, -14, 0, -15, 3, -15, 5, -13, 5, -12, 6, -11, 6, -9, 7, -8, 8, -7, 8, -5, 6, -3, 7, -2, 7, 0, 6, 1, 6, 2, 7, 3, 7, 4, 8, 5, 8, 11, 7, 12, 6, 13, 5, 14, 4, 15, -4, 15, -4, 14, -5, 14, -6, 13, -7, 12, -7, 6, -6, 6, -6, 1, -5, 0, -6, -1, -6, -3, -7, -3, -7, -5, -6, -6, -5, -7, -4, -7, -4, -8, -3, -9, -3, -10)
+
+[node name="statue" type="Sprite2D" unique_id=198096119]
+material = SubResource("ShaderMaterial_2pg3f")
+texture = SubResource("CanvasTexture_eshr6")
+region_enabled = true
+region_rect = Rect2(238, 232, 17, 33)
+script = ExtResource("3_8v2ki")
+self_shadow = true
+metadata/_custom_type_script = "uid://drrhypxeb6nsg"
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="." unique_id=556620829]
+show_behind_parent = true
+occluder = SubResource("OccluderPolygon2D_yxyn3")

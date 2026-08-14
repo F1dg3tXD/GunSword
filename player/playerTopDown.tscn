@@ -36,6 +36,9 @@ shader_parameter/footprint_shadow = 16.0
 shader_parameter/directional_horizontal_scale = 32.0
 shader_parameter/directional_shadow_reach = 1.0
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_tsuen"]
+polygon = PackedVector2Array(-53, -60, -56, -33, -58, -13, -47, 2, -52, 39, -40, 37, -37, 16, -30, -6, -33, -27, -37, -42, -43, -60)
+
 [sub_resource type="Animation" id="Animation_676ey"]
 length = 0.001
 tracks/0/type = "value"
@@ -92,10 +95,16 @@ script = ExtResource("1_jcfv7")
 shape = SubResource("CapsuleShape2D_yxyn3")
 
 [node name="sprite" type="AnimatedSprite2D" parent="." unique_id=362259257]
+texture_filter = 1
+texture_repeat = 2
 material = SubResource("ShaderMaterial_b8ww2")
 scale = Vector2(4.25, 4.25)
 sprite_frames = ExtResource("2_676ey")
 animation = &"idle"
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="sprite" unique_id=23147246]
+scale = Vector2(0.23529412, 0.23529412)
+occluder = SubResource("OccluderPolygon2D_tsuen")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=905009846]
 libraries/ = SubResource("AnimationLibrary_676ey")
