@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://cekuun21ika3v" path="res://addons/lit/nodes/lit_tile_map_layer.gd" id="3_hfipo"]
 [ext_resource type="PackedScene" uid="uid://s5u5tj4brg6v" path="res://entities/statue.tscn" id="4_h3xpc"]
 [ext_resource type="Script" uid="uid://7156lwdhmrod" path="res://addons/lit/nodes/lit_directional_light_2d.gd" id="5_o3xqh"]
+[ext_resource type="PackedScene" uid="uid://g3r12cwpvpos" path="res://player/playerTopDown.tscn" id="6_r33ab"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k008n"]
 shader = ExtResource("1_yxrdr")
@@ -28,6 +29,7 @@ shader_parameter/directional_shadow_reach = 1.0
 
 [node name="LitTileMapLayer" type="TileMapLayer" parent="." unique_id=1361440040]
 material = SubResource("ShaderMaterial_k008n")
+scale = Vector2(10, 10)
 tile_map_data = PackedByteArray("AAAAAAEAAAAAAAYAAAAAAAIAAAAAAAYAAAABAAIAAAABAAYAAAACAAIAAAABAAYAAAACAAMAAAABAAYAAAADAAMAAAABAAYAAAAEAAMAAAABAAYAAAAEAAQAAAABAAYAAAABAAEAAAABAAYAAAACAAEAAAABAAYAAAADAAEAAAABAAYAAAAEAAEAAAABAAYAAAAEAAIAAAABAAYAAAADAAIAAAABAAYAAAAAAAMAAAAAAAYAAAABAAMAAAABAAYAAAABAAQAAAABAAYAAAAAAAQAAAAAAAYAAAACAAQAAAABAAYAAAADAAQAAAABAAYAAAAAAAAAAAAAAAUAAAABAAAAAAABAAUAAAACAAAAAAABAAUAAAADAAAAAAABAAUAAAAEAAAAAAABAAUAAAA=")
 tile_set = ExtResource("2_r33ab")
 script = ExtResource("3_hfipo")
@@ -35,7 +37,8 @@ self_shadow = true
 metadata/_custom_type_script = "uid://cekuun21ika3v"
 
 [node name="statue" parent="." unique_id=198096119 instance=ExtResource("4_h3xpc")]
-position = Vector2(54, 43)
+position = Vector2(453.99997, 319.99997)
+scale = Vector2(5, 5)
 
 [node name="LitDirectionalLight2D" type="Node2D" parent="." unique_id=1081252378]
 rotation = 0.6702064
@@ -45,3 +48,6 @@ shadow_enabled = true
 shadow_color = Color(0.5330367, 0.5330367, 0.5330367, 0.40392157)
 source_angle = 15.0
 metadata/_custom_type_script = "uid://7156lwdhmrod"
+
+[node name="PlayerTopDown" parent="." unique_id=722353571 instance=ExtResource("6_r33ab")]
+position = Vector2(150, 109)

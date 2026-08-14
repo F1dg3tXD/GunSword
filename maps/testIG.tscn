@@ -12,6 +12,8 @@
 [ext_resource type="Script" uid="uid://dtbtq2iowg33y" path="res://addons/lit/nodes/lit_canvas_modulate.gd" id="10_2l241"]
 [ext_resource type="Script" uid="uid://7156lwdhmrod" path="res://addons/lit/nodes/lit_directional_light_2d.gd" id="11_gugr4"]
 [ext_resource type="Script" uid="uid://cpa2qb3trjq4k" path="res://addons/lit/nodes/lit_point_light_2d.gd" id="12_gugr4"]
+[ext_resource type="Script" uid="uid://dfnr5b22gpy7h" path="res://addons/PointMaker/scripts/point_trigger.gd" id="13_g40u3"]
+[ext_resource type="Texture2D" uid="uid://bu61qgc2m5ib" path="res://addons/PointMaker/icons/pointTrigger.png" id="14_l6bee"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2l241"]
 shader = ExtResource("2_tvb77")
@@ -39,6 +41,9 @@ size = Vector2(1920, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2s5nj"]
 size = Vector2(132, 124)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p0toe"]
+size = Vector2(90, 98)
 
 [node name="TestIg" type="Node2D" unique_id=210884647]
 script = ExtResource("1_ud7vo")
@@ -120,3 +125,17 @@ position = Vector2(1056, 89)
 script = ExtResource("12_gugr4")
 energy = 10.0
 metadata/_custom_type_script = "uid://cpa2qb3trjq4k"
+
+[node name="PointTrigger" type="Area2D" parent="." unique_id=1638040513]
+position = Vector2(1075, 567)
+script = ExtResource("13_g40u3")
+scene_to_load = "res://maps/test2.tscn"
+trigger_once = false
+animation_name = ""
+metadata/_custom_type_script = "uid://dfnr5b22gpy7h"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PointTrigger" unique_id=2099355429]
+shape = SubResource("RectangleShape2D_p0toe")
+
+[node name="Sprite2D" type="Sprite2D" parent="PointTrigger" unique_id=2118598933]
+texture = ExtResource("14_l6bee")
