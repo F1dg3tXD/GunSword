@@ -10,6 +10,14 @@ The `XMBSave` singleton is an AutoLoad injected into `project.godot` located at 
 | `current_save_id` | `String` | A UNIX-timestamp string uniquely identifying the active mounted save in `user://saves/`. Empty string if not saved yet. |
 | `ui_protection` | `bool` | True by default. Forces the background UI to release keyboard / gamepad focus while the Save Menu is visible, drastically reducing navigation bleed bugs. |
 
+## Constants
+
+| Constant | Value | Description |
+|---|---|---|
+| `MAX_SAVE_SLOTS` | `10` | Total slot limit; excess autosaves are trimmed automatically. |
+| `AUTOSAVE_SLOT_ID` | `"autosave"` | Fixed slot written by autosaves in "overwrite" mode, so manual saves are never replaced. |
+| `MenuMode` | `enum` | `LOAD`, `SAVE`, `CREATE`. |
+
 ## Menu Opening Methods
 
 ### `open_create_menu(scene_path := "")`
@@ -48,6 +56,40 @@ Perfectly encapsulates cloning a targeted payload and icon context into an entir
 ### `delete_save(id: String) -> void`
 Erases a save metadata node fully.
 
+### `copy_save(id: String) -> bool`
+Perfectly encapsulates cloning a targeted payload and icon context into an entirely disjoint UUID slot.
+
+## Autosave
+
+Autosaves are manual invocations of the same file pipeline with `save_type: "autosave"`,
+so they are listed alongside manual saves but are the only entries ever trimmed to make
+room. The bundled [autosave trigger](autosave_and_objects.md) wires these together for
+you.
+
+### `get_autosave_mode() -> String`
+Returns the persisted autosave mode: `"overwrite"`, `"separate"`, or `""` if unset.
+
+### `set_autosave_mode(mode: String) -> void`
+Persists the autosave mode to `user://autosave_pref.cfg`. Call once with the player's
+choice (e.g. from the autosave prompt scene) — it survives restarts.
+
+### `autosave() -> bool`
+Performs an autosave according to the chosen mode: `"overwrite"` writes to the fixed
+`AUTOSAVE_SLOT_ID` slot, otherwise a brand-new autosave slot is created each time (old
+autosaves are trimmed to make room).
+
+### `has_autosaves() -> bool`
+Returns true if at least one save entry is flagged as an autosave. The autosave trigger
+uses this to decide whether to show the mode prompt.
+
+### `save_to_slot(slot_id: String, extra_data: Dictionary = {}, icon: Image = null) -> bool`
+Saves to a fixed slot id (e.g. `"autosave"`), overwriting whatever was there, without
+affecting `current_save_id`.
+
+### `load_latest_save() -> bool`
+Loads the most recently saved game. Returns false if no save exists. Useful for a
+"Continue" button.
+
 ## Utility Functions
 
 ### `get_current_playtime() -> float`
@@ -58,6 +100,21 @@ Checks whether `user://saves/` contains any valid payload data yet. Useful to to
 
 ### `is_menu_open() -> bool`
 Identifies internally whether any Save CanvasLayer matches are aggressively mounted.
+
+### `get_project_title() -> String`
+Returns the project name from `application/config/name`.
+
+### `format_playtime(playtime_seconds: float) -> String`
+Formats a float of seconds as `HH:MM:SS`.
+
+## Persisting Scene State
+
+Beyond the adapter methods, the addon ships a `Savable` component
+(`scenes/savable.tscn`) that captures and restores script variables plus
+transform/visibility for any set of target nodes. Nodes join the **"savable"** group so
+an adapter can collect them in bulk. See
+[Autosave, Save Stations & Savable Objects](autosave_and_objects.md) for the full
+adapter snippet.
 
 ## Signals
 

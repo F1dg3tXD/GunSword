@@ -11,9 +11,18 @@ const WORLD_SDF_SIZE := 2048
 const WORLD_SDF_NODE := "LitWorldSdf"
 # Also warmed by the shader precompiler (against a matching HDR target).
 const ENCODE_SHADER_PATH := "res://addons/lit/shaders/sdf/lit_world_sdf_encode.gdshader"
+# OpenGL/Compatibility twin (web export): no native 2D SDF there, so it writes a flat
+# sentinel and the Compatibility receivers resolve shadows fully lit.
+const ENCODE_SHADER_GL_PATH := "res://addons/lit/shaders/openGL/lit_world_sdf_encode_gl.gdshader"
 # Frames of unconditional rendering after (re)creation; a lone UPDATE_ONCE on a fresh
 # viewport races pipeline readiness and bakes a black SDF.
 const WORLD_SDF_WARMUP := 30
+
+
+## The encoder for this renderer: the native-SDF copy on Forward+/Mobile, the flat
+## sentinel on Compatibility (OpenGL), where Godot's 2D SDF doesn't exist.
+static func encode_shader_path() -> String:
+	return ENCODE_SHADER_GL_PATH if LitShaderLibrary.is_gl_compat() else ENCODE_SHADER_PATH
 
 var _wsdf_vp: SubViewport
 var _wsdf_mat: ShaderMaterial
@@ -68,7 +77,7 @@ func _ensure_world_sdf(host: Node, viewport: Viewport) -> bool:
 	rect.size = Vector2(WORLD_SDF_SIZE, WORLD_SDF_SIZE)
 	rect.visibility_layer = 1 << 19
 	var mat := ShaderMaterial.new()
-	mat.shader = load(ENCODE_SHADER_PATH)
+	mat.shader = load(encode_shader_path())
 	rect.material = mat
 	layer.add_child(rect)
 	vp.add_child(layer)

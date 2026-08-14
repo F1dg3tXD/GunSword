@@ -56,7 +56,7 @@ scale = Vector2(1.9600012, 1.9600012)
 texture_normal = ExtResource("5_7migo")
 texture_pressed = ExtResource("5_7migo")
 shape = SubResource("CircleShape2D_2s5nj")
-action = "fire3"
+action = "fire2"
 
 [node name="shot_type_cycle" type="TouchScreenButton" parent="." unique_id=209363953]
 position = Vector2(1014.00006, 206)

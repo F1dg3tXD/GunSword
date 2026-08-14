@@ -68,7 +68,7 @@ func _init() -> void:
 	if material == null:
 		var mat := ShaderMaterial.new()
 		# Fast by default: a fresh LitSprite2D has no owned occluders.
-		mat.shader = load(LitShaderLibrary.ENTRY_PATHS[0])
+		mat.shader = load(LitShaderLibrary.entry_path(0))
 		material = mat
 		# Seed the proxy values only on a freshly-made material: an existing one may
 		# carry hand-set values that the export defaults must not stomp.

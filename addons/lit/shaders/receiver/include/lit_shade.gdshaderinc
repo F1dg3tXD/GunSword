@@ -168,7 +168,10 @@ vec3 lit_shade(int i, vec3 albedo, vec3 N, vec3 spec_shin, float shininess,
 	// Marched only for shadow-casting lights, so a light with shadows off pays nothing
 	// here, not even the texel-3 fetch. In shadow the contribution is tinted by
 	// shadow_color (black blocks the light entirely). Factor 1 is lit, 0 is occluded.
+	// On Compatibility there is no SDF to march: the block is compiled out entirely
+	// (shadows are unavailable there), so web builds pay none of its cost.
 	if (shadow_enabled) {
+#ifndef LIT_GL_COMPAT
 		vec4 t3 = texelFetch(lit_light_data, ivec2(3, i), 0); // shadow_color.rgb | shadow_hardness
 #ifdef LIT_OCC_MASKS
 		// Per-light exclusions (flags bit 5): t9 = union bounds of the exempt rects.
@@ -264,6 +267,7 @@ vec3 lit_shade(int i, vec3 albedo, vec3 N, vec3 spec_shin, float shininess,
 #endif
 		}
 		contribution *= mix(t3.rgb, vec3(1.0), s);
+#endif
 	}
 
 	// Subtract mode is negative light: it carves darkness below ambient, and the

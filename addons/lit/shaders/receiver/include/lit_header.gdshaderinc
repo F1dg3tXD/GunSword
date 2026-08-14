@@ -251,3 +251,18 @@ void vertex() {
 	v_canvas = (MODEL_MATRIX * vec4(VERTEX, 0.0, 1.0)).xy;
 }
 
+// OpenGL/Compatibility renderer (the web export path): Godot's 2D SDF built-ins
+// (screen_uv_to_sdf, texture_sdf) don't exist there, so LIT_GL_COMPAT builds synthesize
+// the one function the receiver math needs. The receiver's SDF usage is purely an
+// affine screen-UV -> march-space mapping that must stay self-consistent with the world
+// SDF basis published by the registry; screen pixels satisfy that exactly (at the world
+// SDF viewport's 100% oversize/scale the engine's own mapping is also screen pixels).
+// The world SDF itself can't be generated on Compatibility, so lit_sdf_sample reports
+// "no occluders" and the shadow march is compiled out (see lit_shade.gdshaderinc) -
+// every other feature (ambient, Phong/PBR, specular, cookies, spot cones, emissive)
+// still renders. LitShaderLibrary defines LIT_GL_COMPAT for generated variants and the
+// shaders/openGL/ entry twins define it for authored materials.
+#ifdef LIT_GL_COMPAT
+#define screen_uv_to_sdf(uv) ((uv) * lit_viewport_size)
+#endif
+

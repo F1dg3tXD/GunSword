@@ -122,13 +122,14 @@ static func _scene_deps(scene: String) -> PackedStringArray:
 
 
 ## The disk shaders warmed as-is: the three tier entry files (what authored scene
-## materials reference) plus the world-SDF encode shader (compiles at first world-SDF
-## creation on every cold machine otherwise).
+## materials reference; the shaders/openGL/ twins on Compatibility builds) plus the
+## world-SDF encode shader (compiles at first world-SDF creation on every cold machine
+## otherwise).
 static func static_shaders() -> Array:
 	var out: Array = []
-	for tier in LitShaderLibrary.ENTRY_PATHS:
-		out.append(LitShaderLibrary.ENTRY_PATHS[tier])
-	out.append(WorldSdfScript.ENCODE_SHADER_PATH)
+	for tier in LitShaderLibrary.entry_paths():
+		out.append(LitShaderLibrary.entry_paths()[tier])
+	out.append(WorldSdfScript.encode_shader_path())
 	return out
 
 
@@ -299,7 +300,7 @@ func _process(delta: float) -> void:
 			(_quads[quad].material as ShaderMaterial).shader = LitShaderLibrary.get_receiver(item)
 			_quads[quad].visible = true
 			quad += 1
-		elif str(item) == WorldSdfScript.ENCODE_SHADER_PATH:
+		elif str(item) == WorldSdfScript.encode_shader_path():
 			# PSOs key on the render-pass format: the encode shader draws into an HDR
 			# target in real use, so its warm draw runs in the matching SubViewport
 			# built by _build_quads (unparked here so the worker-follow gate still holds).
@@ -380,7 +381,7 @@ func _build_quads() -> void:
 	var enc_rect := ColorRect.new()
 	enc_rect.size = Vector2(64, 64)
 	var enc_mat := ShaderMaterial.new()
-	enc_mat.shader = load(WorldSdfScript.ENCODE_SHADER_PATH)
+	enc_mat.shader = load(WorldSdfScript.encode_shader_path())
 	enc_rect.material = enc_mat
 	enc_layer.add_child(enc_rect)
 	_encode_vp.add_child(enc_layer)

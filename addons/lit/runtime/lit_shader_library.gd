@@ -44,6 +44,19 @@ const ENTRY_PATHS := {
 	F_SELF_EXCL | F_YSORT: "res://addons/lit/shaders/receiver/lit_receiver_ysort.gdshader",
 }
 
+# OpenGL/Compatibility twins of the tier entry files (the web export path). Godot's 2D
+# SDF built-ins don't exist on Compatibility, so these add LIT_GL_COMPAT, which makes
+# the include chain synthesize the march-space mapping and compile the SDF shadow march
+# out. Authored materials that reference a receiver .gdshader by path are repointed here
+# by ensure_gl_materials(); generated variants get the define from source_for().
+const GL_ENTRY_PATHS := {
+	0: "res://addons/lit/shaders/openGL/lit_receiver_fast_gl.gdshader",
+	F_SELF_EXCL: "res://addons/lit/shaders/openGL/lit_receiver_gl.gdshader",
+	F_SELF_EXCL | F_YSORT: "res://addons/lit/shaders/openGL/lit_receiver_ysort_gl.gdshader",
+}
+
+const GL_ENTRY_DIR := "res://addons/lit/shaders/openGL/"
+
 const COMMON_INCLUDE_PATH := "res://addons/lit/shaders/receiver/lit_receiver_common.gdshaderinc"
 # Preloaded so exports ship the includes (.gdshaderinc files are not exported as dependencies).
 const COMMON_INCLUDE: ShaderInclude = preload("res://addons/lit/shaders/receiver/lit_receiver_common.gdshaderinc")
@@ -65,6 +78,48 @@ static var _receivers := {}
 static var _flags_by_id := {}
 static var _version := ""
 static var _warmed := {}  # precompiled work list; dev builds log builds outside it
+
+# Cached per-session; the rendering method can't change at runtime.
+static var _gl_compat: int = -1
+
+
+## True under the Compatibility renderer (OpenGL; the web export path), where Godot's
+## 2D SDF built-ins are unavailable. -1/0/1 cache because the call is only legal once
+## the rendering server exists.
+static func is_gl_compat() -> bool:
+	if _gl_compat == -1:
+		_gl_compat = 1 if RenderingServer.get_current_rendering_method() == "gl_compatibility" else 0
+	return _gl_compat == 1
+
+
+static func entry_paths() -> Dictionary:
+	return GL_ENTRY_PATHS if is_gl_compat() else ENTRY_PATHS
+
+
+static func entry_path(flags: int) -> String:
+	return (GL_ENTRY_PATHS if is_gl_compat() else ENTRY_PATHS)[flags]
+
+
+## Repoint authored materials at the shaders/openGL/ entry twins on Compatibility builds,
+## where the non-GL entry files can't compile. Walks `root` (including its children);
+## no-op on other renderers.
+static func ensure_gl_materials(root: Node) -> void:
+	if not is_gl_compat():
+		return
+	var stack: Array[Node] = [root]
+	while not stack.is_empty():
+		var n: Node = stack.pop_back()
+		if n is CanvasItem:
+			var mat: Material = (n as CanvasItem).material
+			if mat is ShaderMaterial:
+				var sm := mat as ShaderMaterial
+				if sm.shader != null:
+					var p: String = sm.shader.resource_path
+					var fl := flags_from_path(p)
+					if fl >= 0 and not p.begins_with(GL_ENTRY_DIR):
+						sm.shader = load(entry_path(fl)) as Shader
+		for c in n.get_children():
+			stack.append(c)
 
 
 static func _log_miss(flags: int) -> void:
@@ -102,6 +157,8 @@ static func source_for(flags: int) -> String:
 	for axis in AXES:
 		if flags & axis.flag != 0:
 			src += "#define %s\n" % axis.define
+	if is_gl_compat():
+		src += "#define LIT_GL_COMPAT\n"
 	return src + "#include \"%s\"\n" % COMMON_INCLUDE_PATH
 
 
@@ -140,6 +197,10 @@ static func flags_from_path(path: String) -> int:
 	var fname := path.get_file()
 	if not fname.begins_with("lit_receiver") or not fname.ends_with(".gdshader"):
 		return -1
+	# The openGL/ entry twins carry a _gl suffix on the tier name; the tier tokens are
+	# otherwise identical to the non-GL entries.
+	if fname.ends_with("_gl.gdshader"):
+		fname = fname.trim_suffix("_gl.gdshader") + ".gdshader"
 	var flags := 0
 	for axis in AXES:
 		if axis.get("absent_token", "") != "":

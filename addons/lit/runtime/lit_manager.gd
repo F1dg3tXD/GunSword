@@ -11,6 +11,10 @@ extends Node
 signal precompile_progress(done: int, total: int, label: String)
 signal precompile_finished
 
+
+func _on_node_added(node: Node) -> void:
+	LitShaderLibrary.ensure_gl_materials(node)
+
 const LitLightRegistryScript := preload("res://addons/lit/runtime/lit_light_registry.gd")
 const LitShaderPrecompilerScript := preload("res://addons/lit/runtime/lit_shader_precompiler.gd")
 const LitPrecompileOverlayScript := preload("res://addons/lit/nodes/lit_precompile_overlay.gd")
@@ -53,6 +57,13 @@ func _ready() -> void:
 	_registry = LitLightRegistryScript.new()
 	# Run after gameplay scripts have moved their lights this frame.
 	process_priority = 1000
+
+	# Compatibility builds (the web export) can't compile the non-GL receiver entry
+	# shaders, so repoint authored lit receiver materials at their shaders/openGL/ twin
+	# the moment their node enters the tree (before the variant driver or any draw).
+	# No-op on Forward+/Mobile.
+	if LitShaderLibrary.is_gl_compat():
+		get_tree().node_added.connect(_on_node_added)
 
 	var uargs := OS.get_cmdline_user_args()
 	var widx := uargs.find(WORKER_ARG)

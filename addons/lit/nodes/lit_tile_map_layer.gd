@@ -47,7 +47,7 @@ func _init() -> void:
 	# hand-set values that the export defaults must not stomp.
 	if material == null:
 		var mat := ShaderMaterial.new()
-		mat.shader = load(LitShaderLibrary.ENTRY_PATHS[0])
+		mat.shader = load(LitShaderLibrary.entry_path(0))
 		material = mat
 		_set_param("emissive_strength", emissive_strength)
 		_set_param("receiver_mask", receiver_mask)
