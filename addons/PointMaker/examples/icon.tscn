@@ -1,8 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://umab28j1ajeo"]
+[gd_scene format=3 uid="uid://umab28j1ajeo"]
 
 [ext_resource type="Texture2D" uid="uid://cy4eg484bmaus" path="res://addons/PointMaker/icon.png" id="1_454wx"]
 [ext_resource type="Script" uid="uid://cpy2w2a2v2fs8" path="res://addons/PointMaker/scripts/FadeSprite.gd" id="2_ewekt"]
-[ext_resource type="Script" uid="uid://dfnr5b22gpy7h" path="res://addons/PointMaker/scripts/point_trigger.gd" id="3_qou4l"]
+[ext_resource type="Script" uid="uid://dfnr5b22gpy7h" path="res://addons/PointMaker/scripts/point_trigger2D.gd" id="3_qou4l"]
 
 [sub_resource type="Animation" id="Animation_qou4l"]
 length = 0.001

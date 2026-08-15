@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://c33gvh6ghpylh"]
+
+[ext_resource type="Texture2D" uid="uid://bu1c8d6gcdf72" path="res://addons/kenney_input-prompts_1.5/Steam Deck/steam-deck_sheet_double.png" id="1_fqd2w"]
+
+[resource]
+atlas = ExtResource("1_fqd2w")
+region = Rect2(0, 512, 128, 128)

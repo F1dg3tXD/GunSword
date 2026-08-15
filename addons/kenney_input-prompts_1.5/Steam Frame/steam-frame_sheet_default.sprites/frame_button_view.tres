@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://c84vnx0wv3gdy"]
+
+[ext_resource type="Texture2D" uid="uid://bywgbh5ualjur" path="res://addons/kenney_input-prompts_1.5/Steam Frame/steam-frame_sheet_default.png" id="1_a8dmo"]
+
+[resource]
+atlas = ExtResource("1_a8dmo")
+region = Rect2(0, 128, 64, 64)

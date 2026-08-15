@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://cjcfh0xl5mwiv"]
+
+[ext_resource type="Texture2D" uid="uid://bml1l856rlw1s" path="res://addons/kenney_input-prompts_1.5/Meta Quest/meta-quest_sheet_default.png" id="1_ychf2"]
+
+[resource]
+atlas = ExtResource("1_ychf2")
+region = Rect2(384, 320, 64, 64)

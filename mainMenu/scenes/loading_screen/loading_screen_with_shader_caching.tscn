@@ -8,7 +8,7 @@
 [node name="LoadingScreen" unique_id=1866533347 instance=ExtResource("1_kt22f")]
 script = ExtResource("2_4b646")
 _spatial_shader_material_dir = ""
-_cache_shaders_scene = "res://exampleMenu/scenes/game/game.tscn"
+_cache_shaders_scene = "res://mainMenu/scenes/opening/opening.tscn"
 _mesh = SubResource("QuadMesh_klnwy")
 _matching_extensions = Array[String]([".tres", ".material", ".res"])
 _ignore_subfolders = Array[String]([".", ".."])

@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://ntu8qecxtiw"]
+
+[ext_resource type="Texture2D" uid="uid://cik8lc58a5tg2" path="res://addons/kenney_input-prompts_1.5/Nintendo Wii/nintendo-wii_sheet_default.png" id="1_bjhnh"]
+
+[resource]
+atlas = ExtResource("1_bjhnh")
+region = Rect2(320, 384, 64, 64)

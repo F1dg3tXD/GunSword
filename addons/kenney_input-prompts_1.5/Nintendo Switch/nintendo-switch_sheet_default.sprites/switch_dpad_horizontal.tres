@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://b48cqekfyau5q"]
+
+[ext_resource type="Texture2D" uid="uid://bw0200comcomi" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/nintendo-switch_sheet_default.png" id="1_umv5r"]
+
+[resource]
+atlas = ExtResource("1_umv5r")
+region = Rect2(576, 256, 64, 64)

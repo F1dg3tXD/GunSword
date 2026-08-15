@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://cj6dhnvi1f8pf"]
+
+[ext_resource type="Texture2D" uid="uid://crxit4wsuuuw3" path="res://addons/mobile-controls-1/Spritesheets/style-h-default.png" id="1_rb66l"]
+
+[resource]
+atlas = ExtResource("1_rb66l")
+region = Rect2(260, 650, 128, 64)

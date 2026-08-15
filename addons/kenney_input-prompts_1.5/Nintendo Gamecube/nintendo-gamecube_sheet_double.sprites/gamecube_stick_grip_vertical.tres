@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://clp4lm8iq101k"]
+
+[ext_resource type="Texture2D" uid="uid://b0mtl4tdlfr1k" path="res://addons/kenney_input-prompts_1.5/Nintendo Gamecube/nintendo-gamecube_sheet_double.png" id="1_70td6"]
+
+[resource]
+atlas = ExtResource("1_70td6")
+region = Rect2(1024, 768, 128, 128)

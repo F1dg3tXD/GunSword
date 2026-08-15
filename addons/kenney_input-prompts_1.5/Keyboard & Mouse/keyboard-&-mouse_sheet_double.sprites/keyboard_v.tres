@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://b2v1ewkt4uegu"]
+
+[ext_resource type="Texture2D" uid="uid://blx20j2ntnf6y" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/keyboard-&-mouse_sheet_double.png" id="1_gy4e5"]
+
+[resource]
+atlas = ExtResource("1_gy4e5")
+region = Rect2(0, 1664, 128, 128)

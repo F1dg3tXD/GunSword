@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://ddbp46rash07u"]
+
+[ext_resource type="Texture2D" uid="uid://dr3nbif82l5gu" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/playstation-series_sheet_double.png" id="1_gdvvi"]
+
+[resource]
+atlas = ExtResource("1_gdvvi")
+region = Rect2(640, 768, 128, 128)

@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://xsdp6ms1tqvf"]
+
+[ext_resource type="Texture2D" uid="uid://bxjvpym0ga1w3" path="res://addons/kenney_input-prompts_1.5/Valve Index/valve-index_sheet_double.png" id="1_gn2ld"]
+
+[resource]
+atlas = ExtResource("1_gn2ld")
+region = Rect2(128, 0, 128, 128)

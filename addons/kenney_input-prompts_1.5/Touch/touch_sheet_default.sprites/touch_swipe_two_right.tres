@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://bw7tbe0ycsrad"]
+
+[ext_resource type="Texture2D" uid="uid://dwp6j7bh6fjvd" path="res://addons/kenney_input-prompts_1.5/Touch/touch_sheet_default.png" id="1_pncmt"]
+
+[resource]
+atlas = ExtResource("1_pncmt")
+region = Rect2(192, 128, 64, 64)

@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://ujnatfns7tf3"]
+
+[ext_resource type="Texture2D" uid="uid://vndqgkoa6aqb" path="res://addons/kenney_input-prompts_1.5/Flairs/flairs_sheet_double.png" id="1_558m7"]
+
+[resource]
+atlas = ExtResource("1_558m7")
+region = Rect2(640, 128, 128, 128)

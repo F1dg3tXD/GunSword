@@ -1,43 +1,16 @@
-[gd_scene format=4 uid="uid://g3r12cwpvpos"]
+[gd_scene format=3 uid="uid://g3r12cwpvpos"]
 
 [ext_resource type="Script" uid="uid://dik7bxb6g4k0o" path="res://player/player_top_down.gd" id="1_jcfv7"]
 [ext_resource type="PackedScene" uid="uid://hm7ibntrkvyy" path="res://mainMenu/scenes/windows/pause_menu_layer.tscn" id="2_4v0de"]
 [ext_resource type="SpriteFrames" uid="uid://bgon6dq353i6" path="res://player/new_sprite_frames.tres" id="2_676ey"]
-[ext_resource type="Shader" uid="uid://cadnte8s5ipk7" path="res://addons/lit/shaders/receiver/lit_receiver_fast.gdshader" id="2_ydmpb"]
-[ext_resource type="Texture2D" uid="uid://cxa0f6xmsaj20" path="res://images/SpritesheetTest_n.png" id="3_b8ww2"]
-[ext_resource type="Texture2D" uid="uid://cty3cap2tqf10" path="res://images/SpritesheetTest_s.png" id="3_tsuen"]
 [ext_resource type="Texture2D" uid="uid://dxf40xl34o248" path="res://addons/kenney_crosshair-pack/Vector/Light/crosshair-079.svg" id="4_4v0de"]
+[ext_resource type="Script" uid="uid://died6y3mwm123" path="res://addons/occlusion_window/occlusion_window.gd" id="4_b8ww2"]
 [ext_resource type="Texture2D" uid="uid://cnu058ve3e4gg" path="res://addons/kenney_crosshair-pack/Vector/Light/crosshair-006.svg" id="5_dm3jn"]
 [ext_resource type="PackedScene" uid="uid://687dwq6o4eqo" path="res://UI/mobile_controls.tscn" id="6_dm3jn"]
 [ext_resource type="PackedScene" uid="uid://wq74pl0jbpqw" path="res://UI/player_ui.tscn" id="6_grj6g"]
 [ext_resource type="PackedScene" uid="uid://d3d5grr7hl0yr" path="res://entities/savable.tscn" id="8_kts7d"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yxyn3"]
-radius = 93.0
-height = 196.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_b8ww2"]
-shader = ExtResource("2_ydmpb")
-shader_parameter/emissive_strength = 0.0
-shader_parameter/receiver_mask = 1
-shader_parameter/self_shadow = true
-shader_parameter/self_rect_count = 0
-shader_parameter/self_rects = PackedVector4Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-shader_parameter/specular_strength = 0.5
-shader_parameter/specular_k = 32.0
-shader_parameter/has_specular_map = true
-shader_parameter/metallic_map = ExtResource("3_tsuen")
-shader_parameter/metallic_value = 0.0
-shader_parameter/roughness_map = ExtResource("3_b8ww2")
-shader_parameter/roughness_value = 1.0
-shader_parameter/shadow_steps = 64
-shader_parameter/shadow_min_step = 0.2
-shader_parameter/footprint_shadow = 16.0
-shader_parameter/directional_horizontal_scale = 32.0
-shader_parameter/directional_shadow_reach = 1.0
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_tsuen"]
-polygon = PackedVector2Array(-53, -60, -56, -33, -58, -13, -47, 2, -52, 39, -40, 37, -37, 16, -30, -6, -33, -27, -37, -42, -43, -60)
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yxyn3"]
 
 [sub_resource type="Animation" id="Animation_676ey"]
 length = 0.001
@@ -88,23 +61,27 @@ node_connections = [&"output", 0, &"Animation"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yxyn3"]
 
-[node name="PlayerTopDown" type="CharacterBody2D" unique_id=722353571 groups=["player"]]
+[node name="PlayerTopDown" type="CharacterBody3D" unique_id=617862387 groups=["player"]]
 script = ExtResource("1_jcfv7")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=475939901]
-shape = SubResource("CapsuleShape2D_yxyn3")
+[node name="Node2D" type="Node2D" parent="." unique_id=1542075717]
 
-[node name="sprite" type="AnimatedSprite2D" parent="." unique_id=362259257]
-texture_filter = 1
-texture_repeat = 2
-material = SubResource("ShaderMaterial_b8ww2")
-scale = Vector2(4.25, 4.25)
+[node name="CollisionShape2D" type="CollisionShape3D" parent="." unique_id=1343053336]
+shape = SubResource("CapsuleShape3D_yxyn3")
+
+[node name="sprite" type="AnimatedSprite3D" parent="." unique_id=1689579715]
+transform = Transform3D(4.25, 0, 0, 0, 4.25, 0, 0, 0, 0, 0, 0, 0)
+billboard = 1
+shaded = true
+texture_filter = 0
 sprite_frames = ExtResource("2_676ey")
 animation = &"idle"
 
-[node name="LightOccluder2D" type="LightOccluder2D" parent="sprite" unique_id=23147246]
+[node name="window" type="Node2D" parent="sprite" unique_id=1079697494 node_paths=PackedStringArray("target")]
 scale = Vector2(0.23529412, 0.23529412)
-occluder = SubResource("OccluderPolygon2D_tsuen")
+script = ExtResource("4_b8ww2")
+window_slot = 1
+target = NodePath("../../DampedSpringJoint2D/CameraCollider/Camera2D")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=905009846]
 libraries/ = SubResource("AnimationLibrary_676ey")
@@ -113,13 +90,9 @@ libraries/ = SubResource("AnimationLibrary_676ey")
 tree_root = SubResource("AnimationNodeBlendTree_2s5nj")
 anim_player = NodePath("../AnimationPlayer")
 
-[node name="DampedSpringJoint2D" type="DampedSpringJoint2D" parent="." unique_id=445479169]
-node_a = NodePath("..")
+[node name="DampedSpringJoint2D" type="DampedSpringJoint2D" parent="." unique_id=102210980]
+node_a = NodePath("CameraCollider")
 node_b = NodePath("CameraCollider")
-length = 25.0
-rest_length = 10.0
-stiffness = 6.0
-damping = 0.4
 
 [node name="CameraCollider" type="RigidBody2D" parent="DampedSpringJoint2D" unique_id=736130828]
 collision_layer = 8
@@ -134,6 +107,9 @@ visible = false
 
 [node name="playerUI" parent="DampedSpringJoint2D/CameraCollider/Camera2D" unique_id=590561827 instance=ExtResource("6_grj6g")]
 layer = 1
+
+[node name="window" type="Node2D" parent="DampedSpringJoint2D/CameraCollider/Camera2D" unique_id=2144954394]
+script = ExtResource("4_b8ww2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DampedSpringJoint2D/CameraCollider" unique_id=219111300]
 shape = SubResource("CircleShape2D_yxyn3")
@@ -156,4 +132,4 @@ region_rect = Rect2(0, 0, 74, 74)
 layer = 1
 
 [node name="Savable" parent="." unique_id=2135107505 node_paths=PackedStringArray("targets") instance=ExtResource("8_kts7d")]
-targets = [NodePath(".."), NodePath("../DampedSpringJoint2D/CameraCollider"), NodePath("../DampedSpringJoint2D")]
+targets = [null, NodePath("../DampedSpringJoint2D/CameraCollider"), null]

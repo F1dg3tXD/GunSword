@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://c2508a2bragnh"]
+
+[ext_resource type="Texture2D" uid="uid://cfoc22emvx7wi" path="res://addons/kenney_input-prompts_1.5/Xbox Series/xbox-series_sheet_double.png" id="1_aw4f3"]
+
+[resource]
+atlas = ExtResource("1_aw4f3")
+region = Rect2(1152, 768, 128, 128)

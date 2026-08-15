@@ -34,7 +34,6 @@ Console="*uid://ouiu5xh1cs8n"
 DialogueManager="*uid://c3rodes2l3gxb"
 InputIcons="*res://UI/input_icon_mapper_singleton.gd"
 XMBSave="*uid://l0v1uvul8mvx"
-LitManager="*uid://brf2hvdtyyw3q"
 
 [display]
 
@@ -43,7 +42,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/PointMaker/plugin.cfg", "res://addons/console/plugin.cfg", "res://addons/dialogue_manager/plugin.cfg", "res://addons/godot_xmb/plugin.cfg", "res://addons/lit/plugin.cfg", "res://addons/maaacks_menus_template/plugin.cfg")
+enabled=PackedStringArray("res://addons/PointMaker/plugin.cfg", "res://addons/console/plugin.cfg", "res://addons/dialogue_manager/plugin.cfg", "res://addons/godot_xmb/plugin.cfg", "res://addons/maaacks_menus_template/plugin.cfg", "res://addons/occlusion_window/plugin.cfg")
 
 [global_group]
 
@@ -186,7 +185,7 @@ avoidance/layer_5="projectiles"
 disable_install_audio_busses=true
 disable_update_check=false
 disable_install_wizard=true
-copy_path="res://exampleMenu/"
+copy_path="res://mainMenu/"
 
 [physics]
 
@@ -199,131 +198,43 @@ textures/vram_compression/import_etc2_astc=true
 
 [shader_globals]
 
-lit_light_data={
-"filter": "nearest",
-"repeat": "disable",
-"type": "sampler2D",
-"value": ""
-}
-lit_light_count={
-"type": "int",
-"value": 0
-}
-lit_viewport_size={
+lit_window_a_center={
 "type": "vec2",
 "value": Vector2(0, 0)
 }
-lit_canvas_scale={
-"type": "float",
-"value": 1.0
-}
-lit_world_sdf={
-"filter": "linear",
-"repeat": "disable",
-"type": "sampler2D",
-"value": ""
-}
-lit_wsdf_basis={
-"type": "vec4",
-"value": Vector4(0, 0, 0, 0)
-}
-lit_wsdf_origin={
+lit_window_a_radius={
 "type": "vec2",
 "value": Vector2(0, 0)
 }
-lit_ambient_color={
-"type": "color",
-"value": Color(1, 1, 1, 1)
-}
-lit_ambient_energy={
+lit_window_a_softness={
 "type": "float",
-"value": 1.0
+"value": 0.35
 }
-lit_shadow_steps_max={
-"type": "int",
-"value": 64
-}
-lit_shadow_step_scaling={
-"type": "bool",
-"value": false
-}
-lit_tile_size={
-"type": "int",
-"value": 64
-}
-lit_tile_grid={
-"type": "ivec2",
-"value": Vector2i(0, 0)
-}
-lit_directional_count={
-"type": "int",
-"value": 0
-}
-lit_lighting_model={
-"type": "int",
-"value": 0
-}
-lit_tile_headers={
-"filter": "nearest",
-"repeat": "disable",
-"type": "sampler2D",
-"value": ""
-}
-lit_tile_indices={
-"filter": "nearest",
-"repeat": "disable",
-"type": "sampler2D",
-"value": ""
-}
-lit_cookie_atlas={
-"filter": "linear",
-"repeat": "disable",
-"type": "sampler2D",
-"value": ""
-}
-lit_ysort_enabled={
-"type": "bool",
-"value": false
-}
-lit_ysort_band={
+lit_window_a_depth={
 "type": "float",
-"value": 12.0
+"value": 0.0
 }
-lit_occ_data={
-"filter": "nearest",
-"repeat": "disable",
-"type": "sampler2D",
-"value": ""
+lit_window_a_fade={
+"type": "float",
+"value": 40.0
 }
-lit_occ_headers={
-"filter": "nearest",
-"repeat": "disable",
-"type": "sampler2D",
-"value": ""
+lit_window_b_center={
+"type": "vec2",
+"value": Vector2(0, 0)
 }
-lit_occ_indices={
-"filter": "nearest",
-"repeat": "disable",
-"type": "sampler2D",
-"value": ""
+lit_window_b_radius={
+"type": "vec2",
+"value": Vector2(0, 0)
 }
-lit_gx_count={
-"type": "int",
-"value": 0
+lit_window_b_softness={
+"type": "float",
+"value": 0.35
 }
-lit_gx_rect0={
-"type": "vec4",
-"value": Vector4(0, 0, 0, 0)
+lit_window_b_depth={
+"type": "float",
+"value": 0.0
 }
-lit_gx_rect1={
-"type": "vec4",
-"value": Vector4(0, 0, 0, 0)
-}
-lit_gx_rect2={
-"type": "vec4",
-"value": Vector4(0, 0, 0, 0)
-}
-lit_gx_rect3={
-"type": "vec4",
-"value": Vector4(0, 0, 0, 0)
+lit_window_b_fade={
+"type": "float",
+"value": 40.0
 }

@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://w6rmpyu40n3c"]
+
+[ext_resource type="Texture2D" uid="uid://dugpkaqiyvi6o" path="res://addons/kenney_input-prompts_1.5/Playdate/playdate_sheet_default.png" id="1_6jqon"]
+
+[resource]
+atlas = ExtResource("1_6jqon")
+region = Rect2(320, 0, 64, 64)

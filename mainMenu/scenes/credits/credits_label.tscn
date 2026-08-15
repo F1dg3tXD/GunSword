@@ -32,19 +32,19 @@ License: [url=https://github.com/godotengine/godot/blob/master/LOGO_LICENSE.txt]
 
 [font_size=48]Tools[/font_size]
 [font_size=24]Godot[/font_size]
-[img=80]res:///exampleMenu/assets/godot_engine_logo/logo_vertical_color_dark.png[/img]  
+[img=80]res://mainMenu/assets/godot_engine_logo/logo_vertical_color_dark.png[/img]  
 Author: [url=https://godotengine.org/contact]Juan Linietsky, Ariel Manzur, and contributors[/url]  
 Source: [url=https://godotengine.org/]godotengine.org[/url]  
 License: [url=https://github.com/godotengine/godot/blob/master/LICENSE.txt]MIT License[/url] 
 
 [font_size=24]Godot Menus Template[/font_size]
-[img=80]res:///exampleMenu/assets/plugin_logo/logo.png[/img]  
+[img=80]res://mainMenu/assets/plugin_logo/logo.png[/img]  
 Author: [url=https://github.com/Maaack/Godot-Menus-Template/graphs/contributors]Marek Belski and contributors[/url]  
 Source: [url=https://github.com/Maaack/Godot-Menus-Template]github: Godot-Menus-Template[/url]  
 License: [url=LICENSE.txt]MIT License[/url]  
 
 [font_size=24]Git[/font_size]
-[img=80]res:///exampleMenu/assets/git_logo/Git-Logo-2Color.png[/img]  
+[img=80]res://mainMenu/assets/git_logo/Git-Logo-2Color.png[/img]  
 Author: [url=https://github.com/torvalds]Linus Torvalds[/url]  
 Source: [url=https://git-scm.com/downloads]git-scm.com[/url]  
 License: [url=https://opensource.org/licenses/GPL-2.0]GNU General Public License version 2[/url]
@@ -53,7 +53,7 @@ fit_content = true
 scroll_active = false
 horizontal_alignment = 1
 script = ExtResource("1_6lhe4")
-attribution_file_path = "res://exampleMenu/ATTRIBUTION.md"
+attribution_file_path = "res://mainMenu/ATTRIBUTION.md"
 h1_font_size = 64
 h2_font_size = 48
 h3_font_size = 32
