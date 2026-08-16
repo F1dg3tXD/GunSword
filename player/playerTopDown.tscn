@@ -4,7 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://hm7ibntrkvyy" path="res://mainMenu/scenes/windows/pause_menu_layer.tscn" id="2_4v0de"]
 [ext_resource type="SpriteFrames" uid="uid://bgon6dq353i6" path="res://player/new_sprite_frames.tres" id="2_676ey"]
 [ext_resource type="Texture2D" uid="uid://dxf40xl34o248" path="res://addons/kenney_crosshair-pack/Vector/Light/crosshair-079.svg" id="4_4v0de"]
-[ext_resource type="Script" uid="uid://died6y3mwm123" path="res://addons/occlusion_window/occlusion_window.gd" id="4_b8ww2"]
 [ext_resource type="Texture2D" uid="uid://cnu058ve3e4gg" path="res://addons/kenney_crosshair-pack/Vector/Light/crosshair-006.svg" id="5_dm3jn"]
 [ext_resource type="PackedScene" uid="uid://687dwq6o4eqo" path="res://UI/mobile_controls.tscn" id="6_dm3jn"]
 [ext_resource type="PackedScene" uid="uid://wq74pl0jbpqw" path="res://UI/player_ui.tscn" id="6_grj6g"]
@@ -12,124 +11,74 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yxyn3"]
 
-[sub_resource type="Animation" id="Animation_676ey"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("sprite:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"idle"]
-}
+[sub_resource type="AtlasTexture" id="AtlasTexture_xhair"]
+atlas = ExtResource("5_dm3jn")
+region = Rect2(0, 0, 74, 74)
 
-[sub_resource type="Animation" id="Animation_jcfv7"]
-resource_name = "idle"
-length = 2.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("sprite:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"idle"]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_676ey"]
-_data = {
-&"RESET": SubResource("Animation_676ey"),
-&"idle": SubResource("Animation_jcfv7")
-}
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7jof5"]
-animation = &"idle"
-
-[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_2s5nj"]
-graph_offset = Vector2(0, -117.5)
-nodes/Animation/node = SubResource("AnimationNodeAnimation_7jof5")
-nodes/Animation/position = Vector2(80, -10)
-node_connections = [&"output", 0, &"Animation"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_yxyn3"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_arrow"]
+atlas = ExtResource("4_4v0de")
+region = Rect2(22.48, 0, 20, 72)
 
 [node name="PlayerTopDown" type="CharacterBody3D" unique_id=617862387 groups=["player"]]
 script = ExtResource("1_jcfv7")
+walk_speed = 5.0
+sprint_speed = 7.0
+max_jump_height = 2.0
 
-[node name="Node2D" type="Node2D" parent="." unique_id=1542075717]
-
-[node name="CollisionShape2D" type="CollisionShape3D" parent="." unique_id=1343053336]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1343053336]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.40947807, 0)
 shape = SubResource("CapsuleShape3D_yxyn3")
 
 [node name="sprite" type="AnimatedSprite3D" parent="." unique_id=1689579715]
-transform = Transform3D(4.25, 0, 0, 0, 4.25, 0, 0, 0, 0, 0, 0, 0)
+transform = Transform3D(4.25, 0, 0, 0, 4.25, 0, 0, 0, 4.25, 0, 0, 0)
+layers = 3
 billboard = 1
 shaded = true
+alpha_cut = 1
 texture_filter = 0
 sprite_frames = ExtResource("2_676ey")
 animation = &"idle"
 
-[node name="window" type="Node2D" parent="sprite" unique_id=1079697494 node_paths=PackedStringArray("target")]
-scale = Vector2(0.23529412, 0.23529412)
-script = ExtResource("4_b8ww2")
-window_slot = 1
-target = NodePath("../../DampedSpringJoint2D/CameraCollider/Camera2D")
+[node name="AimUI" type="CanvasLayer" parent="." unique_id=462013091]
+layer = 2
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=905009846]
-libraries/ = SubResource("AnimationLibrary_676ey")
+[node name="crosshair" type="TextureRect" parent="AimUI" unique_id=438960074]
+offset_left = -37.0
+offset_top = -37.0
+offset_right = 37.0
+offset_bottom = 37.0
+pivot_offset = Vector2(37, 37)
+mouse_filter = 2
+texture = SubResource("AtlasTexture_xhair")
 
-[node name="AnimationTree" type="AnimationTree" parent="." unique_id=915950116]
-tree_root = SubResource("AnimationNodeBlendTree_2s5nj")
-anim_player = NodePath("../AnimationPlayer")
+[node name="look_arrow" type="TextureRect" parent="AimUI" unique_id=650276523]
+offset_left = -10.0
+offset_top = -36.0
+offset_right = 10.0
+offset_bottom = 36.0
+pivot_offset = Vector2(10, 36)
+mouse_filter = 2
+texture = SubResource("AtlasTexture_arrow")
 
-[node name="DampedSpringJoint2D" type="DampedSpringJoint2D" parent="." unique_id=102210980]
-node_a = NodePath("CameraCollider")
-node_b = NodePath("CameraCollider")
+[node name="CameraRig" type="Node3D" parent="." unique_id=402015793]
 
-[node name="CameraCollider" type="RigidBody2D" parent="DampedSpringJoint2D" unique_id=736130828]
-collision_layer = 8
-collision_mask = 8
-gravity_scale = 0.0
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraRig" unique_id=531698214]
+transform = Transform3D(1, 0, 0, 0, 0.57357645, 0.81915206, 0, -0.81915206, 0.57357645, 0, 0, 0)
+collision_mask = 9
+spring_length = 5.0
 
-[node name="Camera2D" type="Camera2D" parent="DampedSpringJoint2D/CameraCollider" unique_id=616328406]
+[node name="Camera3D" type="Camera3D" parent="CameraRig/SpringArm3D" unique_id=778412209]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.21527565, 2.604205)
+current = true
 
-[node name="MobileControls" parent="DampedSpringJoint2D/CameraCollider/Camera2D" unique_id=1624332671 instance=ExtResource("6_dm3jn")]
+[node name="MobileControls" parent="." unique_id=1624332671 instance=ExtResource("6_dm3jn")]
 layer = 1
 visible = false
 
-[node name="playerUI" parent="DampedSpringJoint2D/CameraCollider/Camera2D" unique_id=590561827 instance=ExtResource("6_grj6g")]
+[node name="playerUI" parent="." unique_id=590561827 instance=ExtResource("6_grj6g")]
 layer = 1
-
-[node name="window" type="Node2D" parent="DampedSpringJoint2D/CameraCollider/Camera2D" unique_id=2144954394]
-script = ExtResource("4_b8ww2")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DampedSpringJoint2D/CameraCollider" unique_id=219111300]
-shape = SubResource("CircleShape2D_yxyn3")
-
-[node name="lookDir" type="Node2D" parent="." unique_id=436305704]
-
-[node name="look_arrow" type="Sprite2D" parent="lookDir" unique_id=650276523]
-position = Vector2(0, 100)
-scale = Vector2(5, 5)
-texture = ExtResource("4_4v0de")
-region_rect = Rect2(26.98, 0, 20, 72)
-
-[node name="crosshair" type="Node2D" parent="." unique_id=438960074]
-
-[node name="crosshair_sprite" type="Sprite2D" parent="crosshair" unique_id=944082354]
-texture = ExtResource("5_dm3jn")
-region_rect = Rect2(0, 0, 74, 74)
 
 [node name="PauseMenuLayer" parent="." unique_id=914002369 instance=ExtResource("2_4v0de")]
-layer = 1
+layer = 3
 
-[node name="Savable" parent="." unique_id=2135107505 node_paths=PackedStringArray("targets") instance=ExtResource("8_kts7d")]
-targets = [null, NodePath("../DampedSpringJoint2D/CameraCollider"), null]
+[node name="Savable" parent="." unique_id=2135107505 instance=ExtResource("8_kts7d")]

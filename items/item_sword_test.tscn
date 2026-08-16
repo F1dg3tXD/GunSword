@@ -1,30 +1,10 @@
-[gd_scene format=4 uid="uid://243u7nsam20o"]
+[gd_scene format=3 uid="uid://243u7nsam20o"]
 
 [ext_resource type="Texture2D" uid="uid://ok2t30c5cx6p" path="res://images/sprite_sheet_2.png" id="1_f72m4"]
 [ext_resource type="Script" uid="uid://bcamiq5e5x4th" path="res://items/item_sword_test.gd" id="1_viniy"]
-[ext_resource type="Shader" uid="uid://cadnte8s5ipk7" path="res://addons/lit/shaders/receiver/lit_receiver_fast.gdshader" id="2_4yeuh"]
-[ext_resource type="PackedScene" uid="uid://bstwqf0ujpm6e" path="res://UI/dialogue_trigger.tscn" id="4_6ex6h"]
+[ext_resource type="PackedScene" uid="uid://ble3up6hk68np" path="res://UI/input_prompt_3D.tscn" id="4_6ex6h"]
 [ext_resource type="Resource" uid="uid://ddqqmsbkb1fk7" path="res://dialogues/test_sword.dialogue" id="4_dlg"]
-[ext_resource type="Script" uid="uid://cpa2qb3trjq4k" path="res://addons/lit/nodes/lit_point_light_2d.gd" id="4_mrfkj"]
-[ext_resource type="PackedScene" uid="uid://c1b4ivmy0x2iw" path="res://UI/input_prompt.tscn" id="5_f3i2y"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bvrdq"]
-shader = ExtResource("2_4yeuh")
-shader_parameter/emissive_strength = 0.0
-shader_parameter/receiver_mask = 1
-shader_parameter/self_shadow = false
-shader_parameter/self_rect_count = 0
-shader_parameter/self_rects = PackedVector4Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-shader_parameter/specular_strength = 0.5
-shader_parameter/specular_k = 32.0
-shader_parameter/has_specular_map = false
-shader_parameter/metallic_value = 0.0
-shader_parameter/roughness_value = 1.0
-shader_parameter/shadow_steps = 64
-shader_parameter/shadow_min_step = 0.2
-shader_parameter/footprint_shadow = 16.0
-shader_parameter/directional_horizontal_scale = 32.0
-shader_parameter/directional_shadow_reach = 1.0
+[ext_resource type="PackedScene" uid="uid://dtpwxkxhrhsxg" path="res://UI/dialogue_trigger_3D.tscn" id="6_gw3t7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_viniy"]
 atlas = ExtResource("1_f72m4")
@@ -209,31 +189,36 @@ animations = [{
 "speed": 12.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_2s5nj"]
-radius = 215.69655
+[sub_resource type="SphereShape3D" id="SphereShape3D_yxyn3"]
+radius = 0.8227823
 
-[node name="item_swordTest" type="Node2D" unique_id=1635029874]
+[node name="item_swordTest" type="Node3D" unique_id=63391145]
 script = ExtResource("1_viniy")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2134087492]
-material = SubResource("ShaderMaterial_bvrdq")
+[node name="AnimatedSprite2D" type="AnimatedSprite3D" parent="." unique_id=593074189]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+billboard = 1
+shaded = true
+texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_yxyn3")
 animation = &"idle"
 
-[node name="LitPointLight2D" type="Node2D" parent="AnimatedSprite2D" unique_id=576209806]
-script = ExtResource("4_mrfkj")
-color = Color(1.1551381e-06, 0.7479858, 0.89947486, 1)
-energy = 50.0
-metadata/_custom_type_script = "uid://cpa2qb3trjq4k"
-
-[node name="DialogueTrigger" parent="." unique_id=141662482 instance=ExtResource("4_6ex6h")]
+[node name="DialogueTrigger2D" parent="." unique_id=1923978402 instance=ExtResource("6_gw3t7")]
 dialogue = ExtResource("4_dlg")
 interact_required = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DialogueTrigger" unique_id=1372814031]
-shape = SubResource("CircleShape2D_2s5nj")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DialogueTrigger2D" unique_id=484025939]
+shape = SubResource("SphereShape3D_yxyn3")
 
-[node name="input_prompt" parent="DialogueTrigger" unique_id=2053000391 node_paths=PackedStringArray("area") instance=ExtResource("5_f3i2y")]
-position = Vector2(0, -229)
-scale = Vector2(3, 3)
+[node name="input_prompt_3D" parent="DialogueTrigger2D" unique_id=819408125 node_paths=PackedStringArray("area") instance=ExtResource("4_6ex6h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.90454817, 1.1277971, 0)
 area = NodePath("..")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=750634271]
+visible = false
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1050288521]
+light_color = Color(0, 1, 1, 1)
+light_energy = 1.785
+light_size = 1.0
+shadow_enabled = true

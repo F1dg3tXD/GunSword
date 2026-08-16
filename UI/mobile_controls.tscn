@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://687dwq6o4eqo"]
 
 [ext_resource type="Texture2D" uid="uid://bg535877ussfm" path="res://addons/mobile-controls-1/Vector/Icons/icon_search.svg" id="1_7migo"]
+[ext_resource type="Script" uid="uid://duf0i5honor7i" path="res://UI/mobile_controls.gd" id="1_kylme"]
 [ext_resource type="Theme" uid="uid://ci5yymp3kg1am" path="res://mainMenu/resources/themes/gravity.tres" id="2_btn5m"]
 [ext_resource type="Texture2D" uid="uid://qe1ivchvrcdu" path="res://addons/mobile-controls-1/Vector/Icons/icon_star.svg" id="2_opr3r"]
 [ext_resource type="Texture2D" uid="uid://c7w6ocmd1e62w" path="res://addons/mobile-controls-1/Vector/Icons/icon_sword.svg" id="3_y1uec"]
@@ -9,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://bvkgn7pb1mhg6" path="res://addons/mobile-controls-1/Vector/Icons/icon_arrow_rotate.svg" id="6_drjpk"]
 [ext_resource type="Texture2D" uid="uid://b2yxt3vq0t8vl" path="res://addons/mobile-controls-1/Vector/Icons/icon_pause.svg" id="6_ok521"]
 [ext_resource type="Texture2D" uid="uid://dhp1n5lwny1kw" path="res://addons/mobile-controls-1/Vector/Style C/dpad_element_north.svg" id="7_ko3j3"]
-[ext_resource type="Texture2D" uid="uid://clm0uy0bfjanw" path="res://addons/mobile-controls-1/Vector/Style C/dpad_element_south.svg" id="8_nvwxl"]
 [ext_resource type="Texture2D" uid="uid://d0v6nxq37c6pw" path="res://addons/mobile-controls-1/Vector/Icons/icon_hand.svg" id="11_nvwxl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2s5nj"]
@@ -17,6 +17,7 @@ radius = 30.0
 
 [node name="MobileControls" type="CanvasLayer" unique_id=586010774]
 layer = 16
+script = ExtResource("1_kylme")
 
 [node name="Control" type="Control" parent="." unique_id=2087242389]
 layout_mode = 3
@@ -87,20 +88,6 @@ offset_bottom = 313.0
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 
-[node name="shot_type_up" type="TouchScreenButton" parent="Control/HBoxContainer/VBoxContainer" unique_id=509873523]
-position = Vector2(37, 9)
-texture_normal = ExtResource("7_ko3j3")
-texture_pressed = ExtResource("7_ko3j3")
-shape = SubResource("CircleShape2D_2s5nj")
-action = "shot_type_up"
-
-[node name="shot_type_down" type="TouchScreenButton" parent="Control/HBoxContainer/VBoxContainer" unique_id=2139781995]
-position = Vector2(37, 123.000015)
-texture_normal = ExtResource("8_nvwxl")
-texture_pressed = ExtResource("8_nvwxl")
-shape = SubResource("CircleShape2D_2s5nj")
-action = "shot_type_down"
-
 [node name="shot_type_cycle" type="TouchScreenButton" parent="Control/HBoxContainer" unique_id=209363953]
 position = Vector2(121.00006, 54)
 scale = Vector2(1.9600012, 1.9600012)
@@ -163,10 +150,16 @@ texture_pressed = ExtResource("2_opr3r")
 shape = SubResource("CircleShape2D_2s5nj")
 action = "jump"
 
-[node name="fire2" type="TouchScreenButton" parent="Control/HBoxContainer2" unique_id=995867050]
+[node name="look_modifier" type="TouchScreenButton" parent="Control/HBoxContainer2" unique_id=995867050]
 position = Vector2(-120, 100)
 scale = Vector2(1.9600012, 1.9600012)
 texture_normal = ExtResource("5_7migo")
 texture_pressed = ExtResource("5_7migo")
 shape = SubResource("CircleShape2D_2s5nj")
-action = "fire2"
+
+[node name="sprint" type="TouchScreenButton" parent="Control/HBoxContainer2" unique_id=509873523]
+position = Vector2(53, -132)
+texture_normal = ExtResource("7_ko3j3")
+texture_pressed = ExtResource("7_ko3j3")
+shape = SubResource("CircleShape2D_2s5nj")
+action = "sprint"

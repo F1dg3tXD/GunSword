@@ -3,7 +3,6 @@ class_name InputIconText
 ## current input device. Used by the dialogue balloon to show button prompts.
 
 const MOBILE_ICON_BASE := "res://addons/mobile-controls-1/Vector/Icons/"
-const MOBILE_ICON_STYLE_C_BASE := "res://addons/mobile-controls-1/Vector/Style C/"
 const MOBILE_ICONS := {
 	&"interact": MOBILE_ICON_BASE + "icon_search.svg",
 	&"jump": MOBILE_ICON_BASE + "icon_star.svg",
@@ -12,8 +11,7 @@ const MOBILE_ICONS := {
 	&"fire3": MOBILE_ICON_BASE + "icon_crosshair.svg",
 	&"pause": MOBILE_ICON_BASE + "icon_pause.svg",
 	&"shot_type_cycle": MOBILE_ICON_BASE + "icon_arrow_rotate.svg",
-	&"shot_type_up": MOBILE_ICON_STYLE_C_BASE + "dpad_element_north.svg",
-	&"shot_type_down": MOBILE_ICON_STYLE_C_BASE + "dpad_element_south.svg",
+	&"sprint": MOBILE_ICON_BASE + "icon_burst.svg",
 	&"ui_accept": MOBILE_ICON_BASE + "icon_hand.svg",
 }
 

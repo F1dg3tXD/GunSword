@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://c1b4ivmy0x2iw"]
+
+[ext_resource type="Script" uid="uid://da2vs0ebqm6na" path="res://UI/input_prompt_2D.gd" id="1_vpnbh"]
+
+[node name="input_prompt_2D" type="Node2D" unique_id=1934751806]
+script = ExtResource("1_vpnbh")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1214128071]

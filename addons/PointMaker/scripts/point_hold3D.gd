@@ -17,8 +17,12 @@ var _available_animations: PackedStringArray = []
 var _is_holding := false
 var _timer := 0.0
 var _triggered := false
+var _mouse_inside := false
 
 func _ready():
+	input_ray_pickable = true
+	mouse_entered.connect(_on_mouse_entered)
+	mouse_exited.connect(_on_mouse_exited)
 	_refresh_animation_list()
 
 	if not has_node("CollisionShape3D") and not has_node("CollisionPolygon3D"):
@@ -26,7 +30,7 @@ func _ready():
 
 func _process(delta):
 	if _is_holding:
-		if cancel_on_move and not _is_mouse_inside():
+		if cancel_on_move and not _mouse_inside:
 			_end_hold()
 			return
 
@@ -40,11 +44,8 @@ func _process(delta):
 			if anim_player and anim_player.has_animation(animation_name):
 				if not anim_player.is_playing():
 					anim_player.play(animation_name)
-	else:
-		# No gravity-driven movement for hold in 3D; keep velocity zero
-		velocity = Vector3.ZERO
 
-func _input_event(event):
+func _input_event(_camera: Camera3D, event: InputEvent, _position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			_is_holding = true
@@ -55,6 +56,12 @@ func _input_event(event):
 			if _is_holding:
 				_end_hold()
 
+func _on_mouse_entered():
+	_mouse_inside = true
+
+func _on_mouse_exited():
+	_mouse_inside = false
+
 func _end_hold():
 	_is_holding = false
 	emit_signal("hold_released")
@@ -63,24 +70,6 @@ func _trigger_event():
 	var anim_player = get_node_or_null(animation_player_path)
 	if anim_player and anim_player.has_animation(animation_name):
 		anim_player.play(animation_name)
-
-func _is_mouse_inside() -> bool:
-	var shape = get_node_or_null("CollisionShape3D")
-	if not shape and parent and parent.has_node("CollisionShape3D"):
-		shape = parent.get_node("CollisionShape3D")
-	if not shape:
-		return true
-	# Raycast from camera through mouse position
-	var cam = get_viewport().get_camera_3d()
-	if not cam:
-		return true
-	var mouse_pos = get_viewport().get_mouse_position()
-	var ray_origin = cam.project_ray_origin(mouse_pos)
-	var ray_dir = cam.project_ray_direction(mouse_pos)
-	var max_dist = 1000.0
-	var hit_point = ray_origin + ray_dir * max_dist
-	var local_pos = shape.shape.to_local(hit_point)
-	return shape.shape.is_point_in_shape(local_pos)
 
 func _refresh_animation_list():
 	_available_animations.clear()

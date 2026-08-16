@@ -18,6 +18,9 @@ var hovered := false
 var triggered := false
 
 func _ready():
+	input_ray_pickable = true
+	mouse_entered.connect(_on_mouse_entered)
+	mouse_exited.connect(_on_mouse_exited)
 	_refresh_animation_list()
 
 	if not use_own_collision:
@@ -34,49 +37,21 @@ func _ready():
 				shape_node.scale = inherited_shape.scale
 				shape_node.owner = self.owner
 
-func _process(delta):
-	if not hovered:
-		# Raycast from camera through mouse position to check hover
-		var cam = get_viewport().get_camera_3d()
-		if cam:
-			var mouse_pos = get_viewport().get_mouse_position()
-			var ray_origin = cam.project_ray_origin(mouse_pos)
-			var ray_dir = cam.project_ray_direction(mouse_pos)
-			var max_dist = 1000.0
-			var hit_point = ray_origin + ray_dir * max_dist
-			var shape = get_node_or_null("CollisionShape3D")
-			if not shape and parent and parent.has_node("CollisionShape3D"):
-				shape = parent.get_node("CollisionShape3D")
-			if shape and shape.shape:
-				var local_pos = shape.shape.to_local(hit_point)
-				if shape.shape.is_point_in_shape(local_pos):
-					# Mouse is over this area
-					if not hovered:
-						hovered = true
-						emit_signal("hover_started")
-					if not trigger_once or not triggered:
-						_trigger_events()
-						triggered = true
-				else:
-					# Mouse left the area
-					if hovered:
-						hovered = false
-						emit_signal("hover_ended")
-						if stop_animation_on_exit:
-							_stop_animation()
-		else:
-			# No camera, fallback: check shape if mouse is somehow relevant
-			var shape = get_node_or_null("CollisionShape3D")
-			if shape and shape.shape:
-				var local_pos = shape.shape.to_local(Vector3.ZERO)
-				if shape.shape.is_point_in_shape(local_pos):
-					if not hovered:
-						hovered = true
-						emit_signal("hover_started")
-			else:
-				if hovered:
-					hovered = false
-					emit_signal("hover_ended")
+func _on_mouse_entered():
+	if hovered:
+		return
+	hovered = true
+	emit_signal("hover_started")
+	if not trigger_once or not triggered:
+		_trigger_events()
+		triggered = true
+
+func _on_mouse_exited():
+	if hovered:
+		hovered = false
+		emit_signal("hover_ended")
+		if stop_animation_on_exit:
+			_stop_animation()
 
 func _trigger_events():
 	for sound in sounds:

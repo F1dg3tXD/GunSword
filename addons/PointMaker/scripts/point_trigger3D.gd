@@ -18,6 +18,7 @@ var triggered := false
 var _available_animations: PackedStringArray = []
 
 func _ready():
+	input_ray_pickable = true
 	connect("body_entered", _on_body_entered)
 	connect("input_event", _on_input_event)
 	_refresh_animation_list()
@@ -28,7 +29,7 @@ func _on_body_entered(body):
 	triggered = true
 	_trigger_events()
 
-func _on_input_event(viewport, event, shape_idx):
+func _on_input_event(_camera: Camera3D, event: InputEvent, _position: Vector3, _normal: Vector3, _shape_idx: int):
 	if trigger_once and triggered:
 		return
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:

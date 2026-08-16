@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://ukuyjr7ni6ft"]
+
+[ext_resource type="Shader" uid="uid://bnclkmuutwvv6" path="res://addons/occlusion_window/shaders/occlusion_window_3D.gdshader" id="1_h0j1g"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_h0j1g")

@@ -1,3 +1,4 @@
+@tool
 extends InputIconMapper
 ## Shared InputIconMapper singleton (autoload "InputIcons") used across the game
 ## to look up device specific icons.

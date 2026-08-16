@@ -1,9 +1,13 @@
-extends CharacterBody2D
+extends CharacterBody3D
 
 signal damaged
 signal health_changed(health: float, max_health: float)
 
-const SPEED := 300.0
+const GRAVITY := 20.0
+
+@export_range(0.5, 10.0, 0.1) var walk_speed := 3.0
+@export_range(0.5, 12.0, 0.1) var sprint_speed := 4.5
+@export_range(0.5, 5.0, 0.1) var max_jump_height := 0.9
 
 enum FireMode { BLASTER, LASER }
 
@@ -11,10 +15,9 @@ const SWORD_SLASH_FUEL := 0.1
 const BLASTER_DRAIN_PER_SHOT := 0.05
 const LASER_DRAIN_PER_SECOND := 0.1
 
-const MAX_AIM_DIST := 500.0
-const LOOK_ARROW_MAX_POS := 100.0
+const MAX_AIM_DIST := 5.0
+const LOOK_ARROW_MAX_POS := 1.0
 const LOOK_ARROW_MAX_SCALE := 5.0
-const LOOK_ARROW_FORWARD_ANGLE := -PI / 2.0
 const PAN_TRIGGER_STRENGTH := 0.25
 const CROSSHAIR_SPIN_SPEED := 3.0
 const AIM_SMOOTHING := 12.0
@@ -22,19 +25,21 @@ const CROSSHAIR_SCALE_SMOOTHING := 30.0
 const ROT_SMOOTHING := 15.0
 const STICK_DEADZONE := 0.2
 const MOUSE_RECENTER_DELAY := 0.5
+const CAM_ORBIT_SPEED := 1.5
+const CAM_PITCH_MIN := -1.45
+const CAM_PITCH_MAX := 1.2
 const HIDE_OS_CURSOR := true
 
 enum AimScheme { NONE, STICK, MOUSE }
 
-@onready var sprite: AnimatedSprite2D = $sprite
-@onready var look_dir: Node2D = $lookDir
-@onready var look_arrow: Sprite2D = $lookDir/look_arrow
-@onready var crosshair: Node2D = $crosshair
-@onready var crosshair_sprite: Sprite2D = $crosshair/crosshair_sprite
+@onready var sprite: AnimatedSprite3D = $sprite
+@onready var look_arrow: TextureRect = $AimUI/look_arrow
+@onready var crosshair: TextureRect = $AimUI/crosshair
 @onready var pause_menu_layer: CanvasLayer = $PauseMenuLayer
-@onready var camera_2d: Camera2D = $DampedSpringJoint2D/CameraCollider/Camera2D
-@onready var camera_collider: RigidBody2D = $DampedSpringJoint2D/CameraCollider
-@onready var mobile_controls: CanvasLayer = $DampedSpringJoint2D/CameraCollider/Camera2D/MobileControls
+@onready var camera_rig: Node3D = $CameraRig
+@onready var spring_arm: SpringArm3D = $CameraRig/SpringArm3D
+@onready var camera_3d: Camera3D = $CameraRig/SpringArm3D/Camera3D
+@onready var mobile_controls: CanvasLayer = $MobileControls
 
 var move_stick := Vector2.ZERO
 var aim_stick := Vector2.ZERO
@@ -56,13 +61,12 @@ var _aim_offset := Vector2.ZERO
 var _aim_strength := 0.0
 var _pan_strength := 0.0
 var _mouse_idle_time := 1.0
-var _camera_on_collider := true
 
 var _movement_locked := false
 var _dialogue_locked := false
 var _move_dir := Vector2.ZERO
 var _moving := false
-var cutscene_velocity := Vector2.ZERO
+var cutscene_velocity := Vector3.ZERO
 
 
 func lock_movement() -> void:
@@ -75,22 +79,21 @@ func unlock_movement() -> void:
 	_movement_locked = false
 
 
-func set_cutscene_velocity(new_velocity: Vector2) -> void:
+func set_cutscene_velocity(new_velocity: Vector3) -> void:
 	## Moves the player while movement is locked, for cutscenes.
-	## Pass Vector2.ZERO to stop.
+	## Pass Vector3.ZERO to stop.
 	cutscene_velocity = new_velocity
 
 
 func _ready() -> void:
 	add_to_group("player")
-	# OpenGL/Compatibility builds (the web export) can't compile the non-GL receiver
-	# entry shaders, so repoint this scene's authored receiver material at the
-	# shaders/openGL/ twin. No-op on Forward+/Mobile.
 	if HIDE_OS_CURSOR:
 		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	look_arrow.position = Vector2.ZERO
 	look_arrow.scale = Vector2.ZERO
-	crosshair_sprite.scale = Vector2.ZERO
+	crosshair.scale = Vector2.ZERO
+	camera_3d.current = true
+	spring_arm.add_excluded_object(get_rid())
 	sprite.play("idle")
 	_update_mobile_controls()
 	XMBSave.register_save_adapter(self)
@@ -113,23 +116,61 @@ func _physics_process(delta: float) -> void:
 
 	_dialogue_locked = _dialogue_on_screen()
 	var input_move := move_stick if not (_movement_locked or _dialogue_locked) else Vector2.ZERO
-	if cutscene_velocity != Vector2.ZERO:
+	if cutscene_velocity != Vector3.ZERO:
 		velocity = cutscene_velocity
-		_move_dir = cutscene_velocity.normalized()
+		_move_dir = _world_to_camera_space(cutscene_velocity).normalized()
 		_moving = true
 	else:
-		velocity = input_move * SPEED
+		var speed := sprint_speed if Input.is_action_pressed("sprint") else walk_speed
+		var horizontal := _camera_space_to_world(input_move) * speed
+		velocity.x = horizontal.x
+		velocity.z = horizontal.z
+		if is_on_floor():
+			if not _dialogue_locked and not _movement_locked and Input.is_action_just_pressed("jump"):
+				velocity.y = _jump_velocity()
+			else:
+				velocity.y -= GRAVITY * delta
+		else:
+			if Input.is_action_just_released("jump") and velocity.y > 0.0:
+				velocity.y = 0.0
+			velocity.y -= GRAVITY * delta
 		_moving = input_move.length() > 0.01
 		_move_dir = input_move.normalized() if _moving else Vector2.ZERO
 	move_and_slide()
 
 	_update_weapon()
+	_update_shot_type()
 	_update_charge(delta)
 	_update_animation()
 	_update_aim(delta)
 	_update_camera(delta)
 	_update_pause()
 	_update_mobile_controls()
+
+
+func _camera_space_to_world(v: Vector2) -> Vector3:
+	## Camera-space uses the Godot screen convention: +x = screen right,
+	## +y = screen down. Maps to the ground plane relative to the camera yaw.
+	## Used for character movement only (stays horizontal).
+	var basis := camera_rig.global_transform.basis
+	return basis.x * v.x + basis.z * v.y
+
+
+func _aim_to_world(v: Vector2) -> Vector3:
+	## Maps a camera-space aim offset to a world offset from the player using
+	## the camera's FULL orientation (yaw + pitch), so panning is relative to
+	## the camera rotation. Aiming up raises the aim point above the ground
+	## (for aerial targets later); aiming below the ground clamps to it.
+	var basis := camera_3d.global_transform.basis
+	var offset := basis.x * v.x - basis.y * v.y
+	if offset.y < 0.0:
+		offset.y = 0.0
+	return offset
+
+
+func _world_to_camera_space(v: Vector3) -> Vector2:
+	var basis := camera_rig.global_transform.basis
+	return Vector2(basis.x.dot(v), basis.z.dot(v))
 
 
 func _update_weapon() -> void:
@@ -146,6 +187,23 @@ func _update_weapon() -> void:
 		else:
 			_play_action("slash")
 			add_kinetic_fuel(SWORD_SLASH_FUEL)
+
+
+func _update_shot_type() -> void:
+	if Input.is_action_just_pressed("shot_type_cycle"):
+		_cycle_fire_mode(1)
+
+
+func _jump_velocity() -> float:
+	return sqrt(2.0 * GRAVITY * max_jump_height)
+
+
+func _cycle_fire_mode(direction: int) -> void:
+	var modes := [FireMode.BLASTER, FireMode.LASER]
+	var index := modes.find(fire_mode)
+	if index < 0:
+		index = 0
+	fire_mode = modes[(index + direction + modes.size()) % modes.size()]
 
 
 func _update_charge(delta: float) -> void:
@@ -230,10 +288,10 @@ func _update_movement_anim() -> void:
 
 	if _pan_strength > 0.0:
 		if abs(_aim_offset.x) > 1.0:
-			facing_right = _aim_offset.x > 0.0
+			facing_right = not (_aim_offset.x > 0.0)
 	elif _moving:
 		if abs(_move_dir.x) > 0.1:
-			facing_right = _move_dir.x > 0.0
+			facing_right = not (_move_dir.x > 0.0)
 
 	if sprite.flip_h != facing_right:
 		sprite.flip_h = facing_right
@@ -242,7 +300,8 @@ func _update_movement_anim() -> void:
 
 
 func _update_aim(delta: float) -> void:
-	if aim_stick.length() > STICK_DEADZONE:
+	var orbit_active := Input.is_action_pressed("cam_modifier")
+	if not orbit_active and aim_stick.length() > STICK_DEADZONE:
 		_aim_scheme = AimScheme.STICK
 
 	_mouse_idle_time += delta
@@ -250,42 +309,52 @@ func _update_aim(delta: float) -> void:
 	var target_offset := Vector2.ZERO
 	match _aim_scheme:
 		AimScheme.STICK:
-			if aim_stick.length() > STICK_DEADZONE:
+			if not orbit_active and aim_stick.length() > STICK_DEADZONE:
 				target_offset = aim_stick * MAX_AIM_DIST
 		AimScheme.MOUSE:
 			if _mouse_idle_time < MOUSE_RECENTER_DELAY:
-				target_offset = (get_global_mouse_position() - global_position).limit_length(MAX_AIM_DIST)
+				target_offset = _mouse_aim_offset()
 
 	var smooth := 1.0 - exp(-AIM_SMOOTHING * delta)
 	_aim_offset = _aim_offset.lerp(target_offset, smooth)
 	_aim_strength = clampf(_aim_offset.length() / MAX_AIM_DIST, 0.0, 1.0)
 	_pan_strength = clampf((_aim_strength - PAN_TRIGGER_STRENGTH) / (1.0 - PAN_TRIGGER_STRENGTH), 0.0, 1.0)
 
-	crosshair.position = _aim_offset
-	crosshair_sprite.rotation += CROSSHAIR_SPIN_SPEED * delta
-	crosshair_sprite.scale = crosshair_sprite.scale.lerp(Vector2.ONE * _pan_strength, 1.0 - exp(-CROSSHAIR_SCALE_SMOOTHING * delta))
+	var anchor := global_position + Vector3.UP * 0.7
+	var aim_world := _aim_to_world(_aim_offset)
+	var viewport_size := get_viewport().get_visible_rect().size
+	var aim_screen := camera_3d.unproject_position(anchor + aim_world)
+	var crosshair_center := aim_screen.clamp(Vector2(40, 40), viewport_size - Vector2(40, 40))
+	crosshair.position = crosshair_center - crosshair.pivot_offset
+	crosshair.rotation += CROSSHAIR_SPIN_SPEED * delta
+	crosshair.scale = crosshair.scale.lerp(Vector2.ONE * _pan_strength, 1.0 - exp(-CROSSHAIR_SCALE_SMOOTHING * delta))
 
-	if _aim_offset.length() > 0.01:
-		look_dir.rotation = lerp_angle(look_dir.rotation, _aim_offset.angle() + LOOK_ARROW_FORWARD_ANGLE, 1.0 - exp(-ROT_SMOOTHING * delta))
+	if aim_world.length() > 0.01:
+		look_arrow.rotation = lerp_angle(look_arrow.rotation, _aim_offset.angle() - PI / 2.0, 1.0 - exp(-ROT_SMOOTHING * delta))
 
-	var arrow_pos := Vector2(0.0, LOOK_ARROW_MAX_POS * _pan_strength)
-	var arrow_scale := Vector2.ONE * LOOK_ARROW_MAX_SCALE * _pan_strength
-	look_arrow.position = look_arrow.position.lerp(arrow_pos, smooth)
-	look_arrow.scale = look_arrow.scale.lerp(arrow_scale, smooth)
+	var arrow_target := camera_3d.unproject_position(anchor + _aim_to_world(_aim_offset.limit_length(LOOK_ARROW_MAX_POS))) - look_arrow.pivot_offset
+	look_arrow.position = look_arrow.position.lerp(arrow_target, smooth)
+	look_arrow.scale = look_arrow.scale.lerp(Vector2.ONE * LOOK_ARROW_MAX_SCALE * _pan_strength, smooth)
+
+
+func _mouse_aim_offset() -> Vector2:
+	var viewport := get_viewport()
+	var viewport_size := viewport.get_visible_rect().size
+	var max_px := minf(viewport_size.x, viewport_size.y) * 0.5
+	var from_center := viewport.get_mouse_position() - viewport_size * 0.5
+	return (from_center / max_px).limit_length(1.0) * MAX_AIM_DIST
 
 
 func _update_camera(delta: float) -> void:
-	var aim_active := _pan_strength > 0.0
-	if aim_active and _camera_on_collider:
-		camera_2d.reparent(self, true)
-		_camera_on_collider = false
-	elif not aim_active and not _camera_on_collider:
-		camera_2d.reparent(camera_collider, true)
-		_camera_on_collider = true
+	if Input.is_action_pressed("cam_modifier") and aim_stick.length() > STICK_DEADZONE:
+		camera_rig.rotation.y += aim_stick.x * CAM_ORBIT_SPEED * delta
+		spring_arm.rotation.x = clampf(spring_arm.rotation.x + aim_stick.y * CAM_ORBIT_SPEED * delta, CAM_PITCH_MIN, CAM_PITCH_MAX)
 
-	var target_pos := _aim_offset if aim_active else Vector2.ZERO
+	var aim_active := _pan_strength > 0.0
+	var aim_world := _aim_to_world(_aim_offset)
+	var target_pos := Vector3(aim_world.x, 0.0, aim_world.z) if aim_active else Vector3.ZERO
 	var smooth := 1.0 - exp(-AIM_SMOOTHING * delta)
-	camera_2d.position = camera_2d.position.lerp(target_pos, smooth)
+	camera_rig.position = camera_rig.position.lerp(target_pos, smooth)
 
 
 func _update_pause() -> void:

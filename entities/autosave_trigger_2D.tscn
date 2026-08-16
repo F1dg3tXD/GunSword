@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://d3467gvines7j"]
+
+[ext_resource type="Script" uid="uid://cd0dyy7kh44ps" path="res://entities/autosave_trigger_2D.gd" id="1_fbwym"]
+
+[node name="autosave_trigger_2D" type="Area2D" unique_id=363177188]
+collision_layer = 0
+script = ExtResource("1_fbwym")

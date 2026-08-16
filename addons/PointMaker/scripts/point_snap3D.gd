@@ -85,8 +85,8 @@ func try_snap(point_drag: Node):
 	if lock_when_snapped:
 		if snapped_object.has_method("set_process_input"):
 			snapped_object.set_process_input(false)
-		if snapped_object.has_method("set_pickable"):
-			snapped_object.set_pickable(false)
+		if snapped_object.has_method("set_input_ray_pickable"):
+			snapped_object.set_input_ray_pickable(false)
 
 	_play_sound(correct_snap_sound)
 	_play_animation(snap_in_animation)
@@ -100,8 +100,8 @@ func _on_drag_started():
 		if lock_when_snapped:
 			if snapped_object.has_method("set_process_input"):
 				snapped_object.set_process_input(true)
-			if snapped_object.has_method("set_pickable"):
-				snapped_object.set_pickable(true)
+			if snapped_object.has_method("set_input_ray_pickable"):
+				snapped_object.set_input_ray_pickable(true)
 
 		_play_sound(unsnap_sound)
 		_play_animation(snap_out_animation)

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dtpwxkxhrhsxg"]
+
+[ext_resource type="Script" uid="uid://6ib7qh7v8cta" path="res://UI/dialogue_trigger_3D.gd" id="1_vxe27"]
+
+[node name="DialogueTrigger3D" type="Area3D" unique_id=1923978402]
+script = ExtResource("1_vxe27")

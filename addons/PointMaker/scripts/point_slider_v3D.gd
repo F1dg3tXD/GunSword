@@ -1,6 +1,5 @@
 @tool
 extends Area2D
-class_name PointSliderV
 
 signal value_changed(value: float)
 signal value_set(value: float)

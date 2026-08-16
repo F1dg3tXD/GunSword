@@ -81,6 +81,12 @@ func _enter_tree():
 		preload("res://addons/PointMaker/scripts/point_hold3D.gd"),
 		preload("res://addons/PointMaker/icons/pointHold3D.PNG"))
 
+	add_custom_type(
+		"PointTrigger3D",
+		"Area3D",
+		preload("res://addons/PointMaker/scripts/point_trigger3D.gd"),
+		preload("res://addons/PointMaker/icons/pointTrigger3D.PNG"))
+
 func _exit_tree():
 	remove_custom_type("PointTrigger2D")
 	remove_custom_type("PointHover2D")
@@ -95,3 +101,4 @@ func _exit_tree():
 	remove_custom_type("PointHover3D")
 	remove_custom_type("PointSnap3D")
 	remove_custom_type("PointHold3D")
+	remove_custom_type("PointTrigger3D")

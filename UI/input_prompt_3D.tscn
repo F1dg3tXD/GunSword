@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://ble3up6hk68np"]
+
+[ext_resource type="Script" uid="uid://choejy6ytakl3" path="res://UI/input_prompt_3D.gd" id="1_n3vmd"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_kts7d"]
+size = Vector2(128, 128)
+
+[node name="input_prompt_3D" type="Node3D" unique_id=819408125]
+script = ExtResource("1_n3vmd")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=486619286]
+billboard = 1
+texture = SubResource("PlaceholderTexture2D_kts7d")

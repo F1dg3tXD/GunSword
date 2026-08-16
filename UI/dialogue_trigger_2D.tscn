@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bstwqf0ujpm6e"]
+
+[ext_resource type="Script" uid="uid://b812pgrpunqah" path="res://UI/dialogue_trigger_2D.gd" id="1_6k7mk"]
+
+[node name="DialogueTrigger2D" type="Area2D" unique_id=887649491]
+script = ExtResource("1_6k7mk")

@@ -1,9 +1,9 @@
-extends Node2D
+extends Node3D
 
-@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+@onready var animated_sprite_3d: AnimatedSprite3D = $AnimatedSprite2D
 
 func _ready() -> void:
-	animated_sprite_2d.play("idle")
+	animated_sprite_3d.play("idle")
 
 func _physics_process(_delta: float) -> void:
 	pass

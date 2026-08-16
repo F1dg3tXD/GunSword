@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://hjq1v8q40uio"]
+
+[node name="PlayerRevealViewport" type="SubViewport" unique_id=990770601]
+transparent_bg = true
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1465096390]
+cull_mask = 524288

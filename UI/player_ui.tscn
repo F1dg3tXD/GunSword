@@ -264,7 +264,7 @@ offset_right = 112.0
 offset_bottom = 378.0
 alignment = 1
 
-[node name="blasterChargeGauge" type="ProgressBar" parent="Gauges/HBoxContainer" unique_id=779538990]
+[node name="laserChargeGauge" type="ProgressBar" parent="Gauges/HBoxContainer" unique_id=779538990]
 layout_mode = 2
 size_flags_vertical = 1
 theme = SubResource("Theme_8w2om")
@@ -273,7 +273,7 @@ rounded = true
 fill_mode = 3
 show_percentage = false
 
-[node name="laserChargeGauge" type="ProgressBar" parent="Gauges/HBoxContainer" unique_id=1831443291]
+[node name="blasterChargeGauge" type="ProgressBar" parent="Gauges/HBoxContainer" unique_id=1831443291]
 layout_mode = 2
 size_flags_vertical = 1
 theme = SubResource("Theme_yxyn3")

@@ -42,7 +42,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/console/plugin.cfg", "res://addons/dialogue_manager/plugin.cfg", "res://addons/godot_xmb/plugin.cfg", "res://addons/maaacks_menus_template/plugin.cfg", "res://addons/occlusion_window/plugin.cfg")
+enabled=PackedStringArray("res://addons/PointMaker/plugin.cfg", "res://addons/console/plugin.cfg", "res://addons/dialogue_manager/plugin.cfg", "res://addons/godot_xmb/plugin.cfg", "res://addons/maaacks_menus_template/plugin.cfg", "res://addons/occlusion_window/plugin.cfg")
 
 [global_group]
 
@@ -125,9 +125,9 @@ fire1={
 , Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":4,"axis_value":1.0,"script":null)
 ]
 }
-fire2={
+cam_modifier={
 "deadzone": 0.2,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":81,"key_label":0,"unicode":113,"location":0,"echo":false,"script":null)
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194326,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":10,"pressure":0.0,"pressed":true,"script":null)
 ]
 }
@@ -137,15 +137,9 @@ shot_type_cycle={
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":9,"pressure":0.0,"pressed":true,"script":null)
 ]
 }
-shot_type_up={
+sprint={
 "deadzone": 0.2,
-"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":4,"canceled":false,"pressed":false,"double_click":false,"script":null)
-, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":3,"pressure":0.0,"pressed":true,"script":null)
-]
-}
-shot_type_down={
-"deadzone": 0.2,
-"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":5,"canceled":false,"pressed":false,"double_click":false,"script":null)
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194325,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":1,"pressure":0.0,"pressed":true,"script":null)
 ]
 }
@@ -163,17 +157,31 @@ locale/translations_pot_files=PackedStringArray("res://dialogues/test_sword.dial
 
 [layer_names]
 
+3d_render/layer_1="World"
+3d_render/layer_2="Player"
+3d_render/layer_3="Obstruction geometry"
+3d_render/layer_4="Player reveal"
 2d_render/layer_16="UI"
 2d_physics/layer_1="env"
 2d_navigation/layer_1="env"
+3d_physics/layer_1="env"
+3d_navigation/layer_1="env"
 2d_physics/layer_2="water"
 2d_navigation/layer_2="water"
+3d_physics/layer_2="water"
+3d_navigation/layer_2="water"
 2d_physics/layer_3="player"
 2d_navigation/layer_3="player"
+3d_physics/layer_3="player"
+3d_navigation/layer_3="player"
 2d_physics/layer_4="camera"
 2d_navigation/layer_4="camera"
+3d_physics/layer_4="camera"
+3d_navigation/layer_4="camera"
 2d_physics/layer_5="projectiles"
 2d_navigation/layer_5="projectiles"
+3d_physics/layer_5="projectiles"
+3d_navigation/layer_5="projectiles"
 avoidance/layer_1="env"
 avoidance/layer_2="water"
 avoidance/layer_3="player"
@@ -198,43 +206,43 @@ textures/vram_compression/import_etc2_astc=true
 
 [shader_globals]
 
-lit_window_a_center={
+occlusion_window_a_center={
 "type": "vec2",
 "value": Vector2(0, 0)
 }
-lit_window_a_radius={
+occlusion_window_a_radius={
 "type": "vec2",
 "value": Vector2(0, 0)
 }
-lit_window_a_softness={
+occlusion_window_a_softness={
 "type": "float",
 "value": 0.35
 }
-lit_window_a_depth={
+occlusion_window_a_depth={
 "type": "float",
 "value": 0.0
 }
-lit_window_a_fade={
+occlusion_window_a_fade={
 "type": "float",
 "value": 40.0
 }
-lit_window_b_center={
+occlusion_window_b_center={
 "type": "vec2",
 "value": Vector2(0, 0)
 }
-lit_window_b_radius={
+occlusion_window_b_radius={
 "type": "vec2",
 "value": Vector2(0, 0)
 }
-lit_window_b_softness={
+occlusion_window_b_softness={
 "type": "float",
 "value": 0.35
 }
-lit_window_b_depth={
+occlusion_window_b_depth={
 "type": "float",
 "value": 0.0
 }
-lit_window_b_fade={
+occlusion_window_b_fade={
 "type": "float",
 "value": 40.0
 }
