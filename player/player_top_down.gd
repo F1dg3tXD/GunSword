@@ -86,7 +86,6 @@ func _ready() -> void:
 	# OpenGL/Compatibility builds (the web export) can't compile the non-GL receiver
 	# entry shaders, so repoint this scene's authored receiver material at the
 	# shaders/openGL/ twin. No-op on Forward+/Mobile.
-	LitShaderLibrary.ensure_gl_materials(self)
 	if HIDE_OS_CURSOR:
 		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	look_arrow.position = Vector2.ZERO

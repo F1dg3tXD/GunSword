@@ -54,7 +54,7 @@ func _enter_tree():
 		"PointLoad",
 		"Node",
 		preload("res://addons/PointMaker/scripts/point_load.gd"),
-		preload("res://addons/PointMaker/icons/pointLoad3D.PNG"))
+		preload("res://addons/PointMaker/icons/pointLoad2D.PNG"))
 		
 
 	add_custom_type(

@@ -1,0 +1,1 @@
+Test content written within the project folder.

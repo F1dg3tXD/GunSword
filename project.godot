@@ -42,7 +42,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/PointMaker/plugin.cfg", "res://addons/console/plugin.cfg", "res://addons/dialogue_manager/plugin.cfg", "res://addons/godot_xmb/plugin.cfg", "res://addons/maaacks_menus_template/plugin.cfg", "res://addons/occlusion_window/plugin.cfg")
+enabled=PackedStringArray("res://addons/console/plugin.cfg", "res://addons/dialogue_manager/plugin.cfg", "res://addons/godot_xmb/plugin.cfg", "res://addons/maaacks_menus_template/plugin.cfg", "res://addons/occlusion_window/plugin.cfg")
 
 [global_group]
 
