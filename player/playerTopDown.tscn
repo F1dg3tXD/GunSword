@@ -15,14 +15,20 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ydmpb"]
 shader = ExtResource("3_ydmpb")
 shader_parameter/modulate_color = Color(1, 1, 1, 1)
+shader_parameter/outline_width = 3.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xhair"]
 atlas = ExtResource("5_dm3jn")
-region = Rect2(0, 0, 64, 64)
+region = Rect2(-22, -22, 100, 100)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_npu4n"]
+shader = ExtResource("3_ydmpb")
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+shader_parameter/outline_width = 2.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_arrow"]
 atlas = ExtResource("4_4v0de")
-region = Rect2(22.48, 0, 20, 72)
+region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_yxyn3"]
 radius = 7.0
@@ -53,22 +59,21 @@ layer = 2
 [node name="crosshair" type="TextureRect" parent="AimUI" unique_id=438960074]
 texture_filter = 1
 material = SubResource("ShaderMaterial_ydmpb")
-offset_left = -37.0
-offset_top = -37.0
-offset_right = 37.0
-offset_bottom = 37.0
-pivot_offset = Vector2(37, 37)
+offset_left = -54.0
+offset_top = -54.0
+offset_right = 46.0
+offset_bottom = 46.0
+pivot_offset = Vector2(54, 54)
 mouse_filter = 2
 texture = SubResource("AtlasTexture_xhair")
+stretch_mode = 3
 
 [node name="look_arrow" type="TextureRect" parent="AimUI" unique_id=650276523]
-offset_left = -10.0
-offset_top = -36.0
-offset_right = 10.0
-offset_bottom = 36.0
-pivot_offset = Vector2(10, 36)
+material = SubResource("ShaderMaterial_npu4n")
 mouse_filter = 2
 texture = SubResource("AtlasTexture_arrow")
+expand_mode = 1
+stretch_mode = 3
 
 [node name="CameraRig" type="Node3D" parent="." unique_id=402015793]
 

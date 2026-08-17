@@ -33,6 +33,16 @@ const HIDE_OS_CURSOR := true
 const CAM_MODIFIER_TAP_THRESHOLD := 0.2
 const TARGET_SWAP_COOLDOWN := 0.3
 
+const SPIN_SPEED_ENEMY := 6.0
+const SPIN_SPEED_FRIEND := 1.5
+const SPIN_SPEED_POI := 3.0
+
+const TARGET_SPIN_SPEEDS := {
+	TargetType.ENEMY: SPIN_SPEED_ENEMY,
+	TargetType.FRIEND: SPIN_SPEED_FRIEND,
+	TargetType.POI: SPIN_SPEED_POI,
+}
+
 enum TargetType { ENEMY, FRIEND, POI }
 
 const TARGET_COLORS := {
@@ -349,13 +359,22 @@ func _update_aim(delta: float) -> void:
 		if to_target.length_squared() > 0.01:
 			var cam_right := camera_rig.global_transform.basis.x
 			facing_right = cam_right.dot(to_target) > 0.0
+		var player_screen := camera_3d.unproject_position(global_position + Vector3.UP * 0.7)
 		var target_screen := camera_3d.unproject_position(_current_target.global_position + Vector3.UP * 0.7)
 		var viewport_size := get_viewport().get_visible_rect().size
 		crosshair.position = target_screen - crosshair.pivot_offset
-		crosshair.rotation = 0.0
+		var spin_speed: float = TARGET_SPIN_SPEEDS.get(_get_target_type(_current_target), CROSSHAIR_SPIN_SPEED)
+		crosshair.rotation += spin_speed * delta
 		crosshair.scale = Vector2.ONE
-		look_arrow.position = Vector2.ZERO
-		look_arrow.scale = Vector2.ZERO
+
+		var arrow_to_target := target_screen - player_screen
+		if arrow_to_target.length() > 1.0:
+			look_arrow.position = player_screen + arrow_to_target.normalized() * 60.0 - look_arrow.pivot_offset
+			look_arrow.rotation = lerp_angle(look_arrow.rotation, arrow_to_target.angle() - PI / 2.0, 1.0 - exp(-ROT_SMOOTHING * delta))
+			look_arrow.scale = look_arrow.scale.lerp(Vector2.ONE * 1.5, 1.0 - exp(-CROSSHAIR_SCALE_SMOOTHING * delta))
+		else:
+			look_arrow.position = Vector2.ZERO
+			look_arrow.scale = look_arrow.scale.lerp(Vector2.ZERO, 1.0 - exp(-CROSSHAIR_SCALE_SMOOTHING * delta))
 		return
 
 	var orbit_active := Input.is_action_pressed("cam_modifier")

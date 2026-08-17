@@ -5,7 +5,7 @@ const PlayerScript := preload("res://player/player_top_down.gd")
 const ORBIT_YAW_PER_PIXEL := 0.006
 const ORBIT_PITCH_PER_PIXEL := 0.004
 
-@onready var look_modifier: TouchScreenButton = $Control/HBoxContainer2/look_modifier
+@onready var cam_modifier: TouchScreenButton = $Control/HBoxContainer2/cam_modifier
 
 var _drag_index := -1
 
@@ -13,14 +13,14 @@ var _drag_index := -1
 func _input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch:
 		if event.pressed:
-			if _drag_index == -1 and look_modifier.is_pressed():
+			if _drag_index == -1 and cam_modifier.is_pressed():
 				_drag_index = event.index
 		elif event.index == _drag_index:
 			_drag_index = -1
 	elif event is InputEventScreenDrag:
 		if event.index == _drag_index:
 			_orbit(event.relative)
-		elif _drag_index == -1 and look_modifier.is_pressed():
+		elif _drag_index == -1 and cam_modifier.is_pressed():
 			_drag_index = event.index
 			_orbit(event.relative)
 
