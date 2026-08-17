@@ -203,14 +203,14 @@ texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_yxyn3")
 animation = &"idle"
 
-[node name="DialogueTrigger2D" parent="." unique_id=1923978402 instance=ExtResource("6_gw3t7")]
+[node name="DialogueTrigger3D" parent="." unique_id=1923978402 instance=ExtResource("6_gw3t7")]
 dialogue = ExtResource("4_dlg")
 interact_required = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="DialogueTrigger2D" unique_id=484025939]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DialogueTrigger3D" unique_id=484025939]
 shape = SubResource("SphereShape3D_yxyn3")
 
-[node name="input_prompt_3D" parent="DialogueTrigger2D" unique_id=819408125 node_paths=PackedStringArray("area") instance=ExtResource("4_6ex6h")]
+[node name="input_prompt_3D" parent="DialogueTrigger3D" unique_id=819408125 node_paths=PackedStringArray("area") instance=ExtResource("4_6ex6h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.90454817, 1.1277971, 0)
 area = NodePath("..")
 

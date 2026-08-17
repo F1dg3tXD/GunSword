@@ -34,6 +34,7 @@ const MOBILE_ICONS := {
 var _mode := MODE_KEYBOARD_MOUSE
 var _player_in_range := false
 var _show := false
+var _z_targeted := false
 
 @onready var sprite_3d: Sprite3D = $Sprite3D
 
@@ -48,7 +49,7 @@ func _ready() -> void:
 		sprite_3d.visible = false
 
 func _process(delta: float) -> void:
-	_player_in_range = _any_player_in_area()
+	_player_in_range = _z_targeted or _any_player_in_area()
 	_show = sprite_3d.texture != null and (area == null or _player_in_range)
 	if _show:
 		sprite_3d.visible = true
@@ -61,6 +62,10 @@ func _process(delta: float) -> void:
 		if sprite_3d.scale.distance_to(Vector3.ZERO) < 0.001:
 			sprite_3d.scale = Vector3.ZERO
 			sprite_3d.visible = false
+
+func set_z_targeted(active: bool) -> void:
+	_z_targeted = active
+	_refresh()
 
 func _any_player_in_area() -> bool:
 	if area == null:

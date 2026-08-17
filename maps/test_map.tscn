@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://ckwgj3o8yfn1q" path="res://entities/autosave_trigger_3D.tscn" id="4_cabd0"]
 [ext_resource type="Texture2D" uid="uid://dk4uhhota7koj" path="res://addons/mobile-controls-1/Sprites/Icons/Large (2×)/icon_save.png" id="5_k1jtb"]
 [ext_resource type="AudioStream" uid="uid://ckllv2jbbnif7" path="res://music/pov you wake up and remember nothing.ogg" id="6_k1jtb"]
+[ext_resource type="Shader" uid="uid://dyvq3rjnkslu1" path="res://addons/cylinder_cut/shaders/cylinder_cut_receiver.gdshader" id="7_pbr4s"]
+[ext_resource type="PackedScene" uid="uid://be5muniuvru8l" path="res://entities/target.tscn" id="8_6b7mj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_b71ab"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -21,6 +23,14 @@ glow_enabled = true
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_yxyn3"]
 radius = 0.70133007
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6b7mj"]
+render_priority = 0
+shader = ExtResource("7_pbr4s")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ydmpb"]
+render_priority = 0
+shader = ExtResource("7_pbr4s")
 
 [node name="test_map" type="Node3D" unique_id=789246963]
 
@@ -46,7 +56,7 @@ data = {
 "cells": PackedInt32Array(0, 65535, 28, 0, 0, 28, 65535, 0, 28, 65535, 65535, 28, 1, 65535, 28, 1, 0, 28, 2, 0, 28, 1, 1, 28, 0, 1, 28, 0, 2, 28, 65535, 2, 28, 65534, 2, 28, 65533, 2, 28, 65533, 1, 28, 65533, 0, 28, 65533, 65535, 655418, 65534, 65535, 28, 65535, 3, 28, 65534, 3, 28, 65533, 3, 1441850, 65534, 1, 28, 65534, 0, 28, 65535, 1, 28, 2, 1, 28, 3, 1, 28, 4, 1, 28, 5, 1, 28, 3, 0, 28, 3, 65535, 28, 2, 65535, 28, 2, 2, 28, 1, 2, 28, 3, 3, 28, 4, 3, 28, 5, 3, 28, 6, 3, 28, 7, 3, 28, 7, 2, 28, 6, 2, 28, 6, 1, 28, 5, 0, 28, 4, 0, 28, 3, 2, 28, 4, 2, 28, 5, 2, 28, 2, 3, 28, 1, 3, 28, 0, 3, 28, 0, 4, 28, 1, 5, 28, 2, 5, 28, 3, 6, 28, 4, 7, 28, 5, 7, 28, 6, 7, 58, 6, 6, 28, 6, 5, 28, 6, 4, 28, 5, 6, 28, 4, 6, 28, 4, 5, 28, 5, 5, 28, 3, 5, 28, 3, 4, 28, 2, 4, 28, 1, 4, 28, 4, 4, 28, 5, 4, 28, 7, 4, 64, 3, 7, 1441856, 2, 6, 1441856, 0, 5, 1441856, 65535, 4, 1441856, 7, 1, 1048640, 6, 0, 1048640, 4, 65535, 1048640)
 }
 
-[node name="item_swordTest" parent="." unique_id=63391145 instance=ExtResource("2_b71ab")]
+[node name="item_swordTest" parent="." unique_id=63391145 groups=["poi", "target"] instance=ExtResource("2_b71ab")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10189152, 2.205772, 3.6223884)
 
 [node name="autosave_trigger_3D" parent="." unique_id=1825605848 instance=ExtResource("4_cabd0")]
@@ -64,3 +74,23 @@ texture = ExtResource("5_k1jtb")
 process_mode = 3
 stream = ExtResource("6_k1jtb")
 bus = &"Music"
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1727573383]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 3, 3)
+use_collision = true
+size = Vector3(0.001, 5, 7)
+material = SubResource("ShaderMaterial_6b7mj")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=1936528530]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 3, 3)
+use_collision = true
+material = SubResource("ShaderMaterial_ydmpb")
+
+[node name="Target" parent="." unique_id=1309049677 groups=["enemy", "target"] instance=ExtResource("8_6b7mj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.3424163, 1.1000004, 9.622597)
+
+[node name="Target2" parent="." unique_id=178995157 groups=["friend", "target"] instance=ExtResource("8_6b7mj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.3424163, 1.1000004, 8.199203)
+
+[node name="Target3" parent="." unique_id=670480811 groups=["poi", "target"] instance=ExtResource("8_6b7mj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.3424163, 1.1000004, 6.503128)

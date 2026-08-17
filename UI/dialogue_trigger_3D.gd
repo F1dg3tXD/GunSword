@@ -8,6 +8,7 @@ var _player_in_range := false
 var _auto_started := false
 var _balloon: Node = null
 var _player: Node = null
+var _z_targeted := false
 
 
 func _ready() -> void:
@@ -16,7 +17,7 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	if _balloon != null or not _player_in_range:
+	if _balloon != null or not (_player_in_range or _z_targeted):
 		return
 	if interact_required:
 		if Input.is_action_just_pressed("interact"):
@@ -51,6 +52,12 @@ func _on_balloon_closed() -> void:
 		_player.damaged.disconnect(_on_player_damaged)
 	_player = null
 	_balloon = null
+
+
+func set_z_targeted(active: bool) -> void:
+	_z_targeted = active
+	if active:
+		_auto_started = false
 
 
 func _on_trigger_body_entered(body: Node3D) -> void:

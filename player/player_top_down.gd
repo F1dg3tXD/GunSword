@@ -30,6 +30,23 @@ const CAM_PITCH_MIN := -1.45
 const CAM_PITCH_MAX := 1.2
 const HIDE_OS_CURSOR := true
 
+const CAM_MODIFIER_TAP_THRESHOLD := 0.2
+const TARGET_SWAP_COOLDOWN := 0.3
+
+enum TargetType { ENEMY, FRIEND, POI }
+
+const TARGET_COLORS := {
+	TargetType.ENEMY: Color(1.0, 0.25, 0.25),
+	TargetType.FRIEND: Color(0.25, 1.0, 0.25),
+	TargetType.POI: Color(1.0, 1.0, 0.25),
+}
+
+const TARGET_GROUPS := {
+	"enemy": TargetType.ENEMY,
+	"friend": TargetType.FRIEND,
+	"poi": TargetType.POI,
+}
+
 enum AimScheme { NONE, STICK, MOUSE }
 
 @onready var sprite: AnimatedSprite3D = $sprite
@@ -40,6 +57,8 @@ enum AimScheme { NONE, STICK, MOUSE }
 @onready var spring_arm: SpringArm3D = $CameraRig/SpringArm3D
 @onready var camera_3d: Camera3D = $CameraRig/SpringArm3D/Camera3D
 @onready var mobile_controls: CanvasLayer = $MobileControls
+
+@onready var target_area: Area3D = $targetArea
 
 var move_stick := Vector2.ZERO
 var aim_stick := Vector2.ZERO
@@ -61,6 +80,14 @@ var _aim_offset := Vector2.ZERO
 var _aim_strength := 0.0
 var _pan_strength := 0.0
 var _mouse_idle_time := 1.0
+
+var _cam_pressed := false
+var _cam_press_time := 0.0
+var _targeting := false
+var _current_target: Node3D = null
+var _target_swap_cooldown := 0.0
+var _crosshair_material: ShaderMaterial = null
+var _mouse_delta := Vector2.ZERO
 
 var _movement_locked := false
 var _dialogue_locked := false
@@ -92,6 +119,7 @@ func _ready() -> void:
 	look_arrow.position = Vector2.ZERO
 	look_arrow.scale = Vector2.ZERO
 	crosshair.scale = Vector2.ZERO
+	_crosshair_material = crosshair.material as ShaderMaterial
 	camera_3d.current = true
 	spring_arm.add_excluded_object(get_rid())
 	sprite.play("idle")
@@ -108,11 +136,23 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion or event is InputEventMouseButton:
 		_aim_scheme = AimScheme.MOUSE
 		_mouse_idle_time = 0.0
+	if event is InputEventMouseMotion and Input.is_action_pressed("cam_modifier"):
+		_mouse_delta += event.relative
 
 
 func _physics_process(delta: float) -> void:
 	move_stick = Input.get_vector("left", "right", "up", "down")
 	aim_stick = Input.get_vector("aim_left", "aim_right", "aim_up", "aim_down")
+
+	if Input.is_action_just_pressed("cam_modifier"):
+		_cam_pressed = true
+		_cam_press_time = 0.0
+	if _cam_pressed:
+		_cam_press_time += delta
+		if not Input.is_action_pressed("cam_modifier"):
+			if _cam_press_time <= CAM_MODIFIER_TAP_THRESHOLD:
+				_toggle_targeting()
+			_cam_pressed = false
 
 	_dialogue_locked = _dialogue_on_screen()
 	var input_move := move_stick if not (_movement_locked or _dialogue_locked) else Vector2.ZERO
@@ -143,6 +183,7 @@ func _physics_process(delta: float) -> void:
 	_update_charge(delta)
 	_update_animation()
 	_update_aim(delta)
+	_update_targeting(delta)
 	_update_camera(delta)
 	_update_pause()
 	_update_mobile_controls()
@@ -300,6 +341,23 @@ func _update_movement_anim() -> void:
 
 
 func _update_aim(delta: float) -> void:
+	if _targeting and _current_target != null:
+		_aim_offset = Vector2.ZERO
+		_aim_strength = 0.0
+		_pan_strength = 0.0
+		var to_target := _current_target.global_position - global_position
+		if to_target.length_squared() > 0.01:
+			var cam_right := camera_rig.global_transform.basis.x
+			facing_right = cam_right.dot(to_target) > 0.0
+		var target_screen := camera_3d.unproject_position(_current_target.global_position + Vector3.UP * 0.7)
+		var viewport_size := get_viewport().get_visible_rect().size
+		crosshair.position = target_screen - crosshair.pivot_offset
+		crosshair.rotation = 0.0
+		crosshair.scale = Vector2.ONE
+		look_arrow.position = Vector2.ZERO
+		look_arrow.scale = Vector2.ZERO
+		return
+
 	var orbit_active := Input.is_action_pressed("cam_modifier")
 	if not orbit_active and aim_stick.length() > STICK_DEADZONE:
 		_aim_scheme = AimScheme.STICK
@@ -346,15 +404,29 @@ func _mouse_aim_offset() -> Vector2:
 
 
 func _update_camera(delta: float) -> void:
-	if Input.is_action_pressed("cam_modifier") and aim_stick.length() > STICK_DEADZONE:
-		camera_rig.rotation.y += aim_stick.x * CAM_ORBIT_SPEED * delta
-		spring_arm.rotation.x = clampf(spring_arm.rotation.x + aim_stick.y * CAM_ORBIT_SPEED * delta, CAM_PITCH_MIN, CAM_PITCH_MAX)
+	var orbit_active := Input.is_action_pressed("cam_modifier") and _cam_press_time > CAM_MODIFIER_TAP_THRESHOLD
+	if orbit_active and not _targeting:
+		if aim_stick.length() > STICK_DEADZONE:
+			camera_rig.rotation.y += aim_stick.x * CAM_ORBIT_SPEED * delta
+			spring_arm.rotation.x = clampf(spring_arm.rotation.x + aim_stick.y * CAM_ORBIT_SPEED * delta, CAM_PITCH_MIN, CAM_PITCH_MAX)
+		if _mouse_delta.length_squared() > 0.001:
+			camera_rig.rotation.y -= _mouse_delta.x * 0.003
+			spring_arm.rotation.x = clampf(spring_arm.rotation.x - _mouse_delta.y * 0.003, CAM_PITCH_MIN, CAM_PITCH_MAX)
+	_mouse_delta = Vector2.ZERO
 
-	var aim_active := _pan_strength > 0.0
-	var aim_world := _aim_to_world(_aim_offset)
-	var target_pos := Vector3(aim_world.x, 0.0, aim_world.z) if aim_active else Vector3.ZERO
 	var smooth := 1.0 - exp(-AIM_SMOOTHING * delta)
-	camera_rig.position = camera_rig.position.lerp(target_pos, smooth)
+
+	if _targeting and _current_target != null and is_instance_valid(_current_target):
+		var to_target := _current_target.global_position - global_position
+		if to_target.length_squared() > 0.01:
+			var target_yaw := atan2(-to_target.x, -to_target.z)
+			camera_rig.rotation.y = lerp_angle(camera_rig.rotation.y, target_yaw, smooth)
+		camera_rig.position = camera_rig.position.lerp(Vector3.ZERO, smooth)
+	else:
+		var aim_active := _pan_strength > 0.0
+		var aim_world := _aim_to_world(_aim_offset)
+		var target_pos := Vector3(aim_world.x, 0.0, aim_world.z) if aim_active else Vector3.ZERO
+		camera_rig.position = camera_rig.position.lerp(target_pos, smooth)
 
 
 func _update_pause() -> void:
@@ -377,6 +449,114 @@ func _is_menu_visible() -> bool:
 
 func _dialogue_on_screen() -> bool:
 	return get_tree().get_first_node_in_group("dialogue_balloon") != null
+
+
+func _toggle_targeting() -> void:
+	if _targeting:
+		_release_target()
+	else:
+		_acquire_target()
+
+
+func _acquire_target() -> void:
+	var targets := _get_targets_in_area()
+	if targets.is_empty():
+		return
+	targets.sort_custom(func(a: Node3D, b: Node3D) -> bool:
+		var sa := camera_3d.unproject_position(a.global_position).x
+		var sb := camera_3d.unproject_position(b.global_position).x
+		return sa < sb
+	)
+	_current_target = targets[0]
+	_targeting = true
+	_update_target_color()
+	_set_target_z_targeted(_current_target, true)
+
+
+func _release_target() -> void:
+	if _current_target != null:
+		_set_target_z_targeted(_current_target, false)
+	_targeting = false
+	_current_target = null
+	_target_swap_cooldown = 0.0
+	if _crosshair_material != null:
+		_crosshair_material.set_shader_parameter("modulate_color", Color.WHITE)
+
+
+func _set_target_z_targeted(target: Node3D, active: bool) -> void:
+	for child in target.find_children("*", "Node", true, false):
+		if child.has_method("set_z_targeted"):
+			child.set_z_targeted(active)
+
+
+func _get_targets_in_area() -> Array[Node3D]:
+	var result: Array[Node3D] = []
+	var shape: SphereShape3D = target_area.get_node("CollisionShape3D").shape as SphereShape3D
+	var max_dist := shape.radius if shape else 7.0
+	var max_dist_sq := max_dist * max_dist
+	for node in get_tree().get_nodes_in_group("target"):
+		if not node is Node3D:
+			continue
+		if global_position.distance_squared_to(node.global_position) > max_dist_sq:
+			continue
+		result.append(node)
+	return result
+
+
+func _get_target_type(target: Node3D) -> TargetType:
+	var n: Node = target
+	while n != null:
+		for group_name in TARGET_GROUPS:
+			if n.is_in_group(group_name):
+				return TARGET_GROUPS[group_name]
+		n = n.get_parent()
+	return TargetType.POI
+
+
+func _update_targeting(delta: float) -> void:
+	_target_swap_cooldown = maxf(_target_swap_cooldown - delta, 0.0)
+
+	if not _targeting:
+		return
+
+	if _current_target == null or not is_instance_valid(_current_target):
+		_release_target()
+		return
+
+	var targets := _get_targets_in_area()
+	if targets.is_empty():
+		_release_target()
+		return
+
+	if _current_target not in targets:
+		_set_target_z_targeted(_current_target, false)
+		_current_target = targets[0]
+		_set_target_z_targeted(_current_target, true)
+		_update_target_color()
+
+	var swap_input := aim_stick.x
+	if abs(swap_input) > STICK_DEADZONE and _target_swap_cooldown <= 0.0:
+		var direction := 1 if swap_input > 0.0 else -1
+		targets.sort_custom(func(a: Node3D, b: Node3D) -> bool:
+			var sa := camera_3d.unproject_position(a.global_position).x
+			var sb := camera_3d.unproject_position(b.global_position).x
+			return sa < sb
+		)
+		var index := targets.find(_current_target)
+		if index >= 0:
+			_set_target_z_targeted(_current_target, false)
+			index = (index + direction + targets.size()) % targets.size()
+			_current_target = targets[index]
+			_set_target_z_targeted(_current_target, true)
+			_update_target_color()
+			_target_swap_cooldown = TARGET_SWAP_COOLDOWN
+
+
+func _update_target_color() -> void:
+	if _crosshair_material == null or _current_target == null:
+		return
+	var color: Color = TARGET_COLORS.get(_get_target_type(_current_target), Color.WHITE)
+	_crosshair_material.set_shader_parameter("modulate_color", color)
 
 
 func capture_save_state() -> Dictionary:
