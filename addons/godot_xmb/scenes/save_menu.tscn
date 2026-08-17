@@ -7,6 +7,22 @@
 [ext_resource type="AudioStream" uid="uid://xfgk6t52ujo0" path="res://addons/godot_xmb/assets/sounds/Confirm.mp3" id="4_juohi"]
 [ext_resource type="AudioStream" uid="uid://cfqjqdvbwu8lh" path="res://addons/godot_xmb/assets/sounds/Cancel.mp3" id="5_6j3np"]
 
+[sub_resource type="InputEventAction" id="InputEventAction_juohi"]
+device = -1
+action = &"ui_cancel"
+
+[sub_resource type="Shortcut" id="Shortcut_cancel"]
+resource_local_to_scene = true
+events = [SubResource("InputEventAction_juohi")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_6j3np"]
+device = -1
+action = &"ui_cancel"
+
+[sub_resource type="Shortcut" id="Shortcut_back_cancel"]
+resource_local_to_scene = true
+events = [SubResource("InputEventAction_6j3np")]
+
 [node name="CanvasLayer" type="CanvasLayer" unique_id=1984123271]
 process_mode = 3
 layer = 200
@@ -114,6 +130,7 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_httj4")
 theme_override_font_sizes/font_size = 32
+shortcut = SubResource("Shortcut_cancel")
 text = "Cancel"
 
 [node name="back" type="Button" parent="root" unique_id=899538592]
@@ -125,6 +142,7 @@ offset_right = 166.0
 offset_bottom = 624.0
 theme_override_fonts/font = ExtResource("1_httj4")
 theme_override_font_sizes/font_size = 32
+shortcut = SubResource("Shortcut_back_cancel")
 text = "Back"
 
 [connection signal="pressed" from="root/onSlotSelected/HBoxContainer/confirmSave" to="." method="_on_confirm_save_pressed"]

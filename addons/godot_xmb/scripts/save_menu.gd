@@ -27,6 +27,7 @@ var ui_state: UIState = UIState.BROWSE
 var selected := 0
 var entries := []
 var selected_entry = null
+var _scene_changing := false
 
 var mode: int = XMBSave.MenuMode.LOAD
 
@@ -39,10 +40,11 @@ func _ready():
 		previous_focus_control = get_viewport().gui_get_focus_owner()
 		if previous_focus_control:
 			previous_focus_control.release_focus()
-		# Keep focus inside this menu while it's open so background menus
-		# can't be triggered by stray ui_accept/ui_cancel input.
-		root_control.focus_mode = Control.FOCUS_ALL
-		root_control.grab_focus()
+	# Do NOT give root_control FOCUS_ALL — it intercepts D-pad events
+	# before _unhandled_input can process them. Input protection is
+	# handled by _unhandled_input calling set_input_as_handled().
+	root_control.focus_mode = Control.FOCUS_NONE
+	on_slot_selected.focus_mode = Control.FOCUS_NONE
 
 	cursor_sfx.stream = load("res://addons/godot_xmb/assets/sounds/Cursor.mp3")
 	confirm_sfx.stream = load("res://addons/godot_xmb/assets/sounds/Confirm.mp3")
@@ -53,6 +55,8 @@ func _ready():
 	refresh()
 
 func _exit_tree():
+	if _scene_changing:
+		return
 	if XMBSave.ui_protection and is_instance_valid(previous_focus_control) and previous_focus_control.is_inside_tree():
 		previous_focus_control.grab_focus()
 
@@ -155,6 +159,14 @@ var drag_accumulator := 0.0
 
 func _input(event):
 	if ui_state == UIState.BROWSE:
+		# Handle ui_cancel in _input (not _unhandled_input) so the pause menu's
+		# WindowContainer base class can't steal it first.
+		if event.is_action_pressed("ui_cancel"):
+			cancel_sfx.play()
+			queue_free()
+			get_viewport().set_input_as_handled()
+			return
+
 		if event is InputEventMouseButton and event.pressed:
 			if event.button_index == MOUSE_BUTTON_WHEEL_UP:
 				_scroll_up()
@@ -176,6 +188,12 @@ func _input(event):
 				get_viewport().set_input_as_handled()
 
 	elif ui_state == UIState.SLOT_SELECTED:
+		if event.is_action_pressed("ui_cancel"):
+			cancel_sfx.play()
+			exit_slot_selected()
+			get_viewport().set_input_as_handled()
+			return
+
 		if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			var clicked_button = false
 			for b in [confirm_save, delete_save, copy_save, cancel]:
@@ -215,17 +233,8 @@ func _unhandled_input(event):
 				confirm_sfx.play()
 				get_viewport().set_input_as_handled()
 
-		elif event.is_action_pressed("ui_cancel"):
-			cancel_sfx.play()
-			queue_free()
-			get_viewport().set_input_as_handled()
-
 	elif ui_state == UIState.SLOT_SELECTED:
-
-		if event.is_action_pressed("ui_cancel"):
-			cancel_sfx.play()
-			exit_slot_selected()
-			get_viewport().set_input_as_handled()
+		pass
 
 func confirm():
 	if entries.is_empty():
@@ -263,15 +272,15 @@ func enter_slot_selected(entry):
 			delete_save.visible = selected_entry.save_id != ""
 			copy_save.visible = selected_entry.save_id != ""
 
-	# Focus first button
-	confirm_save.grab_focus()
+	# Focus first button (deferred so the tree is fully ready)
+	confirm_save.call_deferred("grab_focus")
 	
 func exit_slot_selected():
 	ui_state = UIState.BROWSE
 	selected_entry = null
 	on_slot_selected.visible = false
-	if XMBSave.ui_protection:
-		root_control.grab_focus()
+	# Release focus — BROWSE handles input via _unhandled_input
+	#release_focus()
 
 
 func _on_confirm_save_pressed() -> void:
@@ -289,9 +298,8 @@ func _on_confirm_save_pressed() -> void:
 		XMBSave.MenuMode.LOAD:
 			# The save menu can be opened from a paused game, so unpause before changing scenes.
 			get_tree().paused = false
+			_scene_changing = true
 			XMBSave._load(selected_entry.save_id)
-			exit_slot_selected()
-			queue_free()
 			return
 
 		XMBSave.MenuMode.SAVE, XMBSave.MenuMode.CREATE:
@@ -301,15 +309,27 @@ func _on_confirm_save_pressed() -> void:
 					success = XMBSave.save_new()
 				else:
 					success = XMBSave.save_current_as_new()
-					
+
 				if not success:
 					visible = true
 					return
+				# save_new / save_current_as_new changed scenes — let the tree handle cleanup.
+				_scene_changing = true
+				return
 			else:
 				if not XMBSave._save_overwrite(selected_entry.save_id):
 					visible = true
 					return
+				# CREATE mode: after overwrite, start the game (same as save_new).
+				if mode == XMBSave.MenuMode.CREATE:
+					var target_scene = XMBSave._pending_create_scene_path if XMBSave._pending_create_scene_path != "" else XMBSave.default_game_scene_path
+					if target_scene != "":
+						get_tree().paused = false
+						_scene_changing = true
+						get_tree().change_scene_to_file(target_scene)
+						return
 
+	_scene_changing = false
 	exit_slot_selected()
 	queue_free()
 
@@ -343,4 +363,7 @@ func _on_copy_save_pressed() -> void:
 
 func _on_back_pressed() -> void:
 	cancel_sfx.play()
-	queue_free()
+	if ui_state == UIState.SLOT_SELECTED:
+		exit_slot_selected()
+	else:
+		queue_free()
