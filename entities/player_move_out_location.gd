@@ -3,7 +3,7 @@ extends Node3D
 @onready var animation_player: AnimationPlayer = $"../AnimationPlayer"
 @onready var transition: CanvasLayer = $"../transition"
 @onready var player_move_in_location: Node3D = $"../player_move_in_location"
-@onready var level_load_trigger: Area3D = $"../player_move_in_location/level_load_trigger"
+@onready var player_move_out_location: Node3D = $"../player_move_out_location"
 @onready var level_transition: Area3D = $".."
 @onready var color_rect: ColorRect = $"../transition/ColorRect"
 
@@ -11,10 +11,9 @@ var _camera: Camera3D
 
 
 func _ready() -> void:
-	level_load_trigger.visible = false
 	level_transition.set_deferred("monitoring", false)
 
-	# Reposition the player autoload at the spawn point.
+	# Position the player at the spawn point and hide UI.
 	var player = PlayerTopDown
 	player.global_position = player_move_in_location.global_position
 	player.cutscene_velocity = Vector3.ZERO
@@ -31,8 +30,23 @@ func _ready() -> void:
 
 func _play_entrance() -> void:
 	_update_circle_position()
+
+	# Start the player walking toward the move-out point.
+	PlayerTopDown.move_to(player_move_out_location.global_position)
+
+	# Play reverse animation to the pause point (circle partially open).
+	animation_player.play("transition_in", -1, -1.0, true)
+	await get_tree().create_timer(level_transition.pause_at).timeout
+	animation_player.pause()
+
+	# Wait for the player to finish walking.
+	while PlayerTopDown._move_to_target.x != INF:
+		await get_tree().physics_frame
+
+	# Resume and finish the reverse animation.
 	animation_player.play("transition_in", -1, -1.0, true)
 	await animation_player.animation_finished
+
 	transition.visible = false
 	level_transition.set_deferred("monitoring", true)
 	PlayerTopDown.set_ui_visible(true)

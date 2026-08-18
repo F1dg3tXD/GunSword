@@ -4,11 +4,11 @@ signal transition_started
 signal transition_finished
 
 @export var target_scene: String = ""
+@export_range(0.0, 1.5, 0.01) var pause_at: float = 0.75
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var player_move_in_location: Node3D = $player_move_in_location
 @onready var player_move_out_location: Node3D = $player_move_out_location
-@onready var level_load_trigger: Area3D = $player_move_in_location/level_load_trigger
 @onready var transition_layer: CanvasLayer = $transition
 @onready var color_rect: ColorRect = $transition/ColorRect
 
@@ -17,7 +17,7 @@ var _transitioning := false
 
 
 func _ready() -> void:
-	level_load_trigger.visible = false
+	pass
 
 
 func _process(_delta: float) -> void:
@@ -49,19 +49,27 @@ func _on_body_entered(body: Node3D) -> void:
 	if _camera == null:
 		_camera = get_viewport().get_camera_3d()
 
-	body.lock_input()
-	body.cutscene_velocity = Vector3.ZERO
 	body.set_ui_visible(false)
 
+	# Start the player walking toward the move-in point.
+	body.move_to(player_move_in_location.global_position)
+
+	# Play the circle-closes-on-player animation to the pause point.
 	transition_layer.visible = true
 	_update_circle_position()
-
 	transition_started.emit()
 	animation_player.play("transition_in")
+	await get_tree().create_timer(pause_at).timeout
+	animation_player.pause()
+
+	# Wait for the player to finish walking.
+	while body._move_to_target.x != INF:
+		await get_tree().physics_frame
+
+	# Resume and finish the animation.
+	animation_player.play()
 	await animation_player.animation_finished
 
-	body.global_position = player_move_in_location.global_position
-	level_load_trigger.visible = true
 	_transitioning = false
 	transition_finished.emit()
 
@@ -70,8 +78,6 @@ func _on_body_entered(body: Node3D) -> void:
 
 
 func play_transition_out(target: Node3D = null) -> void:
-	## Call this to reverse the transition (open the circle).
-	## If target is provided, the circle tracks that node instead of the player.
 	if _transitioning:
 		return
 	_transitioning = true
