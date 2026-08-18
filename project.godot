@@ -34,6 +34,7 @@ Console="*uid://ouiu5xh1cs8n"
 DialogueManager="*uid://c3rodes2l3gxb"
 InputIcons="*res://UI/input_icon_mapper_singleton.gd"
 XMBSave="*uid://l0v1uvul8mvx"
+PlayerTopDown="*uid://g3r12cwpvpos"
 
 [display]
 

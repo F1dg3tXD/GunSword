@@ -104,15 +104,17 @@ var _dialogue_locked := false
 var _move_dir := Vector2.ZERO
 var _moving := false
 var cutscene_velocity := Vector3.ZERO
+var _move_to_target: Vector3 = Vector3(INF, INF, INF)
+var _move_to_speed := 3.0
 
 
-func lock_movement() -> void:
+func lock_input() -> void:
 	## Blocks input-driven movement, e.g. while a cutscene plays.
-	## Scripted movement (set_cutscene_velocity) still works.
+	## Scripted movement (set_cutscene_velocity, move_to) still works.
 	_movement_locked = true
 
 
-func unlock_movement() -> void:
+func unlock_input() -> void:
 	_movement_locked = false
 
 
@@ -120,6 +122,20 @@ func set_cutscene_velocity(new_velocity: Vector3) -> void:
 	## Moves the player while movement is locked, for cutscenes.
 	## Pass Vector3.ZERO to stop.
 	cutscene_velocity = new_velocity
+	
+func move_to(move_to_position: Vector3, speed: float = walk_speed) -> void:
+	## Moves the player toward a world position, then unlocks input when reached.
+	## Used for cutscene-driven movement. Pass a Node3D's global_position.
+	lock_input()
+	_move_to_target = move_to_position
+	_move_to_speed = speed
+
+
+func set_ui_visible(is_visible: bool) -> void:
+	## Hides or shows all player UI layers. Used during transitions and menus.
+	$AimUI.visible = is_visible
+	$playerUI.visible = is_visible
+	mobile_controls.visible = is_visible
 
 
 func _ready() -> void:
@@ -186,6 +202,23 @@ func _physics_process(delta: float) -> void:
 			velocity.y -= GRAVITY * delta
 		_moving = input_move.length() > 0.01
 		_move_dir = input_move.normalized() if _moving else Vector2.ZERO
+
+	if _move_to_target.x != INF:
+		var to_target := _move_to_target - global_position
+		to_target.y = 0.0
+		if to_target.length() < 0.1:
+			velocity = Vector3.ZERO
+			_moving = false
+			_move_dir = Vector2.ZERO
+			_move_to_target = Vector3(INF, INF, INF)
+			unlock_input()
+		else:
+			var dir := to_target.normalized()
+			velocity.x = dir.x * _move_to_speed
+			velocity.z = dir.z * _move_to_speed
+			_moving = true
+			_move_dir = _world_to_camera_space(dir).normalized()
+
 	move_and_slide()
 
 	_update_weapon()
@@ -384,13 +417,14 @@ func _update_aim(delta: float) -> void:
 	_mouse_idle_time += delta
 
 	var target_offset := Vector2.ZERO
-	match _aim_scheme:
-		AimScheme.STICK:
-			if not orbit_active and aim_stick.length() > STICK_DEADZONE:
-				target_offset = aim_stick * MAX_AIM_DIST
-		AimScheme.MOUSE:
-			if _mouse_idle_time < MOUSE_RECENTER_DELAY:
-				target_offset = _mouse_aim_offset()
+	if not orbit_active:
+		match _aim_scheme:
+			AimScheme.STICK:
+				if aim_stick.length() > STICK_DEADZONE:
+					target_offset = aim_stick * MAX_AIM_DIST
+			AimScheme.MOUSE:
+				if _mouse_idle_time < MOUSE_RECENTER_DELAY:
+					target_offset = _mouse_aim_offset()
 
 	var smooth := 1.0 - exp(-AIM_SMOOTHING * delta)
 	_aim_offset = _aim_offset.lerp(target_offset, smooth)

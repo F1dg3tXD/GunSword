@@ -55,6 +55,7 @@ animation = &"idle"
 
 [node name="AimUI" type="CanvasLayer" parent="." unique_id=462013091]
 layer = 2
+visible = false
 
 [node name="crosshair" type="TextureRect" parent="AimUI" unique_id=438960074]
 texture_filter = 1
@@ -95,6 +96,7 @@ visible = false
 
 [node name="playerUI" parent="." unique_id=590561827 instance=ExtResource("6_grj6g")]
 layer = 1
+visible = false
 
 [node name="PauseMenuLayer" parent="." unique_id=914002369 instance=ExtResource("2_4v0de")]
 layer = 3

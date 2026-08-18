@@ -7,8 +7,10 @@
 	% ???: Although, if you did, use [input_fire0] to do a shalsh.
 	% ???: You would have useed [input_fire1] and [input_fire0] to shoot lasers.
 	% ???: You would have useed [input_shot_type_cycle] to change your shot type.
+	=> start
 - Leave it alone
 	???: You physically can't grab it anyway.
+	=> start
 - Back => start
 - End => END
 ???: There's nothing here.

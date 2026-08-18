@@ -1,9 +1,464 @@
 [gd_scene format=3 uid="uid://upfsnn8expwj"]
 
 [ext_resource type="PackedScene" uid="uid://qoexj4ptqt8a" path="res://addons/maaacks_menus_template/base/nodes/menus/options_menu/input/input_icon_mapper.tscn" id="1_0uo0o"]
+[ext_resource type="Texture2D" uid="uid://cj1nribg40gq0" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_stick_r_up.png" id="2_e0m3k"]
+[ext_resource type="Texture2D" uid="uid://c8nsde8hg0vrd" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_stick_l_up.png" id="3_iqnlw"]
+[ext_resource type="Texture2D" uid="uid://d3rs25eo0qc5o" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_stick_l_right.png" id="4_xxsg6"]
+[ext_resource type="Texture2D" uid="uid://bk8y7qphpmtyl" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_stick_l_down.png" id="5_npuw1"]
+[ext_resource type="Texture2D" uid="uid://blg6l4uitxmmv" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_stick_l_left.png" id="6_tkkg0"]
+[ext_resource type="Texture2D" uid="uid://dlbr8tj8puunm" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_stick_l_down.png" id="7_hl0al"]
+[ext_resource type="Texture2D" uid="uid://cgx3cfnwjujm1" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_stick_r_up.png" id="8_qu6ab"]
+[ext_resource type="Texture2D" uid="uid://c3o1r2wu4yxfv" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_stick_r_right.png" id="9_0c8x3"]
+[ext_resource type="Texture2D" uid="uid://btlkmebsdfoh3" path="res://addons/kenney_input-prompts_1.5/Generic/Default/generic_stick_up.png" id="10_pdujl"]
+[ext_resource type="Texture2D" uid="uid://cohhrufs8gyep" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_stick_r_left.png" id="11_4ith2"]
+[ext_resource type="Texture2D" uid="uid://ba3kp3qudtdfn" path="res://addons/kenney_input-prompts_1.5/Generic/Default/generic_joystick_left.png" id="12_mbbl6"]
+[ext_resource type="Texture2D" uid="uid://bm5qq42h2il2p" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_stick_r_down.png" id="13_ylip7"]
+[ext_resource type="Texture2D" uid="uid://beiwb0sht4x6i" path="res://addons/kenney_input-prompts_1.5/Generic/Default/generic_stick_right.png" id="14_rh376"]
+[ext_resource type="Texture2D" uid="uid://btv2e2tqdqjbv" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_stick_l_up.png" id="15_r27ea"]
+[ext_resource type="Texture2D" uid="uid://ym146fdk548t" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_stick_l_right.png" id="16_hgnta"]
+[ext_resource type="Texture2D" uid="uid://bhqt27xffg2kw" path="res://addons/kenney_input-prompts_1.5/Generic/Default/generic_joystick_red_left.png" id="17_bnq2t"]
+[ext_resource type="Texture2D" uid="uid://c2dy2yaq5fwa2" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_stick_l_left.png" id="18_lk36j"]
+[ext_resource type="Texture2D" uid="uid://bbpai5wlcbuk1" path="res://addons/kenney_input-prompts_1.5/Generic/Default/generic_joystick_red_right.png" id="19_d7gh6"]
+[ext_resource type="Texture2D" uid="uid://dw1gghmlnjnk2" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_stick_l_down.png" id="20_uwpc5"]
+[ext_resource type="Texture2D" uid="uid://c5maqy1o66nbf" path="res://addons/kenney_input-prompts_1.5/Generic/Default/generic_joystick_right.png" id="21_5yfrm"]
+[ext_resource type="Texture2D" uid="uid://bqoqbxf2csaiu" path="res://addons/kenney_input-prompts_1.5/Generic/Default/generic_stick_left.png" id="22_88mq5"]
+[ext_resource type="Texture2D" uid="uid://disna2rulnpl3" path="res://addons/kenney_input-prompts_1.5/Generic/Default/generic_stick_down.png" id="23_173h7"]
+[ext_resource type="Texture2D" uid="uid://c5uiddbfsu6lg" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_stick_l_right.png" id="24_fcrva"]
+[ext_resource type="Texture2D" uid="uid://c07x50whbuph" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_stick_l_left.png" id="25_a3oqj"]
+[ext_resource type="Texture2D" uid="uid://bjvxjgiktu0tv" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_stick_l_up.png" id="26_au2s4"]
+[ext_resource type="Texture2D" uid="uid://bt2so16d8ua87" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_stick_l_down.png" id="27_rucww"]
+[ext_resource type="Texture2D" uid="uid://dj6x6gsxqaxes" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_stick_r_up.png" id="28_fnddc"]
+[ext_resource type="Texture2D" uid="uid://cutxucg2byb6p" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_stick_r_right.png" id="29_k13i7"]
+[ext_resource type="Texture2D" uid="uid://2gjsjs1uwkcc" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_stick_r_down.png" id="30_1l0vr"]
+[ext_resource type="Texture2D" uid="uid://by8nxxfano4u0" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_stick_r_left.png" id="31_4g7l1"]
+[ext_resource type="Texture2D" uid="uid://dpw78g0ullyp2" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_stick_r_down.png" id="32_6i5nu"]
+[ext_resource type="Texture2D" uid="uid://cndwag2v60wig" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_stick_r_left.png" id="33_yh1eg"]
+[ext_resource type="Texture2D" uid="uid://bh8vkvqlfra2w" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_stick_l_up.png" id="34_rpnir"]
+[ext_resource type="Texture2D" uid="uid://yjuv8d56l1ln" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_stick_r_up.png" id="35_yi8g5"]
+[ext_resource type="Texture2D" uid="uid://buv1e5a6wr38k" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_stick_r_right.png" id="36_dmvsp"]
+[ext_resource type="Texture2D" uid="uid://dtvrm51egtvte" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_stick_l_right.png" id="37_ursfx"]
+[ext_resource type="Texture2D" uid="uid://c0n0lucf58ids" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_stick_r_left.png" id="38_20xrg"]
+[ext_resource type="Texture2D" uid="uid://c0bx2k71re2s8" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_stick_r_right.png" id="39_vmcu2"]
+[ext_resource type="Texture2D" uid="uid://cu5uokaag4hs5" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_stick_r_down.png" id="40_oupb5"]
+[ext_resource type="Texture2D" uid="uid://dleccp2xyyrow" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_stick_l_left.png" id="41_fuqco"]
+[ext_resource type="Texture2D" uid="uid://suq1x1aiff16" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_stick_r_press.png" id="42_fh7ti"]
+[ext_resource type="Texture2D" uid="uid://tqavq3hrkof5" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_stick_r_horizontal.png" id="43_inecs"]
+[ext_resource type="Texture2D" uid="uid://ddhxwym78gec1" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_stick_side_l.png" id="44_60o8i"]
+[ext_resource type="Texture2D" uid="uid://cemqj5kcbup0k" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_stick_r_vertical.png" id="45_m51l4"]
+[ext_resource type="Texture2D" uid="uid://vgju74sjnqll" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_stick_l_vertical.png" id="46_rre5d"]
+[ext_resource type="Texture2D" uid="uid://duypommcx08f0" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_button_x.png" id="47_bbofj"]
+[ext_resource type="Texture2D" uid="uid://cp2ogladwxwl3" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_button_sync.png" id="48_prra7"]
+[ext_resource type="Texture2D" uid="uid://eu0vvxi3wpgn" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_button_sr.png" id="49_cne5s"]
+[ext_resource type="Texture2D" uid="uid://dhhfc2wwok7up" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_button_sl.png" id="50_m3son"]
+[ext_resource type="Texture2D" uid="uid://bpl7wy0bhbdmf" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_button_r.png" id="51_0yxn1"]
+[ext_resource type="Texture2D" uid="uid://bmp6wxlb4xt2b" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_button_plus.png" id="52_4vntu"]
+[ext_resource type="Texture2D" uid="uid://cjsdfymfwsqbl" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_button_minus.png" id="53_yvo2c"]
+[ext_resource type="Texture2D" uid="uid://b5hmm2vn7l3su" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_button_l.png" id="54_eg6ak"]
+[ext_resource type="Texture2D" uid="uid://b0hldmcyct1w8" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_button_home.png" id="55_gdx4x"]
+[ext_resource type="Texture2D" uid="uid://bsuem2cporf1j" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_button_b.png" id="56_2an60"]
+[ext_resource type="Texture2D" uid="uid://ccd54ah3r5gtt" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_button_a.png" id="57_o6jyj"]
+[ext_resource type="Texture2D" uid="uid://bg5m7ly3pvmdi" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/controller_switch_pro.png" id="58_8dn0n"]
+[ext_resource type="Texture2D" uid="uid://w66lcdmhuu1s" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/controller_switch_joycon_up.png" id="59_gwk43"]
+[ext_resource type="Texture2D" uid="uid://bakftmfrom5pk" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/controller_switch_joycon_down.png" id="60_swy21"]
+[ext_resource type="Texture2D" uid="uid://f16x8sun813b" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/controller_switch.png" id="61_3ywd3"]
+[ext_resource type="Texture2D" uid="uid://c4g0bd456c7a6" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_trigger_r2_alternative.png" id="62_3ovg8"]
+[ext_resource type="Texture2D" uid="uid://bn7uxel6p2r4f" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_trigger_r2.png" id="63_7truv"]
+[ext_resource type="Texture2D" uid="uid://dq2bo6wu8iwx7" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_trigger_r1_alternative.png" id="64_qe76t"]
+[ext_resource type="Texture2D" uid="uid://b5oa86chl3881" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_trigger_r1.png" id="65_j1p62"]
+[ext_resource type="Texture2D" uid="uid://c7xhyc5rkprgn" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_trigger_l2_alternative.png" id="66_i0iai"]
+[ext_resource type="Texture2D" uid="uid://dfkh88qxg4o07" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_trigger_l2.png" id="67_0srvf"]
+[ext_resource type="Texture2D" uid="uid://d0dg46yc6ict1" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_trigger_l1_alternative.png" id="68_b4vcl"]
+[ext_resource type="Texture2D" uid="uid://dvfckupq1ohn" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_trigger_l1.png" id="69_n3xdn"]
+[ext_resource type="Texture2D" uid="uid://bl1yqw0qibks1" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_stick_top_r.png" id="70_b6ow0"]
+[ext_resource type="Texture2D" uid="uid://c5mr4c2q14es1" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_stick_top_l.png" id="71_xbcsj"]
+[ext_resource type="Texture2D" uid="uid://f137swu5ktq1" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_stick_side_r.png" id="72_xrfd1"]
+[ext_resource type="Texture2D" uid="uid://dwinr85ecr6xv" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_touchpad_press_right.png" id="73_vr34a"]
+[ext_resource type="Texture2D" uid="uid://cuegjavif00q2" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_touchpad_press_left.png" id="74_1jy0x"]
+[ext_resource type="Texture2D" uid="uid://dch147pfr1g2y" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_touchpad_press_center.png" id="75_03iw2"]
+[ext_resource type="Texture2D" uid="uid://casoprw3vpt3f" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_touchpad_press.png" id="76_qtgoy"]
+[ext_resource type="Texture2D" uid="uid://c1ad6lcle57vj" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_touchpad.png" id="77_h28nx"]
+[ext_resource type="Texture2D" uid="uid://disma868o7rk" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_elite_rb.png" id="78_3bpg3"]
+[ext_resource type="Texture2D" uid="uid://buv3yfoyx35rn" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_elite_lb.png" id="79_1o4dc"]
+[ext_resource type="Texture2D" uid="uid://dm5tc6ics4dwy" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_elite_fn_r.png" id="80_rcef0"]
+[ext_resource type="Texture2D" uid="uid://cotcsf8qoc7vg" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_elite_fn_l.png" id="81_wlvpm"]
+[ext_resource type="Texture2D" uid="uid://b8nau7e1eydir" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_button_options_alternative.png" id="82_wgbhc"]
+[ext_resource type="Texture2D" uid="uid://dfcxjdbw1db37" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_button_options.png" id="83_n4ywv"]
+[ext_resource type="Texture2D" uid="uid://brpsk26l6syxh" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_button_mute.png" id="84_qn6k0"]
+[ext_resource type="Texture2D" uid="uid://c8lldb3j35cc3" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_button_create_alternative.png" id="85_3afoc"]
+[ext_resource type="Texture2D" uid="uid://busxdddmcp361" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_button_create.png" id="86_645hf"]
+[ext_resource type="Texture2D" uid="uid://crw58rg0h1fhr" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation4_touchpad_touch.png" id="87_mf7jc"]
+[ext_resource type="Texture2D" uid="uid://dtflwxgufw1v1" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation4_touchpad_swipe_vertical.png" id="88_tghmb"]
+[ext_resource type="Texture2D" uid="uid://b5600bmxndmsi" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation4_touchpad_swipe_up.png" id="89_p5y7y"]
+[ext_resource type="Texture2D" uid="uid://tfeiqcnx4dfc" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation4_touchpad_swipe_right.png" id="90_kdpe1"]
+[ext_resource type="Texture2D" uid="uid://btreq710ym2ve" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation4_touchpad_swipe_left.png" id="91_4rafl"]
+[ext_resource type="Texture2D" uid="uid://dp10s20upvlbb" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation4_touchpad_swipe_horizontal.png" id="92_gsavc"]
+[ext_resource type="Texture2D" uid="uid://f1481p5nxead" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation4_touchpad_swipe_down.png" id="93_0c0wd"]
+[ext_resource type="Texture2D" uid="uid://cvbfjnemllgpw" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation4_touchpad_selected.png" id="94_uiiqn"]
+[ext_resource type="Texture2D" uid="uid://dsxlkt22bpfnx" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation4_touchpad_press_right.png" id="95_eq7mt"]
+[ext_resource type="Texture2D" uid="uid://cxjdey171ujf6" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation4_touchpad_press_left.png" id="96_v0tn1"]
+[ext_resource type="Texture2D" uid="uid://c33b3jpdfwb1t" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation4_touchpad_press_center.png" id="97_nlfpe"]
+[ext_resource type="Texture2D" uid="uid://c72oeya5uku5d" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation4_touchpad_press.png" id="98_jglej"]
+[ext_resource type="Texture2D" uid="uid://b2710sic2m12k" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation4_touchpad_grid.png" id="99_p7hw0"]
+[ext_resource type="Texture2D" uid="uid://bg7s802kttctb" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_stick_l_press.png" id="100_krhcj"]
+[ext_resource type="Texture2D" uid="uid://ydcctujmeixm" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_stick_l_horizontal.png" id="101_vdenc"]
+[ext_resource type="Texture2D" uid="uid://bnun1eops8u1y" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_dpad_vertical.png" id="102_s8rpy"]
+[ext_resource type="Texture2D" uid="uid://3j1p8qnl8ghu" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_dpad_up.png" id="103_y0aog"]
+[ext_resource type="Texture2D" uid="uid://c4ta5wes7txaj" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_dpad_right.png" id="104_vbs3t"]
+[ext_resource type="Texture2D" uid="uid://svntmqkl8ttp" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_dpad_none.png" id="105_wjyxa"]
+[ext_resource type="Texture2D" uid="uid://phcltgh6egvp" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_dpad_left.png" id="106_aah2s"]
+[ext_resource type="Texture2D" uid="uid://c0guwbxgcb6py" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_dpad_horizontal.png" id="107_3u8t4"]
+[ext_resource type="Texture2D" uid="uid://bql8d7w7ak4tw" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_dpad_down.png" id="108_lfu5c"]
+[ext_resource type="Texture2D" uid="uid://dxear2jgsudrx" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_dpad_all.png" id="109_u86dm"]
+[ext_resource type="Texture2D" uid="uid://bisu3dogutelo" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_dpad.png" id="110_xudvt"]
+[ext_resource type="Texture2D" uid="uid://vpju5ptperg2" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_button_triangle.png" id="111_drew5"]
+[ext_resource type="Texture2D" uid="uid://dkyv6h4lbqiir" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_button_square.png" id="112_vwu8s"]
+[ext_resource type="Texture2D" uid="uid://cha5cnafcnc2s" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_button_r3.png" id="113_d46l1"]
+[ext_resource type="Texture2D" uid="uid://cxc374jx0netc" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_button_l3.png" id="114_kh3y4"]
+[ext_resource type="Texture2D" uid="uid://qeppy1jrnjit" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_button_cross.png" id="115_6dowa"]
+[ext_resource type="Texture2D" uid="uid://b5jfx8ofahtff" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_button_circle.png" id="116_f8gr6"]
+[ext_resource type="Texture2D" uid="uid://cx7qpyf0benrl" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_button_analog.png" id="117_duk0i"]
+[ext_resource type="Texture2D" uid="uid://b6cdpssgonyyd" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_touchpad_touch.png" id="118_yd3yf"]
+[ext_resource type="Texture2D" uid="uid://bt6bw12glytoq" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_touchpad_swipe_vertical.png" id="119_ynxlm"]
+[ext_resource type="Texture2D" uid="uid://hvs0t3lsrbew" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_touchpad_swipe_up.png" id="120_wukxt"]
+[ext_resource type="Texture2D" uid="uid://dpstarua2ly1g" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_touchpad_swipe_right.png" id="121_do4io"]
+[ext_resource type="Texture2D" uid="uid://bxr4eypmif03s" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_touchpad_swipe_left.png" id="122_8u3v2"]
+[ext_resource type="Texture2D" uid="uid://cdsneskfn3eif" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_touchpad_swipe_horizontal.png" id="123_kiiuw"]
+[ext_resource type="Texture2D" uid="uid://dcowvaqakhb5f" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_touchpad_swipe_down.png" id="124_m8ten"]
+[ext_resource type="Texture2D" uid="uid://bur5cn17tgvf2" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_touchpad_selected.png" id="125_wkkyc"]
+[ext_resource type="Texture2D" uid="uid://b5ml6wrblpeed" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_stick_r_vertical.png" id="126_ykhj1"]
+[ext_resource type="Texture2D" uid="uid://kuq80tyx4gxu" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_stick_r_press.png" id="127_5gq2a"]
+[ext_resource type="Texture2D" uid="uid://ubxpnfm4qu1" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_stick_r_horizontal.png" id="128_5ft8k"]
+[ext_resource type="Texture2D" uid="uid://bq3bjav2570nu" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_stick_l_vertical.png" id="129_tm41a"]
+[ext_resource type="Texture2D" uid="uid://c5iirr1kl16yq" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_stick_l_press.png" id="130_ylabd"]
+[ext_resource type="Texture2D" uid="uid://c7wjca3aonlo7" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_stick_l_horizontal.png" id="131_rm87j"]
+[ext_resource type="Texture2D" uid="uid://c1nsxa26ubs1j" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_dpad_vertical.png" id="132_qs38x"]
+[ext_resource type="Texture2D" uid="uid://cncoqsduscj8a" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_dpad_up.png" id="133_aiuen"]
+[ext_resource type="Texture2D" uid="uid://l7hacw2gn46q" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_dpad_right.png" id="134_sgqcu"]
+[ext_resource type="Texture2D" uid="uid://cjr0crhvb0lsg" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_dpad_none.png" id="135_ptjvg"]
+[ext_resource type="Texture2D" uid="uid://bcgb7y662nodn" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_dpad_left.png" id="136_epsdk"]
+[ext_resource type="Texture2D" uid="uid://bktg6jv0h8rqr" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_dpad_horizontal.png" id="137_jvpq8"]
+[ext_resource type="Texture2D" uid="uid://bvf5gsumb2or2" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_dpad_down.png" id="138_hhuyr"]
+[ext_resource type="Texture2D" uid="uid://dnm20rsd5qv8k" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_dpad_all.png" id="139_1d6ab"]
+[ext_resource type="Texture2D" uid="uid://cn5lw3ybucck4" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_dpad.png" id="140_kwfo2"]
+[ext_resource type="Texture2D" uid="uid://bmt80wtrtg2md" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_button_y.png" id="141_h6h2v"]
+[ext_resource type="Texture2D" uid="uid://cxhdaelfjnjbg" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_button_x.png" id="142_ekt4b"]
+[ext_resource type="Texture2D" uid="uid://rsjtv5f84hj0" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_button_view.png" id="143_pqnen"]
+[ext_resource type="Texture2D" uid="uid://d3bldjexa32no" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_button_r5.png" id="144_hlhic"]
+[ext_resource type="Texture2D" uid="uid://gorbu2qi0opp" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_button_r4.png" id="145_oh50i"]
+[ext_resource type="Texture2D" uid="uid://d0pi4h228wuv8" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_button_r2.png" id="146_sfr4t"]
+[ext_resource type="Texture2D" uid="uid://bvviyelr7cjy4" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_button_r1.png" id="147_vhejr"]
+[ext_resource type="Texture2D" uid="uid://ceoag4tr6lha5" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_button_quickaccess.png" id="148_8d0qr"]
+[ext_resource type="Texture2D" uid="uid://xeigih2i8afr" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_button_options.png" id="149_u786l"]
+[ext_resource type="Texture2D" uid="uid://dt8tpl3q63rsg" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_button_l5.png" id="150_eocb1"]
+[ext_resource type="Texture2D" uid="uid://dx0a8xh5ipsx" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_vertical.png" id="151_qs4yt"]
+[ext_resource type="Texture2D" uid="uid://dpdx4ecv4subl" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_up.png" id="152_d3g26"]
+[ext_resource type="Texture2D" uid="uid://b04lokojm5bdm" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_right.png" id="153_ri1j7"]
+[ext_resource type="Texture2D" uid="uid://yepbbfla2vj8" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_r_vertical.png" id="154_dtyva"]
+[ext_resource type="Texture2D" uid="uid://cuhuxpdjitam2" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_r_up.png" id="155_4cwu4"]
+[ext_resource type="Texture2D" uid="uid://bexbarn87tp3x" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_r_right.png" id="156_v4tq6"]
+[ext_resource type="Texture2D" uid="uid://dvhoy5wbwd45y" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_r_left.png" id="157_046n8"]
+[ext_resource type="Texture2D" uid="uid://cdb131arwxij8" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_r_horizontal.png" id="158_30kbf"]
+[ext_resource type="Texture2D" uid="uid://bfxtv71mlqunr" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_r_down.png" id="159_b0ubt"]
+[ext_resource type="Texture2D" uid="uid://k7i7xuuwrrq1" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_r_all.png" id="160_fskfk"]
+[ext_resource type="Texture2D" uid="uid://c33s0d34iphgx" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_r.png" id="161_6gr31"]
+[ext_resource type="Texture2D" uid="uid://dkt8k5gwdg5qy" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_left.png" id="162_5mxi0"]
+[ext_resource type="Texture2D" uid="uid://cvl4w5n8r5xjr" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_l_vertical.png" id="163_midd2"]
+[ext_resource type="Texture2D" uid="uid://qyw63j0prnb3" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_l_up.png" id="164_mp2sm"]
+[ext_resource type="Texture2D" uid="uid://8p5f73lvo3pq" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_l_right.png" id="165_rf71s"]
+[ext_resource type="Texture2D" uid="uid://ch15ryu6bgghq" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_l_left.png" id="166_1epa7"]
+[ext_resource type="Texture2D" uid="uid://dga124lox0ihf" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_l_horizontal.png" id="167_6rn7l"]
+[ext_resource type="Texture2D" uid="uid://uianiqgf1b1e" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_l_down.png" id="168_0k60t"]
+[ext_resource type="Texture2D" uid="uid://bpofx24qlehod" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_l_all.png" id="169_b5g2f"]
+[ext_resource type="Texture2D" uid="uid://bjrig0p5bgnql" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_l.png" id="170_hdp0g"]
+[ext_resource type="Texture2D" uid="uid://bibt8wi7ioom0" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_horizontal.png" id="171_cpog1"]
+[ext_resource type="Texture2D" uid="uid://d18ohgretmw5v" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_down.png" id="172_xo4cn"]
+[ext_resource type="Texture2D" uid="uid://wjwqnh7mvuo3" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_all.png" id="173_671en"]
+[ext_resource type="Texture2D" uid="uid://3ti1e4c5wxv2" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad.png" id="174_irudd"]
+[ext_resource type="Texture2D" uid="uid://ckb1agj01npgb" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_stick_top_r.png" id="175_qe3fk"]
+[ext_resource type="Texture2D" uid="uid://emyptfdmdeub" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_stick_top_l.png" id="176_cl3v5"]
+[ext_resource type="Texture2D" uid="uid://rk4ro7k3c058" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_stick_side_r.png" id="177_45a75"]
+[ext_resource type="Texture2D" uid="uid://dyddccpx2dcj8" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_stick_side_l.png" id="178_6uhm2"]
+[ext_resource type="Texture2D" uid="uid://d2o7r4g3x6jd7" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_joycon_left_rotate.png" id="179_r0cf2"]
+[ext_resource type="Texture2D" uid="uid://d4grtwfug3lo4" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_joycon_left_horizontal.png" id="180_cysje"]
+[ext_resource type="Texture2D" uid="uid://d0e3xacvsfu02" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_joycon_left_diagonal.png" id="181_rkdnn"]
+[ext_resource type="Texture2D" uid="uid://bsjsejmseddxt" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_joycon_left.png" id="182_hgeqa"]
+[ext_resource type="Texture2D" uid="uid://loowybokyb4" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_joycon.png" id="183_6m0yl"]
+[ext_resource type="Texture2D" uid="uid://dgldv6qq7i2op" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_dpad_vertical.png" id="184_cmfjc"]
+[ext_resource type="Texture2D" uid="uid://c2xvq46vno4n0" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_dpad_up.png" id="185_ljt8q"]
+[ext_resource type="Texture2D" uid="uid://o5gvdqo6p4n1" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_dpad_right.png" id="186_t5ct1"]
+[ext_resource type="Texture2D" uid="uid://o81kxq2lnqsj" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_dpad_none.png" id="187_1bw6r"]
+[ext_resource type="Texture2D" uid="uid://h7p12stnqbw6" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_dpad_left.png" id="188_hionw"]
+[ext_resource type="Texture2D" uid="uid://b5ge3t6bdml76" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_dpad_horizontal.png" id="189_7w57o"]
+[ext_resource type="Texture2D" uid="uid://dupbcsvf3w4cs" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_dpad_down.png" id="190_rceww"]
+[ext_resource type="Texture2D" uid="uid://1qqnfyxugsee" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_dpad_all.png" id="191_akklm"]
+[ext_resource type="Texture2D" uid="uid://bjx6770466u5e" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_dpad.png" id="192_uvvyu"]
+[ext_resource type="Texture2D" uid="uid://bu28v77hu32gy" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_down.png" id="193_r08wc"]
+[ext_resource type="Texture2D" uid="uid://ca0ryioog7fgc" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_buttons_vertical.png" id="194_b5870"]
+[ext_resource type="Texture2D" uid="uid://7xudt3klunny" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_buttons_up.png" id="195_q8eei"]
+[ext_resource type="Texture2D" uid="uid://ccp8jfgrl17t" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_buttons_right.png" id="196_ltmd4"]
+[ext_resource type="Texture2D" uid="uid://bqx38fermyr7g" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_buttons_none.png" id="197_ys48k"]
+[ext_resource type="Texture2D" uid="uid://ddm5haa0bedx7" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_buttons_left.png" id="198_lac1y"]
+[ext_resource type="Texture2D" uid="uid://dyfcpd6a0bl1x" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_buttons_horizontal.png" id="199_vdmss"]
+[ext_resource type="Texture2D" uid="uid://c5ctxj4dx8lld" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_buttons_down.png" id="200_vm7sn"]
+[ext_resource type="Texture2D" uid="uid://bajj2362mx3x1" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_buttons_all.png" id="201_ioi65"]
+[ext_resource type="Texture2D" uid="uid://dcw3cngifwnxa" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_buttons.png" id="202_ubyf7"]
+[ext_resource type="Texture2D" uid="uid://bfqcc3lb76a8f" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_button_zr.png" id="203_qlbv7"]
+[ext_resource type="Texture2D" uid="uid://de3hhj70hy8h7" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_button_zl.png" id="204_6m3b1"]
+[ext_resource type="Texture2D" uid="uid://ckadb8rwl1lyi" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_button_y.png" id="205_inydd"]
+[ext_resource type="Texture2D" uid="uid://21quxuhu0spw" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_button_l4.png" id="206_2h5n1"]
+[ext_resource type="Texture2D" uid="uid://ch23ky1gv7xfm" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_button_l2.png" id="207_j2tw1"]
+[ext_resource type="Texture2D" uid="uid://c8rfsjb20ibmr" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_button_l1.png" id="208_k0g1m"]
+[ext_resource type="Texture2D" uid="uid://bnvdxj45w5h5m" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_button_guide.png" id="209_c41cm"]
+[ext_resource type="Texture2D" uid="uid://c3kfsrwihhih0" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_button_b.png" id="210_7c4q5"]
+[ext_resource type="Texture2D" uid="uid://b3je1o8j2ya0s" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_button_a.png" id="211_2frcp"]
+[ext_resource type="Texture2D" uid="uid://cjthb5m4n4m10" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/controller_steamdeck.png" id="212_4wy0t"]
+[ext_resource type="Texture2D" uid="uid://b4jmuk7i4wn1w" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_up.png" id="213_4wjei"]
+[ext_resource type="Texture2D" uid="uid://eeun45c5garj" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_stick_top_r.png" id="214_enncy"]
+[ext_resource type="Texture2D" uid="uid://dwyu4lwlx84ru" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_stick_top_l.png" id="215_mnuu3"]
+[ext_resource type="Texture2D" uid="uid://dr2vj0387ya3w" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_stick_side_r.png" id="216_crqoj"]
+[ext_resource type="Texture2D" uid="uid://cwyyjaquimlke" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_stick_side_l.png" id="217_l43w6"]
+[ext_resource type="Texture2D" uid="uid://bvjpx1ud8y8kb" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_stick_r_vertical.png" id="218_64nff"]
+[ext_resource type="Texture2D" uid="uid://bo4fbchjpj4c8" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_stick_r_press.png" id="219_l5667"]
+[ext_resource type="Texture2D" uid="uid://b20enedb2ww4f" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_stick_r_horizontal.png" id="220_0sym7"]
+[ext_resource type="Texture2D" uid="uid://dvr6ntmq302j5" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_stick_l_vertical.png" id="221_fv34p"]
+[ext_resource type="Texture2D" uid="uid://pb3os4b2l1yv" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_stick_l_press.png" id="222_smbcg"]
+[ext_resource type="Texture2D" uid="uid://jvd0yq4fwpqv" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_stick_l_horizontal.png" id="223_kf15u"]
+[ext_resource type="Texture2D" uid="uid://d3jddphagr2ii" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_right.png" id="224_2tdsf"]
+[ext_resource type="Texture2D" uid="uid://bxvboeodnwjdh" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_left.png" id="225_ivgx8"]
+[ext_resource type="Texture2D" uid="uid://c3v7af4lwn7y6" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_joycon_right_vertical.png" id="226_7wdlg"]
+[ext_resource type="Texture2D" uid="uid://c3myb7fkr804h" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_joycon_right_rotate.png" id="227_x7s2n"]
+[ext_resource type="Texture2D" uid="uid://pbbsavd6fks0" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_joycon_right_horizontal.png" id="228_rnwx7"]
+[ext_resource type="Texture2D" uid="uid://5270urm4dxus" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_joycon_right_diagonal.png" id="229_ctjrt"]
+[ext_resource type="Texture2D" uid="uid://bhc0n6h7f68cy" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_joycon_right.png" id="230_tc8qq"]
+[ext_resource type="Texture2D" uid="uid://0fy0wh305rpe" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_joycon_left_vertical.png" id="231_1uvr2"]
+[ext_resource type="Texture2D" uid="uid://d0kd7a2yqh3u4" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_o.png" id="232_x8c1i"]
+[ext_resource type="Texture2D" uid="uid://dq8f3fvwyeq3n" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_numpad_plus.png" id="233_tuym8"]
+[ext_resource type="Texture2D" uid="uid://defaanx4sch7p" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_numpad_enter.png" id="234_2dxi7"]
+[ext_resource type="Texture2D" uid="uid://b7btdudj83whw" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_numlock.png" id="235_8cym6"]
+[ext_resource type="Texture2D" uid="uid://c08p05wnjvfw" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_n.png" id="236_wvoqq"]
+[ext_resource type="Texture2D" uid="uid://x1334owh034l" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_minus.png" id="237_mksp3"]
+[ext_resource type="Texture2D" uid="uid://c7m4ri0cotar4" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_m.png" id="238_7puxs"]
+[ext_resource type="Texture2D" uid="uid://c6kvck5c8hxe5" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_l.png" id="239_7xqjo"]
+[ext_resource type="Texture2D" uid="uid://bkr1egw2n0g0g" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_k.png" id="240_tkrm4"]
+[ext_resource type="Texture2D" uid="uid://bfs87hppglkbq" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_j.png" id="241_3iy2c"]
+[ext_resource type="Texture2D" uid="uid://bccgycwmi33xl" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_insert.png" id="242_f2odm"]
+[ext_resource type="Texture2D" uid="uid://dmysfs7nwn3nn" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_i.png" id="243_hhv3u"]
+[ext_resource type="Texture2D" uid="uid://dblq415d5w33c" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_home.png" id="244_464nm"]
+[ext_resource type="Texture2D" uid="uid://v5xg6fx8asgd" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_h.png" id="245_asafw"]
+[ext_resource type="Texture2D" uid="uid://c6yhs848my4lt" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_g.png" id="246_11j62"]
+[ext_resource type="Texture2D" uid="uid://bsglblk4pi6r2" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_function.png" id="247_0webw"]
+[ext_resource type="Texture2D" uid="uid://cdvuuow2e5t2v" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_f9.png" id="248_trxbb"]
+[ext_resource type="Texture2D" uid="uid://dbfkud2iua2tk" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_f8.png" id="249_sbvqs"]
+[ext_resource type="Texture2D" uid="uid://ss3240fb4wo7" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_f7.png" id="250_x7stl"]
+[ext_resource type="Texture2D" uid="uid://mq3ipo5ic0pg" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_f6.png" id="251_mlqyy"]
+[ext_resource type="Texture2D" uid="uid://bu6i0pl7h4nyt" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_f5.png" id="252_tuwbs"]
+[ext_resource type="Texture2D" uid="uid://ulunfdr8fbrw" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_f4.png" id="253_w15sa"]
+[ext_resource type="Texture2D" uid="uid://c7557imj6j7qi" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_f3.png" id="254_atn7s"]
+[ext_resource type="Texture2D" uid="uid://d4j53c0gtr8te" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_f2.png" id="255_gu4rs"]
+[ext_resource type="Texture2D" uid="uid://d3qfmm7q3dgk" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_f12.png" id="256_qca5d"]
+[ext_resource type="Texture2D" uid="uid://bcbp34pjphm42" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_f11.png" id="257_dll3o"]
+[ext_resource type="Texture2D" uid="uid://tp52bktkt1h5" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_f10.png" id="258_nkwo8"]
+[ext_resource type="Texture2D" uid="uid://bte1n5wu1mg0e" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_tilde.png" id="259_aa7sn"]
+[ext_resource type="Texture2D" uid="uid://kptnnaaqgoem" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_tab_icon_alternative.png" id="260_6l0rc"]
+[ext_resource type="Texture2D" uid="uid://bbfu8hn3muhcv" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_tab_icon.png" id="261_x2aug"]
+[ext_resource type="Texture2D" uid="uid://3gycgnenmp3b" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_tab.png" id="262_w6407"]
+[ext_resource type="Texture2D" uid="uid://dxxk7qc33jd23" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_t.png" id="263_ry2mw"]
+[ext_resource type="Texture2D" uid="uid://f4nt4nnmiym0" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_space_icon.png" id="264_ve1oc"]
+[ext_resource type="Texture2D" uid="uid://rrxa76ld640l" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_space.png" id="265_imsje"]
+[ext_resource type="Texture2D" uid="uid://cunysv4urn6oh" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_slash_forward.png" id="266_tmw7v"]
+[ext_resource type="Texture2D" uid="uid://cgl5kbc83fp22" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_slash_back.png" id="267_v70xb"]
+[ext_resource type="Texture2D" uid="uid://d2gnlha4tksd3" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_shift_icon.png" id="268_x6d5g"]
+[ext_resource type="Texture2D" uid="uid://b48s33ygoaqq6" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_shift.png" id="269_dfsc4"]
+[ext_resource type="Texture2D" uid="uid://c33t7r0ml5w8u" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_semicolon.png" id="270_4tmwq"]
+[ext_resource type="Texture2D" uid="uid://dhpotcr87q47y" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_scroll_lock.png" id="271_iy8fj"]
+[ext_resource type="Texture2D" uid="uid://bav1i1s58w4hb" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_s.png" id="272_ve2qi"]
+[ext_resource type="Texture2D" uid="uid://cn05r3iptuiqj" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_return.png" id="273_tag85"]
+[ext_resource type="Texture2D" uid="uid://djjnyglw11m7v" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_r.png" id="274_lrhnt"]
+[ext_resource type="Texture2D" uid="uid://y6u3egicxrea" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_quote.png" id="275_r0jtc"]
+[ext_resource type="Texture2D" uid="uid://c3cdkqqsyhoe0" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_question.png" id="276_ralx6"]
+[ext_resource type="Texture2D" uid="uid://v1ctm5niqtyx" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_q.png" id="277_3nran"]
+[ext_resource type="Texture2D" uid="uid://cyxql451eyvy4" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_printscreen.png" id="278_glpma"]
+[ext_resource type="Texture2D" uid="uid://rl52iq3qj24b" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_plus.png" id="279_gice7"]
+[ext_resource type="Texture2D" uid="uid://b46hnppgdvo3s" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_period.png" id="280_dxj7k"]
+[ext_resource type="Texture2D" uid="uid://bgkdcwihhdid2" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_pause_break.png" id="281_jjvs7"]
+[ext_resource type="Texture2D" uid="uid://cgj3wlw27j1nn" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_pause.png" id="282_cbr6y"]
+[ext_resource type="Texture2D" uid="uid://cd2hya64wg3qr" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_page_up.png" id="283_5iskc"]
+[ext_resource type="Texture2D" uid="uid://d00m0ha6wbjib" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_page_down.png" id="284_80adl"]
+[ext_resource type="Texture2D" uid="uid://gc8veijglhuy" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_p.png" id="285_hnon7"]
+[ext_resource type="Texture2D" uid="uid://h1s3g1sdw05o" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_option.png" id="286_owiv2"]
+[ext_resource type="Texture2D" uid="uid://b3s41doqm43y0" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_arrows_up.png" id="287_4k1f3"]
+[ext_resource type="Texture2D" uid="uid://s31o40v6lubm" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_arrows_right.png" id="288_ueus4"]
+[ext_resource type="Texture2D" uid="uid://cw7lremyj3wrr" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_arrows_none.png" id="289_tghjn"]
+[ext_resource type="Texture2D" uid="uid://cpeyiory07x2g" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_arrows_left.png" id="290_iftmp"]
+[ext_resource type="Texture2D" uid="uid://ctna1xetcqc7h" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_arrows_horizontal.png" id="291_hu11u"]
+[ext_resource type="Texture2D" uid="uid://barheeqlghv32" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_arrows_down.png" id="292_tatxc"]
+[ext_resource type="Texture2D" uid="uid://dmdgsbumaesmu" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_arrows_all.png" id="293_pn7nh"]
+[ext_resource type="Texture2D" uid="uid://dgycdjgorb7xg" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_arrows.png" id="294_jisxl"]
+[ext_resource type="Texture2D" uid="uid://bmrxb66xkdqls" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_arrow_up.png" id="295_ffxiv"]
+[ext_resource type="Texture2D" uid="uid://c2h31idnln0ke" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_arrow_right.png" id="296_y6vn7"]
+[ext_resource type="Texture2D" uid="uid://m6lq8tt0heep" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_arrow_left.png" id="297_4ofe8"]
+[ext_resource type="Texture2D" uid="uid://qar1cuaac10o" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_arrow_down.png" id="298_3otum"]
+[ext_resource type="Texture2D" uid="uid://ckv7lthmd2n86" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_apostrophe.png" id="299_wwpqg"]
+[ext_resource type="Texture2D" uid="uid://8ykupwep1rbb" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_any.png" id="300_kimd5"]
+[ext_resource type="Texture2D" uid="uid://bpcg8fe3i3e2x" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_alt.png" id="301_heppg"]
+[ext_resource type="Texture2D" uid="uid://6ke3l0cvwub5" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_a.png" id="302_y81ne"]
+[ext_resource type="Texture2D" uid="uid://c0dxnt5uh0swg" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_9.png" id="303_vxgnh"]
+[ext_resource type="Texture2D" uid="uid://jgmp1lgujc3t" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_8.png" id="304_3bty2"]
+[ext_resource type="Texture2D" uid="uid://b6hreh4xdchb" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_7.png" id="305_26hah"]
+[ext_resource type="Texture2D" uid="uid://bjmj82edn2bec" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_6.png" id="306_wqhgw"]
+[ext_resource type="Texture2D" uid="uid://bedcm7m0kc1nd" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_5.png" id="307_fbv6v"]
+[ext_resource type="Texture2D" uid="uid://dmr0ct2f3gys2" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_4.png" id="308_fxwe5"]
+[ext_resource type="Texture2D" uid="uid://sjnrt34jyhaq" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_3.png" id="309_ki2t7"]
+[ext_resource type="Texture2D" uid="uid://frv2ig60txtt" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_2.png" id="310_qip5d"]
+[ext_resource type="Texture2D" uid="uid://cpj72dl123yoj" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_1.png" id="311_gercq"]
+[ext_resource type="Texture2D" uid="uid://bvtcsg418454o" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_0.png" id="312_1g7xe"]
+[ext_resource type="Texture2D" uid="uid://m7r1g83aripp" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard.png" id="313_mr4u6"]
+[ext_resource type="Texture2D" uid="uid://uak4caick86s" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_f1.png" id="314_0qoan"]
+[ext_resource type="Texture2D" uid="uid://8q3ca1rnf2ue" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_f.png" id="315_kc1am"]
+[ext_resource type="Texture2D" uid="uid://b6nxr2kr0f282" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_exclamation.png" id="316_l4lc4"]
+[ext_resource type="Texture2D" uid="uid://bh76rkmacbyg2" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_escape.png" id="317_51i2l"]
+[ext_resource type="Texture2D" uid="uid://cbjr64bin34dy" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_equals.png" id="318_3t5jn"]
+[ext_resource type="Texture2D" uid="uid://ppkh7iprropy" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_enter.png" id="319_daowp"]
+[ext_resource type="Texture2D" uid="uid://doeiwmoxkm4yb" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_end.png" id="320_e20tg"]
+[ext_resource type="Texture2D" uid="uid://bn18vpckjs1ml" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_e.png" id="321_lq3vh"]
+[ext_resource type="Texture2D" uid="uid://dq523ahfwha4s" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_delete.png" id="322_khjlk"]
+[ext_resource type="Texture2D" uid="uid://c52fnlsdl3igs" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_d.png" id="323_msnu1"]
+[ext_resource type="Texture2D" uid="uid://b58yqtai37qip" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_ctrl.png" id="324_geu4w"]
+[ext_resource type="Texture2D" uid="uid://cbiguit26rpkm" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_command.png" id="325_w3d8r"]
+[ext_resource type="Texture2D" uid="uid://1mrmlgy67ech" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_comma.png" id="326_8itqx"]
+[ext_resource type="Texture2D" uid="uid://def8en70g1a0j" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_colon.png" id="327_7pvt7"]
+[ext_resource type="Texture2D" uid="uid://bkchrxon4weo4" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_caret.png" id="328_mllcw"]
+[ext_resource type="Texture2D" uid="uid://4sthvt8jdt6h" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_capslock_icon.png" id="329_dww70"]
+[ext_resource type="Texture2D" uid="uid://d0wv457jqtedl" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_capslock.png" id="330_v00ek"]
+[ext_resource type="Texture2D" uid="uid://b2h7ghg0xgheu" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_c.png" id="331_as1po"]
+[ext_resource type="Texture2D" uid="uid://ddrr352rtoxon" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_bracket_open.png" id="332_kfcnb"]
+[ext_resource type="Texture2D" uid="uid://dubjeh4b3up6e" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_bracket_less.png" id="333_2ajrv"]
+[ext_resource type="Texture2D" uid="uid://iqjjba45y7v7" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_bracket_greater.png" id="334_u0oy5"]
+[ext_resource type="Texture2D" uid="uid://83hp8nfgxt7l" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_bracket_close.png" id="335_vb3dx"]
+[ext_resource type="Texture2D" uid="uid://r4p3ih1vsb5n" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_backspace_icon_alternative.png" id="336_hjllk"]
+[ext_resource type="Texture2D" uid="uid://cyyn3d3m7op1d" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_backspace_icon.png" id="337_np2j4"]
+[ext_resource type="Texture2D" uid="uid://dbshwv5rnb3qt" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_backspace.png" id="338_tpmps"]
+[ext_resource type="Texture2D" uid="uid://b3q22plfc02u8" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_b.png" id="339_3afkq"]
+[ext_resource type="Texture2D" uid="uid://dmuckaruaij66" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_asterisk.png" id="340_2ty8x"]
+[ext_resource type="Texture2D" uid="uid://csuyu6haxrnyp" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_arrows_vertical.png" id="341_fdwpe"]
+[ext_resource type="Texture2D" uid="uid://dyk64fmbu7ee7" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_guide.png" id="342_vioma"]
+[ext_resource type="Texture2D" uid="uid://qtftkltvhhcw" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_elite_paddle_top_right.png" id="343_78o5r"]
+[ext_resource type="Texture2D" uid="uid://cmou5bi1wfyt7" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_elite_paddle_top_left.png" id="344_u7vry"]
+[ext_resource type="Texture2D" uid="uid://ciodrgghhlcg5" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_elite_paddle_bottom_right.png" id="345_uld1e"]
+[ext_resource type="Texture2D" uid="uid://hsntymiw17vf" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_elite_paddle_bottom_left.png" id="346_pxmsm"]
+[ext_resource type="Texture2D" uid="uid://c1m3p1ko82y2q" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_dpad_vertical.png" id="347_peyug"]
+[ext_resource type="Texture2D" uid="uid://dfl6vnrd7r04w" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_dpad_up.png" id="348_7dost"]
+[ext_resource type="Texture2D" uid="uid://hv15grr77hh1" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_dpad_round_vertical.png" id="349_gh32e"]
+[ext_resource type="Texture2D" uid="uid://cqrbqj56usp27" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_dpad_round_up.png" id="350_3rw0d"]
+[ext_resource type="Texture2D" uid="uid://htvkruey1duu" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_dpad_round_right.png" id="351_3qrco"]
+[ext_resource type="Texture2D" uid="uid://b7sjgjx4s4mdr" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_dpad_round_left.png" id="352_b71xr"]
+[ext_resource type="Texture2D" uid="uid://b78h5uhyd11wv" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_dpad_round_horizontal.png" id="353_dqpt4"]
+[ext_resource type="Texture2D" uid="uid://dhf58gokbcnud" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_dpad_round_down.png" id="354_n4ajh"]
+[ext_resource type="Texture2D" uid="uid://i05kjgp30do3" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_dpad_round_all.png" id="355_80wgo"]
+[ext_resource type="Texture2D" uid="uid://dfwovksmk2gdl" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_dpad_round.png" id="356_d6sv4"]
+[ext_resource type="Texture2D" uid="uid://cdypesj6k7vxe" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_dpad_right.png" id="357_qbo4f"]
+[ext_resource type="Texture2D" uid="uid://dsk3yxfrw1853" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_dpad_none.png" id="358_qwcn7"]
+[ext_resource type="Texture2D" uid="uid://dquakchq67jux" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_dpad_left.png" id="359_dycuy"]
+[ext_resource type="Texture2D" uid="uid://cx8oh1tpywfkd" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_dpad_horizontal.png" id="360_dh8xb"]
+[ext_resource type="Texture2D" uid="uid://fbi3xnhyxi8h" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_dpad_down.png" id="361_86m0o"]
+[ext_resource type="Texture2D" uid="uid://bkwpuyo4s0glu" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_dpad_all.png" id="362_brwsf"]
+[ext_resource type="Texture2D" uid="uid://bpcmq2wiathy5" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_dpad.png" id="363_e7k1d"]
+[ext_resource type="Texture2D" uid="uid://d0kuyvyq34rko" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_button_y.png" id="364_fsf2p"]
+[ext_resource type="Texture2D" uid="uid://bwyg024oty3b8" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_button_x.png" id="365_40c4h"]
+[ext_resource type="Texture2D" uid="uid://dtjji6xvo2y6q" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_button_view.png" id="366_217ko"]
+[ext_resource type="Texture2D" uid="uid://wysdgomgx77f" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_button_start_icon.png" id="367_7g5ej"]
+[ext_resource type="Texture2D" uid="uid://bcl5owcg7k5ua" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_button_start.png" id="368_rgbms"]
+[ext_resource type="Texture2D" uid="uid://ctk4xnre3k0jw" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation4_touchpad.png" id="369_j3asx"]
+[ext_resource type="Texture2D" uid="uid://bycocv1roi8dl" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation4_button_share.png" id="370_iid17"]
+[ext_resource type="Texture2D" uid="uid://cq4do4y43vrwh" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation4_button_options.png" id="371_6f4so"]
+[ext_resource type="Texture2D" uid="uid://4kp2lbs7dqkp" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation3_button_start.png" id="372_6nar8"]
+[ext_resource type="Texture2D" uid="uid://cu42gssl336aq" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation3_button_select.png" id="373_881tm"]
+[ext_resource type="Texture2D" uid="uid://v4dc75k2e5t7" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/controller_playstation5.png" id="374_g1buo"]
+[ext_resource type="Texture2D" uid="uid://ckfbis1cdoomd" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/controller_playstation4.png" id="375_i4kg8"]
+[ext_resource type="Texture2D" uid="uid://bat3rjj6ur2fj" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/controller_playstation3.png" id="376_mf71q"]
+[ext_resource type="Texture2D" uid="uid://bscr125htucpb" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/controller_playstation2.png" id="377_uohew"]
+[ext_resource type="Texture2D" uid="uid://c4nd2qy6cuiww" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/controller_playstation1.png" id="378_bcxyr"]
+[ext_resource type="Texture2D" uid="uid://ccgdp0bgnk86e" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_stick_top_r.png" id="379_r37kt"]
+[ext_resource type="Texture2D" uid="uid://c1ur5ooqew214" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_stick_top_l.png" id="380_rnef1"]
+[ext_resource type="Texture2D" uid="uid://gid6pqb1dgxs" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_stick_side_r.png" id="381_b75us"]
+[ext_resource type="Texture2D" uid="uid://ddoy4jjrqe5ox" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_stick_side_l.png" id="382_ocvnb"]
+[ext_resource type="Texture2D" uid="uid://co8p052b4umw1" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_stick_r_vertical.png" id="383_33ow8"]
+[ext_resource type="Texture2D" uid="uid://bup2wvaiowhrc" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_stick_r_press.png" id="384_23vw3"]
+[ext_resource type="Texture2D" uid="uid://clkn1td5j6kng" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_stick_r_horizontal.png" id="385_716iw"]
+[ext_resource type="Texture2D" uid="uid://bu3p6o0jywltf" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_stick_l_vertical.png" id="386_n7x6r"]
+[ext_resource type="Texture2D" uid="uid://5vsqrdvek55p" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_stick_l_press.png" id="387_qd084"]
+[ext_resource type="Texture2D" uid="uid://f41gsgtsdwlj" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_stick_l_horizontal.png" id="388_qmvan"]
+[ext_resource type="Texture2D" uid="uid://dudft7hro0nqv" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_rt.png" id="389_djv5w"]
+[ext_resource type="Texture2D" uid="uid://bmlj4uowabu6v" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_rs.png" id="390_aj8h2"]
+[ext_resource type="Texture2D" uid="uid://f7lulsvh7mv0" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_rb.png" id="391_jxyb6"]
+[ext_resource type="Texture2D" uid="uid://dofhs2jdea5s" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_lt.png" id="392_wkk14"]
+[ext_resource type="Texture2D" uid="uid://ciepceyabp5qi" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_ls.png" id="393_gr7hg"]
+[ext_resource type="Texture2D" uid="uid://nvsjcnebihbx" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_lb.png" id="394_pescm"]
+[ext_resource type="Texture2D" uid="uid://fdj4vsshu63" path="res://addons/kenney_input-prompts_1.5/Generic/Default/generic_button_finger_pressed.png" id="395_5ihou"]
+[ext_resource type="Texture2D" uid="uid://cogp6taguqa4f" path="res://addons/kenney_input-prompts_1.5/Generic/Default/generic_button_finger.png" id="396_1ebxf"]
+[ext_resource type="Texture2D" uid="uid://y6wpv3bx2qsn" path="res://addons/kenney_input-prompts_1.5/Generic/Default/generic_button_circle_fill.png" id="397_4c1lx"]
+[ext_resource type="Texture2D" uid="uid://b6vaqxqan02fk" path="res://addons/kenney_input-prompts_1.5/Generic/Default/generic_button_circle.png" id="398_aa8hn"]
+[ext_resource type="Texture2D" uid="uid://dchscv66y5liu" path="res://addons/kenney_input-prompts_1.5/Generic/Default/generic_button.png" id="399_p278x"]
+[ext_resource type="Texture2D" uid="uid://bg1v6kdfjljoc" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/mouse_vertical.png" id="400_sixvv"]
+[ext_resource type="Texture2D" uid="uid://cacefaxid62xa" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/mouse_small.png" id="401_pna5b"]
+[ext_resource type="Texture2D" uid="uid://ct7h4l0ixbee7" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/mouse_side_forward.png" id="402_f1aco"]
+[ext_resource type="Texture2D" uid="uid://dej6fm6sm3232" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/mouse_side_back.png" id="403_h1x6b"]
+[ext_resource type="Texture2D" uid="uid://ckpejlam18sa2" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/mouse_side.png" id="404_qifno"]
+[ext_resource type="Texture2D" uid="uid://bq7tx3s50ry8x" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/mouse_scroll_vertical.png" id="405_22y7n"]
+[ext_resource type="Texture2D" uid="uid://b61aetqpuuwg4" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/mouse_scroll_up.png" id="406_iaxqk"]
+[ext_resource type="Texture2D" uid="uid://d3t1t4qfdu3cy" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/mouse_scroll_down.png" id="407_6pdo0"]
+[ext_resource type="Texture2D" uid="uid://bh5ff40hiy1wt" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/mouse_scroll.png" id="408_ccer8"]
+[ext_resource type="Texture2D" uid="uid://bpl5bjpot72pr" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/mouse_right.png" id="409_ihfnw"]
+[ext_resource type="Texture2D" uid="uid://bkyvk0sueu1jm" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/mouse_move.png" id="410_kx21l"]
+[ext_resource type="Texture2D" uid="uid://jpmncs6pdaf2" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/mouse_left.png" id="411_javoq"]
+[ext_resource type="Texture2D" uid="uid://hav0a8j5grsl" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/mouse_horizontal.png" id="412_epdat"]
+[ext_resource type="Texture2D" uid="uid://c5mam7fa4nnsq" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/mouse.png" id="413_yt2li"]
+[ext_resource type="Texture2D" uid="uid://c0cw5e3ewlwga" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_z.png" id="414_6b2ml"]
+[ext_resource type="Texture2D" uid="uid://cfsbs80gn75bk" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_y.png" id="415_ph8gb"]
+[ext_resource type="Texture2D" uid="uid://bgdxnoyi5mvun" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_x.png" id="416_vjk7c"]
+[ext_resource type="Texture2D" uid="uid://drq5g71rsug7r" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_win.png" id="417_ibc2m"]
+[ext_resource type="Texture2D" uid="uid://bvkpfcooq4bpu" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_w.png" id="418_l1rx5"]
+[ext_resource type="Texture2D" uid="uid://84qbtjfld8gf" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_v.png" id="419_qiloj"]
+[ext_resource type="Texture2D" uid="uid://lvoxjjx61smb" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_underscore.png" id="420_c3mrb"]
+[ext_resource type="Texture2D" uid="uid://b3cjdckyxepp2" path="res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_u.png" id="421_a6hww"]
+[ext_resource type="Texture2D" uid="uid://ctcq4vnhrcy8s" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_button_share.png" id="422_7rn1y"]
+[ext_resource type="Texture2D" uid="uid://gukv5sox8k07" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_button_menu.png" id="423_ixkge"]
+[ext_resource type="Texture2D" uid="uid://dxrfb2wfpqocb" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_button_back_icon.png" id="424_qj6ki"]
+[ext_resource type="Texture2D" uid="uid://dmek7s2sxadtl" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_button_back.png" id="425_2j268"]
+[ext_resource type="Texture2D" uid="uid://c807thkbl0k4g" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_button_b.png" id="426_3n2w2"]
+[ext_resource type="Texture2D" uid="uid://kdpiberkigxr" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_button_a.png" id="427_lne6k"]
+[ext_resource type="Texture2D" uid="uid://docd6q34w07a1" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/controller_xboxseries.png" id="428_y48wt"]
+[ext_resource type="Texture2D" uid="uid://c78e7fm5bx0yi" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/controller_xboxone.png" id="429_ml7b2"]
+[ext_resource type="Texture2D" uid="uid://bqwy200yat1ja" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/controller_xbox_adaptive.png" id="430_m4xxb"]
+[ext_resource type="Texture2D" uid="uid://cvx0ofjlfy1yi" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/controller_xbox360.png" id="431_8rfqo"]
+[ext_resource type="Texture2D" uid="uid://c3yti3uvpnm0t" path="res://addons/kenney_input-prompts_1.5/Generic/Default/switch_stick_side.png" id="432_cvygt"]
+[ext_resource type="Texture2D" uid="uid://c4lceofyuevy4" path="res://addons/kenney_input-prompts_1.5/Generic/Default/generic_stick_vertical.png" id="433_iuybj"]
+[ext_resource type="Texture2D" uid="uid://cqhsr8lqaciji" path="res://addons/kenney_input-prompts_1.5/Generic/Default/generic_stick_press.png" id="434_tpqsi"]
+[ext_resource type="Texture2D" uid="uid://qs2ifwdokjhi" path="res://addons/kenney_input-prompts_1.5/Generic/Default/generic_stick_horizontal.png" id="435_bt5qh"]
+[ext_resource type="Texture2D" uid="uid://dgey5pewgcxvp" path="res://addons/kenney_input-prompts_1.5/Generic/Default/generic_joystick_red_horizontal.png" id="436_gxb18"]
+[ext_resource type="Texture2D" uid="uid://cwox3b54y82y0" path="res://addons/kenney_input-prompts_1.5/Generic/Default/generic_joystick_red.png" id="437_yljw2"]
+[ext_resource type="Texture2D" uid="uid://b3bf8po3urq1e" path="res://addons/kenney_input-prompts_1.5/Generic/Default/generic_joystick_horizontal.png" id="438_vu626"]
+[ext_resource type="Texture2D" uid="uid://juwh0nu0oqif" path="res://addons/kenney_input-prompts_1.5/Generic/Default/generic_joystick.png" id="439_uouo3"]
+[ext_resource type="Texture2D" uid="uid://c1ppu7dqg8te" path="res://addons/kenney_input-prompts_1.5/Generic/Default/generic_button_trigger_c_fill.png" id="440_mf02g"]
+[ext_resource type="Texture2D" uid="uid://bwrxle48adbet" path="res://addons/kenney_input-prompts_1.5/Generic/Default/generic_button_trigger_c.png" id="441_t0jsc"]
+[ext_resource type="Texture2D" uid="uid://bpudn878bs7tu" path="res://addons/kenney_input-prompts_1.5/Generic/Default/generic_button_trigger_b_fill.png" id="442_aw2if"]
+[ext_resource type="Texture2D" uid="uid://bio1h6hnbdsq0" path="res://addons/kenney_input-prompts_1.5/Generic/Default/generic_button_trigger_b.png" id="443_trcbi"]
+[ext_resource type="Texture2D" uid="uid://ctip4ddn0oj5v" path="res://addons/kenney_input-prompts_1.5/Generic/Default/generic_button_trigger_a_fill.png" id="444_xkiy5"]
+[ext_resource type="Texture2D" uid="uid://clts8kougrmdj" path="res://addons/kenney_input-prompts_1.5/Generic/Default/generic_button_trigger_a.png" id="445_t4ksq"]
+[ext_resource type="Texture2D" uid="uid://dko0swjbx1xn2" path="res://addons/kenney_input-prompts_1.5/Generic/Default/generic_button_square_fill.png" id="446_6h42v"]
+[ext_resource type="Texture2D" uid="uid://dtgn2hvlqso3k" path="res://addons/kenney_input-prompts_1.5/Generic/Default/generic_button_square.png" id="447_71ghr"]
+[ext_resource type="Texture2D" uid="uid://mbai5nue2k3" path="res://addons/kenney_input-prompts_1.5/Generic/Default/generic_button_pressed.png" id="448_mhhxc"]
+[ext_resource type="Texture2D" uid="uid://rewtklbsyrlu" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_stick_r.png" id="450_hg58t"]
+[ext_resource type="Texture2D" uid="uid://bkxqflwel3kbw" path="res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_stick_l.png" id="451_uirov"]
+[ext_resource type="Texture2D" uid="uid://cdwqlrecabv5s" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_stick_r.png" id="452_he1em"]
+[ext_resource type="Texture2D" uid="uid://cjnesdcout7ht" path="res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_stick_l.png" id="453_4sakb"]
+[ext_resource type="Texture2D" uid="uid://bxbq8m4xryth5" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_stick_r.png" id="454_slqr8"]
+[ext_resource type="Texture2D" uid="uid://cjnk8h1ldfvrs" path="res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_stick_l.png" id="455_rrrhp"]
+[ext_resource type="Texture2D" uid="uid://b72ejq8vhnll4" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_stick_r.png" id="456_etf4s"]
+[ext_resource type="Texture2D" uid="uid://c8k1scf0yh4qw" path="res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_stick_l.png" id="457_ge643"]
+[ext_resource type="Texture2D" uid="uid://dxb4muoohtjfa" path="res://addons/kenney_input-prompts_1.5/Generic/Default/generic_stick.png" id="458_jl2q6"]
 
 [node name="InputIconMapper" unique_id=2136107125 instance=ExtResource("1_0uo0o")]
-add_stick_directions = true
 replace_strings = {
 "Capslock": "Caps Lock",
 "Generic Stick": "Generic Left Stick",
@@ -18,6 +473,916 @@ replace_strings = {
 "Trigger R 2": "Right Trigger"
 }
 filtered_strings = Array[String](["keyboard", "color", "button", "arrow"])
+add_stick_directions = true
+matching_icons = {
+"": ExtResource("313_mr4u6"),
+"0": ExtResource("312_1g7xe"),
+"1": ExtResource("311_gercq"),
+"2": ExtResource("310_qip5d"),
+"3": ExtResource("309_ki2t7"),
+"4": ExtResource("308_fxwe5"),
+"5": ExtResource("307_fbv6v"),
+"6": ExtResource("306_wqhgw"),
+"7": ExtResource("305_26hah"),
+"8": ExtResource("304_3bty2"),
+"9": ExtResource("303_vxgnh"),
+"A": ExtResource("302_y81ne"),
+"Alt": ExtResource("301_heppg"),
+"Any": ExtResource("300_kimd5"),
+"Apostrophe": ExtResource("299_wwpqg"),
+"Arrows": ExtResource("294_jisxl"),
+"Arrows All": ExtResource("293_pn7nh"),
+"Arrows Down": ExtResource("292_tatxc"),
+"Arrows Horizontal": ExtResource("291_hu11u"),
+"Arrows Left": ExtResource("290_iftmp"),
+"Arrows None": ExtResource("289_tghjn"),
+"Arrows Right": ExtResource("288_ueus4"),
+"Arrows Up": ExtResource("287_4k1f3"),
+"Arrows Vertical": ExtResource("341_fdwpe"),
+"Asterisk": ExtResource("340_2ty8x"),
+"B": ExtResource("339_3afkq"),
+"Back Slash": ExtResource("267_v70xb"),
+"Backspace": ExtResource("338_tpmps"),
+"Backspace Icon": ExtResource("337_np2j4"),
+"Backspace Icon Alternative": ExtResource("336_hjllk"),
+"Bracket Close": ExtResource("335_vb3dx"),
+"Bracket Greater": ExtResource("334_u0oy5"),
+"Bracket Less": ExtResource("333_2ajrv"),
+"Bracket Open": ExtResource("332_kfcnb"),
+"C": ExtResource("331_as1po"),
+"Caps Lock": ExtResource("330_v00ek"),
+"Caps Lock Icon": ExtResource("329_dww70"),
+"Caret": ExtResource("328_mllcw"),
+"Colon": ExtResource("327_7pvt7"),
+"Comma": ExtResource("326_8itqx"),
+"Command": ExtResource("325_w3d8r"),
+"Controller Playstation 1": ExtResource("378_bcxyr"),
+"Controller Playstation 2": ExtResource("377_uohew"),
+"Controller Playstation 3": ExtResource("376_mf71q"),
+"Controller Playstation 4": ExtResource("375_i4kg8"),
+"Controller Playstation 5": ExtResource("374_g1buo"),
+"Controller Steamdeck": ExtResource("212_4wy0t"),
+"Controller Switch": ExtResource("61_3ywd3"),
+"Controller Switch Joycon Down": ExtResource("60_swy21"),
+"Controller Switch Joycon Up": ExtResource("59_gwk43"),
+"Controller Switch Pro": ExtResource("58_8dn0n"),
+"Controller Xbox 360": ExtResource("431_8rfqo"),
+"Controller Xbox Adaptive": ExtResource("430_m4xxb"),
+"Controller Xboxone": ExtResource("429_ml7b2"),
+"Controller Xboxseries": ExtResource("428_y48wt"),
+"Ctrl": ExtResource("324_geu4w"),
+"D": ExtResource("323_msnu1"),
+"Delete": ExtResource("322_khjlk"),
+"Down": ExtResource("298_3otum"),
+"E": ExtResource("321_lq3vh"),
+"End": ExtResource("320_e20tg"),
+"Enter": ExtResource("319_daowp"),
+"Equals": ExtResource("318_3t5jn"),
+"Escape": ExtResource("317_51i2l"),
+"Exclamation": ExtResource("316_l4lc4"),
+"F": ExtResource("315_kc1am"),
+"F 1": ExtResource("314_0qoan"),
+"F 10": ExtResource("258_nkwo8"),
+"F 11": ExtResource("257_dll3o"),
+"F 12": ExtResource("256_qca5d"),
+"F 2": ExtResource("255_gu4rs"),
+"F 3": ExtResource("254_atn7s"),
+"F 4": ExtResource("253_w15sa"),
+"F 5": ExtResource("252_tuwbs"),
+"F 6": ExtResource("251_mlqyy"),
+"F 7": ExtResource("250_x7stl"),
+"F 8": ExtResource("249_sbvqs"),
+"F 9": ExtResource("248_trxbb"),
+"Function": ExtResource("247_0webw"),
+"G": ExtResource("246_11j62"),
+"Generic": ExtResource("399_p278x"),
+"Generic Circle": ExtResource("398_aa8hn"),
+"Generic Circle Fill": ExtResource("397_4c1lx"),
+"Generic Finger": ExtResource("396_1ebxf"),
+"Generic Finger Pressed": ExtResource("395_5ihou"),
+"Generic Joystick": ExtResource("439_uouo3"),
+"Generic Joystick Horizontal": ExtResource("438_vu626"),
+"Generic Joystick Left": ExtResource("12_mbbl6"),
+"Generic Joystick Red": ExtResource("437_yljw2"),
+"Generic Joystick Red Horizontal": ExtResource("436_gxb18"),
+"Generic Joystick Red Left": ExtResource("17_bnq2t"),
+"Generic Joystick Red Right": ExtResource("19_d7gh6"),
+"Generic Joystick Right": ExtResource("21_5yfrm"),
+"Generic Left Stick Down": ExtResource("23_173h7"),
+"Generic Left Stick Horizontal": ExtResource("435_bt5qh"),
+"Generic Left Stick Left": ExtResource("22_88mq5"),
+"Generic Left Stick Press": ExtResource("434_tpqsi"),
+"Generic Left Stick Right": ExtResource("14_rh376"),
+"Generic Left Stick Up": ExtResource("10_pdujl"),
+"Generic Left Stick Vertical": ExtResource("433_iuybj"),
+"Generic Pressed": ExtResource("448_mhhxc"),
+"Generic Square": ExtResource("447_71ghr"),
+"Generic Square Fill": ExtResource("446_6h42v"),
+"Generic Trigger A": ExtResource("445_t4ksq"),
+"Generic Trigger A Fill": ExtResource("444_xkiy5"),
+"Generic Trigger B": ExtResource("443_trcbi"),
+"Generic Trigger B Fill": ExtResource("442_aw2if"),
+"Generic Trigger C": ExtResource("441_t0jsc"),
+"Generic Trigger C Fill": ExtResource("440_mf02g"),
+"H": ExtResource("245_asafw"),
+"Home": ExtResource("244_464nm"),
+"I": ExtResource("243_hhv3u"),
+"Insert": ExtResource("242_f2odm"),
+"J": ExtResource("241_3iy2c"),
+"K": ExtResource("240_tkrm4"),
+"L": ExtResource("239_7xqjo"),
+"Left": ExtResource("297_4ofe8"),
+"M": ExtResource("238_7puxs"),
+"Minus": ExtResource("237_mksp3"),
+"Mouse": ExtResource("413_yt2li"),
+"Mouse Horizontal": ExtResource("412_epdat"),
+"Mouse Left": ExtResource("411_javoq"),
+"Mouse Middle": ExtResource("408_ccer8"),
+"Mouse Move": ExtResource("410_kx21l"),
+"Mouse Right": ExtResource("409_ihfnw"),
+"Mouse Scroll": ExtResource("405_22y7n"),
+"Mouse Scroll Down": ExtResource("407_6pdo0"),
+"Mouse Scroll Up": ExtResource("406_iaxqk"),
+"Mouse Scroll Vertical": ExtResource("405_22y7n"),
+"Mouse Side": ExtResource("404_qifno"),
+"Mouse Side Back": ExtResource("403_h1x6b"),
+"Mouse Side Forward": ExtResource("402_f1aco"),
+"Mouse Small": ExtResource("401_pna5b"),
+"Mouse Vertical": ExtResource("400_sixvv"),
+"N": ExtResource("236_wvoqq"),
+"Numlock": ExtResource("235_8cym6"),
+"Numpad Enter": ExtResource("234_2dxi7"),
+"Numpad Plus": ExtResource("233_tuym8"),
+"O": ExtResource("232_x8c1i"),
+"Option": ExtResource("286_owiv2"),
+"P": ExtResource("285_hnon7"),
+"Page Down": ExtResource("284_80adl"),
+"Page Up": ExtResource("283_5iskc"),
+"Pause": ExtResource("282_cbr6y"),
+"Pause Break": ExtResource("281_jjvs7"),
+"Period": ExtResource("280_dxj7k"),
+"Playstation 3 Select": ExtResource("373_881tm"),
+"Playstation 3 Start": ExtResource("372_6nar8"),
+"Playstation 4 Options": ExtResource("371_6f4so"),
+"Playstation 4 Share": ExtResource("370_iid17"),
+"Playstation 4 Touchpad": ExtResource("369_j3asx"),
+"Playstation 4 Touchpad Grid": ExtResource("99_p7hw0"),
+"Playstation 4 Touchpad Press": ExtResource("98_jglej"),
+"Playstation 4 Touchpad Press Center": ExtResource("97_nlfpe"),
+"Playstation 4 Touchpad Press Left": ExtResource("96_v0tn1"),
+"Playstation 4 Touchpad Press Right": ExtResource("95_eq7mt"),
+"Playstation 4 Touchpad Selected": ExtResource("94_uiiqn"),
+"Playstation 4 Touchpad Swipe Down": ExtResource("93_0c0wd"),
+"Playstation 4 Touchpad Swipe Horizontal": ExtResource("92_gsavc"),
+"Playstation 4 Touchpad Swipe Left": ExtResource("91_4rafl"),
+"Playstation 4 Touchpad Swipe Right": ExtResource("90_kdpe1"),
+"Playstation 4 Touchpad Swipe Up": ExtResource("89_p5y7y"),
+"Playstation 4 Touchpad Swipe Vertical": ExtResource("88_tghmb"),
+"Playstation 4 Touchpad Touch": ExtResource("87_mf7jc"),
+"Playstation 5 Create": ExtResource("86_645hf"),
+"Playstation 5 Create Alternative": ExtResource("85_3afoc"),
+"Playstation 5 Elite Fn L": ExtResource("81_wlvpm"),
+"Playstation 5 Elite Fn R": ExtResource("80_rcef0"),
+"Playstation 5 Elite Left Shoulder": ExtResource("79_1o4dc"),
+"Playstation 5 Elite Right Shoulder": ExtResource("78_3bpg3"),
+"Playstation 5 Mute": ExtResource("84_qn6k0"),
+"Playstation 5 Options": ExtResource("83_n4ywv"),
+"Playstation 5 Options Alternative": ExtResource("82_wgbhc"),
+"Playstation 5 Touchpad": ExtResource("77_h28nx"),
+"Playstation 5 Touchpad Press": ExtResource("76_qtgoy"),
+"Playstation 5 Touchpad Press Center": ExtResource("75_03iw2"),
+"Playstation 5 Touchpad Press Left": ExtResource("74_1jy0x"),
+"Playstation 5 Touchpad Press Right": ExtResource("73_vr34a"),
+"Playstation 5 Touchpad Selected": ExtResource("125_wkkyc"),
+"Playstation 5 Touchpad Swipe Down": ExtResource("124_m8ten"),
+"Playstation 5 Touchpad Swipe Horizontal": ExtResource("123_kiiuw"),
+"Playstation 5 Touchpad Swipe Left": ExtResource("122_8u3v2"),
+"Playstation 5 Touchpad Swipe Right": ExtResource("121_do4io"),
+"Playstation 5 Touchpad Swipe Up": ExtResource("120_wukxt"),
+"Playstation 5 Touchpad Swipe Vertical": ExtResource("119_ynxlm"),
+"Playstation 5 Touchpad Touch": ExtResource("118_yd3yf"),
+"Playstation Analog": ExtResource("117_duk0i"),
+"Playstation Circle": ExtResource("116_f8gr6"),
+"Playstation Cross": ExtResource("115_6dowa"),
+"Playstation Dpad": ExtResource("110_xudvt"),
+"Playstation Dpad All": ExtResource("109_u86dm"),
+"Playstation Dpad Down": ExtResource("108_lfu5c"),
+"Playstation Dpad Horizontal": ExtResource("107_3u8t4"),
+"Playstation Dpad Left": ExtResource("106_aah2s"),
+"Playstation Dpad None": ExtResource("105_wjyxa"),
+"Playstation Dpad Right": ExtResource("104_vbs3t"),
+"Playstation Dpad Up": ExtResource("103_y0aog"),
+"Playstation Dpad Vertical": ExtResource("102_s8rpy"),
+"Playstation L 3": ExtResource("114_kh3y4"),
+"Playstation Left Shoulder": ExtResource("69_n3xdn"),
+"Playstation Left Shoulder Alternative": ExtResource("68_b4vcl"),
+"Playstation Left Stick Down": ExtResource("27_rucww"),
+"Playstation Left Stick Horizontal": ExtResource("101_vdenc"),
+"Playstation Left Stick Left": ExtResource("25_a3oqj"),
+"Playstation Left Stick Press": ExtResource("100_krhcj"),
+"Playstation Left Stick Right": ExtResource("24_fcrva"),
+"Playstation Left Stick Up": ExtResource("26_au2s4"),
+"Playstation Left Stick Vertical": ExtResource("46_rre5d"),
+"Playstation Left Trigger": ExtResource("67_0srvf"),
+"Playstation Left Trigger Alternative": ExtResource("66_i0iai"),
+"Playstation R 3": ExtResource("113_d46l1"),
+"Playstation Right Shoulder": ExtResource("65_j1p62"),
+"Playstation Right Shoulder Alternative": ExtResource("64_qe76t"),
+"Playstation Right Stick Down": ExtResource("30_1l0vr"),
+"Playstation Right Stick Horizontal": ExtResource("43_inecs"),
+"Playstation Right Stick Left": ExtResource("33_yh1eg"),
+"Playstation Right Stick Press": ExtResource("42_fh7ti"),
+"Playstation Right Stick Right": ExtResource("39_vmcu2"),
+"Playstation Right Stick Up": ExtResource("2_e0m3k"),
+"Playstation Right Stick Vertical": ExtResource("45_m51l4"),
+"Playstation Right Trigger": ExtResource("63_7truv"),
+"Playstation Right Trigger Alternative": ExtResource("62_3ovg8"),
+"Playstation Square": ExtResource("112_vwu8s"),
+"Playstation Stick Side L": ExtResource("44_60o8i"),
+"Playstation Stick Side R": ExtResource("72_xrfd1"),
+"Playstation Stick Top L": ExtResource("71_xbcsj"),
+"Playstation Stick Top R": ExtResource("70_b6ow0"),
+"Playstation Triangle": ExtResource("111_drew5"),
+"Plus": ExtResource("279_gice7"),
+"Printscreen": ExtResource("278_glpma"),
+"Q": ExtResource("277_3nran"),
+"Question": ExtResource("276_ralx6"),
+"Quote": ExtResource("275_r0jtc"),
+"R": ExtResource("274_lrhnt"),
+"Return": ExtResource("273_tag85"),
+"Right": ExtResource("296_y6vn7"),
+"S": ExtResource("272_ve2qi"),
+"Scroll Lock": ExtResource("271_iy8fj"),
+"Semicolon": ExtResource("270_4tmwq"),
+"Shift": ExtResource("269_dfsc4"),
+"Shift Icon": ExtResource("268_x6d5g"),
+"Slash": ExtResource("266_tmw7v"),
+"Space": ExtResource("265_imsje"),
+"Space Icon": ExtResource("264_ve1oc"),
+"Steamdeck A": ExtResource("211_2frcp"),
+"Steamdeck B": ExtResource("210_7c4q5"),
+"Steamdeck Dpad": ExtResource("140_kwfo2"),
+"Steamdeck Dpad All": ExtResource("139_1d6ab"),
+"Steamdeck Dpad Down": ExtResource("138_hhuyr"),
+"Steamdeck Dpad Horizontal": ExtResource("137_jvpq8"),
+"Steamdeck Dpad Left": ExtResource("136_epsdk"),
+"Steamdeck Dpad None": ExtResource("135_ptjvg"),
+"Steamdeck Dpad Right": ExtResource("134_sgqcu"),
+"Steamdeck Dpad Up": ExtResource("133_aiuen"),
+"Steamdeck Dpad Vertical": ExtResource("132_qs38x"),
+"Steamdeck Home": ExtResource("209_c41cm"),
+"Steamdeck L 4": ExtResource("206_2h5n1"),
+"Steamdeck L 5": ExtResource("150_eocb1"),
+"Steamdeck Left Shoulder": ExtResource("208_k0g1m"),
+"Steamdeck Left Stick Down": ExtResource("20_uwpc5"),
+"Steamdeck Left Stick Horizontal": ExtResource("131_rm87j"),
+"Steamdeck Left Stick Left": ExtResource("18_lk36j"),
+"Steamdeck Left Stick Press": ExtResource("130_ylabd"),
+"Steamdeck Left Stick Right": ExtResource("16_hgnta"),
+"Steamdeck Left Stick Up": ExtResource("15_r27ea"),
+"Steamdeck Left Stick Vertical": ExtResource("129_tm41a"),
+"Steamdeck Left Trigger": ExtResource("207_j2tw1"),
+"Steamdeck Options": ExtResource("149_u786l"),
+"Steamdeck Quickaccess": ExtResource("148_8d0qr"),
+"Steamdeck R 4": ExtResource("145_oh50i"),
+"Steamdeck R 5": ExtResource("144_hlhic"),
+"Steamdeck Right Shoulder": ExtResource("147_vhejr"),
+"Steamdeck Right Stick Down": ExtResource("13_ylip7"),
+"Steamdeck Right Stick Horizontal": ExtResource("128_5ft8k"),
+"Steamdeck Right Stick Left": ExtResource("11_4ith2"),
+"Steamdeck Right Stick Press": ExtResource("127_5gq2a"),
+"Steamdeck Right Stick Right": ExtResource("9_0c8x3"),
+"Steamdeck Right Stick Up": ExtResource("8_qu6ab"),
+"Steamdeck Right Stick Vertical": ExtResource("126_ykhj1"),
+"Steamdeck Right Trigger": ExtResource("146_sfr4t"),
+"Steamdeck Stick Side L": ExtResource("178_6uhm2"),
+"Steamdeck Stick Side R": ExtResource("177_45a75"),
+"Steamdeck Stick Top L": ExtResource("176_cl3v5"),
+"Steamdeck Stick Top R": ExtResource("175_qe3fk"),
+"Steamdeck Trackpad": ExtResource("174_irudd"),
+"Steamdeck Trackpad All": ExtResource("173_671en"),
+"Steamdeck Trackpad Down": ExtResource("172_xo4cn"),
+"Steamdeck Trackpad Horizontal": ExtResource("171_cpog1"),
+"Steamdeck Trackpad L": ExtResource("170_hdp0g"),
+"Steamdeck Trackpad L All": ExtResource("169_b5g2f"),
+"Steamdeck Trackpad L Down": ExtResource("168_0k60t"),
+"Steamdeck Trackpad L Horizontal": ExtResource("167_6rn7l"),
+"Steamdeck Trackpad L Left": ExtResource("166_1epa7"),
+"Steamdeck Trackpad L Right": ExtResource("165_rf71s"),
+"Steamdeck Trackpad L Up": ExtResource("164_mp2sm"),
+"Steamdeck Trackpad L Vertical": ExtResource("163_midd2"),
+"Steamdeck Trackpad Left": ExtResource("162_5mxi0"),
+"Steamdeck Trackpad R": ExtResource("161_6gr31"),
+"Steamdeck Trackpad R All": ExtResource("160_fskfk"),
+"Steamdeck Trackpad R Down": ExtResource("159_b0ubt"),
+"Steamdeck Trackpad R Horizontal": ExtResource("158_30kbf"),
+"Steamdeck Trackpad R Left": ExtResource("157_046n8"),
+"Steamdeck Trackpad R Right": ExtResource("156_v4tq6"),
+"Steamdeck Trackpad R Up": ExtResource("155_4cwu4"),
+"Steamdeck Trackpad R Vertical": ExtResource("154_dtyva"),
+"Steamdeck Trackpad Right": ExtResource("153_ri1j7"),
+"Steamdeck Trackpad Up": ExtResource("152_d3g26"),
+"Steamdeck Trackpad Vertical": ExtResource("151_qs4yt"),
+"Steamdeck View": ExtResource("143_pqnen"),
+"Steamdeck X": ExtResource("142_ekt4b"),
+"Steamdeck Y": ExtResource("141_h6h2v"),
+"Switch A": ExtResource("57_o6jyj"),
+"Switch B": ExtResource("56_2an60"),
+"Switch Buttons": ExtResource("202_ubyf7"),
+"Switch Buttons All": ExtResource("201_ioi65"),
+"Switch Buttons Down": ExtResource("200_vm7sn"),
+"Switch Buttons Horizontal": ExtResource("199_vdmss"),
+"Switch Buttons Left": ExtResource("198_lac1y"),
+"Switch Buttons None": ExtResource("197_ys48k"),
+"Switch Buttons Right": ExtResource("196_ltmd4"),
+"Switch Buttons Up": ExtResource("195_q8eei"),
+"Switch Buttons Vertical": ExtResource("194_b5870"),
+"Switch Down": ExtResource("193_r08wc"),
+"Switch Dpad": ExtResource("192_uvvyu"),
+"Switch Dpad All": ExtResource("191_akklm"),
+"Switch Dpad Down": ExtResource("190_rceww"),
+"Switch Dpad Horizontal": ExtResource("189_7w57o"),
+"Switch Dpad Left": ExtResource("188_hionw"),
+"Switch Dpad None": ExtResource("187_1bw6r"),
+"Switch Dpad Right": ExtResource("186_t5ct1"),
+"Switch Dpad Up": ExtResource("185_ljt8q"),
+"Switch Dpad Vertical": ExtResource("184_cmfjc"),
+"Switch Home": ExtResource("55_gdx4x"),
+"Switch Joycon": ExtResource("183_6m0yl"),
+"Switch Joycon Left": ExtResource("182_hgeqa"),
+"Switch Joycon Left Diagonal": ExtResource("181_rkdnn"),
+"Switch Joycon Left Horizontal": ExtResource("180_cysje"),
+"Switch Joycon Left Rotate": ExtResource("179_r0cf2"),
+"Switch Joycon Left Vertical": ExtResource("231_1uvr2"),
+"Switch Joycon Right": ExtResource("230_tc8qq"),
+"Switch Joycon Right Diagonal": ExtResource("229_ctjrt"),
+"Switch Joycon Right Horizontal": ExtResource("228_rnwx7"),
+"Switch Joycon Right Rotate": ExtResource("227_x7s2n"),
+"Switch Joycon Right Vertical": ExtResource("226_7wdlg"),
+"Switch L": ExtResource("54_eg6ak"),
+"Switch Left": ExtResource("225_ivgx8"),
+"Switch Left Stick Down": ExtResource("5_npuw1"),
+"Switch Left Stick Horizontal": ExtResource("223_kf15u"),
+"Switch Left Stick Left": ExtResource("41_fuqco"),
+"Switch Left Stick Press": ExtResource("222_smbcg"),
+"Switch Left Stick Right": ExtResource("37_ursfx"),
+"Switch Left Stick Up": ExtResource("34_rpnir"),
+"Switch Left Stick Vertical": ExtResource("221_fv34p"),
+"Switch Left Trigger": ExtResource("204_6m3b1"),
+"Switch Minus": ExtResource("53_yvo2c"),
+"Switch Plus": ExtResource("52_4vntu"),
+"Switch R": ExtResource("51_0yxn1"),
+"Switch Right": ExtResource("224_2tdsf"),
+"Switch Right Stick Down": ExtResource("32_6i5nu"),
+"Switch Right Stick Horizontal": ExtResource("220_0sym7"),
+"Switch Right Stick Left": ExtResource("31_4g7l1"),
+"Switch Right Stick Press": ExtResource("219_l5667"),
+"Switch Right Stick Right": ExtResource("29_k13i7"),
+"Switch Right Stick Up": ExtResource("28_fnddc"),
+"Switch Right Stick Vertical": ExtResource("218_64nff"),
+"Switch Right Trigger": ExtResource("203_qlbv7"),
+"Switch Sl": ExtResource("50_m3son"),
+"Switch Sr": ExtResource("49_cne5s"),
+"Switch Stick Side": ExtResource("432_cvygt"),
+"Switch Stick Side L": ExtResource("217_l43w6"),
+"Switch Stick Side R": ExtResource("216_crqoj"),
+"Switch Stick Top L": ExtResource("215_mnuu3"),
+"Switch Stick Top R": ExtResource("214_enncy"),
+"Switch Sync": ExtResource("48_prra7"),
+"Switch Up": ExtResource("213_4wjei"),
+"Switch X": ExtResource("47_bbofj"),
+"Switch Y": ExtResource("205_inydd"),
+"T": ExtResource("263_ry2mw"),
+"Tab": ExtResource("262_w6407"),
+"Tab Icon": ExtResource("261_x2aug"),
+"Tab Icon Alternative": ExtResource("260_6l0rc"),
+"Tilde": ExtResource("259_aa7sn"),
+"U": ExtResource("421_a6hww"),
+"Underscore": ExtResource("420_c3mrb"),
+"Up": ExtResource("295_ffxiv"),
+"V": ExtResource("419_qiloj"),
+"W": ExtResource("418_l1rx5"),
+"Win": ExtResource("417_ibc2m"),
+"X": ExtResource("416_vjk7c"),
+"Xbox A": ExtResource("427_lne6k"),
+"Xbox B": ExtResource("426_3n2w2"),
+"Xbox Back": ExtResource("425_2j268"),
+"Xbox Back Icon": ExtResource("424_qj6ki"),
+"Xbox Dpad": ExtResource("363_e7k1d"),
+"Xbox Dpad All": ExtResource("362_brwsf"),
+"Xbox Dpad Down": ExtResource("361_86m0o"),
+"Xbox Dpad Horizontal": ExtResource("360_dh8xb"),
+"Xbox Dpad Left": ExtResource("359_dycuy"),
+"Xbox Dpad None": ExtResource("358_qwcn7"),
+"Xbox Dpad Right": ExtResource("357_qbo4f"),
+"Xbox Dpad Round": ExtResource("356_d6sv4"),
+"Xbox Dpad Round All": ExtResource("355_80wgo"),
+"Xbox Dpad Round Down": ExtResource("354_n4ajh"),
+"Xbox Dpad Round Horizontal": ExtResource("353_dqpt4"),
+"Xbox Dpad Round Left": ExtResource("352_b71xr"),
+"Xbox Dpad Round Right": ExtResource("351_3qrco"),
+"Xbox Dpad Round Up": ExtResource("350_3rw0d"),
+"Xbox Dpad Round Vertical": ExtResource("349_gh32e"),
+"Xbox Dpad Up": ExtResource("348_7dost"),
+"Xbox Dpad Vertical": ExtResource("347_peyug"),
+"Xbox Elite Paddle Bottom Left": ExtResource("346_pxmsm"),
+"Xbox Elite Paddle Bottom Right": ExtResource("345_uld1e"),
+"Xbox Elite Paddle Top Left": ExtResource("344_u7vry"),
+"Xbox Elite Paddle Top Right": ExtResource("343_78o5r"),
+"Xbox Home": ExtResource("342_vioma"),
+"Xbox Left Shoulder": ExtResource("394_pescm"),
+"Xbox Left Stick Down": ExtResource("7_hl0al"),
+"Xbox Left Stick Horizontal": ExtResource("388_qmvan"),
+"Xbox Left Stick Left": ExtResource("6_tkkg0"),
+"Xbox Left Stick Press": ExtResource("387_qd084"),
+"Xbox Left Stick Right": ExtResource("4_xxsg6"),
+"Xbox Left Stick Up": ExtResource("3_iqnlw"),
+"Xbox Left Stick Vertical": ExtResource("386_n7x6r"),
+"Xbox Left Trigger": ExtResource("392_wkk14"),
+"Xbox Ls": ExtResource("393_gr7hg"),
+"Xbox Menu": ExtResource("423_ixkge"),
+"Xbox Right Shoulder": ExtResource("391_jxyb6"),
+"Xbox Right Stick Down": ExtResource("40_oupb5"),
+"Xbox Right Stick Horizontal": ExtResource("385_716iw"),
+"Xbox Right Stick Left": ExtResource("38_20xrg"),
+"Xbox Right Stick Press": ExtResource("384_23vw3"),
+"Xbox Right Stick Right": ExtResource("36_dmvsp"),
+"Xbox Right Stick Up": ExtResource("35_yi8g5"),
+"Xbox Right Stick Vertical": ExtResource("383_33ow8"),
+"Xbox Right Trigger": ExtResource("389_djv5w"),
+"Xbox Rs": ExtResource("390_aj8h2"),
+"Xbox Share": ExtResource("422_7rn1y"),
+"Xbox Start": ExtResource("368_rgbms"),
+"Xbox Start Icon": ExtResource("367_7g5ej"),
+"Xbox Stick Side L": ExtResource("382_ocvnb"),
+"Xbox Stick Side R": ExtResource("381_b75us"),
+"Xbox Stick Top L": ExtResource("380_rnef1"),
+"Xbox Stick Top R": ExtResource("379_r37kt"),
+"Xbox View": ExtResource("366_217ko"),
+"Xbox X": ExtResource("365_40c4h"),
+"Xbox Y": ExtResource("364_fsf2p"),
+"Y": ExtResource("415_ph8gb"),
+"Z": ExtResource("414_6b2ml")
+}
+all_icons = {
+"controller_playstation1": ExtResource("378_bcxyr"),
+"controller_playstation2": ExtResource("377_uohew"),
+"controller_playstation3": ExtResource("376_mf71q"),
+"controller_playstation4": ExtResource("375_i4kg8"),
+"controller_playstation5": ExtResource("374_g1buo"),
+"controller_steamdeck": ExtResource("212_4wy0t"),
+"controller_switch": ExtResource("61_3ywd3"),
+"controller_switch_joycon_down": ExtResource("60_swy21"),
+"controller_switch_joycon_up": ExtResource("59_gwk43"),
+"controller_switch_pro": ExtResource("58_8dn0n"),
+"controller_xbox360": ExtResource("431_8rfqo"),
+"controller_xbox_adaptive": ExtResource("430_m4xxb"),
+"controller_xboxone": ExtResource("429_ml7b2"),
+"controller_xboxseries": ExtResource("428_y48wt"),
+"generic_button": ExtResource("399_p278x"),
+"generic_button_circle": ExtResource("398_aa8hn"),
+"generic_button_circle_fill": ExtResource("397_4c1lx"),
+"generic_button_finger": ExtResource("396_1ebxf"),
+"generic_button_finger_pressed": ExtResource("395_5ihou"),
+"generic_button_pressed": ExtResource("448_mhhxc"),
+"generic_button_square": ExtResource("447_71ghr"),
+"generic_button_square_fill": ExtResource("446_6h42v"),
+"generic_button_trigger_a": ExtResource("445_t4ksq"),
+"generic_button_trigger_a_fill": ExtResource("444_xkiy5"),
+"generic_button_trigger_b": ExtResource("443_trcbi"),
+"generic_button_trigger_b_fill": ExtResource("442_aw2if"),
+"generic_button_trigger_c": ExtResource("441_t0jsc"),
+"generic_button_trigger_c_fill": ExtResource("440_mf02g"),
+"generic_joystick": ExtResource("439_uouo3"),
+"generic_joystick_horizontal": ExtResource("438_vu626"),
+"generic_joystick_left": ExtResource("12_mbbl6"),
+"generic_joystick_red": ExtResource("437_yljw2"),
+"generic_joystick_red_horizontal": ExtResource("436_gxb18"),
+"generic_joystick_red_left": ExtResource("17_bnq2t"),
+"generic_joystick_red_right": ExtResource("19_d7gh6"),
+"generic_joystick_right": ExtResource("21_5yfrm"),
+"generic_stick": ExtResource("458_jl2q6"),
+"generic_stick_down": ExtResource("23_173h7"),
+"generic_stick_horizontal": ExtResource("435_bt5qh"),
+"generic_stick_left": ExtResource("22_88mq5"),
+"generic_stick_press": ExtResource("434_tpqsi"),
+"generic_stick_right": ExtResource("14_rh376"),
+"generic_stick_up": ExtResource("10_pdujl"),
+"generic_stick_vertical": ExtResource("433_iuybj"),
+"keyboard": ExtResource("313_mr4u6"),
+"keyboard_0": ExtResource("312_1g7xe"),
+"keyboard_1": ExtResource("311_gercq"),
+"keyboard_2": ExtResource("310_qip5d"),
+"keyboard_3": ExtResource("309_ki2t7"),
+"keyboard_4": ExtResource("308_fxwe5"),
+"keyboard_5": ExtResource("307_fbv6v"),
+"keyboard_6": ExtResource("306_wqhgw"),
+"keyboard_7": ExtResource("305_26hah"),
+"keyboard_8": ExtResource("304_3bty2"),
+"keyboard_9": ExtResource("303_vxgnh"),
+"keyboard_a": ExtResource("302_y81ne"),
+"keyboard_alt": ExtResource("301_heppg"),
+"keyboard_any": ExtResource("300_kimd5"),
+"keyboard_apostrophe": ExtResource("299_wwpqg"),
+"keyboard_arrow_down": ExtResource("298_3otum"),
+"keyboard_arrow_left": ExtResource("297_4ofe8"),
+"keyboard_arrow_right": ExtResource("296_y6vn7"),
+"keyboard_arrow_up": ExtResource("295_ffxiv"),
+"keyboard_arrows": ExtResource("294_jisxl"),
+"keyboard_arrows_all": ExtResource("293_pn7nh"),
+"keyboard_arrows_down": ExtResource("292_tatxc"),
+"keyboard_arrows_horizontal": ExtResource("291_hu11u"),
+"keyboard_arrows_left": ExtResource("290_iftmp"),
+"keyboard_arrows_none": ExtResource("289_tghjn"),
+"keyboard_arrows_right": ExtResource("288_ueus4"),
+"keyboard_arrows_up": ExtResource("287_4k1f3"),
+"keyboard_arrows_vertical": ExtResource("341_fdwpe"),
+"keyboard_asterisk": ExtResource("340_2ty8x"),
+"keyboard_b": ExtResource("339_3afkq"),
+"keyboard_backspace": ExtResource("338_tpmps"),
+"keyboard_backspace_icon": ExtResource("337_np2j4"),
+"keyboard_backspace_icon_alternative": ExtResource("336_hjllk"),
+"keyboard_bracket_close": ExtResource("335_vb3dx"),
+"keyboard_bracket_greater": ExtResource("334_u0oy5"),
+"keyboard_bracket_less": ExtResource("333_2ajrv"),
+"keyboard_bracket_open": ExtResource("332_kfcnb"),
+"keyboard_c": ExtResource("331_as1po"),
+"keyboard_capslock": ExtResource("330_v00ek"),
+"keyboard_capslock_icon": ExtResource("329_dww70"),
+"keyboard_caret": ExtResource("328_mllcw"),
+"keyboard_colon": ExtResource("327_7pvt7"),
+"keyboard_comma": ExtResource("326_8itqx"),
+"keyboard_command": ExtResource("325_w3d8r"),
+"keyboard_ctrl": ExtResource("324_geu4w"),
+"keyboard_d": ExtResource("323_msnu1"),
+"keyboard_delete": ExtResource("322_khjlk"),
+"keyboard_e": ExtResource("321_lq3vh"),
+"keyboard_end": ExtResource("320_e20tg"),
+"keyboard_enter": ExtResource("319_daowp"),
+"keyboard_equals": ExtResource("318_3t5jn"),
+"keyboard_escape": ExtResource("317_51i2l"),
+"keyboard_exclamation": ExtResource("316_l4lc4"),
+"keyboard_f": ExtResource("315_kc1am"),
+"keyboard_f1": ExtResource("314_0qoan"),
+"keyboard_f10": ExtResource("258_nkwo8"),
+"keyboard_f11": ExtResource("257_dll3o"),
+"keyboard_f12": ExtResource("256_qca5d"),
+"keyboard_f2": ExtResource("255_gu4rs"),
+"keyboard_f3": ExtResource("254_atn7s"),
+"keyboard_f4": ExtResource("253_w15sa"),
+"keyboard_f5": ExtResource("252_tuwbs"),
+"keyboard_f6": ExtResource("251_mlqyy"),
+"keyboard_f7": ExtResource("250_x7stl"),
+"keyboard_f8": ExtResource("249_sbvqs"),
+"keyboard_f9": ExtResource("248_trxbb"),
+"keyboard_function": ExtResource("247_0webw"),
+"keyboard_g": ExtResource("246_11j62"),
+"keyboard_h": ExtResource("245_asafw"),
+"keyboard_home": ExtResource("244_464nm"),
+"keyboard_i": ExtResource("243_hhv3u"),
+"keyboard_insert": ExtResource("242_f2odm"),
+"keyboard_j": ExtResource("241_3iy2c"),
+"keyboard_k": ExtResource("240_tkrm4"),
+"keyboard_l": ExtResource("239_7xqjo"),
+"keyboard_m": ExtResource("238_7puxs"),
+"keyboard_minus": ExtResource("237_mksp3"),
+"keyboard_n": ExtResource("236_wvoqq"),
+"keyboard_numlock": ExtResource("235_8cym6"),
+"keyboard_numpad_enter": ExtResource("234_2dxi7"),
+"keyboard_numpad_plus": ExtResource("233_tuym8"),
+"keyboard_o": ExtResource("232_x8c1i"),
+"keyboard_option": ExtResource("286_owiv2"),
+"keyboard_p": ExtResource("285_hnon7"),
+"keyboard_page_down": ExtResource("284_80adl"),
+"keyboard_page_up": ExtResource("283_5iskc"),
+"keyboard_pause": ExtResource("282_cbr6y"),
+"keyboard_pause_break": ExtResource("281_jjvs7"),
+"keyboard_period": ExtResource("280_dxj7k"),
+"keyboard_plus": ExtResource("279_gice7"),
+"keyboard_printscreen": ExtResource("278_glpma"),
+"keyboard_q": ExtResource("277_3nran"),
+"keyboard_question": ExtResource("276_ralx6"),
+"keyboard_quote": ExtResource("275_r0jtc"),
+"keyboard_r": ExtResource("274_lrhnt"),
+"keyboard_return": ExtResource("273_tag85"),
+"keyboard_s": ExtResource("272_ve2qi"),
+"keyboard_scroll_lock": ExtResource("271_iy8fj"),
+"keyboard_semicolon": ExtResource("270_4tmwq"),
+"keyboard_shift": ExtResource("269_dfsc4"),
+"keyboard_shift_icon": ExtResource("268_x6d5g"),
+"keyboard_slash_back": ExtResource("267_v70xb"),
+"keyboard_slash_forward": ExtResource("266_tmw7v"),
+"keyboard_space": ExtResource("265_imsje"),
+"keyboard_space_icon": ExtResource("264_ve1oc"),
+"keyboard_t": ExtResource("263_ry2mw"),
+"keyboard_tab": ExtResource("262_w6407"),
+"keyboard_tab_icon": ExtResource("261_x2aug"),
+"keyboard_tab_icon_alternative": ExtResource("260_6l0rc"),
+"keyboard_tilde": ExtResource("259_aa7sn"),
+"keyboard_u": ExtResource("421_a6hww"),
+"keyboard_underscore": ExtResource("420_c3mrb"),
+"keyboard_v": ExtResource("419_qiloj"),
+"keyboard_w": ExtResource("418_l1rx5"),
+"keyboard_win": ExtResource("417_ibc2m"),
+"keyboard_x": ExtResource("416_vjk7c"),
+"keyboard_y": ExtResource("415_ph8gb"),
+"keyboard_z": ExtResource("414_6b2ml"),
+"mouse": ExtResource("413_yt2li"),
+"mouse_horizontal": ExtResource("412_epdat"),
+"mouse_left": ExtResource("411_javoq"),
+"mouse_move": ExtResource("410_kx21l"),
+"mouse_right": ExtResource("409_ihfnw"),
+"mouse_scroll": ExtResource("405_22y7n"),
+"mouse_scroll_down": ExtResource("407_6pdo0"),
+"mouse_scroll_up": ExtResource("406_iaxqk"),
+"mouse_scroll_vertical": ExtResource("405_22y7n"),
+"mouse_side": ExtResource("404_qifno"),
+"mouse_side_back": ExtResource("403_h1x6b"),
+"mouse_side_forward": ExtResource("402_f1aco"),
+"mouse_small": ExtResource("401_pna5b"),
+"mouse_vertical": ExtResource("400_sixvv"),
+"playstation3_button_select": ExtResource("373_881tm"),
+"playstation3_button_start": ExtResource("372_6nar8"),
+"playstation4_button_options": ExtResource("371_6f4so"),
+"playstation4_button_share": ExtResource("370_iid17"),
+"playstation4_touchpad": ExtResource("369_j3asx"),
+"playstation4_touchpad_grid": ExtResource("99_p7hw0"),
+"playstation4_touchpad_press": ExtResource("98_jglej"),
+"playstation4_touchpad_press_center": ExtResource("97_nlfpe"),
+"playstation4_touchpad_press_left": ExtResource("96_v0tn1"),
+"playstation4_touchpad_press_right": ExtResource("95_eq7mt"),
+"playstation4_touchpad_selected": ExtResource("94_uiiqn"),
+"playstation4_touchpad_swipe_down": ExtResource("93_0c0wd"),
+"playstation4_touchpad_swipe_horizontal": ExtResource("92_gsavc"),
+"playstation4_touchpad_swipe_left": ExtResource("91_4rafl"),
+"playstation4_touchpad_swipe_right": ExtResource("90_kdpe1"),
+"playstation4_touchpad_swipe_up": ExtResource("89_p5y7y"),
+"playstation4_touchpad_swipe_vertical": ExtResource("88_tghmb"),
+"playstation4_touchpad_touch": ExtResource("87_mf7jc"),
+"playstation5_button_create": ExtResource("86_645hf"),
+"playstation5_button_create_alternative": ExtResource("85_3afoc"),
+"playstation5_button_mute": ExtResource("84_qn6k0"),
+"playstation5_button_options": ExtResource("83_n4ywv"),
+"playstation5_button_options_alternative": ExtResource("82_wgbhc"),
+"playstation5_elite_fn_l": ExtResource("81_wlvpm"),
+"playstation5_elite_fn_r": ExtResource("80_rcef0"),
+"playstation5_elite_lb": ExtResource("79_1o4dc"),
+"playstation5_elite_rb": ExtResource("78_3bpg3"),
+"playstation5_touchpad": ExtResource("77_h28nx"),
+"playstation5_touchpad_press": ExtResource("76_qtgoy"),
+"playstation5_touchpad_press_center": ExtResource("75_03iw2"),
+"playstation5_touchpad_press_left": ExtResource("74_1jy0x"),
+"playstation5_touchpad_press_right": ExtResource("73_vr34a"),
+"playstation5_touchpad_selected": ExtResource("125_wkkyc"),
+"playstation5_touchpad_swipe_down": ExtResource("124_m8ten"),
+"playstation5_touchpad_swipe_horizontal": ExtResource("123_kiiuw"),
+"playstation5_touchpad_swipe_left": ExtResource("122_8u3v2"),
+"playstation5_touchpad_swipe_right": ExtResource("121_do4io"),
+"playstation5_touchpad_swipe_up": ExtResource("120_wukxt"),
+"playstation5_touchpad_swipe_vertical": ExtResource("119_ynxlm"),
+"playstation5_touchpad_touch": ExtResource("118_yd3yf"),
+"playstation_button_analog": ExtResource("117_duk0i"),
+"playstation_button_circle": ExtResource("116_f8gr6"),
+"playstation_button_cross": ExtResource("115_6dowa"),
+"playstation_button_l3": ExtResource("114_kh3y4"),
+"playstation_button_r3": ExtResource("113_d46l1"),
+"playstation_button_square": ExtResource("112_vwu8s"),
+"playstation_button_triangle": ExtResource("111_drew5"),
+"playstation_dpad": ExtResource("110_xudvt"),
+"playstation_dpad_all": ExtResource("109_u86dm"),
+"playstation_dpad_down": ExtResource("108_lfu5c"),
+"playstation_dpad_horizontal": ExtResource("107_3u8t4"),
+"playstation_dpad_left": ExtResource("106_aah2s"),
+"playstation_dpad_none": ExtResource("105_wjyxa"),
+"playstation_dpad_right": ExtResource("104_vbs3t"),
+"playstation_dpad_up": ExtResource("103_y0aog"),
+"playstation_dpad_vertical": ExtResource("102_s8rpy"),
+"playstation_stick_l": ExtResource("451_uirov"),
+"playstation_stick_l_down": ExtResource("27_rucww"),
+"playstation_stick_l_horizontal": ExtResource("101_vdenc"),
+"playstation_stick_l_left": ExtResource("25_a3oqj"),
+"playstation_stick_l_press": ExtResource("100_krhcj"),
+"playstation_stick_l_right": ExtResource("24_fcrva"),
+"playstation_stick_l_up": ExtResource("26_au2s4"),
+"playstation_stick_l_vertical": ExtResource("46_rre5d"),
+"playstation_stick_r": ExtResource("450_hg58t"),
+"playstation_stick_r_down": ExtResource("30_1l0vr"),
+"playstation_stick_r_horizontal": ExtResource("43_inecs"),
+"playstation_stick_r_left": ExtResource("33_yh1eg"),
+"playstation_stick_r_press": ExtResource("42_fh7ti"),
+"playstation_stick_r_right": ExtResource("39_vmcu2"),
+"playstation_stick_r_up": ExtResource("2_e0m3k"),
+"playstation_stick_r_vertical": ExtResource("45_m51l4"),
+"playstation_stick_side_l": ExtResource("44_60o8i"),
+"playstation_stick_side_r": ExtResource("72_xrfd1"),
+"playstation_stick_top_l": ExtResource("71_xbcsj"),
+"playstation_stick_top_r": ExtResource("70_b6ow0"),
+"playstation_trigger_l1": ExtResource("69_n3xdn"),
+"playstation_trigger_l1_alternative": ExtResource("68_b4vcl"),
+"playstation_trigger_l2": ExtResource("67_0srvf"),
+"playstation_trigger_l2_alternative": ExtResource("66_i0iai"),
+"playstation_trigger_r1": ExtResource("65_j1p62"),
+"playstation_trigger_r1_alternative": ExtResource("64_qe76t"),
+"playstation_trigger_r2": ExtResource("63_7truv"),
+"playstation_trigger_r2_alternative": ExtResource("62_3ovg8"),
+"steamdeck_button_a": ExtResource("211_2frcp"),
+"steamdeck_button_b": ExtResource("210_7c4q5"),
+"steamdeck_button_guide": ExtResource("209_c41cm"),
+"steamdeck_button_l1": ExtResource("208_k0g1m"),
+"steamdeck_button_l2": ExtResource("207_j2tw1"),
+"steamdeck_button_l4": ExtResource("206_2h5n1"),
+"steamdeck_button_l5": ExtResource("150_eocb1"),
+"steamdeck_button_options": ExtResource("149_u786l"),
+"steamdeck_button_quickaccess": ExtResource("148_8d0qr"),
+"steamdeck_button_r1": ExtResource("147_vhejr"),
+"steamdeck_button_r2": ExtResource("146_sfr4t"),
+"steamdeck_button_r4": ExtResource("145_oh50i"),
+"steamdeck_button_r5": ExtResource("144_hlhic"),
+"steamdeck_button_view": ExtResource("143_pqnen"),
+"steamdeck_button_x": ExtResource("142_ekt4b"),
+"steamdeck_button_y": ExtResource("141_h6h2v"),
+"steamdeck_dpad": ExtResource("140_kwfo2"),
+"steamdeck_dpad_all": ExtResource("139_1d6ab"),
+"steamdeck_dpad_down": ExtResource("138_hhuyr"),
+"steamdeck_dpad_horizontal": ExtResource("137_jvpq8"),
+"steamdeck_dpad_left": ExtResource("136_epsdk"),
+"steamdeck_dpad_none": ExtResource("135_ptjvg"),
+"steamdeck_dpad_right": ExtResource("134_sgqcu"),
+"steamdeck_dpad_up": ExtResource("133_aiuen"),
+"steamdeck_dpad_vertical": ExtResource("132_qs38x"),
+"steamdeck_stick_l": ExtResource("453_4sakb"),
+"steamdeck_stick_l_down": ExtResource("20_uwpc5"),
+"steamdeck_stick_l_horizontal": ExtResource("131_rm87j"),
+"steamdeck_stick_l_left": ExtResource("18_lk36j"),
+"steamdeck_stick_l_press": ExtResource("130_ylabd"),
+"steamdeck_stick_l_right": ExtResource("16_hgnta"),
+"steamdeck_stick_l_up": ExtResource("15_r27ea"),
+"steamdeck_stick_l_vertical": ExtResource("129_tm41a"),
+"steamdeck_stick_r": ExtResource("452_he1em"),
+"steamdeck_stick_r_down": ExtResource("13_ylip7"),
+"steamdeck_stick_r_horizontal": ExtResource("128_5ft8k"),
+"steamdeck_stick_r_left": ExtResource("11_4ith2"),
+"steamdeck_stick_r_press": ExtResource("127_5gq2a"),
+"steamdeck_stick_r_right": ExtResource("9_0c8x3"),
+"steamdeck_stick_r_up": ExtResource("8_qu6ab"),
+"steamdeck_stick_r_vertical": ExtResource("126_ykhj1"),
+"steamdeck_stick_side_l": ExtResource("178_6uhm2"),
+"steamdeck_stick_side_r": ExtResource("177_45a75"),
+"steamdeck_stick_top_l": ExtResource("176_cl3v5"),
+"steamdeck_stick_top_r": ExtResource("175_qe3fk"),
+"steamdeck_trackpad": ExtResource("174_irudd"),
+"steamdeck_trackpad_all": ExtResource("173_671en"),
+"steamdeck_trackpad_down": ExtResource("172_xo4cn"),
+"steamdeck_trackpad_horizontal": ExtResource("171_cpog1"),
+"steamdeck_trackpad_l": ExtResource("170_hdp0g"),
+"steamdeck_trackpad_l_all": ExtResource("169_b5g2f"),
+"steamdeck_trackpad_l_down": ExtResource("168_0k60t"),
+"steamdeck_trackpad_l_horizontal": ExtResource("167_6rn7l"),
+"steamdeck_trackpad_l_left": ExtResource("166_1epa7"),
+"steamdeck_trackpad_l_right": ExtResource("165_rf71s"),
+"steamdeck_trackpad_l_up": ExtResource("164_mp2sm"),
+"steamdeck_trackpad_l_vertical": ExtResource("163_midd2"),
+"steamdeck_trackpad_left": ExtResource("162_5mxi0"),
+"steamdeck_trackpad_r": ExtResource("161_6gr31"),
+"steamdeck_trackpad_r_all": ExtResource("160_fskfk"),
+"steamdeck_trackpad_r_down": ExtResource("159_b0ubt"),
+"steamdeck_trackpad_r_horizontal": ExtResource("158_30kbf"),
+"steamdeck_trackpad_r_left": ExtResource("157_046n8"),
+"steamdeck_trackpad_r_right": ExtResource("156_v4tq6"),
+"steamdeck_trackpad_r_up": ExtResource("155_4cwu4"),
+"steamdeck_trackpad_r_vertical": ExtResource("154_dtyva"),
+"steamdeck_trackpad_right": ExtResource("153_ri1j7"),
+"steamdeck_trackpad_up": ExtResource("152_d3g26"),
+"steamdeck_trackpad_vertical": ExtResource("151_qs4yt"),
+"switch_button_a": ExtResource("57_o6jyj"),
+"switch_button_b": ExtResource("56_2an60"),
+"switch_button_home": ExtResource("55_gdx4x"),
+"switch_button_l": ExtResource("54_eg6ak"),
+"switch_button_minus": ExtResource("53_yvo2c"),
+"switch_button_plus": ExtResource("52_4vntu"),
+"switch_button_r": ExtResource("51_0yxn1"),
+"switch_button_sl": ExtResource("50_m3son"),
+"switch_button_sr": ExtResource("49_cne5s"),
+"switch_button_sync": ExtResource("48_prra7"),
+"switch_button_x": ExtResource("47_bbofj"),
+"switch_button_y": ExtResource("205_inydd"),
+"switch_button_zl": ExtResource("204_6m3b1"),
+"switch_button_zr": ExtResource("203_qlbv7"),
+"switch_buttons": ExtResource("202_ubyf7"),
+"switch_buttons_all": ExtResource("201_ioi65"),
+"switch_buttons_down": ExtResource("200_vm7sn"),
+"switch_buttons_horizontal": ExtResource("199_vdmss"),
+"switch_buttons_left": ExtResource("198_lac1y"),
+"switch_buttons_none": ExtResource("197_ys48k"),
+"switch_buttons_right": ExtResource("196_ltmd4"),
+"switch_buttons_up": ExtResource("195_q8eei"),
+"switch_buttons_vertical": ExtResource("194_b5870"),
+"switch_down": ExtResource("193_r08wc"),
+"switch_dpad": ExtResource("192_uvvyu"),
+"switch_dpad_all": ExtResource("191_akklm"),
+"switch_dpad_down": ExtResource("190_rceww"),
+"switch_dpad_horizontal": ExtResource("189_7w57o"),
+"switch_dpad_left": ExtResource("188_hionw"),
+"switch_dpad_none": ExtResource("187_1bw6r"),
+"switch_dpad_right": ExtResource("186_t5ct1"),
+"switch_dpad_up": ExtResource("185_ljt8q"),
+"switch_dpad_vertical": ExtResource("184_cmfjc"),
+"switch_joycon": ExtResource("183_6m0yl"),
+"switch_joycon_left": ExtResource("182_hgeqa"),
+"switch_joycon_left_diagonal": ExtResource("181_rkdnn"),
+"switch_joycon_left_horizontal": ExtResource("180_cysje"),
+"switch_joycon_left_rotate": ExtResource("179_r0cf2"),
+"switch_joycon_left_vertical": ExtResource("231_1uvr2"),
+"switch_joycon_right": ExtResource("230_tc8qq"),
+"switch_joycon_right_diagonal": ExtResource("229_ctjrt"),
+"switch_joycon_right_horizontal": ExtResource("228_rnwx7"),
+"switch_joycon_right_rotate": ExtResource("227_x7s2n"),
+"switch_joycon_right_vertical": ExtResource("226_7wdlg"),
+"switch_left": ExtResource("225_ivgx8"),
+"switch_right": ExtResource("224_2tdsf"),
+"switch_stick_l": ExtResource("455_rrrhp"),
+"switch_stick_l_down": ExtResource("5_npuw1"),
+"switch_stick_l_horizontal": ExtResource("223_kf15u"),
+"switch_stick_l_left": ExtResource("41_fuqco"),
+"switch_stick_l_press": ExtResource("222_smbcg"),
+"switch_stick_l_right": ExtResource("37_ursfx"),
+"switch_stick_l_up": ExtResource("34_rpnir"),
+"switch_stick_l_vertical": ExtResource("221_fv34p"),
+"switch_stick_r": ExtResource("454_slqr8"),
+"switch_stick_r_down": ExtResource("32_6i5nu"),
+"switch_stick_r_horizontal": ExtResource("220_0sym7"),
+"switch_stick_r_left": ExtResource("31_4g7l1"),
+"switch_stick_r_press": ExtResource("219_l5667"),
+"switch_stick_r_right": ExtResource("29_k13i7"),
+"switch_stick_r_up": ExtResource("28_fnddc"),
+"switch_stick_r_vertical": ExtResource("218_64nff"),
+"switch_stick_side": ExtResource("432_cvygt"),
+"switch_stick_side_l": ExtResource("217_l43w6"),
+"switch_stick_side_r": ExtResource("216_crqoj"),
+"switch_stick_top_l": ExtResource("215_mnuu3"),
+"switch_stick_top_r": ExtResource("214_enncy"),
+"switch_up": ExtResource("213_4wjei"),
+"xbox_button_a": ExtResource("427_lne6k"),
+"xbox_button_b": ExtResource("426_3n2w2"),
+"xbox_button_back": ExtResource("425_2j268"),
+"xbox_button_back_icon": ExtResource("424_qj6ki"),
+"xbox_button_menu": ExtResource("423_ixkge"),
+"xbox_button_share": ExtResource("422_7rn1y"),
+"xbox_button_start": ExtResource("368_rgbms"),
+"xbox_button_start_icon": ExtResource("367_7g5ej"),
+"xbox_button_view": ExtResource("366_217ko"),
+"xbox_button_x": ExtResource("365_40c4h"),
+"xbox_button_y": ExtResource("364_fsf2p"),
+"xbox_dpad": ExtResource("363_e7k1d"),
+"xbox_dpad_all": ExtResource("362_brwsf"),
+"xbox_dpad_down": ExtResource("361_86m0o"),
+"xbox_dpad_horizontal": ExtResource("360_dh8xb"),
+"xbox_dpad_left": ExtResource("359_dycuy"),
+"xbox_dpad_none": ExtResource("358_qwcn7"),
+"xbox_dpad_right": ExtResource("357_qbo4f"),
+"xbox_dpad_round": ExtResource("356_d6sv4"),
+"xbox_dpad_round_all": ExtResource("355_80wgo"),
+"xbox_dpad_round_down": ExtResource("354_n4ajh"),
+"xbox_dpad_round_horizontal": ExtResource("353_dqpt4"),
+"xbox_dpad_round_left": ExtResource("352_b71xr"),
+"xbox_dpad_round_right": ExtResource("351_3qrco"),
+"xbox_dpad_round_up": ExtResource("350_3rw0d"),
+"xbox_dpad_round_vertical": ExtResource("349_gh32e"),
+"xbox_dpad_up": ExtResource("348_7dost"),
+"xbox_dpad_vertical": ExtResource("347_peyug"),
+"xbox_elite_paddle_bottom_left": ExtResource("346_pxmsm"),
+"xbox_elite_paddle_bottom_right": ExtResource("345_uld1e"),
+"xbox_elite_paddle_top_left": ExtResource("344_u7vry"),
+"xbox_elite_paddle_top_right": ExtResource("343_78o5r"),
+"xbox_guide": ExtResource("342_vioma"),
+"xbox_lb": ExtResource("394_pescm"),
+"xbox_ls": ExtResource("393_gr7hg"),
+"xbox_lt": ExtResource("392_wkk14"),
+"xbox_rb": ExtResource("391_jxyb6"),
+"xbox_rs": ExtResource("390_aj8h2"),
+"xbox_rt": ExtResource("389_djv5w"),
+"xbox_stick_l": ExtResource("457_ge643"),
+"xbox_stick_l_down": ExtResource("7_hl0al"),
+"xbox_stick_l_horizontal": ExtResource("388_qmvan"),
+"xbox_stick_l_left": ExtResource("6_tkkg0"),
+"xbox_stick_l_press": ExtResource("387_qd084"),
+"xbox_stick_l_right": ExtResource("4_xxsg6"),
+"xbox_stick_l_up": ExtResource("3_iqnlw"),
+"xbox_stick_l_vertical": ExtResource("386_n7x6r"),
+"xbox_stick_r": ExtResource("456_etf4s"),
+"xbox_stick_r_down": ExtResource("40_oupb5"),
+"xbox_stick_r_horizontal": ExtResource("385_716iw"),
+"xbox_stick_r_left": ExtResource("38_20xrg"),
+"xbox_stick_r_press": ExtResource("384_23vw3"),
+"xbox_stick_r_right": ExtResource("36_dmvsp"),
+"xbox_stick_r_up": ExtResource("35_yi8g5"),
+"xbox_stick_r_vertical": ExtResource("383_33ow8"),
+"xbox_stick_side_l": ExtResource("382_ocvnb"),
+"xbox_stick_side_r": ExtResource("381_b75us"),
+"xbox_stick_top_l": ExtResource("380_rnef1"),
+"xbox_stick_top_r": ExtResource("379_r37kt")
+}
+files = Array[String](["res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_0.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_1.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_2.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_3.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_4.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_5.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_6.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_7.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_8.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_9.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_a.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_alt.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_any.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_apostrophe.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_arrow_down.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_arrow_left.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_arrow_right.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_arrow_up.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_arrows.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_arrows_all.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_arrows_down.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_arrows_horizontal.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_arrows_left.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_arrows_none.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_arrows_right.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_arrows_up.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_arrows_vertical.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_asterisk.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_b.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_backspace.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_backspace_icon.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_backspace_icon_alternative.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_bracket_close.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_bracket_greater.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_bracket_less.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_bracket_open.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_c.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_capslock.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_capslock_icon.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_caret.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_colon.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_comma.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_command.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_ctrl.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_d.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_delete.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_e.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_end.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_enter.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_equals.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_escape.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_exclamation.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_f.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_f1.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_f10.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_f11.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_f12.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_f2.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_f3.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_f4.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_f5.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_f6.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_f7.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_f8.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_f9.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_function.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_g.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_h.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_home.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_i.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_insert.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_j.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_k.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_l.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_m.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_minus.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_n.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_numlock.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_numpad_enter.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_numpad_plus.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_o.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_option.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_p.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_page_down.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_page_up.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_pause.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_pause_break.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_period.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_plus.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_printscreen.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_q.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_question.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_quote.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_r.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_return.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_s.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_scroll_lock.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_semicolon.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_shift.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_shift_icon.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_slash_back.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_slash_forward.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_space.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_space_icon.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_t.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_tab.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_tab_icon.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_tab_icon_alternative.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_tilde.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_u.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_underscore.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_v.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_w.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_win.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_x.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_y.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/keyboard_z.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/mouse.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/mouse_horizontal.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/mouse_left.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/mouse_move.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/mouse_right.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/mouse_scroll.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/mouse_scroll_down.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/mouse_scroll_up.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/mouse_scroll_vertical.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/mouse_side.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/mouse_side_back.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/mouse_side_forward.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/mouse_small.png", "res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default/mouse_vertical.png", "res://addons/kenney_input-prompts_1.5/Generic/Default/generic_button.png", "res://addons/kenney_input-prompts_1.5/Generic/Default/generic_button_circle.png", "res://addons/kenney_input-prompts_1.5/Generic/Default/generic_button_circle_fill.png", "res://addons/kenney_input-prompts_1.5/Generic/Default/generic_button_finger.png", "res://addons/kenney_input-prompts_1.5/Generic/Default/generic_button_finger_pressed.png", "res://addons/kenney_input-prompts_1.5/Generic/Default/generic_button_pressed.png", "res://addons/kenney_input-prompts_1.5/Generic/Default/generic_button_square.png", "res://addons/kenney_input-prompts_1.5/Generic/Default/generic_button_square_fill.png", "res://addons/kenney_input-prompts_1.5/Generic/Default/generic_button_trigger_a.png", "res://addons/kenney_input-prompts_1.5/Generic/Default/generic_button_trigger_a_fill.png", "res://addons/kenney_input-prompts_1.5/Generic/Default/generic_button_trigger_b.png", "res://addons/kenney_input-prompts_1.5/Generic/Default/generic_button_trigger_b_fill.png", "res://addons/kenney_input-prompts_1.5/Generic/Default/generic_button_trigger_c.png", "res://addons/kenney_input-prompts_1.5/Generic/Default/generic_button_trigger_c_fill.png", "res://addons/kenney_input-prompts_1.5/Generic/Default/generic_joystick.png", "res://addons/kenney_input-prompts_1.5/Generic/Default/generic_joystick_horizontal.png", "res://addons/kenney_input-prompts_1.5/Generic/Default/generic_joystick_left.png", "res://addons/kenney_input-prompts_1.5/Generic/Default/generic_joystick_red.png", "res://addons/kenney_input-prompts_1.5/Generic/Default/generic_joystick_red_horizontal.png", "res://addons/kenney_input-prompts_1.5/Generic/Default/generic_joystick_red_left.png", "res://addons/kenney_input-prompts_1.5/Generic/Default/generic_joystick_red_right.png", "res://addons/kenney_input-prompts_1.5/Generic/Default/generic_joystick_right.png", "res://addons/kenney_input-prompts_1.5/Generic/Default/generic_stick.png", "res://addons/kenney_input-prompts_1.5/Generic/Default/generic_stick_down.png", "res://addons/kenney_input-prompts_1.5/Generic/Default/generic_stick_horizontal.png", "res://addons/kenney_input-prompts_1.5/Generic/Default/generic_stick_left.png", "res://addons/kenney_input-prompts_1.5/Generic/Default/generic_stick_press.png", "res://addons/kenney_input-prompts_1.5/Generic/Default/generic_stick_right.png", "res://addons/kenney_input-prompts_1.5/Generic/Default/generic_stick_up.png", "res://addons/kenney_input-prompts_1.5/Generic/Default/generic_stick_vertical.png", "res://addons/kenney_input-prompts_1.5/Generic/Default/switch_stick_side.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/controller_xbox360.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/controller_xbox_adaptive.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/controller_xboxone.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/controller_xboxseries.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_button_a.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_button_b.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_button_back.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_button_back_icon.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_button_menu.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_button_share.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_button_start.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_button_start_icon.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_button_view.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_button_x.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_button_y.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_dpad.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_dpad_all.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_dpad_down.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_dpad_horizontal.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_dpad_left.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_dpad_none.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_dpad_right.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_dpad_round.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_dpad_round_all.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_dpad_round_down.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_dpad_round_horizontal.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_dpad_round_left.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_dpad_round_right.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_dpad_round_up.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_dpad_round_vertical.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_dpad_up.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_dpad_vertical.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_elite_paddle_bottom_left.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_elite_paddle_bottom_right.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_elite_paddle_top_left.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_elite_paddle_top_right.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_guide.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_lb.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_ls.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_lt.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_rb.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_rs.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_rt.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_stick_l.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_stick_l_down.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_stick_l_horizontal.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_stick_l_left.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_stick_l_press.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_stick_l_right.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_stick_l_up.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_stick_l_vertical.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_stick_r.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_stick_r_down.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_stick_r_horizontal.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_stick_r_left.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_stick_r_press.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_stick_r_right.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_stick_r_up.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_stick_r_vertical.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_stick_side_l.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_stick_side_r.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_stick_top_l.png", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default/xbox_stick_top_r.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/controller_playstation1.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/controller_playstation2.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/controller_playstation3.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/controller_playstation4.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/controller_playstation5.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation3_button_select.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation3_button_start.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation4_button_options.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation4_button_share.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation4_touchpad.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation4_touchpad_grid.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation4_touchpad_press.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation4_touchpad_press_center.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation4_touchpad_press_left.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation4_touchpad_press_right.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation4_touchpad_selected.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation4_touchpad_swipe_down.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation4_touchpad_swipe_horizontal.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation4_touchpad_swipe_left.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation4_touchpad_swipe_right.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation4_touchpad_swipe_up.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation4_touchpad_swipe_vertical.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation4_touchpad_touch.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_button_create.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_button_create_alternative.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_button_mute.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_button_options.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_button_options_alternative.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_elite_fn_l.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_elite_fn_r.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_elite_lb.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_elite_rb.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_touchpad.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_touchpad_press.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_touchpad_press_center.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_touchpad_press_left.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_touchpad_press_right.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_touchpad_selected.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_touchpad_swipe_down.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_touchpad_swipe_horizontal.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_touchpad_swipe_left.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_touchpad_swipe_right.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_touchpad_swipe_up.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_touchpad_swipe_vertical.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation5_touchpad_touch.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_button_analog.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_button_circle.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_button_cross.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_button_l3.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_button_r3.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_button_square.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_button_triangle.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_dpad.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_dpad_all.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_dpad_down.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_dpad_horizontal.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_dpad_left.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_dpad_none.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_dpad_right.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_dpad_up.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_dpad_vertical.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_stick_l.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_stick_l_down.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_stick_l_horizontal.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_stick_l_left.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_stick_l_press.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_stick_l_right.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_stick_l_up.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_stick_l_vertical.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_stick_r.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_stick_r_down.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_stick_r_horizontal.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_stick_r_left.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_stick_r_press.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_stick_r_right.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_stick_r_up.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_stick_r_vertical.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_stick_side_l.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_stick_side_r.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_stick_top_l.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_stick_top_r.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_trigger_l1.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_trigger_l1_alternative.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_trigger_l2.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_trigger_l2_alternative.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_trigger_r1.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_trigger_r1_alternative.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_trigger_r2.png", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default/playstation_trigger_r2_alternative.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/controller_switch.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/controller_switch_joycon_down.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/controller_switch_joycon_up.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/controller_switch_pro.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_button_a.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_button_b.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_button_home.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_button_l.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_button_minus.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_button_plus.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_button_r.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_button_sl.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_button_sr.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_button_sync.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_button_x.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_button_y.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_button_zl.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_button_zr.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_buttons.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_buttons_all.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_buttons_down.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_buttons_horizontal.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_buttons_left.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_buttons_none.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_buttons_right.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_buttons_up.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_buttons_vertical.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_down.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_dpad.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_dpad_all.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_dpad_down.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_dpad_horizontal.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_dpad_left.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_dpad_none.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_dpad_right.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_dpad_up.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_dpad_vertical.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_joycon.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_joycon_left.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_joycon_left_diagonal.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_joycon_left_horizontal.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_joycon_left_rotate.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_joycon_left_vertical.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_joycon_right.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_joycon_right_diagonal.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_joycon_right_horizontal.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_joycon_right_rotate.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_joycon_right_vertical.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_left.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_right.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_stick_l.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_stick_l_down.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_stick_l_horizontal.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_stick_l_left.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_stick_l_press.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_stick_l_right.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_stick_l_up.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_stick_l_vertical.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_stick_r.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_stick_r_down.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_stick_r_horizontal.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_stick_r_left.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_stick_r_press.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_stick_r_right.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_stick_r_up.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_stick_r_vertical.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_stick_side_l.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_stick_side_r.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_stick_top_l.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_stick_top_r.png", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default/switch_up.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/controller_steamdeck.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_button_a.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_button_b.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_button_guide.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_button_l1.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_button_l2.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_button_l4.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_button_l5.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_button_options.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_button_quickaccess.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_button_r1.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_button_r2.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_button_r4.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_button_r5.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_button_view.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_button_x.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_button_y.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_dpad.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_dpad_all.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_dpad_down.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_dpad_horizontal.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_dpad_left.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_dpad_none.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_dpad_right.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_dpad_up.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_dpad_vertical.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_stick_l.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_stick_l_down.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_stick_l_horizontal.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_stick_l_left.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_stick_l_press.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_stick_l_right.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_stick_l_up.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_stick_l_vertical.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_stick_r.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_stick_r_down.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_stick_r_horizontal.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_stick_r_left.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_stick_r_press.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_stick_r_right.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_stick_r_up.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_stick_r_vertical.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_stick_side_l.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_stick_side_r.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_stick_top_l.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_stick_top_r.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_all.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_down.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_horizontal.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_l.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_l_all.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_l_down.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_l_horizontal.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_l_left.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_l_right.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_l_up.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_l_vertical.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_left.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_r.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_r_all.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_r_down.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_r_horizontal.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_r_left.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_r_right.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_r_up.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_r_vertical.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_right.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_up.png", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default/steamdeck_trackpad_vertical.png"])
 directories = Array[String](["res://addons/kenney_input-prompts_1.5/Keyboard & Mouse/Default", "res://addons/kenney_input-prompts_1.5/Generic/Default", "res://addons/kenney_input-prompts_1.5/Xbox Series/Default", "res://addons/kenney_input-prompts_1.5/PlayStation Series/Default", "res://addons/kenney_input-prompts_1.5/Nintendo Switch/Default", "res://addons/kenney_input-prompts_1.5/Steam Deck/Default"])
 filter = "color"
 ends_with = ".png"

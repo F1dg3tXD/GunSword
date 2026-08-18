@@ -1,14 +1,14 @@
-[gd_scene format=3 uid="uid://cmca6eys0myos"]
+[gd_scene format=3 uid="uid://bf5jb4fvofnyf"]
 
-[ext_resource type="MeshLibrary" uid="uid://dxaab05nwrlwt" path="res://addons/kenney_building-kit/building-kit.meshlib" id="1_6slyc"]
-[ext_resource type="PackedScene" uid="uid://243u7nsam20o" path="res://items/item_sword_test.tscn" id="2_b71ab"]
-[ext_resource type="Script" uid="uid://df4uctpoxw5n8" path="res://maps/env.gd" id="2_fpxlb"]
-[ext_resource type="PackedScene" uid="uid://ckwgj3o8yfn1q" path="res://entities/autosave_trigger_3D.tscn" id="4_cabd0"]
-[ext_resource type="Texture2D" uid="uid://dk4uhhota7koj" path="res://addons/mobile-controls-1/Sprites/Icons/Large (2×)/icon_save.png" id="5_k1jtb"]
-[ext_resource type="AudioStream" uid="uid://ckllv2jbbnif7" path="res://music/pov you wake up and remember nothing.ogg" id="6_k1jtb"]
-[ext_resource type="PackedScene" uid="uid://be5muniuvru8l" path="res://entities/target.tscn" id="8_6b7mj"]
-[ext_resource type="PackedScene" uid="uid://dqwx057lhado0" path="res://entities/level_transition.tscn" id="9_wd2vj"]
-[ext_resource type="Texture2D" uid="uid://r7yf031ht58x" path="res://addons/cylinder_cut/icon.svg" id="10_fpxlb"]
+[ext_resource type="Script" uid="uid://df4uctpoxw5n8" path="res://maps/env.gd" id="2_iaf3x"]
+[ext_resource type="MeshLibrary" uid="uid://dxaab05nwrlwt" path="res://addons/kenney_building-kit/building-kit.meshlib" id="3_j5wqg"]
+[ext_resource type="PackedScene" uid="uid://243u7nsam20o" path="res://items/item_sword_test.tscn" id="4_dbyus"]
+[ext_resource type="PackedScene" uid="uid://ckwgj3o8yfn1q" path="res://entities/autosave_trigger_3D.tscn" id="5_ux8cm"]
+[ext_resource type="Texture2D" uid="uid://dk4uhhota7koj" path="res://addons/mobile-controls-1/Sprites/Icons/Large (2×)/icon_save.png" id="6_aqr53"]
+[ext_resource type="AudioStream" uid="uid://ckllv2jbbnif7" path="res://music/pov you wake up and remember nothing.ogg" id="7_tstbq"]
+[ext_resource type="PackedScene" uid="uid://dqwx057lhado0" path="res://entities/level_transition.tscn" id="8_22ydy"]
+[ext_resource type="PackedScene" uid="uid://be5muniuvru8l" path="res://entities/target.tscn" id="8_dtmoy"]
+[ext_resource type="Texture2D" uid="uid://r7yf031ht58x" path="res://addons/cylinder_cut/icon.svg" id="9_iaf3x"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_b71ab"]
 sky_top_color = Color(0.46145612, 0.7468559, 0.793687, 1)
@@ -431,12 +431,12 @@ radius = 0.70133007
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yxyn3"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_u8v7t"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_2s5nj"]
 
 [node name="test_map" type="Node3D" unique_id=789246963]
 
 [node name="env" type="Node3D" parent="." unique_id=654826888]
-script = ExtResource("2_fpxlb")
+script = ExtResource("2_iaf3x")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="env" unique_id=1998995911]
 environment = SubResource("Environment_42yok")
@@ -454,21 +454,21 @@ parameters/dayNight/blend_position = 0.0
 libraries/ = SubResource("AnimationLibrary_ad6p3")
 
 [node name="GridMap" type="GridMap" parent="." unique_id=166481092]
-mesh_library = ExtResource("1_6slyc")
+mesh_library = ExtResource("3_j5wqg")
 data = {
 "cells": PackedInt32Array(0, 65535, 28, 0, 0, 28, 65535, 0, 28, 65535, 65535, 28, 1, 65535, 28, 1, 0, 28, 2, 0, 28, 1, 1, 28, 0, 1, 28, 0, 2, 28, 65535, 2, 28, 65534, 2, 28, 65533, 2, 28, 65533, 1, 28, 65533, 0, 28, 65533, 65535, 28, 65534, 65535, 28, 65535, 3, 28, 65534, 3, 28, 65533, 3, 28, 65534, 1, 28, 65534, 0, 28, 65535, 1, 28, 2, 1, 28, 3, 1, 28, 4, 1, 28, 5, 1, 28, 3, 0, 28, 3, 65535, 28, 2, 65535, 28, 2, 2, 28, 1, 2, 28, 3, 3, 28, 4, 3, 28, 5, 3, 28, 6, 3, 28, 7, 3, 28, 7, 2, 28, 6, 2, 28, 6, 1, 28, 5, 0, 28, 4, 0, 28, 3, 2, 28, 4, 2, 28, 5, 2, 28, 2, 3, 28, 1, 3, 28, 0, 3, 28, 0, 4, 28, 1, 5, 28, 2, 5, 28, 3, 6, 28, 4, 7, 28, 5, 7, 28, 6, 7, 28, 6, 6, 28, 6, 5, 28, 6, 4, 28, 5, 6, 28, 4, 6, 28, 4, 5, 28, 5, 5, 28, 3, 5, 28, 3, 4, 28, 2, 4, 28, 1, 4, 28, 4, 4, 28, 5, 4, 28, 7, 4, 30, 3, 7, 1441822, 2, 6, 1441822, 0, 5, 1441822, 65535, 4, 1441822, 7, 1, 1048606, 6, 0, 1048606, 4, 65535, 1048606)
 }
 
 [node name="GridMap2" type="GridMap" parent="." unique_id=1100819121]
-mesh_library = ExtResource("1_6slyc")
+mesh_library = ExtResource("3_j5wqg")
 data = {
 "cells": PackedInt32Array(0, 65535, 28, 0, 0, 28, 65535, 0, 28, 65535, 65535, 28, 1, 65535, 28, 1, 0, 28, 2, 0, 28, 1, 1, 28, 0, 1, 28, 0, 2, 28, 65535, 2, 28, 65534, 2, 28, 65533, 2, 28, 65533, 1, 28, 65533, 0, 28, 65533, 65535, 655418, 65534, 65535, 28, 65535, 3, 28, 65534, 3, 28, 65533, 3, 1441850, 65534, 1, 28, 65534, 0, 28, 65535, 1, 28, 2, 1, 28, 3, 1, 28, 4, 1, 28, 5, 1, 28, 3, 0, 28, 3, 65535, 28, 2, 65535, 28, 2, 2, 28, 1, 2, 28, 3, 3, 28, 4, 3, 28, 5, 3, 28, 6, 3, 28, 7, 3, 28, 7, 2, 28, 6, 2, 28, 6, 1, 28, 5, 0, 28, 4, 0, 28, 3, 2, 28, 4, 2, 28, 5, 2, 28, 2, 3, 28, 1, 3, 28, 0, 3, 28, 0, 4, 28, 1, 5, 28, 2, 5, 28, 3, 6, 28, 4, 7, 28, 5, 7, 28, 6, 7, 58, 6, 6, 28, 6, 5, 28, 6, 4, 28, 5, 6, 28, 4, 6, 28, 4, 5, 28, 5, 5, 28, 3, 5, 28, 3, 4, 28, 2, 4, 28, 1, 4, 28, 4, 4, 28, 5, 4, 28, 7, 4, 64, 3, 7, 1441856, 2, 6, 1441856, 0, 5, 1441856, 65535, 4, 1441856, 7, 1, 1048640, 6, 0, 1048640, 4, 65535, 1048640)
 }
 
-[node name="item_swordTest" parent="." unique_id=63391145 groups=["poi", "target"] instance=ExtResource("2_b71ab")]
+[node name="item_swordTest" parent="." unique_id=63391145 groups=["poi", "target"] instance=ExtResource("4_dbyus")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10189152, 2.205772, 3.6223884)
 
-[node name="autosave_trigger_3D" parent="." unique_id=1825605848 instance=ExtResource("4_cabd0")]
+[node name="autosave_trigger_3D" parent="." unique_id=1825605848 instance=ExtResource("5_ux8cm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.783182, 1.0107198, 1.797327)
 trigger_once = true
 
@@ -478,21 +478,21 @@ shape = SubResource("SphereShape3D_yxyn3")
 
 [node name="Sprite3D" type="Sprite3D" parent="autosave_trigger_3D/CollisionShape3D" unique_id=191038299]
 billboard = 1
-texture = ExtResource("5_k1jtb")
+texture = ExtResource("6_aqr53")
 
 [node name="music" type="AudioStreamPlayer" parent="." unique_id=1193277834]
 process_mode = 3
-stream = ExtResource("6_k1jtb")
+stream = ExtResource("7_tstbq")
 bus = &"Music"
 
-[node name="Target" parent="." unique_id=1309049677 groups=["enemy", "target"] instance=ExtResource("8_6b7mj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.3424163, 1.1000004, 9.622597)
+[node name="Target" parent="." unique_id=1309049677 groups=["enemy", "target"] instance=ExtResource("8_dtmoy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.439356, 1.1000004, 9.622597)
 
-[node name="Target2" parent="." unique_id=178995157 groups=["friend", "target"] instance=ExtResource("8_6b7mj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.3424163, 1.1000004, 8.199203)
+[node name="Target2" parent="." unique_id=178995157 groups=["friend", "target"] instance=ExtResource("8_dtmoy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.439356, 1.1000004, 8.199203)
 
-[node name="Target3" parent="." unique_id=670480811 groups=["poi", "target"] instance=ExtResource("8_6b7mj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.3424163, 1.1000004, 6.503128)
+[node name="Target3" parent="." unique_id=670480811 groups=["poi", "target"] instance=ExtResource("8_dtmoy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.439356, 1.1000004, 6.503128)
 
 [node name="Area3D" type="Area3D" parent="." unique_id=580304649]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.8051815, 1.8185608, 3.0328422)
@@ -500,9 +500,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.8051815, 1.8185608, 3.0328
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=671334280]
 shape = SubResource("BoxShape3D_yxyn3")
 
-[node name="Level Transition" parent="." unique_id=1191875629 instance=ExtResource("9_wd2vj")]
+[node name="Level Transition" parent="." unique_id=1191875629 instance=ExtResource("8_22ydy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7035546, 1.7453707, 2.7708473)
-target_scene = "res://maps/test_map2.tscn"
+target_scene = "res://maps/test_map.tscn"
 
 [node name="player_move_in_location" parent="Level Transition" index="2" unique_id=1497165615]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.696836, -0.23590398, 0)
@@ -510,12 +510,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.696836, -0.23590398, 0)
 [node name="player_move_out_location" parent="Level Transition" index="3" unique_id=1392794707]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level Transition" unique_id=865621973]
-shape = SubResource("BoxShape3D_u8v7t")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level Transition" unique_id=1571599159]
+shape = SubResource("BoxShape3D_2s5nj")
 
-[node name="Sprite3D" type="Sprite3D" parent="Level Transition" unique_id=2073589011]
+[node name="Sprite3D" type="Sprite3D" parent="Level Transition" unique_id=1736020871]
 billboard = 1
-texture = ExtResource("10_fpxlb")
+texture = ExtResource("9_iaf3x")
 
 [connection signal="body_entered" from="Area3D" to="env" method="_on_point_trigger_3d_body_entered"]
 

@@ -5,88 +5,135 @@ class_name PointTrigger3D
 signal trigger_started
 signal sounds_played
 signal animation_played(name: String)
+signal method_called(method: StringName)
 signal scene_changed(path: String)
 
-@export var sounds: Array[AudioStream] = []
+@export var target_node: NodePath
+@export var target_method: StringName = &""
 @export var animation_player_path: NodePath
+@export var animation_name: String = ""
+@export var sounds: Array[AudioStream] = []
 @export var scene_to_load: String = ""
 @export var trigger_once: bool = true
 
-var animation_name: String = ""
-
 var triggered := false
-var _available_animations: PackedStringArray = []
+var _method_cache: PackedStringArray = []
+var _animation_cache: PackedStringArray = []
+
 
 func _ready():
+	monitoring = true
 	input_ray_pickable = true
-	connect("body_entered", _on_body_entered)
-	connect("input_event", _on_input_event)
-	_refresh_animation_list()
+	if not body_entered.is_connected(_on_body_entered):
+		body_entered.connect(_on_body_entered)
+	if not input_event.is_connected(_on_input_event):
+		input_event.connect(_on_input_event)
+	_refresh_caches()
 
-func _on_body_entered(body):
+
+func _on_body_entered(_body: Node3D):
 	if trigger_once and triggered:
 		return
 	triggered = true
-	_trigger_events()
+	_fire()
+
 
 func _on_input_event(_camera: Camera3D, event: InputEvent, _position: Vector3, _normal: Vector3, _shape_idx: int):
 	if trigger_once and triggered:
 		return
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		triggered = true
-		_trigger_events()
+		_fire()
 
-func _trigger_events():
-	emit_signal("trigger_started")
 
-	# Play all sounds
+func _fire():
+	trigger_started.emit()
+
 	for sound in sounds:
-		var player = AudioStreamPlayer.new()
+		if sound == null:
+			continue
+		var player = AudioStreamPlayer3D.new()
 		add_child(player)
 		player.stream = sound
 		player.play()
-	emit_signal("sounds_played")
+	if not sounds.is_empty():
+		sounds_played.emit()
 
-	# Play animation
-	if animation_player_path != NodePath("") and animation_name != "":
+	if animation_name != "":
 		var anim_player = get_node_or_null(animation_player_path)
 		if anim_player and anim_player is AnimationPlayer and anim_player.has_animation(animation_name):
 			anim_player.play(animation_name)
-			emit_signal("animation_played", animation_name)
+			animation_played.emit(animation_name)
 
-	# Load new scene
+	if not target_node.is_empty() and target_method != &"":
+		var node = get_node_or_null(target_node)
+		if node != null and is_instance_valid(node) and node.has_method(target_method):
+			node.call(target_method)
+			method_called.emit(target_method)
+
 	if scene_to_load != "":
 		get_tree().change_scene_to_file(scene_to_load)
-		emit_signal("scene_changed", scene_to_load)
+		scene_changed.emit(scene_to_load)
 
-func _refresh_animation_list():
-	_available_animations.clear()
-	var player = get_node_or_null(animation_player_path)
-	if player and player is AnimationPlayer:
-		_available_animations = player.get_animation_list()
+
+func _refresh_caches():
+	_method_cache.clear()
+	_animation_cache.clear()
+
+	if not target_node.is_empty():
+		var node = get_node_or_null(target_node)
+		if node != null and is_instance_valid(node):
+			for method in node.get_method_list():
+				if method.flags & METHOD_FLAG_VIRTUAL:
+					continue
+				if method.name.begins_with("_"):
+					continue
+				_method_cache.append(method.name)
+
+	var anim_player = get_node_or_null(animation_player_path)
+	if anim_player and anim_player is AnimationPlayer:
+		_animation_cache = anim_player.get_animation_list()
+
 
 func _get_property_list() -> Array[Dictionary]:
 	var list: Array[Dictionary] = []
-	list.append({
-		"name": "animation_name",
-		"type": TYPE_STRING,
-		"hint": PROPERTY_HINT_ENUM,
-		"hint_string": ",".join(_available_animations),
-		"usage": PROPERTY_USAGE_DEFAULT
-	})
+	if not _method_cache.is_empty():
+		list.append({
+			"name": "target_method",
+			"type": TYPE_STRING,
+			"hint": PROPERTY_HINT_ENUM,
+			"hint_string": ",".join(_method_cache),
+			"usage": PROPERTY_USAGE_DEFAULT
+		})
+	if not _animation_cache.is_empty():
+		list.append({
+			"name": "animation_name",
+			"type": TYPE_STRING,
+			"hint": PROPERTY_HINT_ENUM,
+			"hint_string": ",".join(_animation_cache),
+			"usage": PROPERTY_USAGE_DEFAULT
+		})
 	return list
 
+
 func _get(property: StringName) -> Variant:
+	if property == "target_method":
+		return String(target_method)
 	if property == "animation_name":
 		return animation_name
 	return null
 
+
 func _set(property: StringName, value: Variant) -> bool:
+	if property == "target_method":
+		target_method = StringName(value)
+		return true
 	if property == "animation_name":
 		animation_name = value
 		return true
 	return false
 
+
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_READY or what == NOTIFICATION_ENTER_TREE:
-		call_deferred("_refresh_animation_list")
+		call_deferred("_refresh_caches")
