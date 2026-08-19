@@ -15,6 +15,14 @@ const SWORD_SLASH_FUEL := 0.1
 const BLASTER_DRAIN_PER_SHOT := 0.05
 const LASER_DRAIN_PER_SECOND := 0.1
 
+const GROUND_POUND_MIN_RADIUS := 1.0
+const GROUND_POUND_MAX_RADIUS := 10.0
+const GROUND_POUND_MAX_HEIGHT := 6.0
+const GROUND_POUND_DIVE_SPEED := 18.0
+const GROUND_POUND_MIN_SPREAD_TIME := 0.05
+const GROUND_POUND_MAX_SPREAD_TIME := 0.5
+const GROUND_POUND_STUN_DURATION := 1.5
+
 const MAX_AIM_DIST := 5.0
 const LOOK_ARROW_MAX_POS := 1.0
 const LOOK_ARROW_MAX_SCALE := 5.0
@@ -69,6 +77,10 @@ enum AimScheme { NONE, STICK, MOUSE }
 @onready var mobile_controls: CanvasLayer = $MobileControls
 
 @onready var target_area: Area3D = $targetArea
+@onready var sword_collider: Area3D = $swordCollider
+@onready var sword_round_range: CollisionShape3D = $swordCollider/CollisionShape3D
+
+@export var sword_damage := 10.0
 
 var move_stick := Vector2.ZERO
 var aim_stick := Vector2.ZERO
@@ -106,6 +118,15 @@ var _moving := false
 var cutscene_velocity := Vector3.ZERO
 var _move_to_target: Vector3 = Vector3(INF, INF, INF)
 var _move_to_speed := 3.0
+
+var _ground_pound_active := false
+var _ground_pound_diving := false
+var _ground_pound_start_height := 0.0
+var _ground_pound_radius := 0.0
+var _ground_pound_spread_timer := 0.0
+var _ground_pound_spread_duration := 0.0
+var _ground_pound_original_shape: Shape3D = null
+var _ground_pound_hits: Array[Node3D] = []
 
 
 func lock_input() -> void:
@@ -182,7 +203,14 @@ func _physics_process(delta: float) -> void:
 
 	_dialogue_locked = _dialogue_on_screen()
 	var input_move := move_stick if not (_movement_locked or _dialogue_locked) else Vector2.ZERO
-	if cutscene_velocity != Vector3.ZERO:
+
+	if _ground_pound_diving:
+		velocity.x = 0.0
+		velocity.z = 0.0
+		velocity.y = -GROUND_POUND_DIVE_SPEED
+		_move_dir = Vector2.ZERO
+		_moving = false
+	elif cutscene_velocity != Vector3.ZERO:
 		velocity = cutscene_velocity
 		_move_dir = _world_to_camera_space(cutscene_velocity).normalized()
 		_moving = true
@@ -221,6 +249,13 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
+	# Check for ground pound landing after move_and_slide.
+	if _ground_pound_active and _ground_pound_diving and is_on_floor():
+		_ground_pound_diving = false
+		velocity = Vector3.ZERO
+		_activate_shockwave()
+
+	_update_ground_pound(delta)
 	_update_weapon()
 	_update_shot_type()
 	_update_charge(delta)
@@ -264,10 +299,15 @@ func _update_weapon() -> void:
 	elif Input.is_action_just_released("fire1") and is_gun:
 		is_gun = false
 
+	if _ground_pound_active:
+		return
+
 	if Input.is_action_just_pressed("fire0"):
 		if is_gun:
 			if fire_mode == FireMode.BLASTER:
 				_fire_blaster()
+		elif not is_on_floor():
+			_start_ground_pound()
 		else:
 			_play_action("slash")
 			add_kinetic_fuel(SWORD_SLASH_FUEL)
@@ -337,6 +377,87 @@ func _fire_blaster() -> void:
 		return
 	blaster_charge = maxf(blaster_charge - BLASTER_DRAIN_PER_SHOT, 0.0)
 	_play_action("gunFire")
+
+
+func _start_ground_pound() -> void:
+	_ground_pound_active = true
+	_ground_pound_diving = true
+	_ground_pound_start_height = global_position.y
+	_ground_pound_hits.clear()
+	lock_input()
+	velocity = Vector3(0, -GROUND_POUND_DIVE_SPEED, 0)
+	_play_action("slash")
+
+
+func _update_ground_pound(delta: float) -> void:
+	if not _ground_pound_active or _ground_pound_diving:
+		return
+
+	# Shockwave spread phase.
+	_ground_pound_spread_timer += delta
+	var t := clampf(_ground_pound_spread_timer / _ground_pound_spread_duration, 0.0, 1.0)
+	var current_radius: float = lerp(GROUND_POUND_MIN_RADIUS, _ground_pound_radius, t)
+
+	var shape: SphereShape3D = sword_round_range.shape as SphereShape3D
+	if shape:
+		shape.radius = current_radius
+
+	# Check for enemies entering the shockwave.
+	for enemy in get_tree().get_nodes_in_group("enemy"):
+		if enemy in _ground_pound_hits:
+			continue
+		if not enemy is Node3D:
+			continue
+		var dist := global_position.distance_to(enemy.global_position)
+		if dist <= current_radius:
+			_ground_pound_hits.append(enemy)
+			_apply_ground_pound_effect(enemy)
+
+	if t >= 1.0:
+		_end_ground_pound()
+
+
+func _activate_shockwave() -> void:
+	var height := clampf(_ground_pound_start_height - global_position.y, 0.0, GROUND_POUND_MAX_HEIGHT)
+	var height_ratio := height / GROUND_POUND_MAX_HEIGHT
+	_ground_pound_radius = lerp(GROUND_POUND_MIN_RADIUS, GROUND_POUND_MAX_RADIUS, height_ratio)
+	_ground_pound_spread_duration = lerp(GROUND_POUND_MIN_SPREAD_TIME, GROUND_POUND_MAX_SPREAD_TIME, height_ratio)
+	_ground_pound_spread_timer = 0.0
+
+	# Store and replace the collision shape so we can animate it.
+	if _ground_pound_original_shape == null:
+		_ground_pound_original_shape = sword_round_range.shape
+	sword_round_range.shape = _ground_pound_original_shape.duplicate()
+	var shape: SphereShape3D = sword_round_range.shape as SphereShape3D
+	if shape:
+		shape.radius = GROUND_POUND_MIN_RADIUS
+
+	sword_collider.visible = true
+	sword_collider.monitoring = true
+
+
+func _apply_ground_pound_effect(enemy: Node3D) -> void:
+	if enemy.has_method("take_damage"):
+		enemy.take_damage(sword_damage)
+
+	if fire_mode == FireMode.BLASTER:
+		if enemy.has_method("stun"):
+			enemy.stun(GROUND_POUND_STUN_DURATION)
+	else:
+		# LASER mode: pure fire damage, no stun (already dealt above).
+		pass
+
+
+func _end_ground_pound() -> void:
+	sword_collider.visible = false
+	sword_collider.monitoring = false
+	if _ground_pound_original_shape != null:
+		sword_round_range.shape = _ground_pound_original_shape
+		_ground_pound_original_shape = null
+	_ground_pound_active = false
+	_ground_pound_diving = false
+	_ground_pound_hits.clear()
+	unlock_input()
 
 
 func _play_action(anim: String) -> void:

@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://vnoyfugurcft"]
+
+[sub_resource type="GDScript" id="GDScript_mblsn"]
+script/source = "extends Node3D
+
+@onready var color_rect: ColorRect = $Control/ColorRect
+
+
+func _ready() -> void:
+	# Make sure the black rect covers the screen while we load.
+	color_rect.set_anchors_preset(Control.PRESET_FULL_RECT)
+
+	if not XMBSave.has_saves():
+		_go_to_opening()
+		return
+
+	_preload_latest_save()
+
+
+func _preload_latest_save() -> void:
+	var saves := XMBSave._manager.get_saves()
+	if saves.is_empty():
+		_go_to_opening()
+		return
+
+	# Find the most recent autosave (or fall back to most recent save).
+	var save_entry: Dictionary = {}
+	for s in saves:
+		if str(s.get(\"save_type\", \"\")) == \"autosave\":
+			save_entry = s
+			break
+	if save_entry.is_empty():
+		save_entry = saves[0]
+
+	var save_id: String = str(save_entry.get(\"id\", \"\"))
+	var scene: String = str(save_entry.get(\"scene_path\", \"\"))
+	var meta_path := ProjectSettings.globalize_path(\"user://saves/%s/meta.json\" % save_id)
+	var data_path := ProjectSettings.globalize_path(\"user://saves/%s/data.save\" % save_id)
+
+	# Read scene_path from meta.json if not in meta.
+	if scene == \"\":
+		var meta_file := FileAccess.open(meta_path, FileAccess.READ)
+		if meta_file != null:
+			var json := JSON.new()
+			if json.parse(meta_file.get_as_text()) == OK:
+				scene = str(json.data.get(\"scene_path\", \"\"))
+
+	# Read state from data.save.
+	var state: Dictionary = {}
+	if FileAccess.file_exists(data_path):
+		var f := FileAccess.open(data_path, FileAccess.READ)
+		if f != null:
+			var payload = f.get_var()
+			if payload is Dictionary:
+				state = payload.get(\"state\", {})
+
+	if scene != \"\":
+		PreloadedSave.scene_path = scene
+		PreloadedSave.save_state = state
+
+	_go_to_opening()
+
+
+func _go_to_opening() -> void:
+	# Defer to avoid \"Parent node is busy\" error during _ready.
+	get_tree().change_scene_to_file.call_deferred(\"res://mainMenu/scenes/opening/opening.tscn\")
+"
+
+[node name="preloader" type="Node3D" unique_id=1879714462]
+script = SubResource("GDScript_mblsn")
+
+[node name="Control" type="Control" parent="." unique_id=385222534]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=1945816567]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0, 0, 0, 1)
