@@ -168,7 +168,6 @@ func set_ui_visible(is_visible: bool) -> void:
 	## Hides or shows all player UI layers. Used during transitions and menus.
 	$AimUI.visible = is_visible
 	$playerUI.visible = is_visible
-	mobile_controls.visible = is_visible
 
 
 func _ready() -> void:
@@ -695,16 +694,7 @@ func _update_pause() -> void:
 
 
 func _update_mobile_controls() -> void:
-	var on_mobile := OS.has_feature("mobile") or OS.has_feature("web_ios") or OS.has_feature("web_android")
-	var ui_open := _is_menu_visible() or _dialogue_on_screen()
-	mobile_controls.visible = on_mobile and not ui_open
-	if not on_mobile:
-		return
-	Input.emulate_mouse_from_touch = ui_open
-
-
-func _is_menu_visible() -> bool:
-	return pause_menu_layer.visible
+	pass
 
 
 func _dialogue_on_screen() -> bool:

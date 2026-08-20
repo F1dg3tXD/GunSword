@@ -10,7 +10,20 @@ const ORBIT_PITCH_PER_PIXEL := 0.004
 var _drag_index := -1
 
 
+func _process(_delta: float) -> void:
+	var on_mobile := OS.has_feature("mobile") or OS.has_feature("web_ios") or OS.has_feature("web_android")
+	if not on_mobile:
+		visible = false
+		return
+
+	var scene := get_tree().current_scene
+	visible = scene != null and scene.scene_file_path.begins_with("res://maps/")
+
+
 func _input(event: InputEvent) -> void:
+	if not visible:
+		return
+
 	if event is InputEventScreenTouch:
 		if event.pressed:
 			if _drag_index == -1 and cam_modifier.is_pressed():

@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dik7bxb6g4k0o" path="res://player/player_top_down.gd" id="1_jcfv7"]
 [ext_resource type="PackedScene" uid="uid://hm7ibntrkvyy" path="res://mainMenu/scenes/windows/pause_menu_layer.tscn" id="2_4v0de"]
 [ext_resource type="SpriteFrames" uid="uid://bgon6dq353i6" path="res://player/new_sprite_frames.tres" id="2_676ey"]
+[ext_resource type="Material" uid="uid://bc3uvtumdsvyw" path="res://shaders/mat_ui_outline.tres" id="3_c6bl4"]
 [ext_resource type="Shader" uid="uid://djy8o7v22f40j" path="res://player/crosshair_shader.gdshader" id="3_ydmpb"]
 [ext_resource type="Texture2D" uid="uid://dxf40xl34o248" path="res://addons/kenney_crosshair-pack/Vector/Light/crosshair-079.svg" id="4_4v0de"]
 [ext_resource type="Texture2D" uid="uid://cnu058ve3e4gg" path="res://addons/kenney_crosshair-pack/Vector/Light/crosshair-006.svg" id="5_dm3jn"]
@@ -13,11 +14,6 @@
 [ext_resource type="PackedScene" uid="uid://cfsr1q722lped" path="res://player/respawn_handler.tscn" id="11_tsuen"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yxyn3"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ydmpb"]
-shader = ExtResource("3_ydmpb")
-shader_parameter/modulate_color = Color(1, 1, 1, 1)
-shader_parameter/outline_width = 3.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xhair"]
 atlas = ExtResource("5_dm3jn")
@@ -73,7 +69,7 @@ visible = false
 
 [node name="crosshair" type="TextureRect" parent="AimUI" unique_id=438960074]
 texture_filter = 1
-material = SubResource("ShaderMaterial_ydmpb")
+material = ExtResource("3_c6bl4")
 offset_left = -54.0
 offset_top = -54.0
 offset_right = 46.0
@@ -100,6 +96,7 @@ spring_length = 5.0
 [node name="Camera3D" type="Camera3D" parent="CameraRig/SpringArm3D" unique_id=778412209]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.21527565, 2.604205)
 current = true
+physics_object_picking = true
 
 [node name="RayCast3D" type="RayCast3D" parent="CameraRig/SpringArm3D/Camera3D" unique_id=613225964]
 target_position = Vector3(0, 0, -20)

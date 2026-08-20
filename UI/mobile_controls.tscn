@@ -3,14 +3,24 @@
 [ext_resource type="Texture2D" uid="uid://bg535877ussfm" path="res://addons/mobile-controls-1/Vector/Icons/icon_search.svg" id="1_7migo"]
 [ext_resource type="Script" uid="uid://duf0i5honor7i" path="res://UI/mobile_controls.gd" id="1_kylme"]
 [ext_resource type="Theme" uid="uid://ci5yymp3kg1am" path="res://mainMenu/resources/themes/gravity.tres" id="2_btn5m"]
-[ext_resource type="Texture2D" uid="uid://qe1ivchvrcdu" path="res://addons/mobile-controls-1/Vector/Icons/icon_star.svg" id="2_opr3r"]
+[ext_resource type="Shader" uid="uid://jsf8q4es2ott" path="res://UI/mobile_controls_outline.gdshader" id="2_kylme"]
 [ext_resource type="Texture2D" uid="uid://c7w6ocmd1e62w" path="res://addons/mobile-controls-1/Vector/Icons/icon_sword.svg" id="3_y1uec"]
 [ext_resource type="Texture2D" uid="uid://ml6nnf6ox6p3" path="res://addons/mobile-controls-1/Vector/Icons/icon_target.svg" id="4_kiph3"]
 [ext_resource type="Texture2D" uid="uid://ds8xd301106xq" path="res://addons/mobile-controls-1/Vector/Icons/icon_crosshair.svg" id="5_7migo"]
 [ext_resource type="Texture2D" uid="uid://bvkgn7pb1mhg6" path="res://addons/mobile-controls-1/Vector/Icons/icon_arrow_rotate.svg" id="6_drjpk"]
 [ext_resource type="Texture2D" uid="uid://b2yxt3vq0t8vl" path="res://addons/mobile-controls-1/Vector/Icons/icon_pause.svg" id="6_ok521"]
-[ext_resource type="Texture2D" uid="uid://dhp1n5lwny1kw" path="res://addons/mobile-controls-1/Vector/Style C/dpad_element_north.svg" id="7_ko3j3"]
+[ext_resource type="Texture2D" uid="uid://wtjdyhcg1g3r" path="res://addons/mobile-controls-1/Vector/Icons/icon_jump.svg" id="9_1ejwo"]
+[ext_resource type="Texture2D" uid="uid://bpc0qu3dt6yir" path="res://addons/mobile-controls-1/Vector/Icons/icon_pedal.svg" id="11_75nm2"]
 [ext_resource type="Texture2D" uid="uid://d0v6nxq37c6pw" path="res://addons/mobile-controls-1/Vector/Icons/icon_hand.svg" id="11_nvwxl"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1675n"]
+shader = ExtResource("2_kylme")
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/outline_size = 2
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_sskrf"]
+diffuse_texture = ExtResource("6_ok521")
+texture_filter = 1
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2s5nj"]
 radius = 30.0
@@ -28,9 +38,12 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="pause" type="TouchScreenButton" parent="Control" unique_id=615251442]
+texture_filter = 1
+material = SubResource("ShaderMaterial_1675n")
+use_parent_material = true
 position = Vector2(19, 22)
 scale = Vector2(1.33, 1.33)
-texture_normal = ExtResource("6_ok521")
+texture_normal = SubResource("CanvasTexture_sskrf")
 texture_pressed = ExtResource("6_ok521")
 shape = SubResource("CircleShape2D_2s5nj")
 action = "pause"
@@ -41,42 +54,6 @@ position = Vector2(432, 1223)
 texture_normal = ExtResource("11_nvwxl")
 texture_pressed = ExtResource("11_nvwxl")
 action = "ui_accept"
-
-[node name="MoveJoystick" type="VirtualJoystick" parent="Control" unique_id=1049626332]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 9.0
-offset_top = -627.0
-offset_right = 553.0
-offset_bottom = -11.0
-grow_vertical = 0
-theme = ExtResource("2_btn5m")
-joystick_mode = 1
-action_left = &"left"
-action_right = &"right"
-action_up = &"up"
-action_down = &"down"
-visibility_mode = 1
-
-[node name="AimJoystick" type="VirtualJoystick" parent="Control" unique_id=335054004]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -547.0
-offset_top = 13.0
-offset_right = -20.0
-offset_bottom = 644.0
-grow_horizontal = 0
-theme = ExtResource("2_btn5m")
-joystick_mode = 1
-action_left = &"aim_left"
-action_right = &"aim_right"
-action_up = &"aim_up"
-action_down = &"aim_down"
-visibility_mode = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control" unique_id=902954197]
 custom_minimum_size = Vector2(250, 0)
@@ -147,8 +124,8 @@ action = "interact"
 [node name="Jump" type="TouchScreenButton" parent="Control/HBoxContainer2/VBoxContainer" unique_id=1679291481]
 position = Vector2(30, 170)
 scale = Vector2(1.9600012, 1.9600012)
-texture_normal = ExtResource("2_opr3r")
-texture_pressed = ExtResource("2_opr3r")
+texture_normal = ExtResource("9_1ejwo")
+texture_pressed = ExtResource("9_1ejwo")
 shape = SubResource("CircleShape2D_2s5nj")
 action = "jump"
 
@@ -162,7 +139,43 @@ action = "cam_modifier"
 
 [node name="sprint" type="TouchScreenButton" parent="Control/HBoxContainer2" unique_id=509873523]
 position = Vector2(53, -132)
-texture_normal = ExtResource("7_ko3j3")
-texture_pressed = ExtResource("7_ko3j3")
+texture_normal = ExtResource("11_75nm2")
+texture_pressed = ExtResource("11_75nm2")
 shape = SubResource("CircleShape2D_2s5nj")
 action = "sprint"
+
+[node name="AimJoystick" type="VirtualJoystick" parent="Control" unique_id=335054004]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -547.0
+offset_top = 13.0
+offset_right = -20.0
+offset_bottom = 644.0
+grow_horizontal = 0
+theme = ExtResource("2_btn5m")
+joystick_mode = 1
+action_left = &"aim_left"
+action_right = &"aim_right"
+action_up = &"aim_up"
+action_down = &"aim_down"
+visibility_mode = 1
+
+[node name="MoveJoystick" type="VirtualJoystick" parent="Control" unique_id=1049626332]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 9.0
+offset_top = -627.0
+offset_right = 553.0
+offset_bottom = -11.0
+grow_vertical = 0
+theme = ExtResource("2_btn5m")
+joystick_mode = 1
+action_left = &"left"
+action_right = &"right"
+action_up = &"up"
+action_down = &"down"
+visibility_mode = 1

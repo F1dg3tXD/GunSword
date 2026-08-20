@@ -326,6 +326,7 @@ func _on_confirm_save_pressed() -> void:
 					if target_scene != "":
 						get_tree().paused = false
 						_scene_changing = true
+						XMBSave.close_all_menus()
 						get_tree().change_scene_to_file(target_scene)
 						return
 

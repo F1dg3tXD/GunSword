@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bc3uvtumdsvyw"]
+
+[ext_resource type="Shader" uid="uid://djy8o7v22f40j" path="res://player/crosshair_shader.gdshader" id="1_pklye"]
+
+[resource]
+shader = ExtResource("1_pklye")
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+shader_parameter/outline_width = 3.0

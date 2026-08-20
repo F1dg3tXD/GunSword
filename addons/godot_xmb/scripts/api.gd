@@ -122,6 +122,7 @@ func save_new(extra_data: Dictionary = {}, icon: Image = null) -> bool:
 	_trim_autosaves()
 
 	if target_scene_path != "":
+		close_all_menus()
 		get_tree().change_scene_to_file(target_scene_path)
 
 	return true
@@ -145,6 +146,7 @@ func _load(id: String):
 	if get_tree().current_scene and get_tree().current_scene.scene_file_path == target_scene_path:
 		_apply_pending_loaded_save()
 	else:
+		close_all_menus()
 		get_tree().change_scene_to_file(target_scene_path)
 
 
@@ -372,3 +374,9 @@ func _has_open_menu() -> bool:
 		if child is CanvasLayer and child.get_script() != null and child.get_script().resource_path == "res://addons/godot_xmb/scripts/save_menu.gd":
 			return true
 	return false
+
+
+func close_all_menus() -> void:
+	for child in get_tree().root.get_children():
+		if child is CanvasLayer and child.get_script() != null and child.get_script().resource_path == "res://addons/godot_xmb/scripts/save_menu.gd":
+			child.queue_free()
