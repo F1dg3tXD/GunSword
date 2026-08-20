@@ -483,6 +483,7 @@ texture = ExtResource("6_aqr53")
 [node name="music" type="AudioStreamPlayer" parent="." unique_id=1193277834]
 process_mode = 3
 stream = ExtResource("7_tstbq")
+autoplay = true
 bus = &"Music"
 
 [node name="Target" parent="." unique_id=1309049677 groups=["enemy", "target"] instance=ExtResource("8_dtmoy")]

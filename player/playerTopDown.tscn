@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://687dwq6o4eqo" path="res://UI/mobile_controls.tscn" id="6_dm3jn"]
 [ext_resource type="PackedScene" uid="uid://wq74pl0jbpqw" path="res://UI/player_ui.tscn" id="6_grj6g"]
 [ext_resource type="PackedScene" uid="uid://d3d5grr7hl0yr" path="res://entities/savable.tscn" id="8_kts7d"]
+[ext_resource type="PackedScene" uid="uid://xn2hmd0mtx1j" path="res://player/death_handler.tscn" id="10_b8ww2"]
+[ext_resource type="PackedScene" uid="uid://cfsr1q722lped" path="res://player/respawn_handler.tscn" id="11_tsuen"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yxyn3"]
 
@@ -34,6 +36,16 @@ region = Rect2(0, 0, 64, 64)
 radius = 7.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_2s5nj"]
+radius = 1.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_yxyn3"]
+radius = 1.0
+height = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2s5nj"]
+transparency = 1
+cull_mode = 2
+albedo_color = Color(1, 0, 0, 0.47058824)
 
 [node name="PlayerTopDown" type="CharacterBody3D" unique_id=617862387 groups=["player"]]
 script = ExtResource("1_jcfv7")
@@ -114,3 +126,12 @@ shape = SubResource("SphereShape3D_yxyn3")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="swordCollider" unique_id=925999679]
 shape = SubResource("SphereShape3D_2s5nj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="swordCollider/CollisionShape3D" unique_id=1742808744 groups=["debug"]]
+mesh = SubResource("SphereMesh_yxyn3")
+surface_material_override/0 = SubResource("StandardMaterial3D_2s5nj")
+
+[node name="death_handler" parent="." unique_id=75823988 instance=ExtResource("10_b8ww2")]
+visible = false
+
+[node name="respawn_handler" parent="." unique_id=916369215 instance=ExtResource("11_tsuen")]

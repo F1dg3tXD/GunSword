@@ -2,6 +2,7 @@ extends CharacterBody3D
 
 signal damaged
 signal health_changed(health: float, max_health: float)
+signal died
 
 const GRAVITY := 20.0
 
@@ -31,6 +32,7 @@ const CROSSHAIR_SPIN_SPEED := 3.0
 const AIM_SMOOTHING := 12.0
 const CROSSHAIR_SCALE_SMOOTHING := 30.0
 const ROT_SMOOTHING := 15.0
+const BODY_ROT_SMOOTHING := 18.0
 const STICK_DEADZONE := 0.2
 const MOUSE_RECENTER_DELAY := 0.5
 const CAM_ORBIT_SPEED := 1.5
@@ -81,6 +83,12 @@ enum AimScheme { NONE, STICK, MOUSE }
 @onready var sword_round_range: CollisionShape3D = $swordCollider/CollisionShape3D
 
 @export var sword_damage := 10.0
+@export var rebound_height := 3.0
+
+@onready var death_handler: Node3D = $death_handler
+@onready var respawn_handler: Node3D = $respawn_handler
+
+const SWORD_FORWARD_DIST := 2.0
 
 var move_stick := Vector2.ZERO
 var aim_stick := Vector2.ZERO
@@ -113,6 +121,7 @@ var _mouse_delta := Vector2.ZERO
 
 var _movement_locked := false
 var _dialogue_locked := false
+var _fly_mode := false
 var _move_dir := Vector2.ZERO
 var _moving := false
 var cutscene_velocity := Vector3.ZERO
@@ -121,12 +130,15 @@ var _move_to_speed := 3.0
 
 var _ground_pound_active := false
 var _ground_pound_diving := false
+var _ground_pound_rebounding := false
 var _ground_pound_start_height := 0.0
 var _ground_pound_radius := 0.0
 var _ground_pound_spread_timer := 0.0
 var _ground_pound_spread_duration := 0.0
 var _ground_pound_original_shape: Shape3D = null
 var _ground_pound_hits: Array[Node3D] = []
+var _slash_timer := 0.0
+var _body_yaw := 0.0
 
 
 func lock_input() -> void:
@@ -172,6 +184,7 @@ func _ready() -> void:
 	sprite.play("idle")
 	_update_mobile_controls()
 	XMBSave.register_save_adapter(self)
+	died.connect(death_handler.die)
 
 
 func _exit_tree() -> void:
@@ -210,6 +223,18 @@ func _physics_process(delta: float) -> void:
 		velocity.y = -GROUND_POUND_DIVE_SPEED
 		_move_dir = Vector2.ZERO
 		_moving = false
+	elif _fly_mode:
+		var horizontal := _camera_space_to_world(input_move) * walk_speed
+		velocity.x = horizontal.x
+		velocity.z = horizontal.z
+		var vert := 0.0
+		if Input.is_action_pressed("jump"):
+			vert = walk_speed
+		elif Input.is_action_pressed("sprint"):
+			vert = -walk_speed
+		velocity.y = vert
+		_moving = input_move.length() > 0.01 or abs(vert) > 0.01
+		_move_dir = input_move.normalized() if input_move.length() > 0.01 else Vector2.ZERO
 	elif cutscene_velocity != Vector3.ZERO:
 		velocity = cutscene_velocity
 		_move_dir = _world_to_camera_space(cutscene_velocity).normalized()
@@ -254,11 +279,22 @@ func _physics_process(delta: float) -> void:
 		_ground_pound_diving = false
 		velocity = Vector3.ZERO
 		_activate_shockwave()
+		if _ground_pound_rebounding:
+			velocity.y = sqrt(2.0 * GRAVITY * rebound_height)
 
 	_update_ground_pound(delta)
+	_update_body_facing(delta)
 	_update_weapon()
 	_update_shot_type()
 	_update_charge(delta)
+
+	# Deactivate slash collider after its timer expires.
+	if _slash_timer > 0.0:
+		_slash_timer -= delta
+		if _slash_timer <= 0.0 and not _ground_pound_active:
+			sword_collider.visible = false
+			sword_collider.monitoring = false
+			sword_collider.position = Vector3.ZERO
 	_update_animation()
 	_update_aim(delta)
 	_update_targeting(delta)
@@ -292,6 +328,29 @@ func _world_to_camera_space(v: Vector3) -> Vector2:
 	return Vector2(basis.x.dot(v), basis.z.dot(v))
 
 
+func _update_body_facing(delta: float) -> void:
+	if _ground_pound_active or _movement_locked:
+		return
+
+	var target_yaw := _body_yaw
+	var aim_world := _aim_to_world(_aim_offset)
+	var aim_xz := Vector2(aim_world.x, aim_world.z)
+
+	if aim_xz.length_squared() > 0.01:
+		target_yaw = atan2(-aim_xz.x, -aim_xz.y)
+	elif _moving:
+		var horiz := Vector2(velocity.x, velocity.z)
+		if horiz.length_squared() > 0.01:
+			target_yaw = atan2(-horiz.x, -horiz.y)
+
+	var smooth := 1.0 - exp(-BODY_ROT_SMOOTHING * delta)
+	_body_yaw = lerp_angle(_body_yaw, target_yaw, smooth)
+
+
+func _body_forward() -> Vector3:
+	return Vector3(-sin(_body_yaw), 0.0, -cos(_body_yaw))
+
+
 func _update_weapon() -> void:
 	if Input.is_action_just_pressed("fire1") and not is_gun:
 		is_gun = true
@@ -311,6 +370,12 @@ func _update_weapon() -> void:
 		else:
 			_play_action("slash")
 			add_kinetic_fuel(SWORD_SLASH_FUEL)
+			# Lunge the collider in the body's facing direction.
+			var forward_dir := _body_forward()
+			sword_collider.position = forward_dir * SWORD_FORWARD_DIST
+			sword_collider.visible = true
+			sword_collider.monitoring = true
+			_slash_timer = 0.2
 
 
 func _update_shot_type() -> void:
@@ -351,6 +416,16 @@ func take_damage(amount: float) -> void:
 	health = maxi(health - int(round(amount)), 0)
 	health_changed.emit(health, max_health)
 	damaged.emit()
+	if health <= 0:
+		death_handler.show()
+		died.emit()
+
+
+func heal(amount: float) -> void:
+	if amount <= 0.0 or health >= max_health:
+		return
+	health = mini(health + int(round(amount)), max_health)
+	health_changed.emit(health, max_health)
 
 
 func add_kinetic_fuel(amount: float) -> void:
@@ -382,11 +457,17 @@ func _fire_blaster() -> void:
 func _start_ground_pound() -> void:
 	_ground_pound_active = true
 	_ground_pound_diving = true
+	_ground_pound_rebounding = false
 	_ground_pound_start_height = global_position.y
 	_ground_pound_hits.clear()
 	lock_input()
 	velocity = Vector3(0, -GROUND_POUND_DIVE_SPEED, 0)
 	_play_action("slash")
+	# Lunge the collider in the body's facing direction.
+	var forward_dir := _body_forward()
+	sword_collider.position = forward_dir * SWORD_FORWARD_DIST
+	sword_collider.visible = true
+	sword_collider.monitoring = true
 
 
 func _update_ground_pound(delta: float) -> void:
@@ -398,9 +479,10 @@ func _update_ground_pound(delta: float) -> void:
 	var t := clampf(_ground_pound_spread_timer / _ground_pound_spread_duration, 0.0, 1.0)
 	var current_radius: float = lerp(GROUND_POUND_MIN_RADIUS, _ground_pound_radius, t)
 
-	var shape: SphereShape3D = sword_round_range.shape as SphereShape3D
-	if shape:
-		shape.radius = current_radius
+	# Create a new shape each frame to force the physics server to update.
+	var new_shape := SphereShape3D.new()
+	new_shape.radius = current_radius
+	sword_round_range.shape = new_shape
 
 	# Check for enemies entering the shockwave.
 	for enemy in get_tree().get_nodes_in_group("enemy"):
@@ -424,16 +506,18 @@ func _activate_shockwave() -> void:
 	_ground_pound_spread_duration = lerp(GROUND_POUND_MIN_SPREAD_TIME, GROUND_POUND_MAX_SPREAD_TIME, height_ratio)
 	_ground_pound_spread_timer = 0.0
 
-	# Store and replace the collision shape so we can animate it.
+	# Store the original shape so we can restore it later.
 	if _ground_pound_original_shape == null:
 		_ground_pound_original_shape = sword_round_range.shape
-	sword_round_range.shape = _ground_pound_original_shape.duplicate()
-	var shape: SphereShape3D = sword_round_range.shape as SphereShape3D
-	if shape:
-		shape.radius = GROUND_POUND_MIN_RADIUS
 
 	sword_collider.visible = true
 	sword_collider.monitoring = true
+
+	# Check for rebound.
+	if Input.is_action_pressed("jump"):
+		_ground_pound_rebounding = true
+	else:
+		_ground_pound_rebounding = false
 
 
 func _apply_ground_pound_effect(enemy: Node3D) -> void:
@@ -451,11 +535,13 @@ func _apply_ground_pound_effect(enemy: Node3D) -> void:
 func _end_ground_pound() -> void:
 	sword_collider.visible = false
 	sword_collider.monitoring = false
+	sword_collider.position = Vector3.ZERO
 	if _ground_pound_original_shape != null:
 		sword_round_range.shape = _ground_pound_original_shape
 		_ground_pound_original_shape = null
 	_ground_pound_active = false
 	_ground_pound_diving = false
+	_ground_pound_rebounding = false
 	_ground_pound_hits.clear()
 	unlock_input()
 
@@ -511,8 +597,8 @@ func _update_aim(delta: float) -> void:
 		_pan_strength = 0.0
 		var to_target := _current_target.global_position - global_position
 		if to_target.length_squared() > 0.01:
-			var cam_right := camera_rig.global_transform.basis.x
-			facing_right = cam_right.dot(to_target) > 0.0
+			var target_xz := Vector2(to_target.x, to_target.z)
+			_body_yaw = atan2(-target_xz.x, -target_xz.y)
 		var player_screen := camera_3d.unproject_position(global_position + Vector3.UP * 0.7)
 		var target_screen := camera_3d.unproject_position(_current_target.global_position + Vector3.UP * 0.7)
 		var viewport_size := get_viewport().get_visible_rect().size

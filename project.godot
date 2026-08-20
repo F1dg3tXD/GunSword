@@ -35,6 +35,7 @@ DialogueManager="*uid://c3rodes2l3gxb"
 InputIcons="*res://UI/input_icon_mapper_singleton.gd"
 XMBSave="*uid://l0v1uvul8mvx"
 PlayerTopDown="*uid://g3r12cwpvpos"
+Terminal="*res://scripts/terminal.gd"
 
 [display]
 
@@ -52,6 +53,7 @@ target="An entity that can be targeted."
 enemy="enemy"
 friend="friend"
 poi="poi"
+debug="debug shapes"
 
 [input]
 
