@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://be5muniuvru8l" path="res://entities/target.tscn" id="8_6b7mj"]
 [ext_resource type="PackedScene" uid="uid://dqwx057lhado0" path="res://entities/level_transition.tscn" id="9_wd2vj"]
 [ext_resource type="Texture2D" uid="uid://r7yf031ht58x" path="res://addons/cylinder_cut/icon.svg" id="10_fpxlb"]
+[ext_resource type="PackedScene" uid="uid://ctg45ho4sytvk" path="res://entities/grass_test.tscn" id="10_wd2vj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_b71ab"]
 sky_top_color = Color(0.46145612, 0.7468559, 0.793687, 1)
@@ -517,6 +518,36 @@ shape = SubResource("BoxShape3D_u8v7t")
 [node name="Sprite3D" type="Sprite3D" parent="Level Transition" unique_id=2073589011]
 billboard = 1
 texture = ExtResource("10_fpxlb")
+
+[node name="grass" parent="." unique_id=1829872790 instance=ExtResource("10_wd2vj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.8113356, 1.074304, 6.0015616)
+
+[node name="grass2" parent="." unique_id=978361963 instance=ExtResource("10_wd2vj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5964117, 1.074304, 6.3328104)
+
+[node name="grass3" parent="." unique_id=1246574366 instance=ExtResource("10_wd2vj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.8855143, 1.074304, 7.6296134)
+
+[node name="grass4" parent="." unique_id=1728072704 instance=ExtResource("10_wd2vj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.720014, 1.074304, 5.4286294)
+
+[node name="grass5" parent="." unique_id=848026149 instance=ExtResource("10_wd2vj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5773516, 1.074304, 4.363178)
+
+[node name="grass6" parent="." unique_id=18700070 instance=ExtResource("10_wd2vj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.351795, 1.074304, 8.083825)
+
+[node name="grass7" parent="." unique_id=84911771 instance=ExtResource("10_wd2vj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.136871, 1.074304, 8.415073)
+
+[node name="grass8" parent="." unique_id=352637598 instance=ExtResource("10_wd2vj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.425974, 1.074304, 9.711877)
+
+[node name="grass9" parent="." unique_id=665624148 instance=ExtResource("10_wd2vj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.260473, 1.074304, 7.510893)
+
+[node name="grass10" parent="." unique_id=1871246472 instance=ExtResource("10_wd2vj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.117811, 1.074304, 6.4454412)
 
 [connection signal="body_entered" from="Area3D" to="env" method="_on_point_trigger_3d_body_entered"]
 
