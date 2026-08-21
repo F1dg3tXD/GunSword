@@ -6,6 +6,10 @@ extends Node3D
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	animated_sprite_3d.play("wave_idle")
+	animated_sprite_3d.frame = randi_range(
+	0,
+	animated_sprite_3d.sprite_frames.get_frame_count("wave_idle") - 1
+)
 
 
 func _on_area_3d_body_entered(body: Node3D) -> void:

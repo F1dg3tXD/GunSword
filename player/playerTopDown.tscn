@@ -18,7 +18,7 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xhair"]
 atlas = ExtResource("5_dm3jn")
-region = Rect2(-22, -22, 100, 100)
+region = Rect2(-20, -18, 100, 100)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_npu4n"]
 shader = ExtResource("3_ydmpb")

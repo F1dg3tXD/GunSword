@@ -222,5 +222,6 @@ light_color = Color(0, 1, 1, 1)
 light_energy = 1.785
 light_size = 1.0
 shadow_enabled = true
+shadow_blur = 0.0
 distance_fade_enabled = true
 omni_shadow_mode = 0

@@ -3,6 +3,7 @@
 [ext_resource type="MeshLibrary" uid="uid://dxaab05nwrlwt" path="res://addons/kenney_building-kit/building-kit.meshlib" id="1_6slyc"]
 [ext_resource type="PackedScene" uid="uid://243u7nsam20o" path="res://items/item_sword_test.tscn" id="2_b71ab"]
 [ext_resource type="Script" uid="uid://df4uctpoxw5n8" path="res://maps/env.gd" id="2_fpxlb"]
+[ext_resource type="PackedScene" uid="uid://ci2n2quf0wiw" path="res://entities/multi_view_entity.tscn" id="2_u8v7t"]
 [ext_resource type="PackedScene" uid="uid://ckwgj3o8yfn1q" path="res://entities/autosave_trigger_3D.tscn" id="4_cabd0"]
 [ext_resource type="Texture2D" uid="uid://dk4uhhota7koj" path="res://addons/mobile-controls-1/Sprites/Icons/Large (2×)/icon_save.png" id="5_k1jtb"]
 [ext_resource type="AudioStream" uid="uid://ckllv2jbbnif7" path="res://music/pov you wake up and remember nothing.ogg" id="6_k1jtb"]
@@ -445,6 +446,8 @@ environment = SubResource("Environment_42yok")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="env" unique_id=514712224]
 transform = Transform3D(-0.86602557, -0.43301278, 0.24999997, 0, 0.49999985, 0.8660255, -0.5000002, 0.75, -0.4330126, 0, 0, 0)
 shadow_enabled = true
+shadow_bias = 0.0
+shadow_blur = 0.0
 
 [node name="AnimationTree" type="AnimationTree" parent="env" unique_id=703370099]
 tree_root = SubResource("AnimationNodeStateMachine_yxyn3")
@@ -453,6 +456,9 @@ parameters/dayNight/blend_position = 0.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="env" unique_id=1613836494]
 libraries/ = SubResource("AnimationLibrary_ad6p3")
+
+[node name="multiViewEntity" parent="env" unique_id=1818537474 instance=ExtResource("2_u8v7t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.0559173, 1.1000004, 10.942321)
 
 [node name="GridMap" type="GridMap" parent="." unique_id=166481092]
 mesh_library = ExtResource("1_6slyc")
