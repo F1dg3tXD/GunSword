@@ -14,6 +14,7 @@ func _ready() -> void:
 	Console.add_command("damage", on_damage, 1, 1, "damage <amount> - deal damage to player")
 	Console.add_command("speed", on_speed, 1, 1, "speed <value> - set player walk speed")
 	Console.add_command("tp", on_teleport, 3, 3, "tp <x> <y> <z> - teleport player to position")
+	Console.add_command("kys", on_kys, 0, 0, "kys")
 
 
 func _exit_tree() -> void:
@@ -24,6 +25,7 @@ func _exit_tree() -> void:
 	Console.remove_command("damage")
 	Console.remove_command("speed")
 	Console.remove_command("tp")
+	Console.remove_command("kys")
 
 
 func on_console_opened() -> void:
@@ -140,3 +142,9 @@ func on_teleport(x: String, y: String, z: String) -> void:
 	var pos := Vector3(x.to_float(), y.to_float(), z.to_float())
 	PlayerTopDown.global_position = pos
 	Console.print_line("Teleported to: " + str(pos))
+	
+# ── kys ──────────────────────────────────────────────────────────────────────
+
+func on_kys() -> void:
+	PlayerTopDown.take_damage(100)
+	Console.print_line("L+ratio")

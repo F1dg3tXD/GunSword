@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://ccd7lxpyg7ppo"]
+
+[ext_resource type="Shader" uid="uid://dqp1dvsdvhogw" path="res://shaders/shockwave.gdshader" id="1_6or1m"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_6or1m")
+shader_parameter/color_center = Color(1, 1, 1, 1)
+shader_parameter/color_edge = Color(0, 0.5, 1, 0)
+shader_parameter/ripple_count = 1
+shader_parameter/ripple_width = 0.5
+shader_parameter/band_width = 1.0
+shader_parameter/fade_start_radius = 5.0000002375
+shader_parameter/fade_end_radius = 8.00000038

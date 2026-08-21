@@ -4,9 +4,11 @@
 ???: Press [input_ui_accept] to continue.
 - Grab it
 	???: That's not in the game yet.
-	% ???: Although, if you did, use [input_fire0] to do a shalsh.
+	% ???: Although, if you did, use [input_fire0] to do a slash.
 	% ???: You would have useed [input_fire1] and [input_fire0] to shoot lasers.
 	% ???: You would have useed [input_shot_type_cycle] to change your shot type.
+	% ???: Tap [input_cam_modifier] to lock onto nearby enemies and points of intrest.
+	% ???: Hold [input_cam_modifier] and look around to look around.
 	=> start
 - Leave it alone
 	???: You physically can't grab it anyway.

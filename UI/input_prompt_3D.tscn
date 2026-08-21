@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ble3up6hk68np"]
 
 [ext_resource type="Script" uid="uid://choejy6ytakl3" path="res://UI/input_prompt_3D.gd" id="1_n3vmd"]
+[ext_resource type="Material" uid="uid://bc3uvtumdsvyw" path="res://shaders/mat_ui_outline.tres" id="2_0mnbi"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_kts7d"]
 size = Vector2(128, 128)
@@ -9,5 +10,6 @@ size = Vector2(128, 128)
 script = ExtResource("1_n3vmd")
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=486619286]
+material_overlay = ExtResource("2_0mnbi")
 billboard = 1
 texture = SubResource("PlaceholderTexture2D_kts7d")

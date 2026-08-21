@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://d3d5grr7hl0yr" path="res://entities/savable.tscn" id="8_kts7d"]
 [ext_resource type="PackedScene" uid="uid://xn2hmd0mtx1j" path="res://player/death_handler.tscn" id="10_b8ww2"]
 [ext_resource type="PackedScene" uid="uid://cfsr1q722lped" path="res://player/respawn_handler.tscn" id="11_tsuen"]
+[ext_resource type="Material" uid="uid://ccd7lxpyg7ppo" path="res://shaders/shockwave_shader_material.tres" id="12_shock"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yxyn3"]
 
@@ -42,6 +43,10 @@ height = 2.0
 transparency = 1
 cull_mode = 2
 albedo_color = Color(1, 0, 0, 0.47058824)
+
+[sub_resource type="SphereMesh" id="SphereMesh_shockwave"]
+radial_segments = 32
+rings = 16
 
 [node name="PlayerTopDown" type="CharacterBody3D" unique_id=617862387 groups=["player"]]
 script = ExtResource("1_jcfv7")
@@ -96,7 +101,6 @@ spring_length = 5.0
 [node name="Camera3D" type="Camera3D" parent="CameraRig/SpringArm3D" unique_id=778412209]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.21527565, 2.604205)
 current = true
-physics_object_picking = true
 
 [node name="RayCast3D" type="RayCast3D" parent="CameraRig/SpringArm3D/Camera3D" unique_id=613225964]
 target_position = Vector3(0, 0, -20)
@@ -127,6 +131,11 @@ shape = SubResource("SphereShape3D_2s5nj")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="swordCollider/CollisionShape3D" unique_id=1742808744 groups=["debug"]]
 mesh = SubResource("SphereMesh_yxyn3")
 surface_material_override/0 = SubResource("StandardMaterial3D_2s5nj")
+
+[node name="shockwave_mesh" type="MeshInstance3D" parent="." unique_id=914972050]
+visible = false
+mesh = SubResource("SphereMesh_shockwave")
+surface_material_override/0 = ExtResource("12_shock")
 
 [node name="death_handler" parent="." unique_id=75823988 instance=ExtResource("10_b8ww2")]
 visible = false

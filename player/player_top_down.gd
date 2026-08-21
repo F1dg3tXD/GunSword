@@ -85,10 +85,11 @@ enum AimScheme { NONE, STICK, MOUSE }
 @export var sword_damage := 10.0
 @export var rebound_height := 3.0
 
+@onready var shockwave_mesh: MeshInstance3D = $shockwave_mesh
 @onready var death_handler: Node3D = $death_handler
 @onready var respawn_handler: Node3D = $respawn_handler
 
-const SWORD_FORWARD_DIST := 2.0
+const SWORD_FORWARD_DIST := 1.0
 
 var move_stick := Vector2.ZERO
 var aim_stick := Vector2.ZERO
@@ -468,6 +469,15 @@ func _start_ground_pound() -> void:
 	sword_collider.visible = true
 	sword_collider.monitoring = true
 
+	# Show the shockwave mesh and set its color based on fire mode.
+	var mat := shockwave_mesh.get_surface_override_material(0) as ShaderMaterial
+	if fire_mode == FireMode.BLASTER:
+		mat.set_shader_parameter("color_center", Color(0.2, 0.5, 1.0, 1.0))
+	else:
+		mat.set_shader_parameter("color_center", Color(1.0, 0.9, 0.2, 1.0))
+	shockwave_mesh.visible = true
+	shockwave_mesh.scale = Vector3.ONE
+
 
 func _update_ground_pound(delta: float) -> void:
 	if not _ground_pound_active or _ground_pound_diving:
@@ -477,6 +487,10 @@ func _update_ground_pound(delta: float) -> void:
 	_ground_pound_spread_timer += delta
 	var t := clampf(_ground_pound_spread_timer / _ground_pound_spread_duration, 0.0, 1.0)
 	var current_radius: float = lerp(GROUND_POUND_MIN_RADIUS, _ground_pound_radius, t)
+
+	# Scale the shockwave mesh to match the current radius.
+	# SphereMesh radius=0.5, so scale = radius * 2 to get the desired world radius.
+	shockwave_mesh.scale = Vector3.ONE * current_radius * 2.0
 
 	# Create a new shape each frame to force the physics server to update.
 	var new_shape := SphereShape3D.new()
@@ -535,6 +549,7 @@ func _end_ground_pound() -> void:
 	sword_collider.visible = false
 	sword_collider.monitoring = false
 	sword_collider.position = Vector3.ZERO
+	shockwave_mesh.visible = false
 	if _ground_pound_original_shape != null:
 		sword_round_range.shape = _ground_pound_original_shape
 		_ground_pound_original_shape = null
