@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://b6gsgojnl8sck"]
+
+[ext_resource type="Script" uid="uid://rl5fqcv33ywo" path="res://addons/simple_scatter/scatter_shape.gd" id="1_2da7k"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_yxyn3"]
+
+[node name="ScatterShape3D" type="CollisionShape3D" unique_id=1699386339]
+shape = SubResource("CylinderShape3D_yxyn3")
+script = ExtResource("1_2da7k")

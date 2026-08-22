@@ -2,10 +2,7 @@
 extends AnimatedSprite3D
 class_name MultiViewAnimatedSprite3D
 
-
-# ============================================================
 # Direction
-# ============================================================
 
 @export_category("Direction")
 
@@ -20,10 +17,7 @@ class_name MultiViewAnimatedSprite3D
 @export_range(0.0, 90.0, 0.1)
 var elevation_threshold: float = 60.0
 
-
-# ============================================================
 # Directional Animation Setup
-# ============================================================
 
 @export_category("Directional Animations")
 
@@ -31,10 +25,8 @@ var elevation_threshold: float = 60.0
 @export var use_8_way: bool = false:
 	set(value):
 		use_8_way = value
-
 		if is_inside_tree():
 			_scan_animations()
-
 
 @export_group("Suffixes")
 
@@ -60,33 +52,22 @@ var elevation_threshold: float = 60.0
 @export var top_suffix: String = "_top"
 @export var bottom_suffix: String = "_bottom"
 
-
-# ============================================================
 # Discovered Animations
-# ============================================================
 
 @export_category("Animations")
 
 ## Automatically populated with the logical animation names.
 @export var animations: Array[String] = []
 
-
-# ============================================================
 # Internal State
-# ============================================================
 
 ## Base animation -> direction -> actual animation name.
 var _groups: Dictionary = {}
-
 var _base_animation: StringName = &""
 var _current_suffix: String = ""
-
 var _is_base_playing: bool = false
 
-
-# ============================================================
 # Vertical Billboard State
-# ============================================================
 
 ## Whether we are currently manually orienting the sprite for
 ## a top/bottom view.
@@ -97,18 +78,12 @@ var _vertical_view_active: bool = false
 var _normal_local_transform: Transform3D
 
 ## Reference world basis used for directional calculations.
-##
-## IMPORTANT:
 ## This does not change when we manually rotate the sprite
 ## for top/bottom views.
 var _reference_world_basis: Basis
-
 var _reference_initialized: bool = false
 
-
-# ============================================================
-# Godot
-# ============================================================
+# Godot Lifecycle
 
 func _ready() -> void:
 	_initialize_reference_transform()
@@ -148,10 +123,7 @@ func _process(_delta: float) -> void:
 
 	_update_vertical_orientation(new_suffix)
 
-
-# ============================================================
 # Animation Scanning
-# ============================================================
 
 func _scan_animations() -> void:
 	if not sprite_frames:
@@ -160,14 +132,13 @@ func _scan_animations() -> void:
 	_groups.clear()
 
 	var suffix_map := _get_suffix_map()
-
 	var suffixes: Array[String] = []
 
 	for suffix in suffix_map.values():
 		if suffix != "":
 			suffixes.append(suffix)
 
-	# Longest first.
+	# Longest first so "front_left" matches before "front".
 	suffixes.sort_custom(
 		func(a: String, b: String) -> bool:
 			return a.length() > b.length()
@@ -228,10 +199,7 @@ func _get_direction_from_suffix(suffix: String) -> String:
 
 	return ""
 
-
-# ============================================================
 # Public Playback API
-# ============================================================
 
 func play3d(
 	anim_name: StringName,
@@ -239,7 +207,6 @@ func play3d(
 	from_end: bool = false,
 	random_start: bool = false
 ) -> void:
-
 	_scan_animations()
 
 	if _groups.has(anim_name):
@@ -249,38 +216,22 @@ func play3d(
 		var suffix := _compute_suffix()
 		_current_suffix = suffix
 
-		var full_name := _get_full_name(
-			_base_animation,
-			suffix
-		)
+		var full_name := _get_full_name(_base_animation, suffix)
 
 		if full_name == "":
-			full_name = _get_fallback_animation(
-				_base_animation
-			)
+			full_name = _get_fallback_animation(_base_animation)
 
 		if full_name != "":
-			super.play(
-				full_name,
-				custom_speed,
-				from_end
-			)
+			super.play(full_name, custom_speed, from_end)
 
 			if random_start and sprite_frames:
-				var frame_count := sprite_frames.get_frame_count(
-					full_name
-				)
+				var frame_count := sprite_frames.get_frame_count(full_name)
 
 				if frame_count > 0:
-					frame = randi_range(
-						0,
-						frame_count - 1
-					)
-
+					frame = randi_range(0, frame_count - 1)
 					frame_progress = randf()
 
 		_update_vertical_orientation(suffix)
-
 		return
 
 	# Normal non-directional animation.
@@ -288,23 +239,13 @@ func play3d(
 	_base_animation = &""
 	_current_suffix = ""
 
-	super.play(
-		anim_name,
-		custom_speed,
-		from_end
-	)
+	super.play(anim_name, custom_speed, from_end)
 
 	if random_start and sprite_frames:
-		var frame_count := sprite_frames.get_frame_count(
-			anim_name
-		)
+		var frame_count := sprite_frames.get_frame_count(anim_name)
 
 		if frame_count > 0:
-			frame = randi_range(
-				0,
-				frame_count - 1
-			)
-
+			frame = randi_range(0, frame_count - 1)
 			frame_progress = randf()
 
 
@@ -314,27 +255,18 @@ func stop3d() -> void:
 	_current_suffix = ""
 
 	_leave_vertical_view()
-
 	super.stop()
 
-
-# ============================================================
 # Direction Switching
-# ============================================================
 
 func _switch_direction(new_suffix: String) -> void:
 	if _base_animation == &"":
 		return
 
-	var new_animation := _get_full_name(
-		_base_animation,
-		new_suffix
-	)
+	var new_animation := _get_full_name(_base_animation, new_suffix)
 
 	if new_animation == "":
-		new_animation = _get_fallback_animation(
-			_base_animation
-		)
+		new_animation = _get_fallback_animation(_base_animation)
 
 	if new_animation == "":
 		return
@@ -344,32 +276,20 @@ func _switch_direction(new_suffix: String) -> void:
 	if old_animation == new_animation:
 		return
 
-	# --------------------------------------------------------
 	# Save current playback state.
-	# --------------------------------------------------------
-
 	var old_frame := frame
 	var old_frame_progress := frame_progress
-
 	var old_frame_count := 1
 	var new_frame_count := 1
 
 	if sprite_frames:
-		old_frame_count = sprite_frames.get_frame_count(
-			old_animation
-		)
-
-		new_frame_count = sprite_frames.get_frame_count(
-			new_animation
-		)
+		old_frame_count = sprite_frames.get_frame_count(old_animation)
+		new_frame_count = sprite_frames.get_frame_count(new_animation)
 
 	old_frame_count = maxi(old_frame_count, 1)
 	new_frame_count = maxi(new_frame_count, 1)
 
-	# --------------------------------------------------------
 	# Preserve animation position.
-	# --------------------------------------------------------
-
 	var normalized_position := 0.0
 
 	if old_frame_count > 1:
@@ -377,33 +297,21 @@ func _switch_direction(new_suffix: String) -> void:
 			float(old_frame) + old_frame_progress
 		) / float(old_frame_count - 1)
 
-	normalized_position = clamp(
-		normalized_position,
-		0.0,
-		1.0
-	)
+	normalized_position = clamp(normalized_position, 0.0, 1.0)
 
 	var was_playing := is_playing()
 
 	super.play(new_animation)
 
-	# --------------------------------------------------------
 	# Restore animation position.
-	# --------------------------------------------------------
-
 	var new_frame := 0
 
 	if new_frame_count > 1:
 		new_frame = roundi(
-			normalized_position *
-			float(new_frame_count - 1)
+			normalized_position * float(new_frame_count - 1)
 		)
 
-	new_frame = clamp(
-		new_frame,
-		0,
-		new_frame_count - 1
-	)
+	new_frame = clamp(new_frame, 0, new_frame_count - 1)
 
 	frame = new_frame
 	frame_progress = 0.0
@@ -413,10 +321,7 @@ func _switch_direction(new_suffix: String) -> void:
 
 	_current_suffix = new_suffix
 
-
-# ============================================================
 # Vertical Orientation
-# ============================================================
 
 func _update_vertical_orientation(suffix: String) -> void:
 	var vertical := (
@@ -436,26 +341,12 @@ func _update_vertical_orientation(suffix: String) -> void:
 	if camera == null:
 		return
 
-	# --------------------------------------------------------
 	# Enter manual orientation mode.
-	# --------------------------------------------------------
-
 	if not _vertical_view_active:
 		_vertical_view_active = true
-
-		# Disable Godot's billboard.
-		#
-		# From this point onward we control the sprite's
-		# orientation ourselves.
 		billboard = BaseMaterial3D.BILLBOARD_DISABLED
 
-	# --------------------------------------------------------
-	# Fixed world-space sprite axes.
-	#
-	# These come from the ORIGINAL orientation of the sprite,
-	# not from its current transform.
-	# --------------------------------------------------------
-
+	# Fixed world-space sprite axes from the ORIGINAL orientation.
 	var local_forward := forward_dir.normalized()
 	var local_up := up_dir.normalized()
 
@@ -466,47 +357,28 @@ func _update_vertical_orientation(suffix: String) -> void:
 		local_up = Vector3.UP
 
 	var world_forward := (
-		_reference_world_basis *
-		local_forward
+		_reference_world_basis * local_forward
 	).normalized()
 
 	var world_up := (
-		_reference_world_basis *
-		local_up
+		_reference_world_basis * local_up
 	).normalized()
 
-	# --------------------------------------------------------
 	# Direction from sprite to camera.
-	# --------------------------------------------------------
-
 	var to_camera := (
-		camera.global_position -
-		global_position
+		camera.global_position - global_position
 	).normalized()
 
 	if to_camera.length_squared() < 0.000001:
 		return
 
-	# --------------------------------------------------------
-	# We need the sprite to face the camera, but its image
-	# orientation must remain tied to world_forward.
-	#
 	# Project the sprite's fixed forward direction onto the
-	# camera-facing plane.
-	#
-	# This gives us the "up" direction of the top/bottom
-	# texture on screen.
-	# --------------------------------------------------------
-
+	# camera-facing plane to get the image "up" direction.
 	var image_up := (
 		world_forward -
 		to_camera * world_forward.dot(to_camera)
 	)
 
-	# If the camera is almost exactly along the sprite's
-	# forward axis, the projection becomes too small.
-	#
-	# Use world_up as a stable fallback.
 	if image_up.length_squared() < 0.000001:
 		image_up = (
 			world_up -
@@ -518,14 +390,7 @@ func _update_vertical_orientation(suffix: String) -> void:
 
 	image_up = image_up.normalized()
 
-	# --------------------------------------------------------
 	# Build the camera-facing basis.
-	#
-	# X = right
-	# Y = fixed sprite-forward projected onto screen
-	# Z = camera-facing normal
-	# --------------------------------------------------------
-
 	var image_right := (
 		image_up.cross(to_camera)
 	).normalized()
@@ -543,32 +408,20 @@ func _update_vertical_orientation(suffix: String) -> void:
 		to_camera
 	).orthonormalized()
 
-	# --------------------------------------------------------
-	# Convert from world space back into the parent's local
-	# space.
-	#
-	# Crucially, this uses the PARENT's transform, not our
-	# current transform. Therefore changing our rotation
-	# cannot affect the next calculation.
-	# --------------------------------------------------------
-
+	# Convert from world space back into the parent's local space.
 	var parent := get_parent_node_3d()
 
 	if parent:
-		var parent_basis := (
-			parent.global_transform.basis
-		)
+		var parent_basis := parent.global_transform.basis
 
 		var local_basis := (
-			parent_basis.inverse() *
-			target_world_basis
+			parent_basis.inverse() * target_world_basis
 		).orthonormalized()
 
 		transform = Transform3D(
 			local_basis,
 			_normal_local_transform.origin
 		)
-
 	else:
 		global_transform = Transform3D(
 			target_world_basis,
@@ -581,23 +434,12 @@ func _leave_vertical_view() -> void:
 		return
 
 	_vertical_view_active = false
-
-	# Restore the original transform.
 	transform = _normal_local_transform
-
-	# Give control back to AnimatedSprite3D's billboard.
 	billboard = BaseMaterial3D.BILLBOARD_ENABLED
 
-
-# ============================================================
 # Animation Lookup
-# ============================================================
 
-func _get_full_name(
-	base: StringName,
-	direction: String
-) -> String:
-
+func _get_full_name(base: StringName, direction: String) -> String:
 	if not _groups.has(base):
 		return ""
 
@@ -634,10 +476,7 @@ func _get_fallback_animation(base: StringName) -> String:
 
 	return ""
 
-
-# ============================================================
 # Camera Direction
-# ============================================================
 
 func _compute_suffix() -> String:
 	var camera := get_viewport().get_camera_3d()
@@ -645,38 +484,26 @@ func _compute_suffix() -> String:
 	if camera == null:
 		return "front"
 
-	# --------------------------------------------------------
-	# Convert camera direction into the sprite's ORIGINAL
-	# local coordinate system.
-	#
-	# We use the stored reference basis because the sprite may
-	# currently be manually rotated for a top/bottom view.
-	# --------------------------------------------------------
-
+	# Convert camera direction into the sprite's ORIGINAL local
+	# coordinate system using the stored reference basis.
 	var world_to_camera := (
-		camera.global_position -
-		global_position
+		camera.global_position - global_position
 	)
 
 	if world_to_camera.length_squared() < 0.000001:
 		return "front"
 
 	var to_camera_world := world_to_camera.normalized()
-
 	var local_to_world_basis := _reference_world_basis
 
 	var to_camera_local := (
-		local_to_world_basis.inverse() *
-		to_camera_world
+		local_to_world_basis.inverse() * to_camera_world
 	).normalized()
 
 	if to_camera_local.length_squared() < 0.000001:
 		return "front"
 
-	# --------------------------------------------------------
 	# Local axes.
-	# --------------------------------------------------------
-
 	var local_forward := forward_dir.normalized()
 	var local_up := up_dir.normalized()
 
@@ -688,36 +515,25 @@ func _compute_suffix() -> String:
 
 	# Make forward perpendicular to up.
 	local_forward = (
-		local_forward -
-		local_up * local_forward.dot(local_up)
+		local_forward - local_up * local_forward.dot(local_up)
 	).normalized()
 
 	if local_forward.length_squared() < 0.000001:
 		local_forward = Vector3(0, 0, -1)
 
-	# --------------------------------------------------------
 	# Vertical component.
-	# --------------------------------------------------------
-
 	var vertical := to_camera_local.dot(local_up)
 
 	var horizontal_vector := (
-		to_camera_local -
-		local_up * vertical
+		to_camera_local - local_up * vertical
 	)
 
 	var horizontal_length := horizontal_vector.length()
 
-	# --------------------------------------------------------
 	# Top / bottom.
-	# --------------------------------------------------------
-
 	if horizontal_length > 0.000001:
 		var elevation := rad_to_deg(
-			atan2(
-				abs(vertical),
-				horizontal_length
-			)
+			atan2(abs(vertical), horizontal_length)
 		)
 
 		if elevation > elevation_threshold:
@@ -726,10 +542,7 @@ func _compute_suffix() -> String:
 			else:
 				return "bottom"
 
-	# --------------------------------------------------------
 	# Horizontal.
-	# --------------------------------------------------------
-
 	if horizontal_length < 0.000001:
 		return "front"
 
@@ -742,55 +555,36 @@ func _compute_suffix() -> String:
 		)
 	)
 
-	signed_angle = fmod(
-		signed_angle + 360.0,
-		360.0
-	)
+	signed_angle = fmod(signed_angle + 360.0, 360.0)
 
 	if signed_angle >= 180.0:
 		signed_angle -= 360.0
 
-	# --------------------------------------------------------
 	# 8-way.
-	# --------------------------------------------------------
-
 	if use_8_way:
 		if signed_angle < -157.5 or signed_angle >= 157.5:
 			return "front"
-
 		elif signed_angle < -112.5:
 			return "front_right"
-
 		elif signed_angle < -67.5:
 			return "right"
-
 		elif signed_angle < -22.5:
 			return "back_right"
-
 		elif signed_angle < 22.5:
 			return "back"
-
 		elif signed_angle < 67.5:
 			return "back_left"
-
 		elif signed_angle < 112.5:
 			return "left"
-
 		else:
 			return "front_left"
 
-	# --------------------------------------------------------
 	# 4-way.
-	# --------------------------------------------------------
-
 	if signed_angle < -135.0 or signed_angle >= 135.0:
 		return "front"
-
 	elif signed_angle < -45.0:
 		return "right"
-
 	elif signed_angle < 45.0:
 		return "back"
-
 	else:
 		return "left"

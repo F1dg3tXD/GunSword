@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cnu058ve3e4gg" path="res://addons/kenney_crosshair-pack/Vector/Light/crosshair-006.svg" id="5_dm3jn"]
 [ext_resource type="PackedScene" uid="uid://687dwq6o4eqo" path="res://UI/mobile_controls.tscn" id="6_dm3jn"]
 [ext_resource type="PackedScene" uid="uid://wq74pl0jbpqw" path="res://UI/player_ui.tscn" id="6_grj6g"]
+[ext_resource type="Script" uid="uid://bspl85qx52qjt" path="res://player/frustrum_camera_3d.gd" id="7_sskrf"]
 [ext_resource type="PackedScene" uid="uid://d3d5grr7hl0yr" path="res://entities/savable.tscn" id="8_kts7d"]
 [ext_resource type="PackedScene" uid="uid://xn2hmd0mtx1j" path="res://player/death_handler.tscn" id="10_b8ww2"]
 [ext_resource type="PackedScene" uid="uid://cfsr1q722lped" path="res://player/respawn_handler.tscn" id="11_tsuen"]
@@ -101,6 +102,7 @@ spring_length = 5.0
 [node name="Camera3D" type="Camera3D" parent="CameraRig/SpringArm3D" unique_id=778412209]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.21527565, 2.604205)
 current = true
+script = ExtResource("7_sskrf")
 
 [node name="RayCast3D" type="RayCast3D" parent="CameraRig/SpringArm3D/Camera3D" unique_id=613225964]
 target_position = Vector3(0, 0, -20)
@@ -129,6 +131,7 @@ shape = SubResource("SphereShape3D_yxyn3")
 shape = SubResource("SphereShape3D_2s5nj")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="swordCollider/CollisionShape3D" unique_id=1742808744 groups=["debug"]]
+visible = false
 mesh = SubResource("SphereMesh_yxyn3")
 surface_material_override/0 = SubResource("StandardMaterial3D_2s5nj")
 

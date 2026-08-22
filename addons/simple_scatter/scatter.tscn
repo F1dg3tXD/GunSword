@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://lhe8w67grhxt"]
+
+[ext_resource type="Script" uid="uid://cbqci4yn5ucoc" path="res://addons/simple_scatter/scatter.gd" id="1_56w7c"]
+
+[node name="Scatter" type="Node3D" unique_id=308250366]
+script = ExtResource("1_56w7c")
+
+[node name="objectsContainer" type="Node3D" parent="." unique_id=1464216851]
+
+[connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]

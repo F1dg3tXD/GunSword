@@ -36,6 +36,7 @@ InputIcons="*res://UI/input_icon_mapper_singleton.gd"
 XMBSave="*uid://l0v1uvul8mvx"
 PlayerTopDown="*uid://g3r12cwpvpos"
 Terminal="*res://scripts/terminal.gd"
+EnvGlobal="*uid://qoskmn1s03c"
 
 [display]
 
@@ -44,7 +45,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/PointMaker/plugin.cfg", "res://addons/cylinder_cut/plugin.cfg", "res://addons/console/plugin.cfg", "res://addons/dialogue_manager/plugin.cfg", "res://addons/godot_xmb/plugin.cfg", "res://addons/maaacks_menus_template/plugin.cfg")
+enabled=PackedStringArray("res://addons/PointMaker/plugin.cfg", "res://addons/console/plugin.cfg", "res://addons/cylinder_cut/plugin.cfg", "res://addons/dialogue_manager/plugin.cfg", "res://addons/godot_xmb/plugin.cfg", "res://addons/maaacks_menus_template/plugin.cfg", "res://addons/simple_scatter/plugin.cfg")
 
 [global_group]
 
@@ -220,8 +221,11 @@ copy_path="res://mainMenu/"
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
 textures/vram_compression/import_etc2_astc=true
+viewport/hdr_2d=true
+occlusion_culling/use_occlusion_culling=true
 
 [shader_globals]
 
