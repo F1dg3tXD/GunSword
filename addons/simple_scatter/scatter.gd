@@ -1,5 +1,6 @@
 @tool
 extends Node3D
+class_name Scatter
 
 @export var objects: Array[PackedScene]:
 	set(value):

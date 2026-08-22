@@ -35,3 +35,6 @@ func _on_resolution_control_setting_changed(value) -> void:
 
 func _on_v_sync_control_setting_changed(value) -> void:
 	AppSettings.set_vsync(value, get_window())
+
+func _on_foiliage_density_setting_changed(value: Variant) -> void:
+	EnvGlobal.configure_scatter(int(value))

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://s0utm7kisg32"]
 
-[ext_resource type="PackedScene" path="res://addons/maaacks_menus_template/base/nodes/menus/options_menu/video/video_options_menu.tscn" id="1_0tmxb"]
-[ext_resource type="PackedScene" path="res://addons/maaacks_menus_template/base/nodes/menus/options_menu/option_control/list_option_control.tscn" id="2_p64l2"]
+[ext_resource type="PackedScene" uid="uid://b2numvphf2kau" path="res://addons/maaacks_menus_template/base/nodes/menus/options_menu/video/video_options_menu.tscn" id="1_0tmxb"]
+[ext_resource type="PackedScene" uid="uid://b6bl3n5mp3m1e" path="res://addons/maaacks_menus_template/base/nodes/menus/options_menu/option_control/list_option_control.tscn" id="2_p64l2"]
 
 [node name="Video" unique_id=2066056515 instance=ExtResource("1_0tmxb")]
 
@@ -29,3 +29,19 @@ key = "CameraShake"
 section = "VideoSettings"
 property_type = 3
 default_value = 1.0
+
+[node name="FoiliageDensity" parent="VBoxContainer" parent_id_path=PackedInt32Array(1251699420) index="5" unique_id=16284350 instance=ExtResource("2_p64l2")]
+unique_name_in_owner = true
+layout_mode = 2
+lock_titles = true
+option_values = [1800.0, 100.0, 500.0, 100.0, 50.0]
+option_titles = Array[String](["High", "Normal", "Reduced", "Minimal", "Potato"])
+option_name = "Foiliage Density"
+option_section = 3
+key = "FoiliageDensity"
+section = "VideoSettings"
+property_type = 3
+default_value = 1.0
+
+[connection signal="setting_changed" from="VBoxContainer/AntiAliasingControl" to="." method="_on_anti_aliasing_control_setting_changed"]
+[connection signal="setting_changed" from="VBoxContainer/FoiliageDensity" to="." method="_on_foiliage_density_setting_changed"]
