@@ -2,6 +2,67 @@
 extends AnimatedSprite3D
 class_name MultiViewAnimatedSprite3D
 
+# SpriteFrames as Layers
+
+@export_category("Layers")
+
+## SpriteFrames resources stacked as visual layers (back to front).
+## Layer 0 uses this node's own sprite_frames.
+## Layers 1+ automatically create child Sprite3D nodes synced to this sprite.
+@export var sprite_layer_frames: Array[SpriteFrames] = []:
+	set(value):
+		sprite_layer_frames = value
+		if is_inside_tree():
+			_setup_layer_nodes()
+
+## Per-layer visibility. Index matches layers array.
+@export var layer_visible: Array[bool] = []:
+	set(value):
+		layer_visible = value
+		if is_inside_tree():
+			_sync_layers()
+
+## Per-layer modulate (tint). Index matches layers array.
+@export var layer_modulate: Array[Color] = []:
+	set(value):
+		layer_modulate = value
+		if is_inside_tree():
+			_sync_layers()
+
+## SpriteFrames for normal maps. Animations must share names with the base SpriteFrames.
+@export var normal_frames: SpriteFrames = null:
+	set(value):
+		normal_frames = value
+		if is_inside_tree():
+			_sync_shader_pbr()
+
+## SpriteFrames for roughness maps (grayscale). Animations must share names with the base SpriteFrames.
+@export var roughness_frames: SpriteFrames = null:
+	set(value):
+		roughness_frames = value
+		if is_inside_tree():
+			_sync_shader_pbr()
+
+## SpriteFrames for depth/parallax maps (grayscale). Animations must share names with the base SpriteFrames.
+@export var depth_frames: SpriteFrames = null:
+	set(value):
+		depth_frames = value
+		if is_inside_tree():
+			_sync_shader_pbr()
+
+## SpriteFrames for emission maps (color). Animations must share names with the base SpriteFrames.
+@export var emission_frames: SpriteFrames = null:
+	set(value):
+		emission_frames = value
+		if is_inside_tree():
+			_sync_shader_pbr()
+
+## Range of the OmniLight3D spawned to cast emission light onto surroundings.
+@export var emission_light_range: float = 5.0:
+	set(value):
+		emission_light_range = value
+		_update_emission_light()
+
 # Direction
 
 @export_category("Direction")
@@ -67,6 +128,15 @@ var _base_animation: StringName = &""
 var _current_suffix: String = ""
 var _is_base_playing: bool = false
 
+# Layer Internal State
+
+## Child Sprite3D nodes for layers 1..N.
+var _layer_nodes: Array[Sprite3D] = []
+
+# Emission Light State
+
+var _emission_light: OmniLight3D = null
+
 # Vertical Billboard State
 
 ## Whether we are currently manually orienting the sprite for
@@ -88,6 +158,8 @@ var _reference_initialized: bool = false
 func _ready() -> void:
 	_initialize_reference_transform()
 	_scan_animations()
+	_setup_layer_nodes()
+	frame_changed.connect(_on_frame_changed)
 
 
 func _initialize_reference_transform() -> void:
@@ -256,6 +328,7 @@ func stop3d() -> void:
 
 	_leave_vertical_view()
 	super.stop()
+	_sync_layers()
 
 # Direction Switching
 
@@ -320,6 +393,7 @@ func _switch_direction(new_suffix: String) -> void:
 		pause()
 
 	_current_suffix = new_suffix
+	_sync_layers()
 
 # Vertical Orientation
 
@@ -588,3 +662,227 @@ func _compute_suffix() -> String:
 		return "back"
 	else:
 		return "left"
+
+# Layer System
+
+func _setup_layer_nodes() -> void:
+	for node in _layer_nodes:
+		if is_instance_valid(node):
+			node.queue_free()
+	_layer_nodes.clear()
+
+	_sync_export_arrays()
+
+	for i in range(1, sprite_layer_frames.size()):
+		var sprite := Sprite3D.new()
+		sprite.name = &"_layer_%d" % i
+		add_child(sprite)
+		if Engine.is_editor_hint():
+			sprite.owner = get_tree().edited_scene_root
+		_layer_nodes.append(sprite)
+		_configure_layer_sprite(sprite)
+
+	_sync_layers()
+
+
+func _configure_layer_sprite(sprite: Sprite3D) -> void:
+	sprite.pixel_size = pixel_size
+	sprite.offset = offset
+	sprite.flip_h = flip_h
+	sprite.flip_v = flip_v
+	sprite.billboard = billboard
+	sprite.alpha_cut = alpha_cut
+	sprite.alpha_scissor_threshold = alpha_scissor_threshold
+	sprite.render_priority = render_priority
+	sprite.shaded = shaded
+
+
+func _sync_export_arrays() -> void:
+	while layer_visible.size() < sprite_layer_frames.size():
+		layer_visible.append(true)
+	while layer_visible.size() > sprite_layer_frames.size():
+		layer_visible.pop_back()
+
+	while layer_modulate.size() < sprite_layer_frames.size():
+		layer_modulate.append(Color.WHITE)
+	while layer_modulate.size() > sprite_layer_frames.size():
+		layer_modulate.pop_back()
+
+
+func _on_frame_changed() -> void:
+	_sync_layers()
+
+
+func _sync_layers() -> void:
+	var anim := get_animation()
+	var f := frame
+
+	for i in range(_layer_nodes.size()):
+		var layer_idx := i + 1
+		var node: Sprite3D = _layer_nodes[i]
+
+		if layer_idx >= sprite_layer_frames.size():
+			node.visible = false
+			continue
+
+		if not layer_visible[layer_idx]:
+			node.visible = false
+			continue
+
+		var sf: SpriteFrames = sprite_layer_frames[layer_idx]
+		if sf == null or not sf.has_animation(anim):
+			node.visible = false
+			continue
+
+		if f >= sf.get_frame_count(anim):
+			node.visible = false
+			continue
+
+		node.texture = sf.get_frame_texture(anim, f)
+		node.modulate = layer_modulate[layer_idx]
+		node.visible = true
+
+	if sprite_layer_frames.size() > 0 and layer_visible[0]:
+		modulate = layer_modulate[0] if layer_modulate.size() > 0 else Color.WHITE
+	elif sprite_layer_frames.size() > 0:
+		modulate = Color(1, 1, 1, 0)
+
+	_sync_shader_pbr()
+
+# Shader PBR Sync
+
+func _sync_shader_pbr() -> void:
+	if not material_override is ShaderMaterial:
+		return
+
+	var shader_mat := material_override as ShaderMaterial
+	var anim := get_animation()
+	var f := frame
+
+	# Albedo — always update from the current frame.
+	if sprite_frames != null and sprite_frames.has_animation(anim):
+		if f < sprite_frames.get_frame_count(anim):
+			shader_mat.set_shader_parameter("albedo_texture", sprite_frames.get_frame_texture(anim, f))
+
+	# Normal map
+	if normal_frames != null and normal_frames.has_animation(anim):
+		if f < normal_frames.get_frame_count(anim):
+			shader_mat.set_shader_parameter("normal_texture", normal_frames.get_frame_texture(anim, f))
+
+	# Roughness map
+	if roughness_frames != null and roughness_frames.has_animation(anim):
+		if f < roughness_frames.get_frame_count(anim):
+			shader_mat.set_shader_parameter("roughness_texture", roughness_frames.get_frame_texture(anim, f))
+
+	# Depth map
+	if depth_frames != null and depth_frames.has_animation(anim):
+		if f < depth_frames.get_frame_count(anim):
+			shader_mat.set_shader_parameter("depth_texture", depth_frames.get_frame_texture(anim, f))
+
+	# Emission map
+	if emission_frames != null and emission_frames.has_animation(anim):
+		if f < emission_frames.get_frame_count(anim):
+			shader_mat.set_shader_parameter("emission_texture", emission_frames.get_frame_texture(anim, f))
+
+	_update_emission_light()
+
+
+func _update_emission_light() -> void:
+	if not material_override is ShaderMaterial:
+		_hide_emission_light()
+		return
+
+	var shader_mat := material_override as ShaderMaterial
+	var strength: float = shader_mat.get_shader_parameter("emission_strength")
+	var color: Color = shader_mat.get_shader_parameter("emission_color")
+
+	if strength <= 0.0:
+		_hide_emission_light()
+		return
+
+	if _emission_light == null:
+		_emission_light = OmniLight3D.new()
+		_emission_light.name = &"_emission_light"
+		_emission_light.omni_range = emission_light_range
+		add_child(_emission_light)
+		if Engine.is_editor_hint():
+			_emission_light.owner = get_tree().edited_scene_root
+
+	_emission_light.light_color = color
+	_emission_light.light_energy = strength
+	_emission_light.omni_range = emission_light_range
+	_emission_light.visible = true
+
+
+func _hide_emission_light() -> void:
+	if _emission_light != null:
+		_emission_light.visible = false
+
+# Layer Public API
+
+func set_layer(index: int, sprite_frames: SpriteFrames) -> void:
+	if index < 0 or index >= sprite_layer_frames.size():
+		return
+	sprite_layer_frames[index] = sprite_frames
+	_sync_layers()
+
+
+func add_layer(sprite_frames: SpriteFrames, at_index: int = -1) -> int:
+	if at_index < 0 or at_index >= sprite_layer_frames.size():
+		sprite_layer_frames.append(sprite_frames)
+		_setup_layer_nodes()
+		return sprite_layer_frames.size() - 1
+	sprite_layer_frames.insert(at_index, sprite_frames)
+	_setup_layer_nodes()
+	return at_index
+
+
+func remove_layer(index: int) -> void:
+	if index < 0 or index >= sprite_layer_frames.size():
+		return
+	sprite_layer_frames.remove_at(index)
+	_setup_layer_nodes()
+
+
+func enable_layer(index: int) -> void:
+	if index < 0 or index >= layer_visible.size():
+		return
+	layer_visible[index] = true
+	_sync_layers()
+
+
+func disable_layer(index: int) -> void:
+	if index < 0 or index >= layer_visible.size():
+		return
+	layer_visible[index] = false
+	_sync_layers()
+
+
+func is_layer_enabled(index: int) -> bool:
+	if index < 0 or index >= layer_visible.size():
+		return false
+	return layer_visible[index]
+
+
+func set_layer_visible(index: int, vis: bool) -> void:
+	if vis:
+		enable_layer(index)
+	else:
+		disable_layer(index)
+
+
+func set_layer_modulate(index: int, color: Color) -> void:
+	if index < 0 or index >= layer_modulate.size():
+		return
+	layer_modulate[index] = color
+	_sync_layers()
+
+
+func get_layer_modulate(index: int) -> Color:
+	if index < 0 or index >= layer_modulate.size():
+		return Color.WHITE
+	return layer_modulate[index]
+
+
+func get_layer_count() -> int:
+	return sprite_layer_frames.size()

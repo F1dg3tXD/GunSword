@@ -615,7 +615,7 @@ func _update_aim(delta: float) -> void:
 			_body_yaw = atan2(-target_xz.x, -target_xz.y)
 		var player_screen := camera_3d.unproject_position(global_position + Vector3.UP * 0.7)
 		var target_screen := camera_3d.unproject_position(_current_target.global_position + Vector3.UP * 0.7)
-		var viewport_size := get_viewport().get_visible_rect().size
+		var _viewport_size := get_viewport().get_visible_rect().size
 		crosshair.position = target_screen - crosshair.pivot_offset
 		var spin_speed: float = TARGET_SPIN_SPEEDS.get(_get_target_type(_current_target), CROSSHAIR_SPIN_SPEED)
 		crosshair.rotation += spin_speed * delta
