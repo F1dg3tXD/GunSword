@@ -29,7 +29,7 @@ ProgressBar/styles/fill = SubResource("StyleBoxFlat_aho8v")
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_bw31v"]
 size = Vector2(96, 96)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_yxyn3"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_rh5fx"]
 viewport_path = NodePath("SubViewport")
 
 [node name="EntityStatusBar" type="Node3D" unique_id=1624423121]
@@ -73,4 +73,4 @@ rounded = true
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=1723816954]
 cast_shadow = 0
-texture = SubResource("ViewportTexture_yxyn3")
+texture = SubResource("ViewportTexture_rh5fx")
