@@ -269,3 +269,7 @@ cut_volume_softness={
 "type": "float",
 "value": 0.3
 }
+SCREEN_UV={
+"type": "vec2",
+"value": Vector2(0, 0)
+}

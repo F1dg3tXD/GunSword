@@ -12,3 +12,4 @@ This directory contains documentation for all custom systems built for the GunSw
 | [FrustumCamera3D](frustum-camera-3d.md) | `player/frustrum_camera_3d.gd` | View-frustum culling for performance |
 | [Simple Scatter](simple-scatter.md) | `addons/simple_scatter/` | Foliage/object scattering with density control |
 | [EnvGlobal](env-global.md) | `scripts/env_global.gd` | Global environment configuration and scatter density |
+| [Dynamic Pixel Sky](dynamic-pixel-sky.md) | `shaders/dynamic_pixel_sky.gdshader` | Pixel art sky with day/night cycle, stars, and volumetric clouds |
