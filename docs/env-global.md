@@ -49,9 +49,9 @@ The Video Options menu's "Foiliage Density" setting calls `EnvGlobal.configure_s
 
 | Setting | Max Amount |
 |---|---|
-| High | 300 |
-| Normal | 250 |
-| Reduced | 150 |
+| High | 1800 |
+| Normal | 1000 |
+| Reduced | 500 |
 | Minimal | 100 |
 | Potato | 50 |
 
