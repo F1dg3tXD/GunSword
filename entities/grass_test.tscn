@@ -447,7 +447,10 @@ alpha_cut = 1
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_2s5nj")
 animation = &"wave_idle"
-frame_progress = 0.36338174
+
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="." unique_id=1329268842]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3098368, 0)
+aabb = AABB(-0.31440917, -0.33180052, -0.3238873, 0.62881833, 0.66360104, 0.6477746)
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
