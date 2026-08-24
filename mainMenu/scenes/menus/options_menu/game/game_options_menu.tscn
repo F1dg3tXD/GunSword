@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://bxfayv267drup"]
+
+[ext_resource type="Script" uid="uid://be2aqkpxjx0l" path="res://mainMenu/scenes/menus/options_menu/game/game_options_menu.gd" id="2_jta7d"]
+[ext_resource type="PackedScene" uid="uid://b6bl3n5mp3m1e" path="res://addons/maaacks_menus_template/base/nodes/menus/options_menu/option_control/list_option_control.tscn" id="2_l2bym"]
+[ext_resource type="Script" uid="uid://1nf36h0gms3q" path="res://addons/maaacks_menus_template/base/nodes/utilities/capture_focus.gd" id="2_winus"]
+[ext_resource type="PackedScene" uid="uid://bsxh6v7j0257h" path="res://addons/maaacks_menus_template/base/nodes/menus/options_menu/option_control/toggle_option_control.tscn" id="4_jta7d"]
+[ext_resource type="PackedScene" uid="uid://cl416gdb1fgwr" path="res://addons/maaacks_menus_template/base/nodes/menus/options_menu/option_control/slider_option_control.tscn" id="4_winus"]
+
+[node name="Game" type="MarginContainer" unique_id=651719823]
+custom_maximum_size = Vector2(500, -1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_jta7d")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=330720010]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+alignment = 1
+script = ExtResource("2_winus")
+
+[node name="CameraBehavior" parent="VBoxContainer" unique_id=16284350 instance=ExtResource("2_l2bym")]
+unique_name_in_owner = true
+layout_mode = 2
+lock_titles = true
+option_values = ["Free", "Snapping", "Static"]
+option_titles = ["Free", "Snapping", "Static"]
+option_name = "CameraBehavior"
+option_section = 4
+key = "CameraBehavior"
+section = "GameSettings"
+property_type = 4
+default_value = 1.0
+
+[node name="CameraSensitivity" parent="VBoxContainer" unique_id=1557081957 instance=ExtResource("4_winus")]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 1
+option_name = "Camera Sensitivity"
+option_section = 4
+key = "CameraSensitivity"
+section = "GameSettings"
+default_value = 10.0
+
+[node name="CameraSnappingSpeed" parent="VBoxContainer" unique_id=1384562467 instance=ExtResource("4_winus")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+alignment = 1
+option_name = "Camera Snap Speed"
+option_section = 4
+key = "CameraSnapSpeed"
+section = "GameSettings"
+default_value = 10.0
+
+[node name="InvertAimType" parent="VBoxContainer" unique_id=1563851297 instance=ExtResource("4_jta7d")]
+unique_name_in_owner = true
+layout_mode = 2
+option_name = "Invert Aim Type"
+option_section = 4
+key = "InvertAimType"
+section = "GameSettings"
+default_value = true
+
+[connection signal="setting_changed" from="VBoxContainer/CameraBehavior" to="." method="_on_camera_behavior_setting_changed"]
+[connection signal="setting_changed" from="VBoxContainer/CameraSensitivity" to="." method="_on_camera_sensitivity_setting_changed"]
+[connection signal="setting_changed" from="VBoxContainer/CameraSnappingSpeed" to="." method="_on_camera_snapping_speed_setting_changed"]
+[connection signal="setting_changed" from="VBoxContainer/InvertAimType" to="." method="_on_invert_aim_type_setting_changed"]

@@ -43,6 +43,13 @@ const HIDE_OS_CURSOR := true
 const CAM_MODIFIER_TAP_THRESHOLD := 0.2
 const TARGET_SWAP_COOLDOWN := 0.3
 
+const SNAP_YAW_STEP := PI / 2.0
+const SNAP_PITCH_STEP := PI / 4.0
+const SNAP_PITCH_LIMIT := PI / 4.0
+const SNAP_MOUSE_COOLDOWN := 0.2
+
+enum CameraBehavior { FREE, SNAPPING, STATIC }
+
 const SPIN_SPEED_ENEMY := 6.0
 const SPIN_SPEED_FRIEND := 1.5
 const SPIN_SPEED_POI := 3.0
@@ -120,6 +127,15 @@ var _target_swap_cooldown := 0.0
 var _crosshair_material: ShaderMaterial = null
 var _mouse_delta := Vector2.ZERO
 
+var _camera_behavior := CameraBehavior.FREE
+var _camera_sensitivity := 10.0
+var _camera_snap_speed := 10.0
+var _invert_aim_type := false
+var _snap_target_yaw := 0.0
+var _snap_target_pitch := 0.0
+var _snap_prev_in_deadzone := true
+var _snap_mouse_cooldown := 0.0
+
 var _movement_locked := false
 var _dialogue_locked := false
 var _fly_mode := false
@@ -185,6 +201,9 @@ func _ready() -> void:
 	_update_mobile_controls()
 	XMBSave.register_save_adapter(self)
 	died.connect(death_handler.die)
+	_load_game_settings()
+	_snap_target_yaw = camera_rig.rotation.y
+	_snap_target_pitch = spring_arm.rotation.x
 
 
 func _exit_tree() -> void:
@@ -192,12 +211,34 @@ func _exit_tree() -> void:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 
+func _load_game_settings() -> void:
+	var behavior_str: String = PlayerConfig.get_config("GameSettings", "CameraBehavior", "Free")
+	match behavior_str:
+		"Free": _camera_behavior = CameraBehavior.FREE
+		"Snapping": _camera_behavior = CameraBehavior.SNAPPING
+		"Static": _camera_behavior = CameraBehavior.STATIC
+		_: _camera_behavior = CameraBehavior.FREE
+	_camera_sensitivity = PlayerConfig.get_config("GameSettings", "CameraSensitivity", 10.0)
+	_camera_snap_speed = PlayerConfig.get_config("GameSettings", "CameraSnapSpeed", 10.0)
+	_invert_aim_type = PlayerConfig.get_config("GameSettings", "InvertAimType", false)
+
+
+func reload_game_settings() -> void:
+	_load_game_settings()
+	_snap_target_yaw = camera_rig.rotation.y
+	_snap_target_pitch = spring_arm.rotation.x
+	_snap_prev_in_deadzone = true
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion or event is InputEventMouseButton:
 		_aim_scheme = AimScheme.MOUSE
 		_mouse_idle_time = 0.0
-	if event is InputEventMouseMotion and Input.is_action_pressed("cam_modifier"):
-		_mouse_delta += event.relative
+	if event is InputEventMouseMotion:
+		var cam_held := Input.is_action_pressed("cam_modifier")
+		var should_rotate := cam_held if not _invert_aim_type else not cam_held
+		if should_rotate:
+			_mouse_delta += event.relative
 
 
 func _physics_process(delta: float) -> void:
@@ -631,7 +672,7 @@ func _update_aim(delta: float) -> void:
 			look_arrow.scale = look_arrow.scale.lerp(Vector2.ZERO, 1.0 - exp(-CROSSHAIR_SCALE_SMOOTHING * delta))
 		return
 
-	var orbit_active := Input.is_action_pressed("cam_modifier")
+	var orbit_active := _is_camera_rotate_active()
 	if not orbit_active and aim_stick.length() > STICK_DEADZONE:
 		_aim_scheme = AimScheme.STICK
 
@@ -677,15 +718,31 @@ func _mouse_aim_offset() -> Vector2:
 	return (from_center / max_px).limit_length(1.0) * MAX_AIM_DIST
 
 
+func _is_camera_rotate_active() -> bool:
+	if _camera_behavior == CameraBehavior.STATIC:
+		return false
+	var cam_held := Input.is_action_pressed("cam_modifier")
+	return cam_held if not _invert_aim_type else not cam_held
+
+
+func _is_aim_active() -> bool:
+	if _camera_behavior == CameraBehavior.STATIC:
+		return true
+	var cam_held := Input.is_action_pressed("cam_modifier")
+	return not cam_held if not _invert_aim_type else cam_held
+
+
 func _update_camera(delta: float) -> void:
-	var orbit_active := Input.is_action_pressed("cam_modifier") and _cam_press_time > CAM_MODIFIER_TAP_THRESHOLD
-	if orbit_active and not _targeting:
-		if aim_stick.length() > STICK_DEADZONE:
-			camera_rig.rotation.y += aim_stick.x * CAM_ORBIT_SPEED * delta
-			spring_arm.rotation.x = clampf(spring_arm.rotation.x + aim_stick.y * CAM_ORBIT_SPEED * delta, CAM_PITCH_MIN, CAM_PITCH_MAX)
-		if _mouse_delta.length_squared() > 0.001:
-			camera_rig.rotation.y -= _mouse_delta.x * 0.003
-			spring_arm.rotation.x = clampf(spring_arm.rotation.x - _mouse_delta.y * 0.003, CAM_PITCH_MIN, CAM_PITCH_MAX)
+	var orbit_active := _is_camera_rotate_active() and _cam_press_time > CAM_MODIFIER_TAP_THRESHOLD and not _targeting
+
+	match _camera_behavior:
+		CameraBehavior.FREE:
+			_update_camera_free(delta, orbit_active)
+		CameraBehavior.SNAPPING:
+			_update_camera_snapping(delta, orbit_active)
+		CameraBehavior.STATIC:
+			pass
+
 	_mouse_delta = Vector2.ZERO
 
 	var smooth := 1.0 - exp(-AIM_SMOOTHING * delta)
@@ -701,6 +758,54 @@ func _update_camera(delta: float) -> void:
 		var aim_world := _aim_to_world(_aim_offset)
 		var target_pos := Vector3(aim_world.x, 0.0, aim_world.z) if aim_active else Vector3.ZERO
 		camera_rig.position = camera_rig.position.lerp(target_pos, smooth)
+
+
+func _update_camera_free(delta: float, orbit_active: bool) -> void:
+	if orbit_active:
+		var sensitivity := _camera_sensitivity * 0.1
+		if aim_stick.length() > STICK_DEADZONE:
+			camera_rig.rotation.y += aim_stick.x * CAM_ORBIT_SPEED * sensitivity * delta
+			spring_arm.rotation.x = clampf(spring_arm.rotation.x + aim_stick.y * CAM_ORBIT_SPEED * sensitivity * delta, CAM_PITCH_MIN, CAM_PITCH_MAX)
+		if _mouse_delta.length_squared() > 0.001:
+			camera_rig.rotation.y -= _mouse_delta.x * 0.003 * sensitivity
+			spring_arm.rotation.x = clampf(spring_arm.rotation.x - _mouse_delta.y * 0.003 * sensitivity, CAM_PITCH_MIN, CAM_PITCH_MAX)
+
+
+func _update_camera_snapping(delta: float, orbit_active: bool) -> void:
+	if orbit_active and not _targeting:
+		_snap_mouse_cooldown = maxf(_snap_mouse_cooldown - delta, 0.0)
+		if _mouse_delta.length_squared() > 0.001 and _snap_mouse_cooldown <= 0.0:
+			if abs(_mouse_delta.x) > abs(_mouse_delta.y):
+				if _mouse_delta.x > 0.0:
+					_snap_target_yaw -= SNAP_YAW_STEP
+				else:
+					_snap_target_yaw += SNAP_YAW_STEP
+			else:
+				if _mouse_delta.y > 0.0:
+					_snap_target_pitch = clampf(_snap_target_pitch + SNAP_PITCH_STEP, -SNAP_PITCH_LIMIT, SNAP_PITCH_LIMIT)
+				else:
+					_snap_target_pitch = clampf(_snap_target_pitch - SNAP_PITCH_STEP, -SNAP_PITCH_LIMIT, SNAP_PITCH_LIMIT)
+			_snap_mouse_cooldown = SNAP_MOUSE_COOLDOWN
+
+	if not _targeting:
+		var in_deadzone := aim_stick.length() <= STICK_DEADZONE
+		if not in_deadzone and _snap_prev_in_deadzone:
+			if abs(aim_stick.x) > abs(aim_stick.y):
+				if aim_stick.x > 0.0:
+					_snap_target_yaw -= SNAP_YAW_STEP
+				else:
+					_snap_target_yaw += SNAP_YAW_STEP
+			else:
+				if aim_stick.y > 0.0:
+					_snap_target_pitch = clampf(_snap_target_pitch + SNAP_PITCH_STEP, -SNAP_PITCH_LIMIT, SNAP_PITCH_LIMIT)
+				else:
+					_snap_target_pitch = clampf(_snap_target_pitch - SNAP_PITCH_STEP, -SNAP_PITCH_LIMIT, SNAP_PITCH_LIMIT)
+		_snap_prev_in_deadzone = in_deadzone
+
+	var interp_speed := _camera_snap_speed * 2.0
+	var factor := 1.0 - exp(-interp_speed * delta)
+	camera_rig.rotation.y = lerp_angle(camera_rig.rotation.y, _snap_target_yaw, factor)
+	spring_arm.rotation.x = lerp(spring_arm.rotation.x, _snap_target_pitch, factor)
 
 
 func _update_pause() -> void:
@@ -800,8 +905,15 @@ func _update_targeting(delta: float) -> void:
 		_update_target_color()
 
 	var swap_input := aim_stick.x
-	if abs(swap_input) > STICK_DEADZONE and _target_swap_cooldown <= 0.0:
-		var direction := 1 if swap_input > 0.0 else -1
+	var mouse_swap := 0.0
+	if _mouse_delta.length_squared() > 0.001 and abs(_mouse_delta.x) > abs(_mouse_delta.y):
+		mouse_swap = _mouse_delta.x
+	var direction := 0
+	if abs(swap_input) > STICK_DEADZONE:
+		direction = 1 if swap_input > 0.0 else -1
+	elif abs(mouse_swap) > 50.0:
+		direction = 1 if mouse_swap > 0.0 else -1
+	if direction != 0 and _target_swap_cooldown <= 0.0:
 		targets.sort_custom(func(a: Node3D, b: Node3D) -> bool:
 			var sa := camera_3d.unproject_position(a.global_position).x
 			var sb := camera_3d.unproject_position(b.global_position).x

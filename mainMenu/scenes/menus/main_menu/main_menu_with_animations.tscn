@@ -507,7 +507,7 @@ text = "Load Game"
 modulate = Color(1, 1, 1, 0)
 
 [node name="VersionLabel" parent="VersionMargin/VersionContainer" index="0" unique_id=793266470]
-text = "v0.0.1a"
+text = "v0.0.1b"
 
 [node name="MouseFilter" type="Control" parent="." index="9" unique_id=33285267]
 layout_mode = 1
