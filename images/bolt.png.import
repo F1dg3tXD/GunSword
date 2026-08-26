@@ -2,20 +2,22 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cggsjhnxu0uw3"
-path="res://.godot/imported/Game Boy _ GBC - The Legend of Zelda_ Link's Awakening _ DX - Tilesets - Overworld Tileset.png-db4f8f4fe80a919fdae643ab1d192255.ctex"
+uid="uid://dco0gy3s8swnj"
+path.s3tc="res://.godot/imported/bolt.png-ad0eb7e6b82e5c9373fd9a390ddfe474.s3tc.ctex"
+path.etc2="res://.godot/imported/bolt.png-ad0eb7e6b82e5c9373fd9a390ddfe474.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
-source_file="res://images/Game Boy _ GBC - The Legend of Zelda_ Link's Awakening _ DX - Tilesets - Overworld Tileset.png"
-dest_files=["res://.godot/imported/Game Boy _ GBC - The Legend of Zelda_ Link's Awakening _ DX - Tilesets - Overworld Tileset.png-db4f8f4fe80a919fdae643ab1d192255.ctex"]
+source_file="res://images/bolt.png"
+dest_files=["res://.godot/imported/bolt.png-ad0eb7e6b82e5c9373fd9a390ddfe474.s3tc.ctex", "res://.godot/imported/bolt.png-ad0eb7e6b82e5c9373fd9a390ddfe474.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
@@ -23,7 +25,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=false
+mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -37,4 +39,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

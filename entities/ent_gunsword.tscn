@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://cndr2w1507f3i"]
+
+[ext_resource type="Script" uid="uid://bip35182eiuq2" path="res://entities/ent_gunsword.gd" id="1_sga2x"]
+[ext_resource type="PackedScene" uid="uid://vvakuvq33mwk" path="res://entities/ent_bolt_electric.tscn" id="2_bolt"]
+[ext_resource type="PackedScene" uid="uid://i3qpntlaejgd" path="res://entities/ent_laser_light.tscn" id="3_laser_light"]
+
+[node name="ent_gunsword" type="Node3D" unique_id=2108906066]
+script = ExtResource("1_sga2x")
+blaster_bolt = ExtResource("2_bolt")
+
+[node name="projectileDir" type="RayCast3D" parent="." unique_id=1579478660]
+target_position = Vector3(0, 0, -1)
+
+[node name="ent_laser_light" parent="." instance=ExtResource("3_laser_light")]
+visible = false

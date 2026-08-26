@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://xn2hmd0mtx1j" path="res://player/death_handler.tscn" id="10_b8ww2"]
 [ext_resource type="PackedScene" uid="uid://cfsr1q722lped" path="res://player/respawn_handler.tscn" id="11_tsuen"]
 [ext_resource type="Material" uid="uid://ccd7lxpyg7ppo" path="res://shaders/shockwave_shader_material.tres" id="12_shock"]
+[ext_resource type="PackedScene" uid="uid://cndr2w1507f3i" path="res://entities/ent_gunsword.tscn" id="15_h38wh"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yxyn3"]
 
@@ -104,7 +105,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.21527565, 2.604205)
 current = true
 script = ExtResource("7_sskrf")
 
-[node name="RayCast3D" type="RayCast3D" parent="CameraRig/SpringArm3D/Camera3D" unique_id=613225964]
+[node name="CameraCast" type="RayCast3D" parent="CameraRig/SpringArm3D/Camera3D" unique_id=613225964]
 target_position = Vector3(0, 0, -20)
 
 [node name="MobileControls" parent="." unique_id=1624332671 instance=ExtResource("6_dm3jn")]
@@ -144,3 +145,6 @@ surface_material_override/0 = ExtResource("12_shock")
 visible = false
 
 [node name="respawn_handler" parent="." unique_id=916369215 instance=ExtResource("11_tsuen")]
+
+[node name="ent_gunsword" parent="." unique_id=2108906066 instance=ExtResource("15_h38wh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5290422, -0.8198136)

@@ -88,6 +88,7 @@ enum AimScheme { NONE, STICK, MOUSE }
 @onready var target_area: Area3D = $targetArea
 @onready var sword_collider: Area3D = $swordCollider
 @onready var sword_round_range: CollisionShape3D = $swordCollider/CollisionShape3D
+@onready var gunsword: Node3D = $ent_gunsword
 
 @export var sword_damage := 10.0
 @export var rebound_height := 3.0
@@ -364,6 +365,32 @@ func _aim_to_world(v: Vector2) -> Vector3:
 	return offset
 
 
+const FIRE_AIM_MAX_RANGE := 90.0
+
+
+func _get_fire_aim_point() -> Vector3:
+	var aim_ui_visible: bool = $AimUI.visible
+	var space := get_world_3d().direct_space_state
+	var from := Vector3.ZERO
+	var to := Vector3.ZERO
+
+	if aim_ui_visible:
+		var crosshair_screen := crosshair.position + crosshair.pivot_offset
+		from = camera_3d.project_ray_origin(crosshair_screen)
+		to = from + camera_3d.project_ray_normal(crosshair_screen) * FIRE_AIM_MAX_RANGE
+	else:
+		from = global_position
+		to = from + Vector3(-sin(_body_yaw), 0.0, -cos(_body_yaw)) * FIRE_AIM_MAX_RANGE
+
+	var query := PhysicsRayQueryParameters3D.create(from, to)
+	query.exclude = [get_rid()]
+	var result := space.intersect_ray(query)
+	if result.size() > 0:
+		return result["position"]
+
+	return to
+
+
 func _world_to_camera_space(v: Vector3) -> Vector2:
 	var basis := camera_rig.global_transform.basis
 	return Vector2(basis.x.dot(v), basis.z.dot(v))
@@ -445,6 +472,7 @@ func _update_charge(delta: float) -> void:
 		_laser_was_firing = true
 	else:
 		_laser_was_firing = false
+	gunsword.update_laser(laser_active and laser_charge > 0.0, delta, global_position, _get_fire_aim_point())
 
 
 func set_fire_mode(mode: FireMode) -> void:
@@ -489,10 +517,11 @@ func add_kinetic_fuel(amount: float) -> void:
 
 
 func _fire_blaster() -> void:
-	if blaster_charge < BLASTER_DRAIN_PER_SHOT:
+	if blaster_charge <= 0.0:
 		return
 	blaster_charge = maxf(blaster_charge - BLASTER_DRAIN_PER_SHOT, 0.0)
 	_play_action("gunFire")
+	gunsword.fire_blaster(global_position, _get_fire_aim_point())
 
 
 func _start_ground_pound() -> void:

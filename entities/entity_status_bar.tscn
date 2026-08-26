@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://dxbfk701vmqxq"]
 
 [ext_resource type="Script" uid="uid://d338b5hd5pbne" path="res://entities/entity_status_bar.gd" id="1_rh5fx"]
+[ext_resource type="Texture2D" uid="uid://7gfschpofwur" path="res://images/status_stun.png" id="2_n4qta"]
+[ext_resource type="Texture2D" uid="uid://dniv3vgecsibx" path="res://images/status_burn.png" id="3_aho8v"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n4qta"]
 bg_color = Color(0.7875421, 4.1633098e-06, 5.7756904e-07, 1)
@@ -34,6 +36,8 @@ viewport_path = NodePath("SubViewport")
 
 [node name="EntityStatusBar" type="Node3D" unique_id=1624423121]
 script = ExtResource("1_rh5fx")
+status_icon_stun = ExtResource("2_n4qta")
+status_icon_burn = ExtResource("3_aho8v")
 
 [node name="SubViewport" type="SubViewport" parent="." unique_id=1389372388]
 transparent_bg = true

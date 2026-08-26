@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c07stp16p1pcl"
-path="res://.godot/imported/giphy_s.png-60a8d8e3fabd2b1875ce5d470886c10d.ctex"
+uid="uid://dniv3vgecsibx"
+path="res://.godot/imported/status_burn.png-177e7df845f8fdda5651afc23d16aef5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/giphy_s.png"
-dest_files=["res://.godot/imported/giphy_s.png-60a8d8e3fabd2b1875ce5d470886c10d.ctex"]
+source_file="res://images/status_burn.png"
+dest_files=["res://.godot/imported/status_burn.png-177e7df845f8fdda5651afc23d16aef5.ctex"]
 
 [params]
 
