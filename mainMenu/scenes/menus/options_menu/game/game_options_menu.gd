@@ -12,6 +12,8 @@ func _ready() -> void:
 func _apply_initial_visibility() -> void:
 	var behavior: Variant = PlayerConfig.get_config("GameSettings", "CameraBehavior", "Free")
 	_update_camera_options_visibility(behavior)
+	var colored: bool = PlayerConfig.get_config("GameSettings", "ColoredPrompts", false)
+	InputIcons.set_colored_prompts(colored)
 
 
 func _on_camera_behavior_setting_changed(value: Variant) -> void:
@@ -45,3 +47,9 @@ func _apply_game_settings() -> void:
 	var player := get_tree().get_first_node_in_group("player")
 	if player != null and player.has_method("reload_game_settings"):
 		player.reload_game_settings()
+
+
+func _on_colored_prompts_setting_changed(value: Variant) -> void:
+	var enabled: bool = bool(value)
+	PlayerConfig.set_config("GameSettings", "ColoredPrompts", enabled)
+	InputIcons.set_colored_prompts(enabled)

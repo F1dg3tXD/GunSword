@@ -10,6 +10,9 @@
 	% ???: Tap [input_cam_modifier] to lock onto nearby enemies and points of intrest.
 	% ???: Hold [input_cam_modifier] and look around to look around.
 	=> start
+- Input Test
+	???: Testing All inputs. 
+	???: [input_right][input_left][input_up][input_down][input_jump][input_aim_up][input_aim_down][input_aim_left][input_aim_right][input_interact][input_fire0][input_fire1][input_cam_modifier][input_shot_type_cycle][input_sprint][input_pause]
 - Leave it alone
 	???: You physically can't grab it anyway.
 	=> start

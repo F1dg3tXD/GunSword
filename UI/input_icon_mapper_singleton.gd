@@ -5,6 +5,8 @@ extends InputIconMapper
 
 const ICON_PACK_PATH := "res://addons/kenney_input-prompts_1.5"
 
+var _colored_prompts := false
+
 func _ready() -> void:
 	recursive = false
 	filter = "color"
@@ -34,3 +36,17 @@ func _ready() -> void:
 		"%s/Steam Deck/Default" % ICON_PACK_PATH,
 	]
 	super._ready()
+
+
+func set_colored_prompts(enabled: bool) -> void:
+	if _colored_prompts == enabled:
+		return
+	_colored_prompts = enabled
+	if enabled:
+		filter = ""
+		prioritized_strings = ["color"]
+	else:
+		filter = "color"
+		prioritized_strings = []
+	_refresh_files()
+	_match_icons_to_inputs()

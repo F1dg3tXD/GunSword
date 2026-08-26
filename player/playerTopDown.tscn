@@ -15,6 +15,9 @@
 [ext_resource type="PackedScene" uid="uid://cfsr1q722lped" path="res://player/respawn_handler.tscn" id="11_tsuen"]
 [ext_resource type="Material" uid="uid://ccd7lxpyg7ppo" path="res://shaders/shockwave_shader_material.tres" id="12_shock"]
 [ext_resource type="PackedScene" uid="uid://cndr2w1507f3i" path="res://entities/ent_gunsword.tscn" id="15_h38wh"]
+[ext_resource type="Texture2D" uid="uid://7ysil82hjuwl" path="res://images/radial_progress_under.png" id="16_5x587"]
+[ext_resource type="Texture2D" uid="uid://cg63ufglhym1o" path="res://images/radial_progress_over.png" id="17_eimjd"]
+[ext_resource type="Texture2D" uid="uid://ihbix68mwqx2" path="res://images/radial_progress_progress.png" id="18_lqamo"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yxyn3"]
 
@@ -49,6 +52,9 @@ albedo_color = Color(1, 0, 0, 0.47058824)
 [sub_resource type="SphereMesh" id="SphereMesh_shockwave"]
 radial_segments = 32
 rings = 16
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_h38wh"]
+viewport_path = NodePath("groundPoundCooldownUI/SubViewport")
 
 [node name="PlayerTopDown" type="CharacterBody3D" unique_id=617862387 groups=["player"]]
 script = ExtResource("1_jcfv7")
@@ -148,3 +154,30 @@ visible = false
 
 [node name="ent_gunsword" parent="." unique_id=2108906066 instance=ExtResource("15_h38wh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5290422, -0.8198136)
+
+[node name="groundPoundCooldownUI" type="Node3D" parent="." unique_id=477745112]
+
+[node name="Sprite3D" type="Sprite3D" parent="groundPoundCooldownUI" unique_id=128697112]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4234607, 0)
+cast_shadow = 0
+pixel_size = 0.005
+billboard = 1
+double_sided = false
+texture = SubResource("ViewportTexture_h38wh")
+
+[node name="SubViewport" type="SubViewport" parent="groundPoundCooldownUI" unique_id=1801905963]
+transparent_bg = true
+size = Vector2i(64, 64)
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="groundPoundCooldownUI/SubViewport" unique_id=1808372900]
+offset_right = 60.0
+offset_bottom = 60.0
+fill_mode = 4
+nine_patch_stretch = true
+stretch_margin_left = 30
+stretch_margin_top = 30
+stretch_margin_right = 30
+stretch_margin_bottom = 30
+texture_under = ExtResource("16_5x587")
+texture_over = ExtResource("17_eimjd")
+texture_progress = ExtResource("18_lqamo")

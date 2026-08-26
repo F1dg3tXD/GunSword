@@ -3,6 +3,7 @@ class_name InputIconMapper
 extends FileLister
 
 signal joypad_device_changed
+signal input_map_changed
 
 const COMMON_REPLACE_STRINGS: Dictionary = {
 	"L 1": "Left Shoulder",
@@ -37,6 +38,8 @@ const COMMON_REPLACE_STRINGS: Dictionary = {
 @export var all_icons : Dictionary # Dictionary[String, Texture]
 
 @onready var last_joypad_device = intial_joypad_device
+
+var _input_map_hash := 0
 
 func _is_end_of_word(full_string : String, what : String) -> bool:
 	var string_end_position = full_string.find(what) + what.length()
@@ -159,3 +162,28 @@ func _ready() -> void:
 		_refresh_files()
 	if matching_icons.size() == 0:
 		_match_icons_to_inputs()
+	_input_map_hash = _compute_input_map_hash()
+
+
+func _process(_delta: float) -> void:
+	if not Engine.is_editor_hint():
+		var current_hash := _compute_input_map_hash()
+		if current_hash != _input_map_hash:
+			_input_map_hash = current_hash
+			_match_icons_to_inputs()
+			input_map_changed.emit()
+
+
+func _compute_input_map_hash() -> int:
+	var hash_val := 0
+	for action in InputMap.get_actions():
+		var action_events := InputMap.action_get_events(action)
+		for event in action_events:
+			hash_val = hash_val * 31 + hash(action)
+			if event is InputEventKey:
+				hash_val = hash_val * 31 + event.physical_keycode
+			elif event is InputEventJoypadButton:
+				hash_val = hash_val * 31 + event.button_index
+			elif event is InputEventMouse:
+				hash_val = hash_val * 31 + event.button_mask
+	return hash_val

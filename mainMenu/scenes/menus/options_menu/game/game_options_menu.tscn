@@ -64,7 +64,16 @@ key = "InvertAimType"
 section = "GameSettings"
 default_value = true
 
+[node name="ColoredPrompts" parent="VBoxContainer" unique_id=2113561304 instance=ExtResource("4_jta7d")]
+unique_name_in_owner = true
+layout_mode = 2
+option_name = "Colored Prompts"
+option_section = 4
+key = "ColoredPrompts"
+section = "GameSettings"
+
 [connection signal="setting_changed" from="VBoxContainer/CameraBehavior" to="." method="_on_camera_behavior_setting_changed"]
 [connection signal="setting_changed" from="VBoxContainer/CameraSensitivity" to="." method="_on_camera_sensitivity_setting_changed"]
 [connection signal="setting_changed" from="VBoxContainer/CameraSnappingSpeed" to="." method="_on_camera_snapping_speed_setting_changed"]
 [connection signal="setting_changed" from="VBoxContainer/InvertAimType" to="." method="_on_invert_aim_type_setting_changed"]
+[connection signal="setting_changed" from="VBoxContainer/ColoredPrompts" to="." method="_on_colored_prompts_setting_changed"]

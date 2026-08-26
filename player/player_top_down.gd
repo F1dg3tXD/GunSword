@@ -12,17 +12,18 @@ const GRAVITY := 20.0
 
 enum FireMode { BLASTER, LASER }
 
-const SWORD_SLASH_FUEL := 0.1
-const BLASTER_DRAIN_PER_SHOT := 0.05
-const LASER_DRAIN_PER_SECOND := 0.1
+@export var sword_slash_fuel := 0.1
+@export var blaster_drain_per_shot := 0.05
+@export var laser_drain_per_second := 0.1
 
-const GROUND_POUND_MIN_RADIUS := 1.0
-const GROUND_POUND_MAX_RADIUS := 10.0
-const GROUND_POUND_MAX_HEIGHT := 6.0
-const GROUND_POUND_DIVE_SPEED := 18.0
-const GROUND_POUND_MIN_SPREAD_TIME := 0.05
-const GROUND_POUND_MAX_SPREAD_TIME := 0.5
-const GROUND_POUND_STUN_DURATION := 1.5
+@export var ground_pound_min_radius := 1.0
+@export var ground_pound_max_radius := 10.0
+@export var ground_pound_max_height := 6.0
+@export var ground_pound_dive_speed := 18.0
+@export var ground_pound_min_spread_time := 0.05
+@export var ground_pound_max_spread_time := 0.5
+@export var ground_pound_stun_duration := 1.5
+@export var ground_pound_effect_drain_multiplier := 1.5
 
 const MAX_AIM_DIST := 5.0
 const LOOK_ARROW_MAX_POS := 1.0
@@ -92,10 +93,14 @@ enum AimScheme { NONE, STICK, MOUSE }
 
 @export var sword_damage := 10.0
 @export var rebound_height := 3.0
+@export var ground_pound_max := 2
+@export var ground_pound_cooldown_time := 4.0
 
 @onready var shockwave_mesh: MeshInstance3D = $shockwave_mesh
 @onready var death_handler: Node3D = $death_handler
 @onready var respawn_handler: Node3D = $respawn_handler
+@onready var ground_pound_cooldown_ui: Node3D = $groundPoundCooldownUI
+@onready var ground_pound_cooldown_texture_progress_bar: TextureProgressBar = $groundPoundCooldownUI/SubViewport/TextureProgressBar
 
 const SWORD_FORWARD_DIST := 1.0
 
@@ -155,6 +160,12 @@ var _ground_pound_spread_timer := 0.0
 var _ground_pound_spread_duration := 0.0
 var _ground_pound_original_shape: Shape3D = null
 var _ground_pound_hits: Array[Node3D] = []
+var _ground_pound_count := 0
+var _ground_pound_cooldown_timer := 0.0
+var _ground_pound_cooldown_duration := 0.0
+var _ground_pound_has_energy := true
+var _ground_pound_grounded_timer := 0.0
+var _ground_pound_ui_progress := 100.0
 var _slash_timer := 0.0
 var _body_yaw := 0.0
 
@@ -291,7 +302,7 @@ func _physics_process(delta: float) -> void:
 	if _ground_pound_diving:
 		velocity.x = 0.0
 		velocity.z = 0.0
-		velocity.y = -GROUND_POUND_DIVE_SPEED
+		velocity.y = -ground_pound_dive_speed
 		_move_dir = Vector2.ZERO
 		_moving = false
 	elif _fly_mode:
@@ -366,6 +377,24 @@ func _physics_process(delta: float) -> void:
 			sword_collider.visible = false
 			sword_collider.monitoring = false
 			sword_collider.position = Vector3.ZERO
+
+	# Ground pound cooldown timer (only runs on the ground, 4s after limit hit).
+	if _ground_pound_cooldown_timer > 0.0 and is_on_floor():
+		_ground_pound_cooldown_timer = maxf(_ground_pound_cooldown_timer - delta, 0.0)
+		if _ground_pound_cooldown_timer <= 0.0:
+			_ground_pound_count = 0
+
+	# Ground pound grounded reset: if on floor for 0.3s with no active cooldown,
+	# reset the count so the player gets a fresh pair of pounds.
+	if is_on_floor() and not _ground_pound_active and _ground_pound_cooldown_timer <= 0.0:
+		_ground_pound_grounded_timer += delta
+		if _ground_pound_grounded_timer >= 0.3 and _ground_pound_count > 0:
+			_ground_pound_count = 0
+	else:
+		_ground_pound_grounded_timer = 0.0
+
+	_update_ground_pound_ui(delta)
+
 	_update_animation()
 	_update_aim(delta)
 	_update_targeting(delta)
@@ -466,7 +495,7 @@ func _update_weapon() -> void:
 			_start_ground_pound()
 		else:
 			_play_action("slash")
-			add_kinetic_fuel(SWORD_SLASH_FUEL)
+			add_kinetic_fuel(sword_slash_fuel)
 			# Lunge the collider in the body's facing direction.
 			var forward_dir := _body_forward()
 			sword_collider.position = forward_dir * SWORD_FORWARD_DIST
@@ -495,7 +524,7 @@ func _cycle_fire_mode(direction: int) -> void:
 func _update_charge(delta: float) -> void:
 	var laser_active := is_gun and fire_mode == FireMode.LASER and Input.is_action_pressed("fire0")
 	if laser_active and laser_charge > 0.0:
-		laser_charge = maxf(laser_charge - LASER_DRAIN_PER_SECOND * delta, 0.0)
+		laser_charge = maxf(laser_charge - laser_drain_per_second * delta, 0.0)
 		if not _laser_was_firing:
 			_play_action("gunFire")
 		_laser_was_firing = true
@@ -548,19 +577,21 @@ func add_kinetic_fuel(amount: float) -> void:
 func _fire_blaster() -> void:
 	if blaster_charge <= 0.0:
 		return
-	blaster_charge = maxf(blaster_charge - BLASTER_DRAIN_PER_SHOT, 0.0)
+	blaster_charge = maxf(blaster_charge - blaster_drain_per_shot, 0.0)
 	_play_action("gunFire")
 	gunsword.fire_blaster(global_position, _get_fire_aim_point())
 
 
 func _start_ground_pound() -> void:
+	if _ground_pound_cooldown_timer > 0.0:
+		return
 	_ground_pound_active = true
 	_ground_pound_diving = true
 	_ground_pound_rebounding = false
 	_ground_pound_start_height = global_position.y
 	_ground_pound_hits.clear()
 	lock_input()
-	velocity = Vector3(0, -GROUND_POUND_DIVE_SPEED, 0)
+	velocity = Vector3(0, -ground_pound_dive_speed, 0)
 	_play_action("slash")
 	# Lunge the collider in the body's facing direction.
 	var forward_dir := _body_forward()
@@ -568,9 +599,26 @@ func _start_ground_pound() -> void:
 	sword_collider.visible = true
 	sword_collider.monitoring = true
 
-	# Show the shockwave mesh and set its color based on fire mode.
+	# Check if the current fire mode has energy; depleted modes give white shockwave.
+	_ground_pound_has_energy = false
+	if fire_mode == FireMode.BLASTER and blaster_charge > 0.0:
+		_ground_pound_has_energy = true
+	elif fire_mode == FireMode.LASER and laser_charge > 0.0:
+		_ground_pound_has_energy = true
+	_ground_pound_count += 1
+
+	# Drain energy for the effect (1.5x normal shot cost).
+	if _ground_pound_has_energy:
+		if fire_mode == FireMode.BLASTER:
+			blaster_charge = maxf(blaster_charge - blaster_drain_per_shot * ground_pound_effect_drain_multiplier, 0.0)
+		else:
+			laser_charge = maxf(laser_charge - laser_drain_per_second * ground_pound_effect_drain_multiplier, 0.0)
+
+	# Show the shockwave mesh and set its color based on fire mode / energy.
 	var mat := shockwave_mesh.get_surface_override_material(0) as ShaderMaterial
-	if fire_mode == FireMode.BLASTER:
+	if not _ground_pound_has_energy:
+		mat.set_shader_parameter("color_center", Color(1.0, 1.0, 1.0, 1.0))
+	elif fire_mode == FireMode.BLASTER:
 		mat.set_shader_parameter("color_center", Color(0.2, 0.5, 1.0, 1.0))
 	else:
 		mat.set_shader_parameter("color_center", Color(1.0, 0.9, 0.2, 1.0))
@@ -585,7 +633,7 @@ func _update_ground_pound(delta: float) -> void:
 	# Shockwave spread phase.
 	_ground_pound_spread_timer += delta
 	var t := clampf(_ground_pound_spread_timer / _ground_pound_spread_duration, 0.0, 1.0)
-	var current_radius: float = lerp(GROUND_POUND_MIN_RADIUS, _ground_pound_radius, t)
+	var current_radius: float = lerp(ground_pound_min_radius, _ground_pound_radius, t)
 
 	# Scale the shockwave mesh to match the current radius.
 	# SphereMesh radius=0.5, so scale = radius * 2 to get the desired world radius.
@@ -612,10 +660,10 @@ func _update_ground_pound(delta: float) -> void:
 
 
 func _activate_shockwave() -> void:
-	var height := clampf(_ground_pound_start_height - global_position.y, 0.0, GROUND_POUND_MAX_HEIGHT)
-	var height_ratio := height / GROUND_POUND_MAX_HEIGHT
-	_ground_pound_radius = lerp(GROUND_POUND_MIN_RADIUS, GROUND_POUND_MAX_RADIUS, height_ratio)
-	_ground_pound_spread_duration = lerp(GROUND_POUND_MIN_SPREAD_TIME, GROUND_POUND_MAX_SPREAD_TIME, height_ratio)
+	var height := clampf(_ground_pound_start_height - global_position.y, 0.0, ground_pound_max_height)
+	var height_ratio := height / ground_pound_max_height
+	_ground_pound_radius = lerp(ground_pound_min_radius, ground_pound_max_radius, height_ratio)
+	_ground_pound_spread_duration = lerp(ground_pound_min_spread_time, ground_pound_max_spread_time, height_ratio)
 	_ground_pound_spread_timer = 0.0
 
 	# Store the original shape so we can restore it later.
@@ -633,12 +681,18 @@ func _activate_shockwave() -> void:
 
 
 func _apply_ground_pound_effect(enemy: Node3D) -> void:
+	if not _ground_pound_has_energy:
+		# Weakened shockwave: small damage, no stun or burn.
+		if enemy.has_method("take_damage"):
+			enemy.take_damage(sword_damage * 0.25)
+		return
+
 	if enemy.has_method("take_damage"):
 		enemy.take_damage(sword_damage)
 
 	if fire_mode == FireMode.BLASTER:
 		if enemy.has_method("stun"):
-			enemy.stun(GROUND_POUND_STUN_DURATION)
+			enemy.stun(ground_pound_stun_duration)
 	else:
 		# LASER mode: pure fire damage, no stun (already dealt above).
 		pass
@@ -657,6 +711,31 @@ func _end_ground_pound() -> void:
 	_ground_pound_rebounding = false
 	_ground_pound_hits.clear()
 	unlock_input()
+
+	# Start cooldown if the consecutive limit has been reached.
+	if _ground_pound_count >= ground_pound_max:
+		# Limit hit: full cooldown, reset count immediately.
+		_ground_pound_cooldown_timer = ground_pound_cooldown_time
+		_ground_pound_cooldown_duration = ground_pound_cooldown_time
+		_ground_pound_count = 0
+
+
+func _update_ground_pound_ui(delta: float) -> void:
+	var target := 100.0
+
+	if _ground_pound_cooldown_timer > 0.0:
+		target = (1.0 - _ground_pound_cooldown_timer / _ground_pound_cooldown_duration) * 100.0
+	elif _ground_pound_count > 0:
+		target = (1.0 - float(_ground_pound_count) / float(ground_pound_max)) * 100.0
+
+	# Lerp: fast drop (penalty), slow fill (cooldown fills at timer rate), fast otherwise.
+	var speed := 100.0 / _ground_pound_cooldown_duration if _ground_pound_cooldown_timer > 0.0 and target > _ground_pound_ui_progress else 300.0
+	_ground_pound_ui_progress = move_toward(
+		_ground_pound_ui_progress, target, delta * speed)
+
+	var should_show := _ground_pound_count > 0 or _ground_pound_cooldown_timer > 0.0
+	ground_pound_cooldown_ui.visible = should_show
+	ground_pound_cooldown_texture_progress_bar.value = _ground_pound_ui_progress
 
 
 func _play_action(anim: String) -> void:
