@@ -205,6 +205,35 @@ func _ready() -> void:
 	_load_game_settings()
 	_snap_target_yaw = camera_rig.rotation.y
 	_snap_target_pitch = spring_arm.rotation.x
+	mobile_input_swap()
+
+
+func mobile_input_swap() -> void:
+	if not (OS.has_feature("mobile") or OS.has_feature("web_ios") or OS.has_feature("web_android")):
+		return
+
+	var mouse_to_key := {
+		MOUSE_BUTTON_LEFT: KEY_1,
+		MOUSE_BUTTON_RIGHT: KEY_2,
+		MOUSE_BUTTON_MIDDLE: KEY_3,
+	}
+
+	for action in InputMap.get_actions():
+		var events := InputMap.action_get_events(action)
+		var modified := false
+		var new_events: Array[InputEvent] = []
+		for event in events:
+			if event is InputEventMouseButton:
+				var key_event := InputEventKey.new()
+				key_event.physical_keycode = mouse_to_key.get(event.button_index, KEY_1)
+				new_events.append(key_event)
+				modified = true
+			else:
+				new_events.append(event)
+		if modified:
+			InputMap.action_erase_events(action)
+			for event in new_events:
+				InputMap.action_add_event(action, event)
 
 
 func _exit_tree() -> void:
