@@ -41,7 +41,7 @@ grow_vertical = 2
 texture_filter = 1
 material = SubResource("ShaderMaterial_1675n")
 use_parent_material = true
-position = Vector2(19, 22)
+position = Vector2(571, 20)
 scale = Vector2(1.33, 1.33)
 texture_normal = SubResource("CanvasTexture_sskrf")
 texture_pressed = ExtResource("6_ok521")
@@ -55,26 +55,6 @@ texture_normal = ExtResource("11_nvwxl")
 texture_pressed = ExtResource("11_nvwxl")
 action = "ui_accept"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control" unique_id=902954197]
-custom_minimum_size = Vector2(250, 0)
-layout_mode = 0
-offset_left = 883.0
-offset_top = 112.0
-offset_right = 1133.0
-offset_bottom = 313.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/HBoxContainer" unique_id=268975947]
-custom_minimum_size = Vector2(250, 0)
-layout_mode = 2
-
-[node name="shot_type_cycle" type="TouchScreenButton" parent="Control/HBoxContainer" unique_id=209363953]
-position = Vector2(121.00006, 54)
-scale = Vector2(1.9600012, 1.9600012)
-texture_normal = ExtResource("6_drjpk")
-texture_pressed = ExtResource("6_drjpk")
-shape = SubResource("CircleShape2D_2s5nj")
-action = "shot_type_cycle"
-
 [node name="HBoxContainer2" type="HBoxContainer" parent="Control" unique_id=518309525]
 layout_mode = 1
 anchors_preset = 15
@@ -87,21 +67,21 @@ offset_bottom = -36.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="Control/HBoxContainer2" unique_id=777460677]
+[node name="HBoxContainer3" type="HBoxContainer" parent="Control/HBoxContainer2" unique_id=26210899]
 custom_minimum_size = Vector2(150, 0)
 custom_maximum_size = Vector2(150, -1)
 layout_mode = 2
 
-[node name="fire0" type="TouchScreenButton" parent="Control/HBoxContainer2/VBoxContainer2" unique_id=2006832668]
-position = Vector2(30, 170)
+[node name="fire0" type="TouchScreenButton" parent="Control/HBoxContainer2/HBoxContainer3" unique_id=2006832668]
+position = Vector2(111, -277)
 scale = Vector2(1.9600012, 1.9600012)
 texture_normal = ExtResource("3_y1uec")
 texture_pressed = ExtResource("3_y1uec")
 shape = SubResource("CircleShape2D_2s5nj")
 action = "fire0"
 
-[node name="fire1" type="TouchScreenButton" parent="Control/HBoxContainer2/VBoxContainer2" unique_id=1127511185]
-position = Vector2(30, 30)
+[node name="fire1" type="TouchScreenButton" parent="Control/HBoxContainer2/HBoxContainer3" unique_id=1127511185]
+position = Vector2(-698, -288)
 scale = Vector2(1.9600012, 1.9600012)
 texture_normal = ExtResource("4_kiph3")
 texture_pressed = ExtResource("4_kiph3")
@@ -114,7 +94,7 @@ custom_maximum_size = Vector2(150, -1)
 layout_mode = 2
 
 [node name="Interact" type="TouchScreenButton" parent="Control/HBoxContainer2/VBoxContainer" unique_id=243133712]
-position = Vector2(30, 30)
+position = Vector2(-14, 57)
 scale = Vector2(1.9600012, 1.9600012)
 texture_normal = ExtResource("1_7migo")
 texture_pressed = ExtResource("1_7migo")
@@ -122,15 +102,23 @@ shape = SubResource("CircleShape2D_2s5nj")
 action = "interact"
 
 [node name="Jump" type="TouchScreenButton" parent="Control/HBoxContainer2/VBoxContainer" unique_id=1679291481]
-position = Vector2(30, 170)
+position = Vector2(-14, 197)
 scale = Vector2(1.9600012, 1.9600012)
 texture_normal = ExtResource("9_1ejwo")
 texture_pressed = ExtResource("9_1ejwo")
 shape = SubResource("CircleShape2D_2s5nj")
 action = "jump"
 
+[node name="shot_type_cycle" type="TouchScreenButton" parent="Control/HBoxContainer2/VBoxContainer" unique_id=209363953]
+position = Vector2(-144, 122)
+scale = Vector2(1.9600012, 1.9600012)
+texture_normal = ExtResource("6_drjpk")
+texture_pressed = ExtResource("6_drjpk")
+shape = SubResource("CircleShape2D_2s5nj")
+action = "shot_type_cycle"
+
 [node name="cam_modifier" type="TouchScreenButton" parent="Control/HBoxContainer2" unique_id=995867050]
-position = Vector2(-120, 100)
+position = Vector2(-179, 123)
 scale = Vector2(1.9600012, 1.9600012)
 texture_normal = ExtResource("5_7migo")
 texture_pressed = ExtResource("5_7migo")
@@ -138,7 +126,7 @@ shape = SubResource("CircleShape2D_2s5nj")
 action = "cam_modifier"
 
 [node name="sprint" type="TouchScreenButton" parent="Control/HBoxContainer2" unique_id=509873523]
-position = Vector2(53, -132)
+position = Vector2(-630, 151)
 texture_normal = ExtResource("11_75nm2")
 texture_pressed = ExtResource("11_75nm2")
 shape = SubResource("CircleShape2D_2s5nj")

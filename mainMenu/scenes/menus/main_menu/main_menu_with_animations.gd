@@ -42,7 +42,7 @@ func _input(event : InputEvent) -> void:
 func _ready() -> void:
 	super._ready()
 	animation_state_machine = $MenuAnimationTree.get("parameters/playback")
-	%ContinueGameButton.visible = XMBSave.has_saves()
+	%ContinueGameButton.visible = XMBSave.has_continue_save()
 	if came_from_opening:
 		came_from_opening = false
 		return
@@ -62,7 +62,7 @@ func new_game() -> void:
 
 
 func _on_continue_button_pressed() -> void:
-	if not XMBSave.load_latest_save():
+	if not XMBSave.load_continue_save():
 		new_game()
 
 

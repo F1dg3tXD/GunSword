@@ -209,6 +209,9 @@ func _ready() -> void:
 	_crosshair_material = crosshair.material as ShaderMaterial
 	camera_3d.current = true
 	spring_arm.add_excluded_object(get_rid())
+	ground_pound_cooldown_ui.visible = false
+	($groundPoundCooldownUI/Sprite3D as Sprite3D).texture = $groundPoundCooldownUI/SubViewport.get_texture()
+
 	sprite.play("idle")
 	_update_mobile_controls()
 	XMBSave.register_save_adapter(self)
@@ -217,6 +220,33 @@ func _ready() -> void:
 	_snap_target_yaw = camera_rig.rotation.y
 	_snap_target_pitch = spring_arm.rotation.x
 	mobile_input_swap()
+
+	get_tree().scene_changed.connect(_on_scene_spawn)
+	_on_scene_spawn.call_deferred()
+
+
+## Resolves where the player spawns each time a map is loaded.
+## - Non-gameplay scenes (main menu, opening, credits) never show the in-game HUD.
+## - If a level transition handled the arrival (it positioned the player and
+##   marked arrival_handled), nothing further is done (the transition flow
+##   restores the UI itself).
+## - Otherwise this is a direct load (map command / developer load): spawn at
+##   the scene's info_player_start (or origin) and make sure gameplay UI is up.
+func _on_scene_spawn() -> void:
+	var scene := get_tree().current_scene
+	if scene == null:
+		return
+	var is_gameplay: bool = \
+		not scene.find_children("*", "InfoPlayerStart", true, false).is_empty() \
+		or not scene.find_children("*", "PlayerMoveOutLocation", true, false).is_empty()
+	if not is_gameplay:
+		set_ui_visible(false)
+		return
+	if LevelTransition.arrival_handled:
+		return
+	var start := InfoPlayerStart.find_in_scene()
+	global_position = start.global_position if start != null else Vector3.ZERO
+	set_ui_visible(true)
 
 
 func mobile_input_swap() -> void:
@@ -272,6 +302,8 @@ func reload_game_settings() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if _dialogue_on_screen():
+		return
 	if event is InputEventMouseMotion or event is InputEventMouseButton:
 		_aim_scheme = AimScheme.MOUSE
 		_mouse_idle_time = 0.0
@@ -870,7 +902,8 @@ func _is_aim_active() -> bool:
 
 
 func _update_camera(delta: float) -> void:
-	var orbit_active := _is_camera_rotate_active() and _cam_press_time > CAM_MODIFIER_TAP_THRESHOLD and not _targeting
+	var in_dialogue := _dialogue_on_screen()
+	var orbit_active := not in_dialogue and _is_camera_rotate_active() and _cam_press_time > CAM_MODIFIER_TAP_THRESHOLD and not _targeting
 
 	match _camera_behavior:
 		CameraBehavior.FREE:
@@ -946,6 +979,8 @@ func _update_camera_snapping(delta: float, orbit_active: bool) -> void:
 
 
 func _update_pause() -> void:
+	if _dialogue_on_screen():
+		return
 	if Input.is_action_just_pressed("pause"):
 		pause_menu_layer.show()
 

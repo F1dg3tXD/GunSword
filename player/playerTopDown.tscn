@@ -53,9 +53,6 @@ albedo_color = Color(1, 0, 0, 0.47058824)
 radial_segments = 32
 rings = 16
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_h38wh"]
-viewport_path = NodePath("groundPoundCooldownUI/SubViewport")
-
 [node name="PlayerTopDown" type="CharacterBody3D" unique_id=617862387 groups=["player"]]
 script = ExtResource("1_jcfv7")
 walk_speed = 5.0
@@ -163,7 +160,6 @@ cast_shadow = 0
 pixel_size = 0.005
 billboard = 1
 double_sided = false
-texture = SubResource("ViewportTexture_h38wh")
 
 [node name="SubViewport" type="SubViewport" parent="groundPoundCooldownUI" unique_id=1801905963]
 transparent_bg = true

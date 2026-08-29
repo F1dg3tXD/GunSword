@@ -13,7 +13,31 @@ var _camera: Camera3D
 func _ready() -> void:
 	level_transition.set_deferred("monitoring", false)
 
-	# Position the player at the spawn point and hide UI.
+	# Only the transition that matches where we departed should perform the
+	# arrival walk. When two transitions link by pointing at each other's maps,
+	# only the one in the freshly-loaded map whose own scene is the map we just
+	# left runs; all others stay valid by re-enabling monitoring and hiding
+	# their (default-visible) transition overlay.
+	var lt: Node = level_transition
+	# Per-load arrival flag; each transition clears it, and only the matching
+	# one (below) re-marks it once it has positioned the player. A transition
+	# is the "arrival" for a player who departed a map that this transition's
+	# target_scene points back to (i.e. the map we came from == target_scene).
+	lt.set("arrival_handled", false)
+	if lt.get("departing_scene_path") == "" or lt.get("departing_scene_path") != lt.get("target_scene"):
+		transition.visible = false
+		level_transition.set_deferred("monitoring", true)
+		return
+
+	lt.set("departing_scene_path", "")
+	lt.set("arrival_handled", true)
+	begin_walk_in()
+
+
+## Performs the full arrival: positions the player at this transition's spawn
+## point, hides UI, and plays the circle-open walk. Reusable for same-map
+## teleports (invoked on the destination transition).
+func begin_walk_in() -> void:
 	var player = PlayerTopDown
 	player.global_position = player_move_in_location.global_position
 	player.cutscene_velocity = Vector3.ZERO

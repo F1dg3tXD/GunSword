@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bg5lwrganpnb0" path="res://entities/env.tscn" id="1_fi3k5"]
 [ext_resource type="PackedScene" uid="uid://dqwx057lhado0" path="res://entities/level_transition.tscn" id="2_7w0lv"]
+[ext_resource type="PackedScene" uid="uid://cenxeyidllgq8" path="res://entities/info_player_start.tscn" id="3_iecu0"]
 [ext_resource type="Texture2D" uid="uid://r7yf031ht58x" path="res://addons/cylinder_cut/icon.svg" id="3_y6clc"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_iecu0"]
@@ -66,6 +67,8 @@ visible = true
 
 [node name="player_move_out_location" parent="Level Transition" index="3" unique_id=1392794707]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.044847, 0, -0.089850664)
+
+[node name="info_player_start" parent="Level Transition/player_move_out_location" index="0" unique_id=2111101146 instance=ExtResource("3_iecu0")]
 
 [node name="Sprite3D" type="Sprite3D" parent="Level Transition" unique_id=328365124]
 billboard = 1

@@ -29,12 +29,56 @@ var _pending_loaded_save: Dictionary = {}
 var _pending_create_scene_path := ""
 var _playtime_seconds := 0.0
 
+# A freshly-created "new game" save is staged here and only written to disk
+# after the target level has loaded and the player has spawned, so the captured
+# state is a valid continue point rather than the menu-era pre-spawn state.
+var _pending_create_save: Dictionary = {}
+var _pending_create_icon: Image = null
+
 # UI Protection freezes any inputs to background menus behind the save UI
 var ui_protection := true
 
 
 func _ready():
 	add_child(_manager)
+	get_tree().scene_changed.connect(_on_scene_changed)
+
+
+## Flushes a staged new-game save once its level has fully loaded. Runs deferred
+## so every synchronous scene_changed handler (including the player spawn) has
+## completed and the captured state reflects the fresh in-level spawn.
+func _on_scene_changed() -> void:
+	if _pending_create_save.is_empty():
+		return
+	var current := get_tree().current_scene
+	if current == null or current.scene_file_path != str(_pending_create_save.get("scene_path", "")):
+		return
+	call_deferred("_flush_pending_create_save")
+
+
+func _flush_pending_create_save() -> void:
+	if _pending_create_save.is_empty():
+		return
+	var save_id: String = str(_pending_create_save.get("id", ""))
+	var icon := _pending_create_icon
+	var save_type := _pending_create_save.get("save_type", "manual")
+	_pending_create_save.clear()
+	_pending_create_icon = null
+
+	# Rebuild the payload now that the level is loaded so the captured player
+	# state and scene_path reflect the fresh in-level spawn (a valid continue
+	# point), not the menu-era state.
+	var payload := _build_save_payload({}, "")
+	payload["id"] = save_id
+	payload["save_type"] = save_type
+
+	if not _manager.save_game(save_id, payload, icon):
+		return
+	_playtime_seconds = float(payload.get("playtime_seconds", 0.0))
+	_pending_create_scene_path = ""
+	current_save_id = save_id
+	save_written.emit(save_id, payload)
+	_trim_autosaves()
 
 
 func _process(delta: float) -> void:
@@ -109,6 +153,15 @@ func save_new(extra_data: Dictionary = {}, icon: Image = null) -> bool:
 	var payload = _build_save_payload(extra_data, target_scene_path)
 	payload["id"] = save_id
 	icon = _resolve_save_icon(icon)
+
+	if target_scene_path != "":
+		# Stage the save and write it only after the level load completes, so it
+		# captures the fresh in-level spawn and can serve as a continue point.
+		_pending_create_save = payload
+		_pending_create_icon = icon
+		close_all_menus()
+		get_tree().change_scene_to_file(target_scene_path)
+		return true
 
 	if not _manager.save_game(save_id, payload, icon):
 		current_save_id = previous_save_id
@@ -203,6 +256,37 @@ func load_latest_save() -> bool:
 	return true
 
 
+## Scenes that represent the menu/opening rather than gameplay. Saves pointing at
+## these are not valid Continue points.
+const CONTINUE_EXCLUDED_SCENES := [
+	"mainMenu/scenes/menus/main_menu/main_menu_with_animations.tscn",
+	"mainMenu/scenes/opening/opening.tscn",
+]
+
+
+## Normalizes a scene path for comparison by stripping any "res://" scheme and
+## leading slashes.
+static func _normalize_scene_path(path: String) -> String:
+	if path.begins_with("res://"):
+		path = path.trim_prefix("res://")
+	while path.begins_with("/"):
+		path = path.trim_prefix("/")
+	return path
+
+
+## Loads the most recent save that points to actual gameplay (not the main menu
+## or opening scene). Prefers the newest matching save regardless of whether it
+## is an autosave or a manual save. Returns false if there is no usable save.
+func load_continue_save() -> bool:
+	for save in _manager.get_saves():
+		var scene := _normalize_scene_path(str(save.get("scene_path", "")))
+		if scene == "" or scene in CONTINUE_EXCLUDED_SCENES:
+			continue
+		_load(str(save.get("id", "")))
+		return true
+	return false
+
+
 ## Returns the stored autosave mode: "overwrite", "separate", or "" if unset.
 func get_autosave_mode() -> String:
 	var cfg := ConfigFile.new()
@@ -271,6 +355,17 @@ func get_current_playtime() -> float:
 
 func has_saves() -> bool:
 	return not _manager.get_saves().is_empty()
+
+
+## Returns true if there is at least one save that points to actual gameplay
+## (a valid Continue candidate) rather than the menu or opening scene.
+func has_continue_save() -> bool:
+	for save in _manager.get_saves():
+		var scene := _normalize_scene_path(str(save.get("scene_path", "")))
+		if scene == "" or scene in CONTINUE_EXCLUDED_SCENES:
+			continue
+		return true
+	return false
 
 
 ## Returns true if at least one save entry is flagged as an autosave.
