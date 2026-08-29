@@ -259,7 +259,7 @@ func _load_game_settings() -> void:
 		"Snapping": _camera_behavior = CameraBehavior.SNAPPING
 		"Static": _camera_behavior = CameraBehavior.STATIC
 		_: _camera_behavior = CameraBehavior.FREE
-	_camera_sensitivity = PlayerConfig.get_config("GameSettings", "CameraSensitivity", 10.0)
+	_camera_sensitivity = PlayerConfig.get_config("GameSettings", "CameraSensitivity", 0.1) * 100.0
 	_camera_snap_speed = PlayerConfig.get_config("GameSettings", "CameraSnapSpeed", 10.0)
 	_invert_aim_type = PlayerConfig.get_config("GameSettings", "InvertAimType", false)
 

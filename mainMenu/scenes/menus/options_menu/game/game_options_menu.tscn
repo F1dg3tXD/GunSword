@@ -42,7 +42,7 @@ option_name = "Camera Sensitivity"
 option_section = 4
 key = "CameraSensitivity"
 section = "GameSettings"
-default_value = 10.0
+default_value = 0.1
 
 [node name="CameraSnappingSpeed" parent="VBoxContainer" unique_id=1384562467 instance=ExtResource("4_winus")]
 unique_name_in_owner = true
@@ -71,6 +71,7 @@ option_name = "Colored Prompts"
 option_section = 4
 key = "ColoredPrompts"
 section = "GameSettings"
+default_value = true
 
 [connection signal="setting_changed" from="VBoxContainer/CameraBehavior" to="." method="_on_camera_behavior_setting_changed"]
 [connection signal="setting_changed" from="VBoxContainer/CameraSensitivity" to="." method="_on_camera_sensitivity_setting_changed"]
