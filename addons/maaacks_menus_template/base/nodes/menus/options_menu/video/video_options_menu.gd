@@ -38,3 +38,6 @@ func _on_v_sync_control_setting_changed(value) -> void:
 
 func _on_foiliage_density_setting_changed(value: Variant) -> void:
 	EnvGlobal.configure_scatter(int(value))
+
+func _on_fps_cap_setting_changed(value: Variant) -> void:
+	Engine.max_fps = int(value)

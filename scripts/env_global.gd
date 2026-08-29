@@ -1,12 +1,22 @@
 extends Node
 
-var _scatter_max: int = 300
+var _scatter_max: int = 1800
 var _scatter_originals: Dictionary = {}
 
 
 func _ready() -> void:
 	_configure_lights(get_tree().root)
 	_configure_sprites(get_tree().root)
+	get_tree().scene_changed.connect(_on_scene_changed)
+	_apply_scatter_from_config.call_deferred()
+
+
+func _on_scene_changed() -> void:
+	_apply_scatter_from_config.call_deferred()
+
+
+func _apply_scatter_from_config() -> void:
+	configure_scatter(int(AppSettings.get_foiliage_density()))
 
 
 func _configure_lights(node: Node) -> void:

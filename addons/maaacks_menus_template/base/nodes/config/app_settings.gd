@@ -12,6 +12,8 @@ const CUSTOM_SECTION = &'CustomSettings'
 const FULLSCREEN = &'Fullscreen'
 const SCREEN_RESOLUTION = &'ScreenResolution'
 const V_SYNC = &'V-Sync'
+const FPS_CAP = &'FpsCap'
+const FOILIAGE_DENSITY = &'FoiliageDensity'
 const MUTE_SETTING = &'Mute'
 const MASTER_BUS_INDEX = 0
 const SYSTEM_BUS_NAME_PREFIX = "_"
@@ -168,6 +170,24 @@ static func _set_v_sync_from_config(window: Window) -> DisplayServer.VSyncMode:
 	set_vsync(vsync)
 	return vsync
 
+static func get_fps_cap(default_value : float = 60.0) -> float:
+	return PlayerConfig.get_config(VIDEO_SECTION, FPS_CAP, default_value)
+
+static func set_fps_cap(fps_cap : float) -> void:
+	PlayerConfig.set_config(VIDEO_SECTION, FPS_CAP, fps_cap)
+	Engine.max_fps = int(fps_cap)
+
+static func _set_fps_cap_from_config() -> float:
+	var fps_cap := get_fps_cap()
+	Engine.max_fps = int(fps_cap)
+	return fps_cap
+
+static func get_foiliage_density(default_value : float = 1800.0) -> float:
+	return PlayerConfig.get_config(VIDEO_SECTION, FOILIAGE_DENSITY, default_value)
+
+static func set_foiliage_density(density : float) -> void:
+	PlayerConfig.set_config(VIDEO_SECTION, FOILIAGE_DENSITY, density)
+
 static func set_video_from_config(window : Window) -> void:
 	window.size_changed.connect(_on_window_size_changed.bind(window))
 	var fullscreen_enabled := _set_fullscreen_from_config(window)
@@ -175,6 +195,7 @@ static func set_video_from_config(window : Window) -> void:
 		var current_resolution : Vector2i = get_resolution(window)
 		set_resolution(current_resolution, window)
 	_set_v_sync_from_config(window)
+	_set_fps_cap_from_config()
 
 # All
 

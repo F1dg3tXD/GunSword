@@ -43,5 +43,19 @@ section = "VideoSettings"
 property_type = 3
 default_value = 1.0
 
+[node name="FPSCap" parent="VBoxContainer" parent_id_path=PackedInt32Array(1251699420) index="6" unique_id=619445111 instance=ExtResource("2_p64l2")]
+unique_name_in_owner = true
+layout_mode = 2
+lock_titles = true
+option_values = [144.0, 120.0, 100.0, 90.0, 60.0, 30.0, 24.0, 12.0]
+option_titles = Array[String](["144", "120", "100", "90", "60", "30", "24", "12"])
+option_name = "FPS Cap"
+option_section = 3
+key = "FpsCap"
+section = "VideoSettings"
+property_type = 3
+default_value = 60.0
+
 [connection signal="setting_changed" from="VBoxContainer/AntiAliasingControl" to="." method="_on_anti_aliasing_control_setting_changed"]
 [connection signal="setting_changed" from="VBoxContainer/FoiliageDensity" to="." method="_on_foiliage_density_setting_changed"]
+[connection signal="setting_changed" from="VBoxContainer/FPSCap" to="." method="_on_fps_cap_setting_changed"]
