@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bg5lwrganpnb0"]
 
-[ext_resource type="Script" uid="uid://df4uctpoxw5n8" path="res://maps/env.gd" id="1_0yyb3"]
+[ext_resource type="Script" uid="uid://df4uctpoxw5n8" path="res://entities/ent_sky.gd" id="1_mms15"]
 [ext_resource type="Shader" uid="uid://but76hjmx1ala" path="res://shaders/dynamic_pixel_sky.gdshader" id="2_5nwnn"]
 
 [sub_resource type="Gradient" id="Gradient_6emo8"]
@@ -68,13 +68,13 @@ volumetric_fog_albedo = Color(0.639888, 0.639888, 0.6398879, 1)
 volumetric_fog_emission = Color(0.34781694, 0.34781697, 0.3478169, 1)
 volumetric_fog_sky_affect = 0.3
 
-[node name="env" type="Node3D" unique_id=553624539]
-script = ExtResource("1_0yyb3")
+[node name="Sky" type="Node3D" unique_id=553624539]
+script = ExtResource("1_mms15")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=107068505]
 environment = SubResource("Environment_42yok")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=244332905]
+[node name="sun" type="DirectionalLight3D" parent="." unique_id=244332905]
 transform = Transform3D(-0.8054542, -0.5582833, 0.1989056, -0.35128173, 0.7200277, 0.59846574, -0.47733095, 0.41216484, -0.77606404, 0.153, 2.502, 0)
 light_color = Color(0.99266464, 0.9589121, 0.6178834, 1)
 shadow_enabled = true

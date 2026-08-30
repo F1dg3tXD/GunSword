@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://cun41wyotaceq"]
 
-[ext_resource type="PackedScene" uid="uid://bg5lwrganpnb0" path="res://entities/env.tscn" id="1_fi3k5"]
 [ext_resource type="PackedScene" uid="uid://dqwx057lhado0" path="res://entities/level_transition.tscn" id="2_7w0lv"]
 [ext_resource type="PackedScene" uid="uid://cenxeyidllgq8" path="res://entities/info_player_start.tscn" id="3_iecu0"]
 [ext_resource type="Texture2D" uid="uid://r7yf031ht58x" path="res://addons/cylinder_cut/icon.svg" id="3_y6clc"]
@@ -52,8 +51,6 @@ size = Vector3(5, 0.1, 1)
 [node name="CSGBox3D5" type="CSGBox3D" parent="CSGBox3D" unique_id=257624315]
 transform = Transform3D(1, 0, 0, 0, -1, -8.742278e-08, 0, 8.742278e-08, -1, 2.5, 1, -3)
 size = Vector3(5, 0.1, 1)
-
-[node name="env" parent="." unique_id=553624539 instance=ExtResource("1_fi3k5")]
 
 [node name="Level Transition" parent="." unique_id=1191875629 instance=ExtResource("2_7w0lv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -3.3523502, 0.7138301, 2)

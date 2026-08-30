@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://bf5jb4fvofnyf"]
 
-[ext_resource type="Script" uid="uid://df4uctpoxw5n8" path="res://maps/env.gd" id="2_iaf3x"]
 [ext_resource type="MeshLibrary" uid="uid://dxaab05nwrlwt" path="res://addons/kenney_building-kit/building-kit.meshlib" id="3_j5wqg"]
 [ext_resource type="PackedScene" uid="uid://243u7nsam20o" path="res://items/item_sword_test.tscn" id="4_dbyus"]
 [ext_resource type="PackedScene" uid="uid://ckwgj3o8yfn1q" path="res://entities/autosave_trigger_3D.tscn" id="5_ux8cm"]
@@ -14,422 +13,6 @@
 [ext_resource type="Script" uid="uid://j4ehv84n38xq" path="res://entities/grass_test.gd" id="12_tstbq"]
 [ext_resource type="Script" uid="uid://rl5fqcv33ywo" path="res://addons/simple_scatter/scatter_shape.gd" id="13_dtmoy"]
 [ext_resource type="PackedScene" uid="uid://cenxeyidllgq8" path="res://entities/info_player_start.tscn" id="14_dtmoy"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_b71ab"]
-sky_top_color = Color(0.46145612, 0.7468559, 0.793687, 1)
-sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-
-[sub_resource type="Sky" id="Sky_pwco0"]
-sky_material = SubResource("ProceduralSkyMaterial_b71ab")
-
-[sub_resource type="Environment" id="Environment_42yok"]
-background_mode = 2
-sky = SubResource("Sky_pwco0")
-sky_rotation = Vector3(0, -0.06981317, 0)
-glow_enabled = true
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wd2vj"]
-animation = &"idle_day"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fpxlb"]
-animation = &"idle_night"
-
-[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_u8v7t"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_wd2vj")
-blend_point_0/pos = 0.0
-blend_point_0/name = &"idle_day"
-blend_point_1/node = SubResource("AnimationNodeAnimation_fpxlb")
-blend_point_1/pos = 1.0
-blend_point_1/name = &"idle_night"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8pc84"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_yxyn3"]
-states/dayNight/node = SubResource("AnimationNodeBlendSpace1D_u8v7t")
-states/dayNight/position = Vector2(378, 119.5)
-transitions = ["Start", "dayNight", SubResource("AnimationNodeStateMachineTransition_8pc84")]
-
-[sub_resource type="Animation" id="Animation_fpxlb"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("WorldEnvironment:environment:sky:sky_material:sky_top_color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0.46145612, 0.7468559, 0.793687, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("WorldEnvironment:environment:sky:sky_material:sky_horizon_color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0.66224277, 0.6717428, 0.6867428, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("WorldEnvironment:environment:sky:sky_material:energy_multiplier")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.0]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("WorldEnvironment:environment:sky:sky_material:sky_energy_multiplier")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.0]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("DirectionalLight3D:light_color")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("DirectionalLight3D:light_energy")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.0]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("DirectionalLight3D:rotation")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-1.0471977, 2.6179938, 0)]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("WorldEnvironment:environment:sky:sky_material:sun_angle_max")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [30.0]
-}
-
-[sub_resource type="Animation" id="Animation_u8v7t"]
-resource_name = "day-night"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("WorldEnvironment:environment:sky:sky_material:sky_top_color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0.46145612, 0.7468559, 0.793687, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("WorldEnvironment:environment:sky:sky_material:sky_horizon_color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0.66224277, 0.6717428, 0.6867428, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("WorldEnvironment:environment:sky:sky_material:sky_energy_multiplier")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.0]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("WorldEnvironment:environment:sky:sky_material:energy_multiplier")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.0]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("DirectionalLight3D:light_color")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("DirectionalLight3D:light_energy")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.0]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("DirectionalLight3D:rotation")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-1.0471977, 2.6179938, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_8pc84"]
-resource_name = "idle_day"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("WorldEnvironment:environment:sky:sky_material:sky_top_color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0.46145612, 0.7468559, 0.793687, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("WorldEnvironment:environment:sky:sky_material:sky_horizon_color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0.66224277, 0.6717428, 0.6867428, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("WorldEnvironment:environment:sky:sky_material:energy_multiplier")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.0]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("WorldEnvironment:environment:sky:sky_material:sky_energy_multiplier")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.0]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("DirectionalLight3D:light_color")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("DirectionalLight3D:light_energy")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.0]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("DirectionalLight3D:rotation")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-1.0471977, 2.6179938, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_ks570"]
-resource_name = "idle_night"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("DirectionalLight3D:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-1.0471977, 2.6179938, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("DirectionalLight3D:light_color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0, 0, 0, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("DirectionalLight3D:light_energy")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.0]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("WorldEnvironment:environment:sky:sky_material:sky_top_color")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0.06538104, 4.3317675e-07, 0.38668558, 1)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("WorldEnvironment:environment:sky:sky_material:sky_horizon_color")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0.2436781, 0.121445455, 0.0086060185, 1)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("WorldEnvironment:environment:sky:sky_material:sun_angle_max")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [30.0]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("WorldEnvironment:environment:sky:sky_material:energy_multiplier")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.5]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("WorldEnvironment:environment:sky:sky_material:sky_energy_multiplier")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.62]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ad6p3"]
-_data = {
-&"RESET": SubResource("Animation_fpxlb"),
-&"day-night": SubResource("Animation_u8v7t"),
-&"idle_day": SubResource("Animation_8pc84"),
-&"idle_night": SubResource("Animation_ks570")
-}
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_yxyn3"]
 radius = 0.70133007
@@ -446,26 +29,6 @@ radius = 5.0
 size = Vector3(10, 0.1274414, 10)
 
 [node name="test_map" type="Node3D" unique_id=789246963]
-
-[node name="env" type="Node3D" parent="." unique_id=654826888]
-script = ExtResource("2_iaf3x")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="env" unique_id=1998995911]
-environment = SubResource("Environment_42yok")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="env" unique_id=514712224]
-transform = Transform3D(-0.86602557, -0.43301278, 0.24999997, 0, 0.49999985, 0.8660255, -0.5000002, 0.75, -0.4330126, 0, 0, 0)
-shadow_enabled = true
-shadow_bias = 0.01
-shadow_blur = 0.0
-
-[node name="AnimationTree" type="AnimationTree" parent="env" unique_id=703370099]
-tree_root = SubResource("AnimationNodeStateMachine_yxyn3")
-anim_player = NodePath("../AnimationPlayer")
-parameters/dayNight/blend_position = 0.0
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="env" unique_id=1613836494]
-libraries/ = SubResource("AnimationLibrary_ad6p3")
 
 [node name="GridMap" type="GridMap" parent="." unique_id=166481092]
 mesh_library = ExtResource("3_j5wqg")
@@ -541,1204 +104,1204 @@ metadata/_custom_type_script = "uid://cbqci4yn5ucoc"
 
 [node name="objectsContainer" type="Node3D" parent="Scatter" unique_id=1313540069]
 
-[node name="grass" type="Node3D" parent="Scatter/objectsContainer" unique_id=1829872790 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7240157, -0.66890943, -0.4516821)
+[node name="@Node3D@40562" type="Node3D" parent="Scatter/objectsContainer" unique_id=1829872790 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25562668, -0.66890943, 0.66009617)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39577" type="Node3D" parent="Scatter/objectsContainer" unique_id=632104335 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16318893, -0.66890943, 4.0777845)
+[node name="@Node3D@40563" type="Node3D" parent="Scatter/objectsContainer" unique_id=322150736 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8357143, -0.66890943, -3.4506578)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39578" type="Node3D" parent="Scatter/objectsContainer" unique_id=256275586 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.428852, -0.66890943, -2.6463542)
+[node name="@Node3D@40564" type="Node3D" parent="Scatter/objectsContainer" unique_id=1597742278 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7207966, -0.66890943, 0.62857723)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39579" type="Node3D" parent="Scatter/objectsContainer" unique_id=1126112626 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3454733, -0.66890943, -3.6947937)
+[node name="@Node3D@40565" type="Node3D" parent="Scatter/objectsContainer" unique_id=1933068125 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6106615, -0.66890943, 0.62455463)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39580" type="Node3D" parent="Scatter/objectsContainer" unique_id=1531216297 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.973722, -0.66890943, -2.9995785)
+[node name="@Node3D@40566" type="Node3D" parent="Scatter/objectsContainer" unique_id=1759066715 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3498816, -0.66890943, -2.9331827)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39581" type="Node3D" parent="Scatter/objectsContainer" unique_id=473233219 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.452447, -0.66890943, 1.4810047)
+[node name="@Node3D@40567" type="Node3D" parent="Scatter/objectsContainer" unique_id=774785867 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.6310916, -0.66890943, 1.5692911)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39582" type="Node3D" parent="Scatter/objectsContainer" unique_id=732931223 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.601119, -0.66890943, -1.3324051)
+[node name="@Node3D@40568" type="Node3D" parent="Scatter/objectsContainer" unique_id=978355776 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.984188, -0.66890943, 1.9637184)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39583" type="Node3D" parent="Scatter/objectsContainer" unique_id=1454931380 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.6777897, -0.66890943, -0.762681)
+[node name="@Node3D@40569" type="Node3D" parent="Scatter/objectsContainer" unique_id=1315299655 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6712141, -0.66890943, 2.2277594)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39584" type="Node3D" parent="Scatter/objectsContainer" unique_id=1155756572 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9345074, -0.66890943, -3.4336462)
+[node name="@Node3D@40570" type="Node3D" parent="Scatter/objectsContainer" unique_id=1465973829 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.9243426, -0.66890943, -0.23455334)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39585" type="Node3D" parent="Scatter/objectsContainer" unique_id=1911324533 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7740097, -0.66890943, 1.9600544)
+[node name="@Node3D@40571" type="Node3D" parent="Scatter/objectsContainer" unique_id=816655880 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5854874, -0.66890943, 1.4509163)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39586" type="Node3D" parent="Scatter/objectsContainer" unique_id=1870103879 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.89230824, -0.66890943, 4.370594)
+[node name="@Node3D@40572" type="Node3D" parent="Scatter/objectsContainer" unique_id=1877794105 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9847741, -0.66890943, 0.1976614)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39587" type="Node3D" parent="Scatter/objectsContainer" unique_id=1697226698 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.448926, -0.66890943, -1.6111841)
+[node name="@Node3D@40573" type="Node3D" parent="Scatter/objectsContainer" unique_id=196425955 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.16363525, -0.66890943, 2.7533407)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39588" type="Node3D" parent="Scatter/objectsContainer" unique_id=1998190427 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6288738, -0.66890943, -3.2594357)
+[node name="@Node3D@40574" type="Node3D" parent="Scatter/objectsContainer" unique_id=2018387046 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.4937315, -0.66890943, 1.1968403)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39589" type="Node3D" parent="Scatter/objectsContainer" unique_id=970441299 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.366673, -0.66890943, 3.6565151)
+[node name="@Node3D@40575" type="Node3D" parent="Scatter/objectsContainer" unique_id=1338864804 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6024895, -0.66890943, 1.9825487)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39590" type="Node3D" parent="Scatter/objectsContainer" unique_id=1557676611 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.13501072, -0.66890943, 4.9934797)
+[node name="@Node3D@40576" type="Node3D" parent="Scatter/objectsContainer" unique_id=1829720587 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.129981, -0.66890943, 3.167203)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39591" type="Node3D" parent="Scatter/objectsContainer" unique_id=1329253789 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8844786, -0.66890943, -2.5231004)
+[node name="@Node3D@40577" type="Node3D" parent="Scatter/objectsContainer" unique_id=2001620147 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6138124, -0.66890943, 2.8066082)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39592" type="Node3D" parent="Scatter/objectsContainer" unique_id=1876452720 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.594616, -0.66890943, -1.8957996)
+[node name="@Node3D@40578" type="Node3D" parent="Scatter/objectsContainer" unique_id=1556747856 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8096037, -0.66890943, -2.5595198)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39593" type="Node3D" parent="Scatter/objectsContainer" unique_id=1636853148 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1605844, -0.66890943, 3.1951246)
+[node name="@Node3D@40579" type="Node3D" parent="Scatter/objectsContainer" unique_id=381735976 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.664256, -0.66890943, 3.8474016)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39594" type="Node3D" parent="Scatter/objectsContainer" unique_id=1359262874 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.23841095, -0.66890943, -4.092118)
+[node name="@Node3D@40580" type="Node3D" parent="Scatter/objectsContainer" unique_id=1510007422 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9065466, -0.66890943, -4.209631)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39595" type="Node3D" parent="Scatter/objectsContainer" unique_id=1562018773 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1799974, -0.66890943, 2.2977953)
+[node name="@Node3D@40581" type="Node3D" parent="Scatter/objectsContainer" unique_id=1733910771 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7741747, -0.66890943, 0.4175682)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39596" type="Node3D" parent="Scatter/objectsContainer" unique_id=1428179066 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.44608593, -0.66890943, -2.1471019)
+[node name="@Node3D@40582" type="Node3D" parent="Scatter/objectsContainer" unique_id=1627656050 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7287006, -0.66890943, -3.9490376)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39597" type="Node3D" parent="Scatter/objectsContainer" unique_id=66405460 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2604733, -0.66890943, 3.4888163)
+[node name="@Node3D@40583" type="Node3D" parent="Scatter/objectsContainer" unique_id=274638601 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2394152, -0.66890943, 3.2830954)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39598" type="Node3D" parent="Scatter/objectsContainer" unique_id=670758855 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0752211, -0.66890943, 2.8534298)
+[node name="@Node3D@40584" type="Node3D" parent="Scatter/objectsContainer" unique_id=700593552 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.297104, -0.66890943, -2.245895)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39599" type="Node3D" parent="Scatter/objectsContainer" unique_id=1389965492 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1776166, -0.66890943, -2.036563)
+[node name="@Node3D@40585" type="Node3D" parent="Scatter/objectsContainer" unique_id=1204855270 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5233388, -0.66890943, -1.3558321)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39600" type="Node3D" parent="Scatter/objectsContainer" unique_id=636336117 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.405943, -0.66890943, -0.3297825)
+[node name="@Node3D@40586" type="Node3D" parent="Scatter/objectsContainer" unique_id=2003419397 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7278237, -0.66890943, -0.11538124)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39601" type="Node3D" parent="Scatter/objectsContainer" unique_id=1003817898 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4496622, -0.66890943, 2.367072)
+[node name="@Node3D@40587" type="Node3D" parent="Scatter/objectsContainer" unique_id=966796018 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.260809, -0.66890943, -1.7437253)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39602" type="Node3D" parent="Scatter/objectsContainer" unique_id=878792248 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9159412, -0.66890943, -0.23300266)
+[node name="@Node3D@40588" type="Node3D" parent="Scatter/objectsContainer" unique_id=976381664 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1130552, -0.66890943, -2.5000849)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39603" type="Node3D" parent="Scatter/objectsContainer" unique_id=898516215 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.49225378, -0.66890943, -1.7890787)
+[node name="@Node3D@40589" type="Node3D" parent="Scatter/objectsContainer" unique_id=129084163 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5007677, -0.6689098, 3.104988)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39604" type="Node3D" parent="Scatter/objectsContainer" unique_id=1843008048 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7630816, -0.66890943, 2.8567142)
+[node name="@Node3D@40590" type="Node3D" parent="Scatter/objectsContainer" unique_id=91015870 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.24675274, -0.66890943, 4.8887396)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39605" type="Node3D" parent="Scatter/objectsContainer" unique_id=1690277631 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9529476, -0.66890943, -4.4642158)
+[node name="@Node3D@40591" type="Node3D" parent="Scatter/objectsContainer" unique_id=197941045 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3403645, -0.66890943, 2.1031475)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39606" type="Node3D" parent="Scatter/objectsContainer" unique_id=2067749336 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9047337, -0.66890943, 1.1662388)
+[node name="@Node3D@40592" type="Node3D" parent="Scatter/objectsContainer" unique_id=35944651 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0169744, -0.66890943, 4.2408876)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39607" type="Node3D" parent="Scatter/objectsContainer" unique_id=1554319486 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.16998, -0.66890943, -2.2472868)
+[node name="@Node3D@40593" type="Node3D" parent="Scatter/objectsContainer" unique_id=1885235168 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2093878, -0.66890943, -2.6739988)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39608" type="Node3D" parent="Scatter/objectsContainer" unique_id=722848240 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2741404, -0.66890943, 1.1988363)
+[node name="@Node3D@40594" type="Node3D" parent="Scatter/objectsContainer" unique_id=263884888 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0594997, -0.66890943, 3.068615)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39609" type="Node3D" parent="Scatter/objectsContainer" unique_id=490445985 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5393267, -0.66890943, -1.959733)
+[node name="@Node3D@40595" type="Node3D" parent="Scatter/objectsContainer" unique_id=2008330398 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7650986, -0.66890943, -2.3392954)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39610" type="Node3D" parent="Scatter/objectsContainer" unique_id=65944576 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7151241, -0.66890943, 1.449688)
+[node name="@Node3D@40596" type="Node3D" parent="Scatter/objectsContainer" unique_id=1171944274 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.6833944, -0.66890943, 0.7305174)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39611" type="Node3D" parent="Scatter/objectsContainer" unique_id=1115267542 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0746903, -0.66890943, -1.5380068)
+[node name="@Node3D@40597" type="Node3D" parent="Scatter/objectsContainer" unique_id=389842521 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0815177, -0.66890943, -0.9008322)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39612" type="Node3D" parent="Scatter/objectsContainer" unique_id=272501024 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1338062, -0.66890943, -0.2059946)
+[node name="@Node3D@40598" type="Node3D" parent="Scatter/objectsContainer" unique_id=1095792464 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.51996326, -0.66890943, 1.2138996)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39613" type="Node3D" parent="Scatter/objectsContainer" unique_id=791681019 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.581872, -0.66890943, -0.7326298)
+[node name="@Node3D@40599" type="Node3D" parent="Scatter/objectsContainer" unique_id=1889215518 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3063536, -0.66890943, -2.1361828)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39614" type="Node3D" parent="Scatter/objectsContainer" unique_id=1678282378 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.501028, -0.66890943, 1.0056267)
+[node name="@Node3D@40600" type="Node3D" parent="Scatter/objectsContainer" unique_id=1926511864 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1880722, -0.66890943, -0.50427914)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39615" type="Node3D" parent="Scatter/objectsContainer" unique_id=1153722163 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5607004, -0.66890943, 0.57828045)
+[node name="@Node3D@40601" type="Node3D" parent="Scatter/objectsContainer" unique_id=307501264 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5252657, -0.66890943, -3.500946)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39616" type="Node3D" parent="Scatter/objectsContainer" unique_id=1697717117 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4739542, -0.66890943, -1.6924429)
+[node name="@Node3D@40602" type="Node3D" parent="Scatter/objectsContainer" unique_id=657336765 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.37544823, -0.66890943, 3.1233225)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39617" type="Node3D" parent="Scatter/objectsContainer" unique_id=1139070956 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.96452236, -0.66890943, 2.9924488)
+[node name="@Node3D@40603" type="Node3D" parent="Scatter/objectsContainer" unique_id=2026541036 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2536135, -0.66890943, 2.1192102)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39618" type="Node3D" parent="Scatter/objectsContainer" unique_id=1804286172 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10607147, -0.66890943, 2.5146542)
+[node name="@Node3D@40604" type="Node3D" parent="Scatter/objectsContainer" unique_id=1066950435 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2715597, -0.66890943, 2.3020887)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39619" type="Node3D" parent="Scatter/objectsContainer" unique_id=1052037679 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.95349216, -0.66890943, -2.2728338)
+[node name="@Node3D@40605" type="Node3D" parent="Scatter/objectsContainer" unique_id=104133877 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5888834, -0.66890943, -0.64100075)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39620" type="Node3D" parent="Scatter/objectsContainer" unique_id=1464864363 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2100658, -0.66890943, 0.030142784)
+[node name="@Node3D@40606" type="Node3D" parent="Scatter/objectsContainer" unique_id=918258314 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6084852, -0.66890943, -3.790176)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39621" type="Node3D" parent="Scatter/objectsContainer" unique_id=1763682274 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4047575, -0.66890943, 4.831772)
+[node name="@Node3D@40607" type="Node3D" parent="Scatter/objectsContainer" unique_id=1652471910 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4414577, -0.66890943, -3.2173338)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39622" type="Node3D" parent="Scatter/objectsContainer" unique_id=627066219 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8069296, -0.66890943, -0.39679813)
+[node name="@Node3D@40608" type="Node3D" parent="Scatter/objectsContainer" unique_id=283316438 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.89838696, -0.66890943, -4.432242)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39623" type="Node3D" parent="Scatter/objectsContainer" unique_id=1572754474 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8327875, -0.66890943, 4.646517)
+[node name="@Node3D@40609" type="Node3D" parent="Scatter/objectsContainer" unique_id=2020468485 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1595764, -0.66890943, 1.187952)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39624" type="Node3D" parent="Scatter/objectsContainer" unique_id=733050968 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.713866, -0.66890943, -0.17437553)
+[node name="@Node3D@40610" type="Node3D" parent="Scatter/objectsContainer" unique_id=1010719437 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8335257, -0.66890943, 2.271079)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39625" type="Node3D" parent="Scatter/objectsContainer" unique_id=470795855 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8105526, -0.66890943, -4.3406076)
+[node name="@Node3D@40611" type="Node3D" parent="Scatter/objectsContainer" unique_id=2052848812 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9513712, -0.66890943, 1.301692)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39626" type="Node3D" parent="Scatter/objectsContainer" unique_id=959296476 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.3890429, -0.66890943, 1.556243)
+[node name="@Node3D@40612" type="Node3D" parent="Scatter/objectsContainer" unique_id=966625852 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.3367634, -0.66890943, -3.4959698)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39627" type="Node3D" parent="Scatter/objectsContainer" unique_id=193507464 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0422468, -0.66890943, -2.93359)
+[node name="@Node3D@40613" type="Node3D" parent="Scatter/objectsContainer" unique_id=155543904 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9545069, -0.66890943, 2.139079)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39628" type="Node3D" parent="Scatter/objectsContainer" unique_id=1655366071 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.48260307, -0.66890943, -1.1736422)
+[node name="@Node3D@40614" type="Node3D" parent="Scatter/objectsContainer" unique_id=145346819 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2409143, -0.66890943, -0.23060513)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39629" type="Node3D" parent="Scatter/objectsContainer" unique_id=1646158600 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0651302, -0.66890943, -1.5641747)
+[node name="@Node3D@40615" type="Node3D" parent="Scatter/objectsContainer" unique_id=408304851 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2781467, -0.66890943, 2.2967587)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39630" type="Node3D" parent="Scatter/objectsContainer" unique_id=2016667871 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.017325401, -0.66890943, -0.058095932)
+[node name="@Node3D@40616" type="Node3D" parent="Scatter/objectsContainer" unique_id=456801450 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2164927, -0.66890943, 2.9826164)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39631" type="Node3D" parent="Scatter/objectsContainer" unique_id=27378211 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.073389, -0.66890943, 0.7996521)
+[node name="@Node3D@40617" type="Node3D" parent="Scatter/objectsContainer" unique_id=782080748 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9835777, -0.66890943, -2.3366694)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39632" type="Node3D" parent="Scatter/objectsContainer" unique_id=1145799178 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3758278, -0.66890943, -4.2039003)
+[node name="@Node3D@40618" type="Node3D" parent="Scatter/objectsContainer" unique_id=38967290 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1628294, -0.66890943, 3.5016556)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39633" type="Node3D" parent="Scatter/objectsContainer" unique_id=1770244975 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14321709, -0.66890943, 4.737069)
+[node name="@Node3D@40619" type="Node3D" parent="Scatter/objectsContainer" unique_id=1827673335 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.580945, -0.66890943, -1.6950302)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39634" type="Node3D" parent="Scatter/objectsContainer" unique_id=895810571 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.641881, -0.66890943, 0.6585474)
+[node name="@Node3D@40620" type="Node3D" parent="Scatter/objectsContainer" unique_id=1741649430 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.4121475, -0.66890943, -3.2962332)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39635" type="Node3D" parent="Scatter/objectsContainer" unique_id=1130928823 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0881176, -0.66890943, 0.58004475)
+[node name="@Node3D@40621" type="Node3D" parent="Scatter/objectsContainer" unique_id=1958365651 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4320717, -0.66890943, 3.4833364)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39636" type="Node3D" parent="Scatter/objectsContainer" unique_id=138896839 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.40437794, -0.66890943, -1.8268485)
+[node name="@Node3D@40622" type="Node3D" parent="Scatter/objectsContainer" unique_id=2034180090 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4381366, -0.66890943, 4.1641397)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39637" type="Node3D" parent="Scatter/objectsContainer" unique_id=238031420 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.13778782, -0.66890943, -4.1684628)
+[node name="@Node3D@40623" type="Node3D" parent="Scatter/objectsContainer" unique_id=140789959 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.11277, -0.66890943, 0.15094852)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39638" type="Node3D" parent="Scatter/objectsContainer" unique_id=1651220741 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.353572, -0.66890943, 1.03864)
+[node name="@Node3D@40624" type="Node3D" parent="Scatter/objectsContainer" unique_id=1745719514 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.43752003, -0.66890943, 4.581441)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39639" type="Node3D" parent="Scatter/objectsContainer" unique_id=1382401436 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.07061577, -0.66890943, -2.6147704)
+[node name="@Node3D@40625" type="Node3D" parent="Scatter/objectsContainer" unique_id=1854278985 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4197435, -0.66890943, -1.0426884)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39640" type="Node3D" parent="Scatter/objectsContainer" unique_id=1331364776 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.27282524, -0.66890943, -0.8071604)
+[node name="@Node3D@40626" type="Node3D" parent="Scatter/objectsContainer" unique_id=995355466 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.1966968, -0.6689093, 3.38451)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39641" type="Node3D" parent="Scatter/objectsContainer" unique_id=1196851086 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2615032, -0.66890943, 3.3989038)
+[node name="@Node3D@40627" type="Node3D" parent="Scatter/objectsContainer" unique_id=900250594 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6376028, -0.66890943, -1.6691756)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39642" type="Node3D" parent="Scatter/objectsContainer" unique_id=1785693032 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1253805, -0.66890943, 2.2645006)
+[node name="@Node3D@40628" type="Node3D" parent="Scatter/objectsContainer" unique_id=1034750314 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.631198, -0.66890943, -3.3697033)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39643" type="Node3D" parent="Scatter/objectsContainer" unique_id=767684184 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.69730663, -0.66890943, -0.66450787)
+[node name="@Node3D@40629" type="Node3D" parent="Scatter/objectsContainer" unique_id=1311960030 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.31851482, -0.66890943, -4.505687)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39644" type="Node3D" parent="Scatter/objectsContainer" unique_id=1223104581 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7340727, -0.66890943, -4.361751)
+[node name="@Node3D@40630" type="Node3D" parent="Scatter/objectsContainer" unique_id=1971299488 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.630929, -0.66890943, -2.515892)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39645" type="Node3D" parent="Scatter/objectsContainer" unique_id=793294259 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0661125, -0.66890943, 0.80169773)
+[node name="@Node3D@40631" type="Node3D" parent="Scatter/objectsContainer" unique_id=757034688 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.29352283, -0.66890943, 4.705287)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39646" type="Node3D" parent="Scatter/objectsContainer" unique_id=1922605967 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.08084488, -0.66890943, 0.6139841)
+[node name="@Node3D@40632" type="Node3D" parent="Scatter/objectsContainer" unique_id=1019462746 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9863849, -0.66890943, -0.3833542)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39647" type="Node3D" parent="Scatter/objectsContainer" unique_id=1091544626 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.30355644, -0.66890943, 1.3039961)
+[node name="@Node3D@40633" type="Node3D" parent="Scatter/objectsContainer" unique_id=211143671 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.640645, -0.66890943, -3.5456681)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39648" type="Node3D" parent="Scatter/objectsContainer" unique_id=836960234 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4488535, -0.66890943, 3.9284353)
+[node name="@Node3D@40634" type="Node3D" parent="Scatter/objectsContainer" unique_id=143021230 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.12547, -0.66890943, -0.01475811)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39649" type="Node3D" parent="Scatter/objectsContainer" unique_id=1780523320 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.407054, -0.66890943, 0.52707386)
+[node name="@Node3D@40635" type="Node3D" parent="Scatter/objectsContainer" unique_id=358259996 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2957087, -0.66890943, -2.3045845)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39650" type="Node3D" parent="Scatter/objectsContainer" unique_id=20890592 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8218322, -0.66890943, 1.0859118)
+[node name="@Node3D@40636" type="Node3D" parent="Scatter/objectsContainer" unique_id=917931103 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2464104, -0.66890943, 1.7541513)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39651" type="Node3D" parent="Scatter/objectsContainer" unique_id=1830082256 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0776453, -0.66890943, 3.8506508)
+[node name="@Node3D@40637" type="Node3D" parent="Scatter/objectsContainer" unique_id=1300315907 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9457693, -0.66890943, -2.8987703)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39652" type="Node3D" parent="Scatter/objectsContainer" unique_id=274895259 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.34088612, -0.66890943, 4.4622145)
+[node name="@Node3D@40638" type="Node3D" parent="Scatter/objectsContainer" unique_id=2084635946 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.03832054, -0.66890943, 3.0625048)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39653" type="Node3D" parent="Scatter/objectsContainer" unique_id=1604715471 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9090333, -0.66890943, -1.9462595)
+[node name="@Node3D@40639" type="Node3D" parent="Scatter/objectsContainer" unique_id=1125276054 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.19208431, -0.66890943, 3.5628595)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39654" type="Node3D" parent="Scatter/objectsContainer" unique_id=1019961773 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.249074, -0.66890943, -3.7703376)
+[node name="@Node3D@40640" type="Node3D" parent="Scatter/objectsContainer" unique_id=1003074730 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9906912, -0.66890943, 3.558339)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39655" type="Node3D" parent="Scatter/objectsContainer" unique_id=518738319 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.27050304, -0.66890943, 4.254487)
+[node name="@Node3D@40641" type="Node3D" parent="Scatter/objectsContainer" unique_id=491635134 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5132723, -0.66890943, -0.518486)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39656" type="Node3D" parent="Scatter/objectsContainer" unique_id=757285378 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3453932, -0.66890943, 0.08872223)
+[node name="@Node3D@40642" type="Node3D" parent="Scatter/objectsContainer" unique_id=1810699953 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.327091, -0.66890943, -0.37669277)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39657" type="Node3D" parent="Scatter/objectsContainer" unique_id=1212294475 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.072696, -0.66890943, -1.9589586)
+[node name="@Node3D@40643" type="Node3D" parent="Scatter/objectsContainer" unique_id=1710761394 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4886055, -0.66890943, -1.3134413)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39658" type="Node3D" parent="Scatter/objectsContainer" unique_id=1542839955 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0523434, -0.66890943, 4.548957)
+[node name="@Node3D@40644" type="Node3D" parent="Scatter/objectsContainer" unique_id=1024332349 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.94009113, -0.66890943, -2.0943327)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39659" type="Node3D" parent="Scatter/objectsContainer" unique_id=414056587 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20597267, -0.66890943, 0.24025726)
+[node name="@Node3D@40645" type="Node3D" parent="Scatter/objectsContainer" unique_id=275222412 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1627302, -0.66890943, 1.2743607)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39660" type="Node3D" parent="Scatter/objectsContainer" unique_id=1571258209 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.13170338, -0.66890943, -3.314683)
+[node name="@Node3D@40646" type="Node3D" parent="Scatter/objectsContainer" unique_id=1854160190 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8544655, -0.66890943, 0.97160625)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39661" type="Node3D" parent="Scatter/objectsContainer" unique_id=989562927 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.60193014, -0.66890943, -4.1203227)
+[node name="@Node3D@40647" type="Node3D" parent="Scatter/objectsContainer" unique_id=1032407428 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.612074, -0.66890943, 1.0202408)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39662" type="Node3D" parent="Scatter/objectsContainer" unique_id=531971478 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8792038, -0.66890943, -2.5853992)
+[node name="@Node3D@40648" type="Node3D" parent="Scatter/objectsContainer" unique_id=1714019100 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2426796, -0.66890943, 1.7837334)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39663" type="Node3D" parent="Scatter/objectsContainer" unique_id=142600802 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6733556, -0.66890943, -2.922266)
+[node name="@Node3D@40649" type="Node3D" parent="Scatter/objectsContainer" unique_id=1441623092 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.0181122, -0.66890943, -1.8464241)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39664" type="Node3D" parent="Scatter/objectsContainer" unique_id=984138468 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.4862528, -0.66890943, -2.6675444)
+[node name="@Node3D@40650" type="Node3D" parent="Scatter/objectsContainer" unique_id=450231727 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9015112, -0.66890943, -1.4470153)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39665" type="Node3D" parent="Scatter/objectsContainer" unique_id=702930024 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4712677, -0.66890943, -1.452941)
+[node name="@Node3D@40651" type="Node3D" parent="Scatter/objectsContainer" unique_id=1204518132 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.20674, -0.66890943, -1.793098)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39666" type="Node3D" parent="Scatter/objectsContainer" unique_id=99605817 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.31653595, -0.66890943, 0.33289337)
+[node name="@Node3D@40652" type="Node3D" parent="Scatter/objectsContainer" unique_id=832937211 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0084648, -0.66890943, 3.8172045)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39667" type="Node3D" parent="Scatter/objectsContainer" unique_id=1120731143 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2633104, -0.66890943, 1.4404211)
+[node name="@Node3D@40653" type="Node3D" parent="Scatter/objectsContainer" unique_id=1744462377 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7710667, -0.66890943, -2.0671382)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39668" type="Node3D" parent="Scatter/objectsContainer" unique_id=944246948 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.59558344, -0.66890943, -0.5428314)
+[node name="@Node3D@40654" type="Node3D" parent="Scatter/objectsContainer" unique_id=1503045097 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8108492, -0.66890943, -2.15982)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39669" type="Node3D" parent="Scatter/objectsContainer" unique_id=1233579469 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5181646, -0.66890943, 1.5535707)
+[node name="@Node3D@40655" type="Node3D" parent="Scatter/objectsContainer" unique_id=418319748 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.171956, -0.66890943, 0.26613235)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39670" type="Node3D" parent="Scatter/objectsContainer" unique_id=689755295 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7594085, -0.66890943, -2.8327093)
+[node name="@Node3D@40656" type="Node3D" parent="Scatter/objectsContainer" unique_id=1708894389 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3780203, -0.66890943, -1.6080413)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39671" type="Node3D" parent="Scatter/objectsContainer" unique_id=865696431 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.009185791, -0.66890943, -3.298438)
+[node name="@Node3D@40657" type="Node3D" parent="Scatter/objectsContainer" unique_id=954617801 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.04021454, -0.66890943, -1.9460554)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39672" type="Node3D" parent="Scatter/objectsContainer" unique_id=882223817 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5056629, -0.66890943, 1.5471888)
+[node name="@Node3D@40658" type="Node3D" parent="Scatter/objectsContainer" unique_id=1348599725 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0009393692, -0.66890943, 3.6840115)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39673" type="Node3D" parent="Scatter/objectsContainer" unique_id=1245638856 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1733685, -0.66890943, -3.6398783)
+[node name="@Node3D@40659" type="Node3D" parent="Scatter/objectsContainer" unique_id=1183832499 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9528313, -0.66890943, 0.14997005)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39674" type="Node3D" parent="Scatter/objectsContainer" unique_id=1573694021 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15490437, -0.66890943, 0.37159348)
+[node name="@Node3D@40660" type="Node3D" parent="Scatter/objectsContainer" unique_id=1726051559 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9962397, -0.66890943, 1.1173534)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39675" type="Node3D" parent="Scatter/objectsContainer" unique_id=1735632492 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.1646953, -0.66890943, -2.2487297)
+[node name="@Node3D@40661" type="Node3D" parent="Scatter/objectsContainer" unique_id=1846978209 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.33284855, -0.66890943, 1.5901747)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39676" type="Node3D" parent="Scatter/objectsContainer" unique_id=1085695827 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4354763, -0.66890943, -1.4235754)
+[node name="@Node3D@40662" type="Node3D" parent="Scatter/objectsContainer" unique_id=135473647 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.71464014, -0.66890943, -4.8528485)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39677" type="Node3D" parent="Scatter/objectsContainer" unique_id=676026214 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2762604, -0.66890943, 0.95794106)
+[node name="@Node3D@40663" type="Node3D" parent="Scatter/objectsContainer" unique_id=1011550925 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.54923916, -0.66890943, -2.9299927)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39678" type="Node3D" parent="Scatter/objectsContainer" unique_id=1308374804 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3919649, -0.66890943, -0.74201775)
+[node name="@Node3D@40664" type="Node3D" parent="Scatter/objectsContainer" unique_id=743925370 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.48096657, -0.66890943, -4.0894065)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39679" type="Node3D" parent="Scatter/objectsContainer" unique_id=1375120978 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1932492, -0.66890943, 0.8019171)
+[node name="@Node3D@40665" type="Node3D" parent="Scatter/objectsContainer" unique_id=2041340847 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.526618, -0.66890943, -3.2630548)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39680" type="Node3D" parent="Scatter/objectsContainer" unique_id=428030306 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9805994, -0.66890943, 2.8955936)
+[node name="@Node3D@40666" type="Node3D" parent="Scatter/objectsContainer" unique_id=1990961559 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5771527, -0.66890943, 0.115795135)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39681" type="Node3D" parent="Scatter/objectsContainer" unique_id=563630809 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.87764835, -0.66890943, -2.3141818)
+[node name="@Node3D@40667" type="Node3D" parent="Scatter/objectsContainer" unique_id=1934142771 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3476543, -0.66890943, 1.365468)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39682" type="Node3D" parent="Scatter/objectsContainer" unique_id=1376089569 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.67458, -0.66890943, -1.7182336)
+[node name="@Node3D@40668" type="Node3D" parent="Scatter/objectsContainer" unique_id=1493895486 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1283998, -0.66890943, 2.1854334)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39683" type="Node3D" parent="Scatter/objectsContainer" unique_id=478360359 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6262302, -0.66890943, -0.8573837)
+[node name="@Node3D@40669" type="Node3D" parent="Scatter/objectsContainer" unique_id=557472233 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.012036324, -0.66890943, -0.39848995)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39684" type="Node3D" parent="Scatter/objectsContainer" unique_id=43480672 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2246742, -0.66890943, 2.438776)
+[node name="@Node3D@40670" type="Node3D" parent="Scatter/objectsContainer" unique_id=1810441720 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6553936, -0.66890943, -0.39747334)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39685" type="Node3D" parent="Scatter/objectsContainer" unique_id=726250037 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2695065, -0.66890943, -1.4469423)
+[node name="@Node3D@40671" type="Node3D" parent="Scatter/objectsContainer" unique_id=1763665983 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6197882, -0.66890943, -2.364604)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39686" type="Node3D" parent="Scatter/objectsContainer" unique_id=1891708789 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.79889, -0.66890943, 1.2461615)
+[node name="@Node3D@40672" type="Node3D" parent="Scatter/objectsContainer" unique_id=2043929828 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8404188, -0.66890943, 1.5309916)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39687" type="Node3D" parent="Scatter/objectsContainer" unique_id=1013429554 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8846579, -0.66890943, -4.223777)
+[node name="@Node3D@40673" type="Node3D" parent="Scatter/objectsContainer" unique_id=1538188987 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9237208, -0.66890943, 1.0470285)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39688" type="Node3D" parent="Scatter/objectsContainer" unique_id=426534785 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2498574, -0.66890943, 0.3114605)
+[node name="@Node3D@40674" type="Node3D" parent="Scatter/objectsContainer" unique_id=996722054 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.85186625, -0.66890943, -3.980228)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39689" type="Node3D" parent="Scatter/objectsContainer" unique_id=1209584067 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.42689514, -0.66890943, -2.875372)
+[node name="@Node3D@40675" type="Node3D" parent="Scatter/objectsContainer" unique_id=2039318431 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1932034, -0.66890943, 2.850463)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39690" type="Node3D" parent="Scatter/objectsContainer" unique_id=493912799 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.4360075, -0.66890943, 1.7257786)
+[node name="@Node3D@40676" type="Node3D" parent="Scatter/objectsContainer" unique_id=29324842 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.114687, -0.66890943, 2.1047668)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39691" type="Node3D" parent="Scatter/objectsContainer" unique_id=780842410 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8525343, -0.66890943, 3.029316)
+[node name="@Node3D@40677" type="Node3D" parent="Scatter/objectsContainer" unique_id=568789480 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.119432, -0.66890943, 0.51546097)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39692" type="Node3D" parent="Scatter/objectsContainer" unique_id=1891842350 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5024471, -0.66890943, -1.2944851)
+[node name="@Node3D@40678" type="Node3D" parent="Scatter/objectsContainer" unique_id=1676621683 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.56347275, -0.66890943, -2.4339824)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39693" type="Node3D" parent="Scatter/objectsContainer" unique_id=1910210659 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7430191, -0.66890943, -2.0008316)
+[node name="@Node3D@40679" type="Node3D" parent="Scatter/objectsContainer" unique_id=1849619084 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2248478, -0.66890943, -3.6683998)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39694" type="Node3D" parent="Scatter/objectsContainer" unique_id=420476596 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9638519, -0.66890943, -0.38002205)
+[node name="@Node3D@40680" type="Node3D" parent="Scatter/objectsContainer" unique_id=1254880685 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.646542, -0.66890943, 0.7511244)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39695" type="Node3D" parent="Scatter/objectsContainer" unique_id=2071876960 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.07982063, -0.66890943, -0.37970734)
+[node name="@Node3D@40681" type="Node3D" parent="Scatter/objectsContainer" unique_id=117953291 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5062447, -0.66890943, -1.1394386)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39696" type="Node3D" parent="Scatter/objectsContainer" unique_id=1833524664 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8908224, -0.66890943, -3.0363169)
+[node name="@Node3D@40682" type="Node3D" parent="Scatter/objectsContainer" unique_id=954113564 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9011145, -0.66890943, -1.9803462)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39697" type="Node3D" parent="Scatter/objectsContainer" unique_id=2088236548 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.20752239, -0.66890943, -2.6127558)
+[node name="@Node3D@40683" type="Node3D" parent="Scatter/objectsContainer" unique_id=1712060996 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.3379793, -0.66890943, 1.9940834)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39698" type="Node3D" parent="Scatter/objectsContainer" unique_id=2062635873 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2993584, -0.66890943, -2.2381902)
+[node name="@Node3D@40684" type="Node3D" parent="Scatter/objectsContainer" unique_id=496583513 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.342496, -0.66890943, -1.7003136)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39699" type="Node3D" parent="Scatter/objectsContainer" unique_id=110578599 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0544624, -0.66890943, -4.1483693)
+[node name="@Node3D@40685" type="Node3D" parent="Scatter/objectsContainer" unique_id=1305439246 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0065823, -0.66890943, -0.725399)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39700" type="Node3D" parent="Scatter/objectsContainer" unique_id=1792570422 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8337717, -0.66890943, 4.0156546)
+[node name="@Node3D@40686" type="Node3D" parent="Scatter/objectsContainer" unique_id=1127276642 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2954321, -0.66890943, 3.1977053)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39701" type="Node3D" parent="Scatter/objectsContainer" unique_id=1392111598 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.02637, -0.66890943, 3.9607096)
+[node name="@Node3D@40687" type="Node3D" parent="Scatter/objectsContainer" unique_id=506036295 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7928057, -0.66890943, -4.1135225)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39702" type="Node3D" parent="Scatter/objectsContainer" unique_id=732720800 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.85451984, -0.66890943, -0.85462666)
+[node name="@Node3D@40688" type="Node3D" parent="Scatter/objectsContainer" unique_id=490072402 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.909739, -0.66890943, -1.9669075)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39703" type="Node3D" parent="Scatter/objectsContainer" unique_id=1877849062 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1213837, -0.66890943, -2.0877876)
+[node name="@Node3D@40689" type="Node3D" parent="Scatter/objectsContainer" unique_id=583789111 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.726594, -0.66890943, 3.2607021)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39704" type="Node3D" parent="Scatter/objectsContainer" unique_id=504287079 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16592789, -0.66890943, 0.70377636)
+[node name="@Node3D@40690" type="Node3D" parent="Scatter/objectsContainer" unique_id=1288279292 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.7516966, -0.66890943, -3.1137238)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39705" type="Node3D" parent="Scatter/objectsContainer" unique_id=1334817807 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1504173, -0.66890943, -4.164756)
+[node name="@Node3D@40691" type="Node3D" parent="Scatter/objectsContainer" unique_id=437338371 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3346376, -0.66890943, 1.5574474)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39706" type="Node3D" parent="Scatter/objectsContainer" unique_id=883681427 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3248262, -0.66890943, 1.3783865)
+[node name="@Node3D@40692" type="Node3D" parent="Scatter/objectsContainer" unique_id=548436687 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3614135, -0.66890943, 0.39744377)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39707" type="Node3D" parent="Scatter/objectsContainer" unique_id=797775072 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9924259, -0.66890943, 4.1177816)
+[node name="@Node3D@40693" type="Node3D" parent="Scatter/objectsContainer" unique_id=1401380777 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4589968, -0.66890943, -4.4278693)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39708" type="Node3D" parent="Scatter/objectsContainer" unique_id=1624573859 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.854086, -0.66890943, -3.3762984)
+[node name="@Node3D@40694" type="Node3D" parent="Scatter/objectsContainer" unique_id=1621445342 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5116544, -0.66890943, 1.5050526)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39709" type="Node3D" parent="Scatter/objectsContainer" unique_id=1520366786 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6272793, -0.66890943, -3.1452975)
+[node name="@Node3D@40695" type="Node3D" parent="Scatter/objectsContainer" unique_id=1421325471 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6432028, -0.66890943, 1.4327917)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39710" type="Node3D" parent="Scatter/objectsContainer" unique_id=439753402 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8805223, -0.66890943, 3.648532)
+[node name="@Node3D@40696" type="Node3D" parent="Scatter/objectsContainer" unique_id=1864296162 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2998877, -0.66890955, 2.6386175)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39711" type="Node3D" parent="Scatter/objectsContainer" unique_id=763417260 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.512227, -0.66890943, -1.3478117)
+[node name="@Node3D@40697" type="Node3D" parent="Scatter/objectsContainer" unique_id=1464200818 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9901628, -0.66890943, -1.1680937)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39712" type="Node3D" parent="Scatter/objectsContainer" unique_id=696528030 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1699677, -0.66890943, -1.4941554)
+[node name="@Node3D@40698" type="Node3D" parent="Scatter/objectsContainer" unique_id=24494577 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.99581003, -0.66890943, 1.1904583)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39713" type="Node3D" parent="Scatter/objectsContainer" unique_id=862819279 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3514566, -0.66890943, -3.7772808)
+[node name="@Node3D@40699" type="Node3D" parent="Scatter/objectsContainer" unique_id=1490671709 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.365514, -0.66890943, 1.5239153)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39714" type="Node3D" parent="Scatter/objectsContainer" unique_id=732322109 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1576586, -0.66890943, -1.3242512)
+[node name="@Node3D@40700" type="Node3D" parent="Scatter/objectsContainer" unique_id=608271530 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3339806, -0.66890943, 4.4883146)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39715" type="Node3D" parent="Scatter/objectsContainer" unique_id=169051171 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0431776, -0.66890943, 0.7420559)
+[node name="@Node3D@40701" type="Node3D" parent="Scatter/objectsContainer" unique_id=1984609207 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1488333, -0.66890943, 2.023055)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39716" type="Node3D" parent="Scatter/objectsContainer" unique_id=1654869119 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.7685843, -0.66890943, 2.0475197)
+[node name="@Node3D@40702" type="Node3D" parent="Scatter/objectsContainer" unique_id=2078056720 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.532206, -0.66890943, 0.9471512)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39717" type="Node3D" parent="Scatter/objectsContainer" unique_id=1657162505 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9126158, -0.66890943, -1.5013757)
+[node name="@Node3D@40703" type="Node3D" parent="Scatter/objectsContainer" unique_id=448446321 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.614983, -0.66890943, -2.8521166)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39718" type="Node3D" parent="Scatter/objectsContainer" unique_id=536541784 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.96455574, -0.66890943, -1.608746)
+[node name="@Node3D@40704" type="Node3D" parent="Scatter/objectsContainer" unique_id=106697760 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2703638, -0.66890943, 3.6834097)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39719" type="Node3D" parent="Scatter/objectsContainer" unique_id=1130959564 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4319191, -0.66890943, -0.89603996)
+[node name="@Node3D@40705" type="Node3D" parent="Scatter/objectsContainer" unique_id=2005401016 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8503199, -0.66890943, -1.1597176)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39720" type="Node3D" parent="Scatter/objectsContainer" unique_id=1014485754 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0400414, -0.66890943, 0.34933853)
+[node name="@Node3D@40706" type="Node3D" parent="Scatter/objectsContainer" unique_id=628684260 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.436224, -0.66890943, -0.25722313)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39721" type="Node3D" parent="Scatter/objectsContainer" unique_id=1524949732 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.118826866, -0.66890943, -3.1585598)
+[node name="@Node3D@40707" type="Node3D" parent="Scatter/objectsContainer" unique_id=1623796498 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6249228, -0.66890943, -2.353198)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39722" type="Node3D" parent="Scatter/objectsContainer" unique_id=96176986 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4216332, -0.66890943, -0.8417511)
+[node name="@Node3D@40708" type="Node3D" parent="Scatter/objectsContainer" unique_id=223106490 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4159813, -0.66890943, -1.3524847)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39723" type="Node3D" parent="Scatter/objectsContainer" unique_id=1555942391 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.77295303, -0.66890943, 2.710369)
+[node name="@Node3D@40709" type="Node3D" parent="Scatter/objectsContainer" unique_id=779580565 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.9385395, -0.66890943, -2.384204)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39724" type="Node3D" parent="Scatter/objectsContainer" unique_id=518842019 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.41654968, -0.66890943, -1.8205891)
+[node name="@Node3D@40710" type="Node3D" parent="Scatter/objectsContainer" unique_id=2049949355 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7979097, -0.66890943, 2.953349)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39725" type="Node3D" parent="Scatter/objectsContainer" unique_id=1610486914 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0122747, -0.66890943, -4.3231335)
+[node name="@Node3D@40711" type="Node3D" parent="Scatter/objectsContainer" unique_id=713226145 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8587742, -0.66890943, -1.8870568)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39726" type="Node3D" parent="Scatter/objectsContainer" unique_id=954847126 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7917008, -0.66890943, 1.678299)
+[node name="@Node3D@40712" type="Node3D" parent="Scatter/objectsContainer" unique_id=1087876048 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.613181, -0.66890943, -1.418189)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39727" type="Node3D" parent="Scatter/objectsContainer" unique_id=1965331090 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2348433, -0.66890943, -2.7998743)
+[node name="@Node3D@40713" type="Node3D" parent="Scatter/objectsContainer" unique_id=1035769514 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25101948, -0.66890943, 2.1277666)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39728" type="Node3D" parent="Scatter/objectsContainer" unique_id=2021437361 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9399643, -0.66890943, -1.959075)
+[node name="@Node3D@40714" type="Node3D" parent="Scatter/objectsContainer" unique_id=721289060 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2558212, -0.66890943, -3.1547527)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39729" type="Node3D" parent="Scatter/objectsContainer" unique_id=903826600 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5450544, -0.66890943, -2.3897743)
+[node name="@Node3D@40715" type="Node3D" parent="Scatter/objectsContainer" unique_id=982749638 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.3094568, -0.66890943, -1.0585995)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39730" type="Node3D" parent="Scatter/objectsContainer" unique_id=1060954416 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0742116, -0.66890943, 1.6882753)
+[node name="@Node3D@40716" type="Node3D" parent="Scatter/objectsContainer" unique_id=1743368728 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.294835, -0.66890943, -2.4274435)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39731" type="Node3D" parent="Scatter/objectsContainer" unique_id=989275658 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6271529, -0.66890943, -3.4569883)
+[node name="@Node3D@40717" type="Node3D" parent="Scatter/objectsContainer" unique_id=1904429632 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18075275, -0.66890943, 1.2866144)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39732" type="Node3D" parent="Scatter/objectsContainer" unique_id=241221495 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.7134523, -0.66890943, 0.18149662)
+[node name="@Node3D@40718" type="Node3D" parent="Scatter/objectsContainer" unique_id=583770319 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4085817, -0.66890943, 0.21439838)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39733" type="Node3D" parent="Scatter/objectsContainer" unique_id=644022396 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4382286, -0.66890943, -3.959344)
+[node name="@Node3D@40719" type="Node3D" parent="Scatter/objectsContainer" unique_id=491770923 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3413687, -0.66890943, 2.3367567)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39734" type="Node3D" parent="Scatter/objectsContainer" unique_id=904320893 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.273017, -0.66890943, -0.7573471)
+[node name="@Node3D@40720" type="Node3D" parent="Scatter/objectsContainer" unique_id=69395279 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8344698, -0.66890943, -1.6228533)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39735" type="Node3D" parent="Scatter/objectsContainer" unique_id=1749285701 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5330739, -0.66890943, 1.1683731)
+[node name="@Node3D@40721" type="Node3D" parent="Scatter/objectsContainer" unique_id=362735190 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7568917, -0.66890943, -4.358286)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39736" type="Node3D" parent="Scatter/objectsContainer" unique_id=1524105867 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3638105, -0.66890943, -0.6880827)
+[node name="@Node3D@40722" type="Node3D" parent="Scatter/objectsContainer" unique_id=190621336 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1136236, -0.66890943, 1.2018576)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39737" type="Node3D" parent="Scatter/objectsContainer" unique_id=372097441 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0099626, -0.66890943, -2.63616)
+[node name="@Node3D@40723" type="Node3D" parent="Scatter/objectsContainer" unique_id=1472060681 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6471443, -0.66890943, -2.3068914)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39738" type="Node3D" parent="Scatter/objectsContainer" unique_id=1810881280 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6950064, -0.66890943, 4.283147)
+[node name="@Node3D@40724" type="Node3D" parent="Scatter/objectsContainer" unique_id=365503566 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.402937, -0.66890943, 1.5332584)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39739" type="Node3D" parent="Scatter/objectsContainer" unique_id=1568686544 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2983818, -0.66890943, 4.056119)
+[node name="@Node3D@40725" type="Node3D" parent="Scatter/objectsContainer" unique_id=361373517 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3578005, -0.66890943, -0.5780363)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39740" type="Node3D" parent="Scatter/objectsContainer" unique_id=1573592893 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6300893, -0.66890955, 4.1479883)
+[node name="@Node3D@40726" type="Node3D" parent="Scatter/objectsContainer" unique_id=557581157 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6285658, -0.66890943, -0.938097)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39741" type="Node3D" parent="Scatter/objectsContainer" unique_id=720705405 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2704563, -0.66890943, -4.109515)
+[node name="@Node3D@40727" type="Node3D" parent="Scatter/objectsContainer" unique_id=2008132763 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6475945, -0.66890943, -3.793726)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39742" type="Node3D" parent="Scatter/objectsContainer" unique_id=815561644 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8182611, -0.66890943, 1.5737295)
+[node name="@Node3D@40728" type="Node3D" parent="Scatter/objectsContainer" unique_id=1199653287 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5714264, -0.66890943, -0.30936146)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39743" type="Node3D" parent="Scatter/objectsContainer" unique_id=659919754 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7554083, -0.66890955, 3.367075)
+[node name="@Node3D@40729" type="Node3D" parent="Scatter/objectsContainer" unique_id=1389537703 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.828576, -0.66890943, 1.2784157)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39744" type="Node3D" parent="Scatter/objectsContainer" unique_id=1309367389 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0980244, -0.66890943, 3.8551035)
+[node name="@Node3D@40730" type="Node3D" parent="Scatter/objectsContainer" unique_id=467384212 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1787176, -0.66890943, -2.5712347)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39745" type="Node3D" parent="Scatter/objectsContainer" unique_id=339099579 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5156269, -0.66890943, 3.4968004)
+[node name="@Node3D@40731" type="Node3D" parent="Scatter/objectsContainer" unique_id=682545959 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2883196, -0.66890943, -4.8625417)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39746" type="Node3D" parent="Scatter/objectsContainer" unique_id=270456846 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3027306, -0.66890943, -4.441048)
+[node name="@Node3D@40732" type="Node3D" parent="Scatter/objectsContainer" unique_id=1615609635 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4141088, -0.66890943, 4.279874)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39747" type="Node3D" parent="Scatter/objectsContainer" unique_id=810909464 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9052925, -0.66890943, 1.854125)
+[node name="@Node3D@40733" type="Node3D" parent="Scatter/objectsContainer" unique_id=1568643000 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1570253, -0.66890943, -2.436564)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39748" type="Node3D" parent="Scatter/objectsContainer" unique_id=1809304091 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3435488, -0.66890943, -1.4747715)
+[node name="@Node3D@40734" type="Node3D" parent="Scatter/objectsContainer" unique_id=1467272711 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.23357868, -0.66890943, -2.8865156)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39749" type="Node3D" parent="Scatter/objectsContainer" unique_id=1966153304 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9579473, -0.66890943, -1.5779595)
+[node name="@Node3D@40735" type="Node3D" parent="Scatter/objectsContainer" unique_id=196911575 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7563128, -0.66890955, 3.6728058)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39750" type="Node3D" parent="Scatter/objectsContainer" unique_id=580296733 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1974669, -0.66890943, -4.3405037)
+[node name="@Node3D@40736" type="Node3D" parent="Scatter/objectsContainer" unique_id=1250008782 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1300344, -0.66890943, 2.6692495)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39751" type="Node3D" parent="Scatter/objectsContainer" unique_id=1457872875 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6537309, -0.66890943, -0.5052643)
+[node name="@Node3D@40737" type="Node3D" parent="Scatter/objectsContainer" unique_id=1360727382 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4250889, -0.66890943, 0.2949152)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39752" type="Node3D" parent="Scatter/objectsContainer" unique_id=1247041986 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.91184807, -0.66890943, 4.2392397)
+[node name="@Node3D@40738" type="Node3D" parent="Scatter/objectsContainer" unique_id=918531710 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3359632, -0.66890943, 2.7390518)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39753" type="Node3D" parent="Scatter/objectsContainer" unique_id=1739313984 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6674109, -0.66890943, -2.0012608)
+[node name="@Node3D@40739" type="Node3D" parent="Scatter/objectsContainer" unique_id=143277625 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5357533, -0.66890955, 2.8870964)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39754" type="Node3D" parent="Scatter/objectsContainer" unique_id=1040637048 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3960085, -0.66890943, 2.2331638)
+[node name="@Node3D@40740" type="Node3D" parent="Scatter/objectsContainer" unique_id=453690610 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.590273, -0.66890943, -1.6171212)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39755" type="Node3D" parent="Scatter/objectsContainer" unique_id=268031929 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2151332, -0.66890943, -1.236867)
+[node name="@Node3D@40741" type="Node3D" parent="Scatter/objectsContainer" unique_id=564596642 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.41141415, -0.66890943, -3.7033844)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39756" type="Node3D" parent="Scatter/objectsContainer" unique_id=2127738331 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.084869385, -0.66890943, -4.0096693)
+[node name="@Node3D@40742" type="Node3D" parent="Scatter/objectsContainer" unique_id=1114454565 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9396744, -0.66890943, -0.24777126)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39757" type="Node3D" parent="Scatter/objectsContainer" unique_id=490044223 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5224981, -0.66890943, 4.25286)
+[node name="@Node3D@40743" type="Node3D" parent="Scatter/objectsContainer" unique_id=949733904 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.58565044, -0.66890943, -3.3477645)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39758" type="Node3D" parent="Scatter/objectsContainer" unique_id=1074924751 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.11815739, -0.66890943, -4.567108)
+[node name="@Node3D@40744" type="Node3D" parent="Scatter/objectsContainer" unique_id=1501404400 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1009927, -0.66890943, -1.2098608)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39759" type="Node3D" parent="Scatter/objectsContainer" unique_id=2003091933 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.81913, -0.66890943, 2.8074074)
+[node name="@Node3D@40745" type="Node3D" parent="Scatter/objectsContainer" unique_id=141902332 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0497541, -0.66890943, 0.75867176)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39760" type="Node3D" parent="Scatter/objectsContainer" unique_id=385863919 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.32988262, -0.66890943, 0.31817818)
+[node name="@Node3D@40746" type="Node3D" parent="Scatter/objectsContainer" unique_id=1053198910 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.339035, -0.66890943, 2.0937414)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39761" type="Node3D" parent="Scatter/objectsContainer" unique_id=1224954620 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9488306, -0.66890943, -2.5758448)
+[node name="@Node3D@40747" type="Node3D" parent="Scatter/objectsContainer" unique_id=1405591785 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.20740795, -0.66890943, 3.4324198)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39762" type="Node3D" parent="Scatter/objectsContainer" unique_id=351736524 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9267702, -0.66890943, 3.9293623)
+[node name="@Node3D@40748" type="Node3D" parent="Scatter/objectsContainer" unique_id=361173707 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.34702, -0.66890943, 1.9422216)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39763" type="Node3D" parent="Scatter/objectsContainer" unique_id=1764649698 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5322895, -0.66890943, -3.1367435)
+[node name="@Node3D@40749" type="Node3D" parent="Scatter/objectsContainer" unique_id=1397128917 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3473649, -0.66890943, 4.2452517)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39764" type="Node3D" parent="Scatter/objectsContainer" unique_id=1763626938 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.93729687, -0.66890943, -0.59493446)
+[node name="@Node3D@40750" type="Node3D" parent="Scatter/objectsContainer" unique_id=62370282 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1440697, -0.66890943, -2.4555888)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39765" type="Node3D" parent="Scatter/objectsContainer" unique_id=1650176161 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.128337, -0.66890943, 2.1289911)
+[node name="@Node3D@40751" type="Node3D" parent="Scatter/objectsContainer" unique_id=327530930 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.42063522, -0.66890943, 1.7017508)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39766" type="Node3D" parent="Scatter/objectsContainer" unique_id=670565299 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.416461, -0.66890943, 1.840642)
+[node name="@Node3D@40752" type="Node3D" parent="Scatter/objectsContainer" unique_id=1166275449 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.49685764, -0.66890943, -0.74256516)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39767" type="Node3D" parent="Scatter/objectsContainer" unique_id=279913145 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.26366043, -0.66890943, -2.8876033)
+[node name="@Node3D@40753" type="Node3D" parent="Scatter/objectsContainer" unique_id=1905125474 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2007947, -0.66890943, -0.893981)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39768" type="Node3D" parent="Scatter/objectsContainer" unique_id=924558231 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5200853, -0.66890943, 0.31139374)
+[node name="@Node3D@40754" type="Node3D" parent="Scatter/objectsContainer" unique_id=770561024 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.730753, -0.66890943, 1.9631605)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39769" type="Node3D" parent="Scatter/objectsContainer" unique_id=794590682 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.47354126, -0.66890943, -3.269723)
+[node name="@Node3D@40755" type="Node3D" parent="Scatter/objectsContainer" unique_id=659550650 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1652107, -0.66890943, 2.1345482)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39770" type="Node3D" parent="Scatter/objectsContainer" unique_id=1190399354 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.03125477, -0.66890943, 1.9897947)
+[node name="@Node3D@40756" type="Node3D" parent="Scatter/objectsContainer" unique_id=1307212026 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92519665, -0.66890943, -3.2283344)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39771" type="Node3D" parent="Scatter/objectsContainer" unique_id=1828534470 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9375076, -0.66890943, -4.242066)
+[node name="@Node3D@40757" type="Node3D" parent="Scatter/objectsContainer" unique_id=678312503 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.9430504, -0.66890943, 2.0669537)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39772" type="Node3D" parent="Scatter/objectsContainer" unique_id=1889827219 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.56155777, -0.66890943, -4.2128754)
+[node name="@Node3D@40758" type="Node3D" parent="Scatter/objectsContainer" unique_id=1600796845 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.209488, -0.66890943, -2.378708)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39773" type="Node3D" parent="Scatter/objectsContainer" unique_id=1614173401 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5085206, -0.66890943, -2.092226)
+[node name="@Node3D@40759" type="Node3D" parent="Scatter/objectsContainer" unique_id=773670379 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.34812164, -0.66890943, -4.3426847)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39774" type="Node3D" parent="Scatter/objectsContainer" unique_id=419437982 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5327082, -0.66890943, 0.91902065)
+[node name="@Node3D@40760" type="Node3D" parent="Scatter/objectsContainer" unique_id=1537675774 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8824797, -0.66890943, -4.0558386)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39775" type="Node3D" parent="Scatter/objectsContainer" unique_id=1344278055 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.911726, -0.66890943, 4.626336)
+[node name="@Node3D@40761" type="Node3D" parent="Scatter/objectsContainer" unique_id=545502473 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0485153, -0.66890943, 3.3705187)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39776" type="Node3D" parent="Scatter/objectsContainer" unique_id=1441003090 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.0433545, -0.6689093, 3.6526928)
+[node name="@Node3D@40762" type="Node3D" parent="Scatter/objectsContainer" unique_id=2125824500 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0802717, -0.66890943, 0.86469555)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39777" type="Node3D" parent="Scatter/objectsContainer" unique_id=915250197 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4848042, -0.66890943, 0.58295345)
+[node name="@Node3D@40763" type="Node3D" parent="Scatter/objectsContainer" unique_id=1446088835 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0514889, -0.66890943, -1.3854351)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39778" type="Node3D" parent="Scatter/objectsContainer" unique_id=1386954350 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1858912, -0.66890943, 0.82514954)
+[node name="@Node3D@40764" type="Node3D" parent="Scatter/objectsContainer" unique_id=1191299360 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.72929335, -0.66890943, 3.8167086)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39779" type="Node3D" parent="Scatter/objectsContainer" unique_id=2022183122 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3414116, -0.66890943, 3.2933264)
+[node name="@Node3D@40765" type="Node3D" parent="Scatter/objectsContainer" unique_id=838102704 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3143282, -0.66890943, -4.402856)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39780" type="Node3D" parent="Scatter/objectsContainer" unique_id=14963821 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0260115, -0.66890943, -3.0328412)
+[node name="@Node3D@40766" type="Node3D" parent="Scatter/objectsContainer" unique_id=1885891135 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2638874, -0.66890943, 2.2340631)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39781" type="Node3D" parent="Scatter/objectsContainer" unique_id=355331803 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2257776, -0.66890943, -1.9555674)
+[node name="@Node3D@40767" type="Node3D" parent="Scatter/objectsContainer" unique_id=1340078714 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1092925, -0.66890943, 2.125351)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39782" type="Node3D" parent="Scatter/objectsContainer" unique_id=883928914 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.03141117, -0.66890943, -2.4609785)
+[node name="@Node3D@40768" type="Node3D" parent="Scatter/objectsContainer" unique_id=382059139 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.905901, -0.66890943, 0.682848)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39783" type="Node3D" parent="Scatter/objectsContainer" unique_id=1263785372 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.18785, -0.66890955, 3.2740946)
+[node name="@Node3D@40769" type="Node3D" parent="Scatter/objectsContainer" unique_id=448516302 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.47533703, -0.66890943, -3.069409)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39784" type="Node3D" parent="Scatter/objectsContainer" unique_id=1766429670 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.52141094, -0.66890943, -4.117537)
+[node name="@Node3D@40770" type="Node3D" parent="Scatter/objectsContainer" unique_id=525311350 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.056336403, -0.66890943, 1.2444267)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39785" type="Node3D" parent="Scatter/objectsContainer" unique_id=570419985 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9048843, -0.66890943, -1.1068106)
+[node name="@Node3D@40771" type="Node3D" parent="Scatter/objectsContainer" unique_id=1892877135 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8836689, -0.66890943, 2.1304855)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39786" type="Node3D" parent="Scatter/objectsContainer" unique_id=1835106785 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2363877, -0.66890943, 4.1077185)
+[node name="@Node3D@40772" type="Node3D" parent="Scatter/objectsContainer" unique_id=409854779 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7951002, -0.66890943, 2.3333635)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39787" type="Node3D" parent="Scatter/objectsContainer" unique_id=107703968 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.60072803, -0.66890943, -4.7078543)
+[node name="@Node3D@40773" type="Node3D" parent="Scatter/objectsContainer" unique_id=483488849 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.0574598, -0.66890955, 3.1319065)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39788" type="Node3D" parent="Scatter/objectsContainer" unique_id=300712669 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.019370079, -0.66890943, 1.8151503)
+[node name="@Node3D@40774" type="Node3D" parent="Scatter/objectsContainer" unique_id=1122574480 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.846116, -0.66890943, -0.7874565)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39789" type="Node3D" parent="Scatter/objectsContainer" unique_id=1059614122 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.352458, -0.66890943, -2.862874)
+[node name="@Node3D@40775" type="Node3D" parent="Scatter/objectsContainer" unique_id=1006828543 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.316998, -0.66890943, 2.4052439)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39790" type="Node3D" parent="Scatter/objectsContainer" unique_id=1389832028 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.64335537, -0.66890943, -4.18932)
+[node name="@Node3D@40776" type="Node3D" parent="Scatter/objectsContainer" unique_id=1029518971 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.89509296, -0.66890943, 3.4947958)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39791" type="Node3D" parent="Scatter/objectsContainer" unique_id=1887190767 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1727314, -0.66890943, 0.5562134)
+[node name="@Node3D@40777" type="Node3D" parent="Scatter/objectsContainer" unique_id=519733138 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9405136, -0.66890943, 3.3714437)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39792" type="Node3D" parent="Scatter/objectsContainer" unique_id=2146242970 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4592338, -0.66890943, 1.1944141)
+[node name="@Node3D@40778" type="Node3D" parent="Scatter/objectsContainer" unique_id=1894020214 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.36738682, -0.66890943, 0.9510927)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39793" type="Node3D" parent="Scatter/objectsContainer" unique_id=111103929 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6017914, -0.66890943, 2.638173)
+[node name="@Node3D@40779" type="Node3D" parent="Scatter/objectsContainer" unique_id=1558101214 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7177658, -0.66890943, -3.4297056)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39794" type="Node3D" parent="Scatter/objectsContainer" unique_id=238434469 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5990672, -0.66890943, -1.3118153)
+[node name="@Node3D@40780" type="Node3D" parent="Scatter/objectsContainer" unique_id=1579738957 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6787863, -0.66890943, -2.374466)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39795" type="Node3D" parent="Scatter/objectsContainer" unique_id=48261314 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.694799, -0.66890943, -3.8358178)
+[node name="@Node3D@40781" type="Node3D" parent="Scatter/objectsContainer" unique_id=1469264952 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6507859, -0.66890943, -0.49554348)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39796" type="Node3D" parent="Scatter/objectsContainer" unique_id=493799949 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.525342, -0.66890943, -4.7442985)
+[node name="@Node3D@40782" type="Node3D" parent="Scatter/objectsContainer" unique_id=640109302 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.040765, -0.66890943, 0.021097183)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39797" type="Node3D" parent="Scatter/objectsContainer" unique_id=964885042 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7088499, -0.66890943, -4.81512)
+[node name="@Node3D@40783" type="Node3D" parent="Scatter/objectsContainer" unique_id=946743171 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.68161154, -0.66890943, -1.225194)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39798" type="Node3D" parent="Scatter/objectsContainer" unique_id=759440240 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5931902, -0.66890943, 0.64294815)
+[node name="@Node3D@40784" type="Node3D" parent="Scatter/objectsContainer" unique_id=902764276 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.693286, -0.66890943, 1.5767946)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39799" type="Node3D" parent="Scatter/objectsContainer" unique_id=74015967 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9023619, -0.66890943, -2.0929508)
+[node name="@Node3D@40785" type="Node3D" parent="Scatter/objectsContainer" unique_id=744543182 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3981514, -0.66890943, -4.7996883)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39800" type="Node3D" parent="Scatter/objectsContainer" unique_id=1872210919 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2323942, -0.66890943, 1.1435032)
+[node name="@Node3D@40786" type="Node3D" parent="Scatter/objectsContainer" unique_id=1890150807 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1414056, -0.66890943, 1.4877424)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39801" type="Node3D" parent="Scatter/objectsContainer" unique_id=390459763 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9285269, -0.66890943, -2.194498)
+[node name="@Node3D@40787" type="Node3D" parent="Scatter/objectsContainer" unique_id=501503985 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6840773, -0.66890943, 1.4128952)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39802" type="Node3D" parent="Scatter/objectsContainer" unique_id=231145463 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8964591, -0.66890943, 4.370446)
+[node name="@Node3D@40788" type="Node3D" parent="Scatter/objectsContainer" unique_id=1239103588 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20047283, -0.66890943, 0.5326252)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39803" type="Node3D" parent="Scatter/objectsContainer" unique_id=1224548228 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7740393, -0.66890943, 1.0612764)
+[node name="@Node3D@40789" type="Node3D" parent="Scatter/objectsContainer" unique_id=1057583773 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7974763, -0.66890943, -2.3408794)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39804" type="Node3D" parent="Scatter/objectsContainer" unique_id=1846503505 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3672853, -0.66890943, 2.5088358)
+[node name="@Node3D@40790" type="Node3D" parent="Scatter/objectsContainer" unique_id=1404712612 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8735437, -0.66890943, 1.8457117)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39805" type="Node3D" parent="Scatter/objectsContainer" unique_id=401920329 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.568447, -0.66890943, 0.36171532)
+[node name="@Node3D@40791" type="Node3D" parent="Scatter/objectsContainer" unique_id=950724297 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1702013, -0.66890943, -0.32127953)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39806" type="Node3D" parent="Scatter/objectsContainer" unique_id=611747436 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.64878845, -0.66890943, -4.890167)
+[node name="@Node3D@40792" type="Node3D" parent="Scatter/objectsContainer" unique_id=434909799 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.37121582, -0.66890943, -1.7170973)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39807" type="Node3D" parent="Scatter/objectsContainer" unique_id=987794618 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.83987427, -0.66890943, 0.31879234)
+[node name="@Node3D@40793" type="Node3D" parent="Scatter/objectsContainer" unique_id=829793271 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2104673, -0.66890943, -1.8505802)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39808" type="Node3D" parent="Scatter/objectsContainer" unique_id=750773091 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7653036, -0.66890943, -3.283702)
+[node name="@Node3D@40794" type="Node3D" parent="Scatter/objectsContainer" unique_id=1815778975 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.027981758, -0.66890943, 2.896411)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39809" type="Node3D" parent="Scatter/objectsContainer" unique_id=2054521826 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.65078545, -0.66890943, -2.0537229)
+[node name="@Node3D@40795" type="Node3D" parent="Scatter/objectsContainer" unique_id=420278513 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.16538, -0.66890943, -2.703908)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39810" type="Node3D" parent="Scatter/objectsContainer" unique_id=751226122 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.338892, -0.66890943, -3.072692)
+[node name="@Node3D@40796" type="Node3D" parent="Scatter/objectsContainer" unique_id=951717076 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0970125, -0.66890943, 2.6282482)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39811" type="Node3D" parent="Scatter/objectsContainer" unique_id=262799129 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18286991, -0.66890943, 3.7646713)
+[node name="@Node3D@40797" type="Node3D" parent="Scatter/objectsContainer" unique_id=41388679 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.784484, -0.66890943, 0.8021612)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39812" type="Node3D" parent="Scatter/objectsContainer" unique_id=1789212787 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7589941, -0.66890943, -0.3922758)
+[node name="@Node3D@40798" type="Node3D" parent="Scatter/objectsContainer" unique_id=247802392 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6614823, -0.66890943, -2.1926198)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39813" type="Node3D" parent="Scatter/objectsContainer" unique_id=1509252982 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3535242, -0.66890943, 4.6152563)
+[node name="@Node3D@40799" type="Node3D" parent="Scatter/objectsContainer" unique_id=685139135 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5286484, -0.66890955, 3.1626358)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39814" type="Node3D" parent="Scatter/objectsContainer" unique_id=1387688453 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8688445, -0.66890943, -0.6159849)
+[node name="@Node3D@40800" type="Node3D" parent="Scatter/objectsContainer" unique_id=471771873 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.77492046, -0.66890955, 4.883046)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39815" type="Node3D" parent="Scatter/objectsContainer" unique_id=1423285842 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7419815, -0.66890943, -4.0860133)
+[node name="@Node3D@40801" type="Node3D" parent="Scatter/objectsContainer" unique_id=1536334437 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4221182, -0.66890943, 2.4619675)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39816" type="Node3D" parent="Scatter/objectsContainer" unique_id=1796326458 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6768389, -0.66890943, -0.2332592)
+[node name="@Node3D@40802" type="Node3D" parent="Scatter/objectsContainer" unique_id=820059186 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1367655, -0.66890943, -2.8943748)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39817" type="Node3D" parent="Scatter/objectsContainer" unique_id=1173408836 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1050367, -0.66890943, -1.1882343)
+[node name="@Node3D@40803" type="Node3D" parent="Scatter/objectsContainer" unique_id=1457715005 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4866972, -0.66890943, 4.417386)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39818" type="Node3D" parent="Scatter/objectsContainer" unique_id=1471829839 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8565197, -0.66890943, -4.241425)
+[node name="@Node3D@40804" type="Node3D" parent="Scatter/objectsContainer" unique_id=635797683 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0040607452, -0.66890943, -0.94047546)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39819" type="Node3D" parent="Scatter/objectsContainer" unique_id=1512895889 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2946367, -0.66890943, 4.241789)
+[node name="@Node3D@40805" type="Node3D" parent="Scatter/objectsContainer" unique_id=1645072374 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.62926674, -0.66890943, -4.8031263)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39820" type="Node3D" parent="Scatter/objectsContainer" unique_id=793537509 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5390158, -0.66890943, -1.7827544)
+[node name="@Node3D@40806" type="Node3D" parent="Scatter/objectsContainer" unique_id=1584764964 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6596994, -0.66890943, -2.9050736)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39821" type="Node3D" parent="Scatter/objectsContainer" unique_id=1008464825 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.42266273, -0.66890943, 3.1308346)
+[node name="@Node3D@40807" type="Node3D" parent="Scatter/objectsContainer" unique_id=1336946922 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6901283, -0.66890943, -1.6897035)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39822" type="Node3D" parent="Scatter/objectsContainer" unique_id=1767775359 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.928071, -0.66890943, 0.4136715)
+[node name="@Node3D@40808" type="Node3D" parent="Scatter/objectsContainer" unique_id=1231644890 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.02262, -0.66890943, 1.1609974)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39823" type="Node3D" parent="Scatter/objectsContainer" unique_id=1405834639 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.504156, -0.66890943, -0.004553795)
+[node name="@Node3D@40809" type="Node3D" parent="Scatter/objectsContainer" unique_id=1973750832 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5480366, -0.66890943, -0.71818924)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39824" type="Node3D" parent="Scatter/objectsContainer" unique_id=1212788898 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8000526, -0.66890943, 1.2082567)
+[node name="@Node3D@40810" type="Node3D" parent="Scatter/objectsContainer" unique_id=1141084380 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.51975346, -0.66890943, -4.041119)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39825" type="Node3D" parent="Scatter/objectsContainer" unique_id=1407631225 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.651452, -0.66890943, 3.9168406)
+[node name="@Node3D@40811" type="Node3D" parent="Scatter/objectsContainer" unique_id=1876385202 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2632546, -0.66890943, 1.42383)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39826" type="Node3D" parent="Scatter/objectsContainer" unique_id=350220812 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.266326, -0.66890943, -1.6136699)
+[node name="@Node3D@40812" type="Node3D" parent="Scatter/objectsContainer" unique_id=831536819 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.474948, -0.66890943, -3.003191)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39827" type="Node3D" parent="Scatter/objectsContainer" unique_id=81788187 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4503555, -0.66890943, 0.8811846)
+[node name="@Node3D@40813" type="Node3D" parent="Scatter/objectsContainer" unique_id=1389641870 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0211906, -0.66890943, -0.17429638)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39828" type="Node3D" parent="Scatter/objectsContainer" unique_id=628586738 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.862113, -0.66890943, -0.9989567)
+[node name="@Node3D@40814" type="Node3D" parent="Scatter/objectsContainer" unique_id=1990454453 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.12689877, -0.66890943, -1.0704985)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39829" type="Node3D" parent="Scatter/objectsContainer" unique_id=489438732 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.0918908, -0.66890943, -0.085855484)
+[node name="@Node3D@40815" type="Node3D" parent="Scatter/objectsContainer" unique_id=1445087237 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6473913, -0.66890943, 4.3026476)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39830" type="Node3D" parent="Scatter/objectsContainer" unique_id=942819853 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.341632, -0.66890943, -0.11016655)
+[node name="@Node3D@40816" type="Node3D" parent="Scatter/objectsContainer" unique_id=1409725953 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1239471, -0.66890943, 0.3540907)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39831" type="Node3D" parent="Scatter/objectsContainer" unique_id=252838757 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0154724, -0.66890943, -0.03937912)
+[node name="@Node3D@40817" type="Node3D" parent="Scatter/objectsContainer" unique_id=1743682346 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.297081, -0.66890943, -0.7725334)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39832" type="Node3D" parent="Scatter/objectsContainer" unique_id=1465380016 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9946642, -0.66890943, -0.9432249)
+[node name="@Node3D@40818" type="Node3D" parent="Scatter/objectsContainer" unique_id=1965366898 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3142872, -0.66890943, 1.7152205)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39833" type="Node3D" parent="Scatter/objectsContainer" unique_id=553725886 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.9421015, -0.66890955, 3.0731611)
+[node name="@Node3D@40819" type="Node3D" parent="Scatter/objectsContainer" unique_id=1056899974 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0187683, -0.66890943, 0.7704191)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39834" type="Node3D" parent="Scatter/objectsContainer" unique_id=900379195 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.554422, -0.66890943, 0.67423916)
+[node name="@Node3D@40820" type="Node3D" parent="Scatter/objectsContainer" unique_id=51480878 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7486062, -0.66890943, -1.186985)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39835" type="Node3D" parent="Scatter/objectsContainer" unique_id=1144117006 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8570399, -0.66890943, 2.1650982)
+[node name="@Node3D@40821" type="Node3D" parent="Scatter/objectsContainer" unique_id=1300940838 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2351313, -0.66890943, -3.4715967)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39836" type="Node3D" parent="Scatter/objectsContainer" unique_id=99661472 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.95687056, -0.66890943, -4.4161477)
+[node name="@Node3D@40822" type="Node3D" parent="Scatter/objectsContainer" unique_id=688820408 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.9855928, -0.66890943, 2.2823753)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39837" type="Node3D" parent="Scatter/objectsContainer" unique_id=1293656170 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.3654532, -0.66890943, 0.53761196)
+[node name="@Node3D@40823" type="Node3D" parent="Scatter/objectsContainer" unique_id=1775926063 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4307241, -0.66890943, 0.6744919)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39838" type="Node3D" parent="Scatter/objectsContainer" unique_id=436715956 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6761942, -0.66890943, 1.291604)
+[node name="@Node3D@40824" type="Node3D" parent="Scatter/objectsContainer" unique_id=2008894510 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5514, -0.66890943, -0.5556917)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39839" type="Node3D" parent="Scatter/objectsContainer" unique_id=275060266 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7387857, -0.66890943, -2.747714)
+[node name="@Node3D@40825" type="Node3D" parent="Scatter/objectsContainer" unique_id=1289655188 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7093706, -0.66890943, -1.3598738)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39840" type="Node3D" parent="Scatter/objectsContainer" unique_id=972475849 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3461094, -0.66890943, -2.4821272)
+[node name="@Node3D@40826" type="Node3D" parent="Scatter/objectsContainer" unique_id=462860985 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9671569, -0.66890943, -1.9252195)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39841" type="Node3D" parent="Scatter/objectsContainer" unique_id=2130067699 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7170439, -0.66890943, -4.671652)
+[node name="@Node3D@40827" type="Node3D" parent="Scatter/objectsContainer" unique_id=2099172448 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00045394897, -0.66890943, -3.0494423)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39842" type="Node3D" parent="Scatter/objectsContainer" unique_id=562595060 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6379604, -0.66890943, 2.7144947)
+[node name="@Node3D@40828" type="Node3D" parent="Scatter/objectsContainer" unique_id=400014432 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.50925064, -0.66890943, -2.7025309)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39843" type="Node3D" parent="Scatter/objectsContainer" unique_id=1444795671 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1640549, -0.66890943, 1.8869658)
+[node name="@Node3D@40829" type="Node3D" parent="Scatter/objectsContainer" unique_id=1481935969 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.1459475, -0.66890943, 1.8935423)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39844" type="Node3D" parent="Scatter/objectsContainer" unique_id=171198015 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2022867, -0.66890943, -0.21989918)
+[node name="@Node3D@40830" type="Node3D" parent="Scatter/objectsContainer" unique_id=1030227858 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.4356203, -0.66890943, 2.7772617)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39845" type="Node3D" parent="Scatter/objectsContainer" unique_id=975179636 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9309998, -0.66890943, -2.366146)
+[node name="@Node3D@40831" type="Node3D" parent="Scatter/objectsContainer" unique_id=505342731 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.31029224, -0.66890943, -3.955727)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39846" type="Node3D" parent="Scatter/objectsContainer" unique_id=2005523954 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5429955, -0.66890943, 4.1711893)
+[node name="@Node3D@40832" type="Node3D" parent="Scatter/objectsContainer" unique_id=1244901744 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3036327, -0.66890943, -4.019575)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39847" type="Node3D" parent="Scatter/objectsContainer" unique_id=1836651752 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.472619, -0.66890943, 2.357111)
+[node name="@Node3D@40833" type="Node3D" parent="Scatter/objectsContainer" unique_id=912419270 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4767609, -0.66890943, -2.0605526)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39848" type="Node3D" parent="Scatter/objectsContainer" unique_id=443672973 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5434914, -0.66890943, -2.0251727)
+[node name="@Node3D@40834" type="Node3D" parent="Scatter/objectsContainer" unique_id=1169341684 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6593237, -0.66890943, -3.417623)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39849" type="Node3D" parent="Scatter/objectsContainer" unique_id=1540541360 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.393878, -0.66890943, 0.33716297)
+[node name="@Node3D@40835" type="Node3D" parent="Scatter/objectsContainer" unique_id=1772146985 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7136793, -0.66890943, 1.3265553)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39850" type="Node3D" parent="Scatter/objectsContainer" unique_id=1718605243 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0646873, -0.66890943, -2.8201613)
+[node name="@Node3D@40836" type="Node3D" parent="Scatter/objectsContainer" unique_id=1684641184 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6379585, -0.66890943, -1.6473598)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39851" type="Node3D" parent="Scatter/objectsContainer" unique_id=1223999961 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7452278, -0.66890943, -1.6737485)
+[node name="@Node3D@40837" type="Node3D" parent="Scatter/objectsContainer" unique_id=1905000676 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5352645, -0.66890943, 2.505496)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39852" type="Node3D" parent="Scatter/objectsContainer" unique_id=2034419039 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.1883583, -0.66890943, -1.3624182)
+[node name="@Node3D@40838" type="Node3D" parent="Scatter/objectsContainer" unique_id=975093246 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3785157, -0.66890943, -1.5834417)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39853" type="Node3D" parent="Scatter/objectsContainer" unique_id=871482427 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.662747, -0.66890943, 1.1963997)
+[node name="@Node3D@40839" type="Node3D" parent="Scatter/objectsContainer" unique_id=293394184 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6540041, -0.66890943, -2.5269213)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39854" type="Node3D" parent="Scatter/objectsContainer" unique_id=1054619343 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4619217, -0.66890943, 1.1599636)
+[node name="@Node3D@40840" type="Node3D" parent="Scatter/objectsContainer" unique_id=126405564 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9874368, -0.6689093, 3.5404215)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39855" type="Node3D" parent="Scatter/objectsContainer" unique_id=1605289620 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.47313833, -0.66890943, -1.053793)
+[node name="@Node3D@40841" type="Node3D" parent="Scatter/objectsContainer" unique_id=522584444 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1858215, -0.66890943, 2.7083178)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39856" type="Node3D" parent="Scatter/objectsContainer" unique_id=265256419 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4178381, -0.66890943, -3.3548627)
+[node name="@Node3D@40842" type="Node3D" parent="Scatter/objectsContainer" unique_id=1212326112 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7078419, -0.66890943, 0.766819)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39857" type="Node3D" parent="Scatter/objectsContainer" unique_id=976379970 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2657795, -0.66890943, 4.3456583)
+[node name="@Node3D@40843" type="Node3D" parent="Scatter/objectsContainer" unique_id=279925910 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.667323, -0.66890943, 0.070949554)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39858" type="Node3D" parent="Scatter/objectsContainer" unique_id=1683973506 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.21019268, -0.66890943, 0.74158096)
+[node name="@Node3D@40844" type="Node3D" parent="Scatter/objectsContainer" unique_id=466749793 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.47872257, -0.66890943, 4.134446)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39859" type="Node3D" parent="Scatter/objectsContainer" unique_id=1627553572 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.717926, -0.66890943, 4.0184507)
+[node name="@Node3D@40845" type="Node3D" parent="Scatter/objectsContainer" unique_id=1274484684 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2115765, -0.66890943, -1.6306543)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39860" type="Node3D" parent="Scatter/objectsContainer" unique_id=699749723 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1176958, -0.66890943, 0.81454754)
+[node name="@Node3D@40846" type="Node3D" parent="Scatter/objectsContainer" unique_id=2101210958 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6113863, -0.66890943, 1.6245899)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39861" type="Node3D" parent="Scatter/objectsContainer" unique_id=1898456999 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9499445, -0.66890943, -1.265954)
+[node name="@Node3D@40847" type="Node3D" parent="Scatter/objectsContainer" unique_id=1573177236 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.1588717, -0.66890943, 2.0975199)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39862" type="Node3D" parent="Scatter/objectsContainer" unique_id=1308946004 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2215738, -0.66890943, -0.35628414)
+[node name="@Node3D@40848" type="Node3D" parent="Scatter/objectsContainer" unique_id=744138310 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3892431, -0.66890943, 2.8802423)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39863" type="Node3D" parent="Scatter/objectsContainer" unique_id=1133469644 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7384329, -0.66890943, -4.901186)
+[node name="@Node3D@40849" type="Node3D" parent="Scatter/objectsContainer" unique_id=2087048758 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0125456, -0.66890943, -1.7575269)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39864" type="Node3D" parent="Scatter/objectsContainer" unique_id=54180186 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.19587135, -0.66890943, -1.0717239)
+[node name="@Node3D@40850" type="Node3D" parent="Scatter/objectsContainer" unique_id=1281060506 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7188721, -0.66890943, 1.4926691)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39865" type="Node3D" parent="Scatter/objectsContainer" unique_id=1408037806 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.50371, -0.66890943, -1.1477594)
+[node name="@Node3D@40851" type="Node3D" parent="Scatter/objectsContainer" unique_id=1871149647 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.13573933, -0.66890943, 4.743745)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39866" type="Node3D" parent="Scatter/objectsContainer" unique_id=1519701258 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.879037, -0.66890943, -0.3489666)
+[node name="@Node3D@40852" type="Node3D" parent="Scatter/objectsContainer" unique_id=15380685 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2263298, -0.66890943, 1.8591108)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39867" type="Node3D" parent="Scatter/objectsContainer" unique_id=67657769 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0431623, -0.66890943, 4.56275)
+[node name="@Node3D@40853" type="Node3D" parent="Scatter/objectsContainer" unique_id=361132544 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8057575, -0.66890943, 2.3317442)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39868" type="Node3D" parent="Scatter/objectsContainer" unique_id=1472157412 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.1456451, -0.66890943, -1.4833956)
+[node name="@Node3D@40854" type="Node3D" parent="Scatter/objectsContainer" unique_id=1558295919 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5572052, -0.66890943, 0.27775002)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39869" type="Node3D" parent="Scatter/objectsContainer" unique_id=1008971638 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55910397, -0.66890943, -3.0842123)
+[node name="@Node3D@40855" type="Node3D" parent="Scatter/objectsContainer" unique_id=1521128602 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4277401, -0.66890943, 2.522421)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39870" type="Node3D" parent="Scatter/objectsContainer" unique_id=2026595796 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.16838932, -0.66890943, -3.7943978)
+[node name="@Node3D@40856" type="Node3D" parent="Scatter/objectsContainer" unique_id=415007844 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3458319, -0.66890943, -4.309432)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39871" type="Node3D" parent="Scatter/objectsContainer" unique_id=1591031691 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2494707, -0.66890943, 3.9072828)
+[node name="@Node3D@40857" type="Node3D" parent="Scatter/objectsContainer" unique_id=1163272338 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6622849, -0.66890943, 2.9757214)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39872" type="Node3D" parent="Scatter/objectsContainer" unique_id=1256883307 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1394348, -0.66890943, -2.3669662)
+[node name="@Node3D@40858" type="Node3D" parent="Scatter/objectsContainer" unique_id=674944479 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2491665, -0.66890943, 1.5654802)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39873" type="Node3D" parent="Scatter/objectsContainer" unique_id=1289981824 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.3447943, -0.66890943, 1.1011143)
+[node name="@Node3D@40859" type="Node3D" parent="Scatter/objectsContainer" unique_id=747761422 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75346994, -0.66890943, -4.839693)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39874" type="Node3D" parent="Scatter/objectsContainer" unique_id=1660778358 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8817234, -0.66890943, 1.1658792)
+[node name="@Node3D@40860" type="Node3D" parent="Scatter/objectsContainer" unique_id=215971517 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.0783868, -0.6689098, 2.903144)
 script = ExtResource("12_tstbq")
 
-[node name="@Node3D@39875" type="Node3D" parent="Scatter/objectsContainer" unique_id=236653714 instance=ExtResource("10_j5wqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0781374, -0.66890943, -3.1388388)
+[node name="@Node3D@40861" type="Node3D" parent="Scatter/objectsContainer" unique_id=839295852 instance=ExtResource("10_j5wqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.046079, -0.66890943, 1.2636795)
 script = ExtResource("12_tstbq")
 
 [node name="ScatterShape" type="CollisionShape3D" parent="Scatter" unique_id=1638099834]
@@ -1764,8 +1327,6 @@ metadata/_custom_type_script = "uid://rl5fqcv33ywo"
 
 [node name="info_player_start" parent="." unique_id=2111101146 instance=ExtResource("14_dtmoy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 2, 7)
-
-[connection signal="body_entered" from="Area3D" to="env" method="_on_point_trigger_3d_body_entered"]
 
 [editable path="item_swordTest"]
 [editable path="Level Transition"]

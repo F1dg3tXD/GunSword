@@ -44,3 +44,6 @@ layer_visible = Array[bool]([true])
 layer_modulate = Array[Color]([Color(1, 1, 1, 1)])
 elevation_threshold = 0.0
 animations = Array[String](["idle_spin"])
+
+[node name="_emission_light" type="OmniLight3D" parent="multiViewAnimatedSprite3D" unique_id=738766712]
+light_color = Color(0, 1, 1, 1)

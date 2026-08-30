@@ -37,6 +37,7 @@ XMBSave="*uid://l0v1uvul8mvx"
 PlayerTopDown="*uid://g3r12cwpvpos"
 Terminal="*res://scripts/terminal.gd"
 EnvGlobal="*uid://qoskmn1s03c"
+EntSky="*uid://bg5lwrganpnb0"
 
 [display]
 

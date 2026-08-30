@@ -63,6 +63,26 @@ class_name MultiViewAnimatedSprite3D
 		emission_light_range = value
 		_update_emission_light()
 
+@export_category("Shadow Billboard")
+
+## When enabled, a duplicate AnimatedSprite3D is spawned (as a child) with
+## [member GeometryInstance3D.cast_shadow] set to SHADOWS_ONLY, and is
+## billboarded to face opposite the environment directional light so it casts
+## a drop shadow onto the scene.
+@export var cast_shadow_billboard: bool = false:
+	set(value):
+		cast_shadow_billboard = value
+		if is_inside_tree():
+			_setup_shadow_billboard()
+
+## NodePath to the sun. When empty, the first DirectionalLight3D exposed by an
+## [code]env.gd[/code] node (its [member sun]) in the scene is used.
+@export var sun_node_path: NodePath = NodePath():
+	set(value):
+		sun_node_path = value
+		if is_inside_tree():
+			_setup_shadow_billboard()
+
 # Direction
 
 @export_category("Direction")
@@ -137,6 +157,11 @@ var _layer_nodes: Array[Sprite3D] = []
 
 var _emission_light: OmniLight3D = null
 
+# Shadow Billboard State
+
+## The duplicate AnimatedSprite3D used to cast a shadow-only billboard.
+var _shadow_sprite: AnimatedSprite3D = null
+
 # Vertical Billboard State
 
 ## Whether we are currently manually orienting the sprite for
@@ -159,6 +184,7 @@ func _ready() -> void:
 	_initialize_reference_transform()
 	_scan_animations()
 	_setup_layer_nodes()
+	_setup_shadow_billboard()
 	frame_changed.connect(_on_frame_changed)
 
 
@@ -179,6 +205,10 @@ func _initialize_reference_transform() -> void:
 
 
 func _process(_delta: float) -> void:
+	if cast_shadow_billboard:
+		_sync_shadow_billboard()
+		_update_shadow_billboard_orientation()
+
 	if not _is_base_playing:
 		return
 
@@ -748,6 +778,7 @@ func _sync_layers() -> void:
 		modulate = Color(1, 1, 1, 0)
 
 	_sync_shader_pbr()
+	_sync_shadow_billboard()
 
 # Shader PBR Sync
 
@@ -817,6 +848,114 @@ func _update_emission_light() -> void:
 func _hide_emission_light() -> void:
 	if _emission_light != null:
 		_emission_light.visible = false
+
+# Shadow Billboard
+
+func _setup_shadow_billboard() -> void:
+	if not cast_shadow_billboard:
+		if is_instance_valid(_shadow_sprite):
+			_shadow_sprite.queue_free()
+		_shadow_sprite = null
+		return
+
+	if _shadow_sprite == null or not is_instance_valid(_shadow_sprite):
+		_shadow_sprite = AnimatedSprite3D.new()
+		_shadow_sprite.name = &"_shadow_billboard"
+		_shadow_sprite.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_SHADOWS_ONLY
+		add_child(_shadow_sprite)
+		if Engine.is_editor_hint():
+			_shadow_sprite.owner = get_tree().edited_scene_root
+
+	_shadow_sprite.sprite_frames = sprite_frames
+	_shadow_sprite.pixel_size = pixel_size
+	_shadow_sprite.offset = offset
+	_shadow_sprite.flip_h = flip_h
+	_shadow_sprite.flip_v = flip_v
+	_shadow_sprite.alpha_cut = alpha_cut
+	_shadow_sprite.alpha_scissor_threshold = alpha_scissor_threshold
+
+	_sync_shadow_billboard()
+	_update_shadow_billboard_orientation()
+
+
+func _sync_shadow_billboard() -> void:
+	if not cast_shadow_billboard:
+		return
+	if _shadow_sprite == null or not is_instance_valid(_shadow_sprite):
+		return
+
+	_shadow_sprite.sprite_frames = sprite_frames
+	_shadow_sprite.flip_h = flip_h
+	_shadow_sprite.flip_v = flip_v
+
+	var anim := get_animation()
+	if anim != "" and sprite_frames != null and sprite_frames.has_animation(anim):
+		if _shadow_sprite.animation != anim:
+			_shadow_sprite.play(anim)
+		_shadow_sprite.frame = frame
+		_shadow_sprite.visible = is_visible_in_tree()
+	else:
+		_shadow_sprite.visible = false
+
+
+func _get_sun() -> DirectionalLight3D:
+	if sun_node_path != NodePath():
+		var node := get_node_or_null(sun_node_path)
+		if node is DirectionalLight3D:
+			return node
+
+	# Fall back to an env.gd node's `sun` in the scene, or any directional light.
+	var root := get_tree().current_scene if get_tree() else null
+	if root == null:
+		root = get_tree().root
+
+	return _find_sun(root)
+
+
+func _find_sun(node: Node) -> DirectionalLight3D:
+	if node is DirectionalLight3D:
+		return node
+
+	if "sun" in node:
+		var s = node.get("sun")
+		if s is DirectionalLight3D:
+			return s
+
+	for child in node.get_children():
+		var found := _find_sun(child)
+		if found != null:
+			return found
+
+	return null
+
+
+func _update_shadow_billboard_orientation() -> void:
+	if not cast_shadow_billboard:
+		return
+	if _shadow_sprite == null or not is_instance_valid(_shadow_sprite):
+		return
+
+	var sun := _get_sun()
+	if sun == null:
+		return
+
+	# Direction the light travels (Godot directional lights face -Z).
+	var light_dir := (-sun.global_transform.basis.z).normalized()
+	# Face the plane opposite the light's travel direction (back toward the sun).
+	var face_normal := -light_dir
+
+	var up := Vector3.UP
+	if up.cross(face_normal).length_squared() < 0.000001:
+		up = Vector3.RIGHT
+
+	# Basis.looking_at orients -Z toward the target; the sprite faces +Z, so
+	# point -Z toward the light's travel direction to face opposite it.
+	var target_dir := light_dir
+
+	_shadow_sprite.global_transform = Transform3D(
+		Basis.looking_at(target_dir, up),
+		global_position
+	)
 
 # Layer Public API
 
