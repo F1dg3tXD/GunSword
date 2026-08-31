@@ -12,6 +12,13 @@ signal transition_finished
 ## circle transition animation. Two transitions are otherwise linked when they
 ## point at each other's maps.
 @export var target_transition_path: NodePath = NodePath()
+## Unique name (or map-root-relative NodePath) of the LevelTransition node in
+## the TARGET map that should act as the arrival point for this cross-map link.
+## When a target map has more than one transition (e.g. several exits pointing
+## back at this map), set this so only that specific transition performs the
+## arrival walk. Leave empty to fall back to the default "my map == the map we
+## departed from" match.
+@export var target_transition_name: String = ""
 @export_range(0.0, 1.5, 0.01) var pause_at: float = 0.75
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -25,6 +32,10 @@ signal transition_finished
 ## scene == the map we departed from", i.e. two transitions pointing at each
 ## other's maps are linked.
 static var departing_scene_path := ""
+## Carried across a scene change so the arriving map knows which specific
+## transition (by name/path) should perform the arrival when the target map has
+## more than one transition. Empty means "match by departing scene".
+static var arrival_transition_name := ""
 ## Set to true by the arrival transition once it has positioned the player.
 ## Used by the spawn resolver to decide whether a direct load fallback is needed.
 static var arrival_handled := false
@@ -105,6 +116,7 @@ func _on_body_entered(body: Node3D) -> void:
 
 	# Cross-map: remember which scene we left so the matching arrival runs.
 	departing_scene_path = get_own_scene_path()
+	arrival_transition_name = target_transition_name
 	if target_scene != "":
 		get_tree().change_scene_to_file(target_scene)
 

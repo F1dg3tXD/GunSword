@@ -52,26 +52,28 @@ size = Vector3(5, 0.1, 1)
 transform = Transform3D(1, 0, 0, 0, -1, -8.742278e-08, 0, 8.742278e-08, -1, 2.5, 1, -3)
 size = Vector3(5, 0.1, 1)
 
-[node name="Level Transition" parent="." unique_id=1191875629 instance=ExtResource("2_7w0lv")]
+[node name="test_map" parent="." unique_id=1191875629 instance=ExtResource("2_7w0lv")]
+unique_name_in_owner = true
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -3.3523502, 0.7138301, 2)
 target_scene = "res://maps/test_map.tscn"
+target_transition_name = "m_shop"
 
-[node name="player_move_in_location" parent="Level Transition" index="2" unique_id=1497165615]
+[node name="player_move_in_location" parent="test_map" index="2" unique_id=1497165615]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5152092, 0, 2.674765)
 
-[node name="level_load_trigger" parent="Level Transition/player_move_in_location" index="0" unique_id=19668482]
+[node name="level_load_trigger" parent="test_map/player_move_in_location" index="0" unique_id=19668482]
 visible = true
 
-[node name="player_move_out_location" parent="Level Transition" index="3" unique_id=1392794707]
+[node name="player_move_out_location" parent="test_map" index="3" unique_id=1392794707]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.044847, 0, -0.089850664)
 
-[node name="info_player_start" parent="Level Transition/player_move_out_location" index="0" unique_id=2111101146 instance=ExtResource("3_iecu0")]
+[node name="info_player_start" parent="test_map/player_move_out_location" index="0" unique_id=2111101146 instance=ExtResource("3_iecu0")]
 
-[node name="Sprite3D" type="Sprite3D" parent="Level Transition" unique_id=328365124]
+[node name="Sprite3D" type="Sprite3D" parent="test_map" unique_id=328365124]
 billboard = 1
 texture = ExtResource("3_y6clc")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level Transition" unique_id=1193916770]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="test_map" unique_id=1193916770]
 shape = SubResource("BoxShape3D_iecu0")
 
-[editable path="Level Transition"]
+[editable path="test_map"]
