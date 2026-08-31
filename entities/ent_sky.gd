@@ -9,7 +9,7 @@ var day = true
 @export var day_length_minutes: float = 12.0
 ## How fast the sky's `overwritten_time` shader parameter advances per second.
 ## This acts as a time-scaling for the sky's animated effects (clouds, stars).
-@export var tick_speed: float = 20.0
+@export var tick_speed: float = 2.0
 
 var _sky_material: ShaderMaterial
 
