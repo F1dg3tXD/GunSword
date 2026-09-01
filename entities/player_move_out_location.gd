@@ -19,19 +19,52 @@ func _ready() -> void:
 	# left runs; all others stay valid by re-enabling monitoring and hiding
 	# their (default-visible) transition overlay.
 	var lt: Node = level_transition
-	# Per-load arrival flag; each transition clears it, and only the matching
-	# one (below) re-marks it once it has positioned the player. A transition
-	# is the "arrival" for a player who departed a map that this transition's
-	# target_scene points back to (i.e. the map we came from == target_scene).
-	lt.set("arrival_handled", false)
-	if lt.get("departing_scene_path") == "" or lt.get("departing_scene_path") != lt.get("target_scene"):
+
+	var arrival_name: String = String(lt.get("arrival_transition_name"))
+	var is_arrival := false
+	if not arrival_name.is_empty():
+		# Explicitly targeted arrival: this transition is the destination named
+		# by the departing transition, so match by name (supports target maps
+		# that contain more than one transition).
+		is_arrival = _matches_arrival_name(arrival_name)
+	else:
+		# Default: the transition whose target_scene points back to the map we
+		# just left.
+		is_arrival = (
+			lt.get("departing_scene_path") != ""
+			and lt.get("departing_scene_path") == lt.get("target_scene")
+		)
+
+	if not is_arrival:
 		transition.visible = false
 		level_transition.set_deferred("monitoring", true)
 		return
 
+	# Only the matched arrival clears the carried transition context and marks
+	# the arrival handled, so extra transitions in the same map do not reset it.
 	lt.set("departing_scene_path", "")
+	lt.set("arriving_from_transition", false)
+	lt.set("arrival_transition_name", "")
 	lt.set("arrival_handled", true)
 	begin_walk_in()
+
+
+## Returns true if this transition's node matches the carried arrival name or a
+## map-root-relative NodePath to it.
+func _matches_arrival_name(name_or_path: String) -> bool:
+	if name_or_path.is_empty():
+		return false
+	if level_transition.name == name_or_path:
+		return true
+
+	var clean := name_or_path
+	if clean.begins_with("/"):
+		clean = clean.trim_prefix("/")
+	var root := get_tree().current_scene
+	if root == null:
+		return false
+	var node := root.get_node_or_null(NodePath(clean))
+	return node == level_transition
 
 
 ## Performs the full arrival: positions the player at this transition's spawn

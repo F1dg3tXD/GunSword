@@ -32,6 +32,11 @@ signal transition_finished
 ## scene == the map we departed from", i.e. two transitions pointing at each
 ## other's maps are linked.
 static var departing_scene_path := ""
+## True once a cross-map level transition has been triggered, so the arriving
+## map knows the player is coming from a transition (not a direct load) and must
+## NOT fall back to info_player_start. Set on departure, cleared by the matched
+## arrival transition after it positions the player.
+static var arriving_from_transition := false
 ## Carried across a scene change so the arriving map knows which specific
 ## transition (by name/path) should perform the arrival when the target map has
 ## more than one transition. Empty means "match by departing scene".
@@ -116,6 +121,7 @@ func _on_body_entered(body: Node3D) -> void:
 
 	# Cross-map: remember which scene we left so the matching arrival runs.
 	departing_scene_path = get_own_scene_path()
+	arriving_from_transition = true
 	arrival_transition_name = target_transition_name
 	if target_scene != "":
 		get_tree().change_scene_to_file(target_scene)

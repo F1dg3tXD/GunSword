@@ -244,6 +244,11 @@ func _on_scene_spawn() -> void:
 		return
 	if LevelTransition.arrival_handled:
 		return
+	if LevelTransition.arriving_from_transition:
+		# Arriving from another map through a level transition. The arrival
+		# transition positions the player; ignore info_player_start so the
+		# move-in/exit placement is not overridden.
+		return
 	var start := InfoPlayerStart.find_in_scene()
 	global_position = start.global_position if start != null else Vector3.ZERO
 	set_ui_visible(true)
