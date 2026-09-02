@@ -12,6 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://ctg45ho4sytvk" path="res://entities/grass_test.tscn" id="10_j5wqg"]
 [ext_resource type="Script" uid="uid://rl5fqcv33ywo" path="res://addons/simple_scatter/scatter_shape.gd" id="13_dtmoy"]
 [ext_resource type="PackedScene" uid="uid://cenxeyidllgq8" path="res://entities/info_player_start.tscn" id="14_dtmoy"]
+[ext_resource type="Texture2D" uid="uid://b43jhuwe847fa" path="res://images/ent_phantom_camera_volume.png" id="14_tstbq"]
+[ext_resource type="PackedScene" uid="uid://bxeqmeyearlvc" path="res://entities/ent_phantom_camera_volume.tscn" id="14_wu1fe"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_yxyn3"]
 radius = 0.70133007
@@ -26,6 +28,16 @@ radius = 5.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wu1fe"]
 size = Vector3(10, 0.1274414, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p0toe"]
+size = Vector3(9.532349, 5, 9.618164)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xslnm"]
+transparency = 1
+cull_mode = 2
+depth_draw_mode = 1
+albedo_texture = ExtResource("14_tstbq")
+uv1_triplanar = true
 
 [node name="test_map" type="Node3D" unique_id=789246963]
 
@@ -129,5 +141,27 @@ metadata/_custom_type_script = "uid://rl5fqcv33ywo"
 [node name="info_player_start" parent="." unique_id=2111101146 instance=ExtResource("14_dtmoy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 2, 7)
 
+[node name="PhantomCameraVolume" parent="." unique_id=393058475 instance=ExtResource("14_wu1fe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.71793413, 1.4496629, 3.6638765)
+static_only = true
+
+[node name="PhantomCamera3D" parent="PhantomCameraVolume" index="0" unique_id=1954499593 node_paths=PackedStringArray("look_at_target")]
+transform = Transform3D(0, -0.6124234, 0.79052997, 0, 0.79052997, 0.6124234, -1, 0, 0, 2.1635427, 1.6760962, 0)
+look_at_mode = 2
+look_at_target = NodePath("../PhantomCameraTarget3D")
+align_transform_with_view = Callable()
+align_rotation_with_view = Callable()
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PhantomCameraVolume" unique_id=571634852]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8151522, 0, -0.48534966)
+shape = SubResource("BoxShape3D_p0toe")
+
+[node name="Debug" type="CSGBox3D" parent="PhantomCameraVolume" unique_id=1912966307 groups=["debug"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8151522, 0, -0.48534966)
+visible = false
+size = Vector3(9.532349, 5, 9.618164)
+material = SubResource("StandardMaterial3D_xslnm")
+
 [editable path="item_swordTest"]
 [editable path="test_map"]
+[editable path="PhantomCameraVolume"]

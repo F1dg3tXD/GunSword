@@ -863,10 +863,11 @@ func _validate_property(property: Dictionary) -> void:
 
 
 func _enter_tree() -> void:
-	_phantom_camera_manager = Engine.get_singleton(_constants.PCAM_MANAGER_NODE_NAME)
+	_phantom_camera_manager = Engine.get_singleton(_constants.PCAM_MANAGER_NODE_NAME) if Engine.has_singleton(_constants.PCAM_MANAGER_NODE_NAME) else null
 	_tween_skip = !tween_on_load
 
-	_phantom_camera_manager.pcam_added(self)
+	if is_instance_valid(_phantom_camera_manager):
+		_phantom_camera_manager.pcam_added(self)
 
 	priority_override = false
 
@@ -949,7 +950,8 @@ func _ready():
 	## Should be removed once https://github.com/ramokz/phantom-camera/issues/161 is complete
 	_transform_output = global_transform
 
-	_phantom_camera_manager.noise_3d_emitted.connect(_noise_emitted)
+	if is_instance_valid(_phantom_camera_manager):
+		_phantom_camera_manager.noise_3d_emitted.connect(_noise_emitted)
 
 
 func _process(delta: float) -> void:

@@ -261,8 +261,9 @@ func _get_configuration_warnings() -> PackedStringArray:
 func _enter_tree() -> void:
 	var parent: Node = get_parent()
 	if parent is Camera2D or parent.is_class("Camera3D"): ## Note: To support disable_3d export templates for 2D projects, this is purposely not strongly typed.
-		_phantom_camera_manager = get_tree().root.get_node(_constants.PCAM_MANAGER_NODE_NAME)
-		_phantom_camera_manager.pcam_host_added(self)
+		_phantom_camera_manager = get_tree().root.get_node_or_null(_constants.PCAM_MANAGER_NODE_NAME)
+		if is_instance_valid(_phantom_camera_manager):
+			_phantom_camera_manager.pcam_host_added(self)
 
 		_is_child_of_camera = true
 		if parent is Camera2D:
@@ -367,6 +368,7 @@ func _pcam_is_in_host_layer(pcam: Node) -> bool:
 
 
 func _find_pcam_with_highest_priority() -> void:
+	if _phantom_camera_manager == null or not is_instance_valid(_phantom_camera_manager): return
 	var pcam_list: Array
 	if _is_2d:
 		pcam_list = _phantom_camera_manager.phantom_camera_2ds
@@ -800,6 +802,7 @@ func _check_pcam_physics() -> void:
 	if interpolation_mode == InterpolationMode.MANUAL: return
 
 	if _is_2d:
+		if not is_instance_valid(_active_pcam_2d): return
 		if _active_pcam_2d.get_follow_target_physics_based() and interpolation_mode != InterpolationMode.IDLE:
 			_follow_target_physics_based = true
 			camera_2d.reset_physics_interpolation()
@@ -819,6 +822,7 @@ func _check_pcam_physics() -> void:
 		## NOTE - Only supported in Godot 4.4 or later
 		if Engine.get_version_info().major == 4 and \
 		Engine.get_version_info().minor >= 4:
+			if not is_instance_valid(_active_pcam_3d): return
 			if (get_tree().physics_interpolation or _active_pcam_3d.get_follow_target_physics_based()) and interpolation_mode != InterpolationMode.IDLE:
 				#if get_tree().physics_interpolation or _active_pcam_3d.get_follow_target_physics_based():
 				_follow_target_physics_based = true

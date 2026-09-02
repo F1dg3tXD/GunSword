@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://687dwq6o4eqo" path="res://UI/mobile_controls.tscn" id="6_dm3jn"]
 [ext_resource type="PackedScene" uid="uid://wq74pl0jbpqw" path="res://UI/player_ui.tscn" id="6_grj6g"]
 [ext_resource type="Script" uid="uid://bspl85qx52qjt" path="res://player/frustrum_camera_3d.gd" id="7_sskrf"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="8_eimjd"]
 [ext_resource type="PackedScene" uid="uid://d3d5grr7hl0yr" path="res://entities/savable.tscn" id="8_kts7d"]
 [ext_resource type="PackedScene" uid="uid://xn2hmd0mtx1j" path="res://player/death_handler.tscn" id="10_b8ww2"]
 [ext_resource type="PackedScene" uid="uid://cfsr1q722lped" path="res://player/respawn_handler.tscn" id="11_tsuen"]
@@ -111,6 +112,12 @@ script = ExtResource("7_sskrf")
 [node name="CameraCast" type="RayCast3D" parent="CameraRig/SpringArm3D/Camera3D" unique_id=613225964]
 target_position = Vector3(0, 0, -20)
 
+[node name="PhantomCameraHost" type="Node" parent="CameraRig/SpringArm3D/Camera3D" unique_id=1456562911]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("8_eimjd")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
+
 [node name="MobileControls" parent="." unique_id=1624332671 instance=ExtResource("6_dm3jn")]
 layer = 1
 visible = false
@@ -132,6 +139,7 @@ shape = SubResource("SphereShape3D_yxyn3")
 [node name="swordCollider" type="Area3D" parent="." unique_id=1193883065]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="swordCollider" unique_id=925999679]
+visible = false
 shape = SubResource("SphereShape3D_2s5nj")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="swordCollider/CollisionShape3D" unique_id=1742808744 groups=["debug"]]

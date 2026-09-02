@@ -59,6 +59,7 @@ func _set_debug_collision(enabled: bool) -> void:
 		if node is Node3D:
 			for cs in node.find_children("*", "CollisionShape3D", true, false):
 				cs.visible = enabled
+			node.visible = enabled
 
 
 # ── fly ──────────────────────────────────────────────────────────────────────

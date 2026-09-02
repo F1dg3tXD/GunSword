@@ -84,6 +84,7 @@ enum AimScheme { NONE, STICK, MOUSE }
 @onready var camera_rig: Node3D = $CameraRig
 @onready var spring_arm: SpringArm3D = $CameraRig/SpringArm3D
 @onready var camera_3d: Camera3D = $CameraRig/SpringArm3D/Camera3D
+@onready var phantom_camera_host: PhantomCameraHost = $CameraRig/SpringArm3D/Camera3D/PhantomCameraHost
 @onready var mobile_controls: CanvasLayer = $MobileControls
 
 @onready var target_area: Area3D = $targetArea
@@ -147,6 +148,7 @@ var _dialogue_locked := false
 var _fly_mode := false
 var _move_dir := Vector2.ZERO
 var _moving := false
+var _inside_camera_volume := false
 var cutscene_velocity := Vector3.ZERO
 var _move_to_target: Vector3 = Vector3(INF, INF, INF)
 var _move_to_speed := 3.0
@@ -223,6 +225,21 @@ func _ready() -> void:
 
 	get_tree().scene_changed.connect(_on_scene_spawn)
 	_on_scene_spawn.call_deferred()
+	disable_phantom_camera_host()
+
+
+## Keeps the PhantomCameraHost from overriding the player camera until a camera
+## volume activates it. Camera volumes re-enable it via enable_phantom_camera_host().
+func disable_phantom_camera_host() -> void:
+	if phantom_camera_host != null and is_instance_valid(phantom_camera_host):
+		phantom_camera_host.set_process(false)
+		phantom_camera_host.set_physics_process(false)
+
+
+func enable_phantom_camera_host() -> void:
+	if phantom_camera_host != null and is_instance_valid(phantom_camera_host):
+		phantom_camera_host.set_process(true)
+		phantom_camera_host.set_physics_process(true)
 
 
 ## Resolves where the player spawns each time a map is loaded.
@@ -444,8 +461,28 @@ func _camera_space_to_world(v: Vector2) -> Vector3:
 	## Camera-space uses the Godot screen convention: +x = screen right,
 	## +y = screen down. Maps to the ground plane relative to the camera yaw.
 	## Used for character movement only (stays horizontal).
-	var basis := camera_rig.global_transform.basis
+	var basis := _movement_basis()
 	return basis.x * v.x + basis.z * v.y
+
+
+## The horizontal basis movement input is resolved against. Normally this is the
+## player camera rig's yaw; while inside a camera volume it is the volume's
+## active camera yaw, so movement stays relative to whichever camera is on screen.
+func _movement_basis() -> Basis:
+	var source: Node3D = camera_3d if _inside_camera_volume else camera_rig
+	return Basis(Vector3.UP, source.global_rotation.y)
+
+
+## Whether the player's current game-settings camera behavior is Static, used by
+## camera volumes to gate their activation.
+func is_camera_static() -> bool:
+	return _camera_behavior == CameraBehavior.STATIC
+
+
+## Marks whether the player is currently inside a camera volume, making movement
+## resolve against the volume's active camera rather than the player rig.
+func set_inside_camera_volume(inside: bool) -> void:
+	_inside_camera_volume = inside
 
 
 func _aim_to_world(v: Vector2) -> Vector3:
@@ -487,7 +524,7 @@ func _get_fire_aim_point() -> Vector3:
 
 
 func _world_to_camera_space(v: Vector3) -> Vector2:
-	var basis := camera_rig.global_transform.basis
+	var basis := _movement_basis()
 	return Vector2(basis.x.dot(v), basis.z.dot(v))
 
 
