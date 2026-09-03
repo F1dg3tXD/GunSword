@@ -12,6 +12,7 @@ script = ExtResource("1_dc3ls")
 
 [node name="PhantomCamera3D" type="Node3D" parent="." unique_id=1954499593]
 visible = false
+tween_on_load = false
 script = ExtResource("2_i35tv")
 tween_resource = SubResource("Resource_emmlu")
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"

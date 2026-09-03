@@ -50,7 +50,10 @@ var _transitioning := false
 
 
 func _ready() -> void:
-	pass
+	# Run after the PhantomCameraHost (which drives the camera at priority 300)
+	# so circle projection reads the finalized, current-frame camera transform
+	# instead of a stale/offset one.
+	process_priority = 500
 
 
 func get_own_scene_path() -> String:
@@ -59,21 +62,36 @@ func get_own_scene_path() -> String:
 
 
 func _process(_delta: float) -> void:
-	if _camera == null or _transitioning == false:
+	if _transitioning == false:
 		return
 	_update_circle_position()
 
 
 func _update_circle_position() -> void:
 	var player = get_tree().get_first_node_in_group("player")
-	if player == null or _camera == null:
+	if player == null:
 		return
-	var screen_pos := _camera.unproject_position(player.global_position + Vector3.UP * 0.7)
-	var viewport_size := color_rect.get_viewport_rect().size
-	var uv := screen_pos / viewport_size
 	var shader_mat := color_rect.material as ShaderMaterial
 	if shader_mat:
-		shader_mat.set_shader_parameter("_CirclePosition", uv)
+		shader_mat.set_shader_parameter("_CirclePosition", _circle_uv(player))
+
+## Computes a clamped on-screen UV (0..1) for centering the transition circle on
+## the player. Projects through the camera that is actually rendering the view
+## each frame (via get_viewport().get_camera_3d()) — not a cached camera — so the
+## circle keeps tracing the player even when a phantom camera volume takes over
+## the view mid-transition.
+func _circle_uv(player: Node3D) -> Vector2:
+	var cam := get_viewport().get_camera_3d()
+	if cam == null:
+		cam = _camera
+	var viewport_size := color_rect.get_viewport_rect().size
+	if cam == null or viewport_size.x <= 0.0 or viewport_size.y <= 0.0:
+		return Vector2(0.5, 0.5)
+	var world_target: Vector3 = player.global_position + Vector3.UP * 0.7
+	var screen_pos: Vector2 = cam.unproject_position(world_target)
+	# unproject_position() can fold/mirror for off-screen or behind-camera points;
+	# clamping keeps the circle on-screen so the transition always closes cleanly.
+	return (screen_pos / viewport_size).clamp(Vector2.ZERO, Vector2.ONE)
 
 
 func _on_body_entered(body: Node3D) -> void:

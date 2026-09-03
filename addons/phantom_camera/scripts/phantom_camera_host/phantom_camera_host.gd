@@ -380,20 +380,23 @@ func _find_pcam_with_highest_priority() -> void:
 
 	for pcam in pcam_list:
 		#_check_pcam_priority(pcam)
+		if not is_instance_valid(pcam): continue
 		if not _pcam_is_in_host_layer(pcam): continue
 		if not pcam.visible: continue # Prevents hidden PCams from becoming active
 		if pcam.priority >= pcam_priority:
 			pcam_priority = pcam.priority
 			pcam_with_highest_priority = pcam
 
-	if pcam_with_highest_priority == null: return
+	if not is_instance_valid(pcam_with_highest_priority): return
 	_check_pcam_priority(pcam_with_highest_priority)
 
 	for pcam in pcam_list:
-		pcam.set_tween_skip(self, false)
+		if is_instance_valid(pcam):
+			pcam.set_tween_skip(self, false)
 
 
 func _check_pcam_priority(pcam: Node) -> void:
+	if not is_instance_valid(pcam): return
 	if not _pcam_is_in_host_layer(pcam): return
 	if not pcam.visible: return # Prevents hidden PCams from becoming active
 	if pcam.get_priority() >= _active_pcam_priority:
@@ -410,6 +413,15 @@ func _assign_new_active_pcam(pcam: Node) -> void:
 	# Only checks if the scene tree is still present.
 	# Prevents a few errors and checks from happening if the scene is exited.
 	if not is_inside_tree(): return
+	# Clear any stale references to freed PCams so downstream code never touches
+	# a previously-freed instance (e.g. a PCam freed during a scene change whose
+	# _exit_tree / pcam_removed signal hadn't cleared it yet).
+	if _is_2d:
+		if not is_instance_valid(_active_pcam_2d):
+			_active_pcam_2d = null
+	else:
+		if not is_instance_valid(_active_pcam_3d):
+			_active_pcam_3d = null
 	var no_previous_pcam: bool
 	if is_instance_valid(_active_pcam_2d) or is_instance_valid(_active_pcam_3d):
 		if OS.has_feature("debug"):
@@ -713,7 +725,7 @@ func _tween_value_checker(current_pcam: Node, new_pcam: Node) -> void:
 	_tween_ease = new_pcam.tween_ease
 
 	# Check for conditional Tween Director properties
-	if current_pcam == null: return
+	if not is_instance_valid(current_pcam): return
 	if _phantom_camera_manager.phantom_camera_tween_directors.size() == 0: return
 
 	## PCam Tween Director(s) in current scene

@@ -3,8 +3,19 @@
 [ext_resource type="PackedScene" uid="uid://dqwx057lhado0" path="res://entities/level_transition.tscn" id="2_7w0lv"]
 [ext_resource type="PackedScene" uid="uid://cenxeyidllgq8" path="res://entities/info_player_start.tscn" id="3_iecu0"]
 [ext_resource type="Texture2D" uid="uid://r7yf031ht58x" path="res://addons/cylinder_cut/icon.svg" id="3_y6clc"]
+[ext_resource type="PackedScene" uid="uid://bxeqmeyearlvc" path="res://entities/ent_phantom_camera_volume.tscn" id="4_iecu0"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="5_e5s7m"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_iecu0"]
+
+[sub_resource type="Resource" id="Resource_ugek3"]
+script = ExtResource("5_e5s7m")
+duration = 0.01
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yxyn3"]
+size = Vector3(10.032227, 6.9296875, 11.792725)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_yxyn3"]
 
 [node name="m_shop" type="Node3D" unique_id=252674264]
 
@@ -76,4 +87,28 @@ texture = ExtResource("3_y6clc")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="test_map" unique_id=1193916770]
 shape = SubResource("BoxShape3D_iecu0")
 
+[node name="PhantomCameraVolume" parent="." unique_id=393058475 instance=ExtResource("4_iecu0")]
+
+[node name="PhantomCamera3D" parent="PhantomCameraVolume" index="0" unique_id=1954499593 node_paths=PackedStringArray("look_at_target")]
+transform = Transform3D(0.9034001, -0.18018208, 0.38910493, -1.4901161e-08, 0.9074305, 0.42020217, -0.4287986, -0.3796107, 0.81977284, -1.1052494, 3.5122924, 6.569034)
+look_at_mode = 2
+look_at_target = NodePath("../PhantomCameraTarget3D")
+tween_resource = SubResource("Resource_ugek3")
+align_transform_with_view = Callable()
+align_rotation_with_view = Callable()
+
+[node name="PhantomCameraTarget3D" parent="PhantomCameraVolume" index="1" unique_id=1251609357]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.357613, 0, -0.28310156)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PhantomCameraVolume" unique_id=1490561002]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2293015, 1.2471428)
+shape = SubResource("BoxShape3D_yxyn3")
+
+[node name="Node3D" type="StaticBody3D" parent="." unique_id=1193786284]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 1.5094955, 5.9760103)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D" unique_id=362043888]
+shape = SubResource("WorldBoundaryShape3D_yxyn3")
+
 [editable path="test_map"]
+[editable path="PhantomCameraVolume"]

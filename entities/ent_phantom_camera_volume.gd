@@ -65,7 +65,18 @@ func _on_body_entered(body: Node3D) -> void:
 		body.call("set_inside_camera_volume", true)
 	_configure_targets()
 	_update_target()
-	_reenable_host(body)
+	# Activate immediately so the camera is already here as soon as the player
+	# spawns (incl. during the level-arrival transition), rather than snapping
+	# into place after the player finishes walking in.
+	_activate()
+
+
+## Enables the host and hands control of the camera to this volume's phantom
+## camera.
+func _activate() -> void:
+	if _player == null or not is_instance_valid(_player):
+		return
+	_reenable_host(_player)
 	phantom_camera_3d.visible = true
 	phantom_camera_3d.set_priority(activation_priority)
 
