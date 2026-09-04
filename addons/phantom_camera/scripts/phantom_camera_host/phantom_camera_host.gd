@@ -329,8 +329,13 @@ func _ready() -> void:
 			if not _phantom_camera_manager.draw_limit_2d.is_connected(_draw_limit_2d):
 				_phantom_camera_manager.draw_limit_2d.connect(_draw_limit_2d)
 	else:
-		printerr("Could not find Phantom Camera Manager singleton")
-		printerr("Make sure the addon is enable or that the singleton hasn't been disabled inside Project Settings / Globals")
+		# The manager singleton is registered by the addon as an autoload at
+		# runtime. When editing/opening a scene that contains a host in the
+		# editor (Engine.is_editor_hint()), that singleton is present but the
+		# autoload isn't available yet, so don't warn about it here.
+		if not Engine.is_editor_hint():
+			printerr("Could not find Phantom Camera Manager singleton")
+			printerr("Make sure the addon is enable or that the singleton hasn't been disabled inside Project Settings / Globals")
 
 	_find_pcam_with_highest_priority()
 

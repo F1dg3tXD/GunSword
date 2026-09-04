@@ -26,7 +26,8 @@ enum FireMode { BLASTER, LASER }
 @export var ground_pound_effect_drain_multiplier := 1.5
 
 const MAX_AIM_DIST := 5.0
-const LOOK_ARROW_MAX_POS := 1.0
+const AIM_SCREEN_RANGE := 1.0
+const LOOK_ARROW_SCREEN_RANGE := 0.18
 const LOOK_ARROW_MAX_SCALE := 5.0
 const PAN_TRIGGER_STRENGTH := 0.25
 const CROSSHAIR_SPIN_SPEED := 3.0
@@ -149,6 +150,8 @@ var _fly_mode := false
 var _move_dir := Vector2.ZERO
 var _moving := false
 var _inside_camera_volume := false
+var _world_boundary_rid := RID()
+var _aim_point_world := Vector3.ZERO
 var cutscene_velocity := Vector3.ZERO
 var _move_to_target: Vector3 = Vector3(INF, INF, INF)
 var _move_to_speed := 3.0
@@ -212,7 +215,11 @@ func _ready() -> void:
 	camera_3d.current = true
 	spring_arm.add_excluded_object(get_rid())
 	ground_pound_cooldown_ui.visible = false
-	($groundPoundCooldownUI/Sprite3D as Sprite3D).texture = $groundPoundCooldownUI/SubViewport.get_texture()
+	# The SubViewport needs a frame to render before its texture is usable, and
+	# doing this while editing the scene in the editor triggers a spurious
+	# "Cannot blit_rect in compressed image formats" error. Defer it to runtime.
+	if not Engine.is_editor_hint():
+		_bind_ground_pound_ui_texture.call_deferred()
 
 	sprite.play("idle")
 	_update_mobile_controls()
@@ -225,7 +232,18 @@ func _ready() -> void:
 
 	get_tree().scene_changed.connect(_on_scene_spawn)
 	_on_scene_spawn.call_deferred()
+	_refresh_world_boundary.call_deferred()
 	disable_phantom_camera_host()
+
+
+## Copies the SubViewport's rendered output onto the ground-pound-cooldown
+## Sprite3D. Waited for the first process frame so the viewport has rendered and
+## its texture is in a usable (non-compressed) format, avoiding blit errors.
+func _bind_ground_pound_ui_texture() -> void:
+	await get_tree().process_frame
+	if not is_inside_tree():
+		return
+	($groundPoundCooldownUI/Sprite3D as Sprite3D).texture = $groundPoundCooldownUI/SubViewport.get_texture()
 
 
 ## Keeps the PhantomCameraHost from overriding the player camera until a camera
@@ -253,6 +271,7 @@ func _on_scene_spawn() -> void:
 	var scene := get_tree().current_scene
 	if scene == null:
 		return
+	_refresh_world_boundary()
 	var is_gameplay: bool = \
 		not scene.find_children("*", "InfoPlayerStart", true, false).is_empty() \
 		or not scene.find_children("*", "PlayerMoveOutLocation", true, false).is_empty()
@@ -487,11 +506,13 @@ func set_inside_camera_volume(inside: bool) -> void:
 
 func _aim_to_world(v: Vector2) -> Vector3:
 	## Maps a camera-space aim offset to a world offset from the player using
-	## the camera's FULL orientation (yaw + pitch), so panning is relative to
-	## the camera rotation. Aiming up raises the aim point above the ground
-	## (for aerial targets later); aiming below the ground clamps to it.
-	var basis := camera_3d.global_transform.basis
-	var offset := basis.x * v.x - basis.y * v.y
+	## only the camera's YAW (horizontal), not its full pitch, so the aim stays
+	## stable even when a phantom camera volume drives the camera from a steep,
+	## tilted or world-boundary-adjacent position. Aiming up raises the aim
+	## point above the ground (for aerial targets later); aiming below the
+	## ground clamps to it.
+	var basis := Basis(Vector3.UP, camera_3d.global_rotation.y)
+	var offset := basis.x * v.x - Vector3.UP * v.y
 	if offset.y < 0.0:
 		offset.y = 0.0
 	return offset
@@ -500,27 +521,59 @@ func _aim_to_world(v: Vector2) -> Vector3:
 const FIRE_AIM_MAX_RANGE := 90.0
 
 
-func _get_fire_aim_point() -> Vector3:
-	var aim_ui_visible: bool = $AimUI.visible
+## Finds and caches the room's invisible world-boundary body (an infinite
+## half-space floor) so the laser/fire aim raycast can ignore it. A camera
+## parked behind that boundary would otherwise make every aim ray terminate on
+## the plane, making the laser endpoint spaz between the plane and the target.
+func _refresh_world_boundary() -> void:
+	_world_boundary_rid = RID()
+	var scene := get_tree().current_scene
+	if scene == null:
+		return
+	var shapes := scene.find_children("*", "CollisionShape3D", true, false)
+	for child in shapes:
+		var shape := (child as CollisionShape3D).shape
+		if shape is WorldBoundaryShape3D:
+			var body := (child as CollisionShape3D).get_parent()
+			if body is StaticBody3D:
+				_world_boundary_rid = body.get_rid()
+				return
+
+
+## Where the player's laser/blaster originates: the chest, not the camera.
+## The beam is drawn from the player and wanting it to originate from a moving
+## volume camera is exactly what made the endpoint jitter.
+func _fire_ray_origin() -> Vector3:
+	return global_position + Vector3.UP * 0.7
+
+
+## Raycasts from a given origin toward a target, stopping at the first obstacle
+## the laser would actually hit, and returns the endpoint (aim point). The
+## invisible world boundary is excluded so the flat floor plane can't truncate
+## the laser.
+func _ray_to_world(from: Vector3, target: Vector3) -> Vector3:
 	var space := get_world_3d().direct_space_state
-	var from := Vector3.ZERO
-	var to := Vector3.ZERO
-
-	if aim_ui_visible:
-		var crosshair_screen := crosshair.position + crosshair.pivot_offset
-		from = camera_3d.project_ray_origin(crosshair_screen)
-		to = from + camera_3d.project_ray_normal(crosshair_screen) * FIRE_AIM_MAX_RANGE
-	else:
-		from = global_position
-		to = from + Vector3(-sin(_body_yaw), 0.0, -cos(_body_yaw)) * FIRE_AIM_MAX_RANGE
-
-	var query := PhysicsRayQueryParameters3D.create(from, to)
-	query.exclude = [get_rid()]
+	var query := PhysicsRayQueryParameters3D.create(from, target)
+	var exclude: Array[RID] = [get_rid()]
+	if _world_boundary_rid.is_valid():
+		exclude.append(_world_boundary_rid)
+	query.exclude = exclude
 	var result := space.intersect_ray(query)
 	if result.size() > 0:
 		return result["position"]
+	return target
 
-	return to
+
+func _get_fire_aim_point() -> Vector3:
+	if $AimUI.visible:
+		# The endpoint is computed once per physics frame in _update_aim and
+		# synced to the crosshair, so reuse it rather than re-ray-casting here
+		# with the current (possibly mid-tween) camera transform.
+		return _aim_point_world
+
+	var from := _fire_ray_origin()
+	var to := from + Vector3(-sin(_body_yaw), 0.0, -cos(_body_yaw)) * FIRE_AIM_MAX_RANGE
+	return _ray_to_world(from, to)
 
 
 func _world_to_camera_space(v: Vector3) -> Vector2:
@@ -867,6 +920,7 @@ func _update_aim(delta: float) -> void:
 			_body_yaw = atan2(-target_xz.x, -target_xz.y)
 		var player_screen := camera_3d.unproject_position(global_position + Vector3.UP * 0.7)
 		var target_screen := camera_3d.unproject_position(_current_target.global_position + Vector3.UP * 0.7)
+		_aim_point_world = _current_target.global_position + Vector3.UP * 0.7
 		var _viewport_size := get_viewport().get_visible_rect().size
 		crosshair.position = target_screen - crosshair.pivot_offset
 		var spin_speed: float = TARGET_SPIN_SPEEDS.get(_get_target_type(_current_target), CROSSHAIR_SPIN_SPEED)
@@ -904,19 +958,34 @@ func _update_aim(delta: float) -> void:
 	_aim_strength = clampf(_aim_offset.length() / MAX_AIM_DIST, 0.0, 1.0)
 	_pan_strength = clampf((_aim_strength - PAN_TRIGGER_STRENGTH) / (1.0 - PAN_TRIGGER_STRENGTH), 0.0, 1.0)
 
-	var anchor := global_position + Vector3.UP * 0.7
 	var aim_world := _aim_to_world(_aim_offset)
 	var viewport_size := get_viewport().get_visible_rect().size
-	var aim_screen := camera_3d.unproject_position(anchor + aim_world)
-	var crosshair_center := aim_screen.clamp(Vector2(40, 40), viewport_size - Vector2(40, 40))
-	crosshair.position = crosshair_center - crosshair.pivot_offset
+	# Anchor the aim to a stable SCREEN position (offset from screen center by
+	# the aim input). This is independent of the camera transform, so it can't
+	# be thrown around by a moving/look-at volume camera the way a world-space
+	# anchor projected through the camera would be.
+	var max_px := minf(viewport_size.x, viewport_size.y) * 0.5
+	var aim_dir := _aim_offset / MAX_AIM_DIST
+	var aim_screen := viewport_size * 0.5 + aim_dir * max_px * AIM_SCREEN_RANGE
+	# Compute the 3D laser endpoint from the PLAYER chest and the camera's
+	# stable YAW only (_aim_to_world uses no camera position). A volume camera's
+	# world POSITION can oscillate frame to frame (volume-camera drive jitter),
+	# so feeding the camera origin into a plane/ray intersection made the
+	# endpoint spaz between two spots every frame. Anchoring to the stationary
+	# player keeps the laser rock solid regardless of camera position.
+	var from := _fire_ray_origin()
+	var wdir := aim_world if aim_world.length_squared() > 1.0e-4 else _body_forward() * FIRE_AIM_MAX_RANGE
+	_aim_point_world = _ray_to_world(from, from + wdir.normalized() * FIRE_AIM_MAX_RANGE)
+	# Crosshair rides the stable input screen anchor, mirroring the (now stable)
+	# laser direction on screen.
+	crosshair.position = aim_screen - crosshair.pivot_offset
 	crosshair.rotation += CROSSHAIR_SPIN_SPEED * delta
 	crosshair.scale = crosshair.scale.lerp(Vector2.ONE * _pan_strength, 1.0 - exp(-CROSSHAIR_SCALE_SMOOTHING * delta))
 
 	if aim_world.length() > 0.01:
 		look_arrow.rotation = lerp_angle(look_arrow.rotation, _aim_offset.angle() - PI / 2.0, 1.0 - exp(-ROT_SMOOTHING * delta))
 
-	var arrow_target := camera_3d.unproject_position(anchor + _aim_to_world(_aim_offset.limit_length(LOOK_ARROW_MAX_POS))) - look_arrow.pivot_offset
+	var arrow_target := viewport_size * 0.5 + aim_dir * max_px * LOOK_ARROW_SCREEN_RANGE - look_arrow.pivot_offset
 	look_arrow.position = look_arrow.position.lerp(arrow_target, smooth)
 	look_arrow.scale = look_arrow.scale.lerp(Vector2.ONE * LOOK_ARROW_MAX_SCALE * _pan_strength, smooth)
 

@@ -94,6 +94,7 @@ transform = Transform3D(0.9034001, -0.18018208, 0.38910493, -1.4901161e-08, 0.90
 look_at_mode = 2
 look_at_target = NodePath("../PhantomCameraTarget3D")
 tween_resource = SubResource("Resource_ugek3")
+tween_on_load = true
 align_transform_with_view = Callable()
 align_rotation_with_view = Callable()
 

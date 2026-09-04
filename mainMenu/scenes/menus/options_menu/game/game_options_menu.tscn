@@ -20,6 +20,7 @@ custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 alignment = 1
 script = ExtResource("2_winus")
+search_depth = 2
 
 [node name="CameraBehavior" parent="VBoxContainer" unique_id=16284350 instance=ExtResource("2_l2bym")]
 unique_name_in_owner = true
@@ -46,7 +47,6 @@ default_value = 0.1
 
 [node name="CameraSnappingSpeed" parent="VBoxContainer" unique_id=1384562467 instance=ExtResource("4_winus")]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 alignment = 1
 option_name = "Camera Snap Speed"
@@ -54,6 +54,13 @@ option_section = 4
 key = "CameraSnapSpeed"
 section = "GameSettings"
 default_value = 10.0
+
+[node name="OptionLabel" parent="VBoxContainer/CameraSnappingSpeed" index="0" unique_id=1854788461]
+text = "Camera Snap Speed :"
+
+[node name="HSlider" parent="VBoxContainer/CameraSnappingSpeed" index="1" unique_id=424108384]
+max_value = 100.0
+step = 1.0
 
 [node name="InvertAimType" parent="VBoxContainer" unique_id=1563851297 instance=ExtResource("4_jta7d")]
 unique_name_in_owner = true
@@ -78,3 +85,5 @@ default_value = true
 [connection signal="setting_changed" from="VBoxContainer/CameraSnappingSpeed" to="." method="_on_camera_snapping_speed_setting_changed"]
 [connection signal="setting_changed" from="VBoxContainer/InvertAimType" to="." method="_on_invert_aim_type_setting_changed"]
 [connection signal="setting_changed" from="VBoxContainer/ColoredPrompts" to="." method="_on_colored_prompts_setting_changed"]
+
+[editable path="VBoxContainer/CameraSnappingSpeed"]

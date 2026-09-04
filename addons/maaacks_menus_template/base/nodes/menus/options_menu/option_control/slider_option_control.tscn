@@ -7,6 +7,7 @@ custom_minimum_size = Vector2(0, 28)
 offset_bottom = 28.0
 property_type = 3
 default_value = 1.0
+show_option_value = true
 
 [node name="HSlider" type="HSlider" parent="." index="1" unique_id=424108384]
 custom_minimum_size = Vector2(256, 0)
@@ -16,3 +17,6 @@ max_value = 1.0
 step = 0.05
 value = 1.0
 ticks_on_borders = true
+
+[node name="OptionValue" parent="." index="2" unique_id=1875947697]
+text = "1.00"

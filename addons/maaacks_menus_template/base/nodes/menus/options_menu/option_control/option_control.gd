@@ -2,6 +2,7 @@
 class_name OptionControl
 extends Control
 ## Generic scene for editing a value of the [PlayerConfig].
+@onready var option_value: Label = %OptionValue
 
 signal setting_changed(value)
 
@@ -57,6 +58,10 @@ const OptionSectionNames : Dictionary = {
 @export var editable : bool = true : set = set_editable
 ## Defines what kind of variable this option stores in the config file.
 @export var property_type : Variant.Type = TYPE_BOOL
+@export_group("Option Value")
+## Whether the OptionValue Label is visible. Optional per-option: hide it on
+## options whose live value shouldn't be shown, show it on ones that should.
+@export var show_option_value : bool = false : set = set_show_option_value
 
 ## It is advised to use an external editor to set the default value in the scene file.
 ## Godot can experience a bug (caching issue?) that may undo changes.
@@ -66,6 +71,7 @@ var _connected_nodes : Array
 func _on_setting_changed(value) -> void:
 	if Engine.is_editor_hint(): return
 	PlayerConfig.set_config(section, key, value)
+	_update_option_value_label(value)
 	setting_changed.emit(value)
 
 func _get_setting(default : Variant = null) -> Variant:
@@ -103,6 +109,29 @@ func set_value(value : Variant) -> void:
 			node.value = value as float
 		if node is LineEdit or node is TextEdit:
 			node.text = "%s" % value
+	_update_option_value_label(value)
+
+## Formats a raw setting value for display on the OptionValue Label.
+func _format_option_value(value : Variant) -> String:
+	if value is bool:
+		return "On" if value else "Off"
+	if value is float:
+		return "%.2f" % value
+	return "%s" % value
+
+## Refreshes the OptionValue Label to show the current setting value. Only
+## updates when the variant includes the option_value node.
+func _update_option_value_label(value : Variant) -> void:
+	if option_value == null:
+		return
+	option_value.text = _format_option_value(value)
+
+## Toggles visibility of the OptionValue Label. Keeping it visible while
+## hidden is fine; the accessor simply mirrors the export.
+func set_show_option_value(value : bool = false) -> void:
+	show_option_value = value
+	if option_value != null:
+		option_value.visible = value
 
 func set_editable(value : bool = true) -> void:
 	editable = value
@@ -119,6 +148,7 @@ func _ready() -> void:
 	property_type = property_type
 	default_value = default_value
 	set_value(_get_setting(default_value))
+	set_show_option_value(show_option_value)
 	for child in get_children():
 		_connect_option_inputs(child)
 	child_entered_tree.connect(_connect_option_inputs)
