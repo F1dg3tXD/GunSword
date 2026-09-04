@@ -61,6 +61,11 @@ text = "Camera Snap Speed :"
 [node name="HSlider" parent="VBoxContainer/CameraSnappingSpeed" index="1" unique_id=424108384]
 max_value = 100.0
 step = 1.0
+value = 10.0
+
+[node name="OptionValue" parent="VBoxContainer/CameraSnappingSpeed" index="2" unique_id=1875947697]
+visible = true
+text = "10.00"
 
 [node name="InvertAimType" parent="VBoxContainer" unique_id=1563851297 instance=ExtResource("4_jta7d")]
 unique_name_in_owner = true
