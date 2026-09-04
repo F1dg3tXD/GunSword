@@ -22,3 +22,5 @@ mono_crash.*.json
 build/
 
 addons/kenney_crosshair-pack/PNG/
+
+*.png~
