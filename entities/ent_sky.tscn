@@ -33,8 +33,8 @@ shader_parameter/sun_color = Color(1, 0.95, 0.8, 1)
 shader_parameter/sun_sunset_color = Color(7.7643957, 4.72946, 0, 1)
 shader_parameter/sun_size = 0.29700001340897997
 shader_parameter/sun_blur = 0.7800000363514801
-shader_parameter/moon_color = Color(0.8941022, 0.9531689, 1, 1)
-shader_parameter/moon_size = 1.0
+shader_parameter/moon_color = Color(0.79251033, 0.9090554, 0.99999994, 1)
+shader_parameter/moon_size = 0.13600000576148
 shader_parameter/moon_blur = 0.00999999977648
 shader_parameter/clouds_edge_color = Color(0.8, 0.8, 0.98, 1)
 shader_parameter/clouds_top_color = Color(1, 1, 1, 1)
@@ -75,15 +75,15 @@ script = ExtResource("1_mms15")
 environment = SubResource("Environment_42yok")
 
 [node name="sun" type="DirectionalLight3D" parent="." unique_id=244332905]
-transform = Transform3D(-0.8054542, -0.5582833, 0.1989056, -0.35128173, 0.7200277, 0.59846574, -0.47733095, 0.41216484, -0.77606404, 0.153, 2.502, 0)
+transform = Transform3D(-0.8054543, -0.55828327, 0.19890551, -0.23873278, 0.61281484, 0.7533023, -0.5424483, 0.5592653, -0.62687516, 0.153, 2.502, 0)
 light_color = Color(0.99266464, 0.9589121, 0.6178834, 1)
 shadow_enabled = true
 shadow_bias = 0.0
 shadow_blur = 0.0
 
 [node name="moon" type="DirectionalLight3D" parent="sun" unique_id=16656613]
-transform = Transform3D(0.30948108, 0.83254045, -0.45945382, 0.9355016, -0.35318553, -0.009840697, -0.17046523, -0.4267744, -0.8881471, 0, 0, 0)
-light_color = Color(0.99266464, 0.9589121, 0.6178834, 1)
+transform = Transform3D(0.3094811, 0.8325405, -0.45945385, 0.9355016, -0.35318565, -0.009840608, -0.17046523, -0.42677438, -0.8881472, 0, 0, 0)
+light_color = Color(0, 0.71071976, 0.86188847, 1)
 shadow_enabled = true
 shadow_bias = 0.0
 shadow_blur = 0.0

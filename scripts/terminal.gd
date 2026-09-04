@@ -16,7 +16,7 @@ func _ready() -> void:
 	Console.add_command("tp", on_teleport, 3, 3, "tp <x> <y> <z> - teleport player to position")
 	Console.add_command("kys", on_kys, 0, 0, "kys")
 	Console.add_command("tickrate", on_tickrate, 1, 0, "tickrate [value] - get or set the daylight cycle speed multiplier")
-	Console.add_command("time", on_time, 2, 0, "time [set <ticks|day|noon|night|midnight>] - get or set daylight cycle position (24000 ticks/day)")
+	Console.add_command("time", on_time, 2, 0, "time [set <ticks|day|noon|night|midnight|eclipse>] - get or set daylight cycle position (24000 ticks/day)")
 
 
 func _exit_tree() -> void:
@@ -188,9 +188,14 @@ func on_time(action: String, value: String) -> void:
 	if sky == null or not is_instance_valid(sky):
 		Console.print_line("Error: No sky found in current map")
 		return
+	if action == "eclipse" or (action == "set" and value == "eclipse"):
+		sky.set_eclipse(true)
+		Console.print_line("Eclipse activated. Sun and moon aligned.")
+		Console.print_line("Auto-expires after one synodic month, or clear with: time set <any>")
+		return
 	if action.is_empty() or action == "set":
 		if action == "set" and value.is_empty():
-			Console.print_line("Usage: time set <ticks|day|noon|night|midnight>")
+			Console.print_line("Usage: time set <ticks|day|noon|night|midnight|eclipse>")
 			return
 		if action.is_empty():
 			var tick: float = sky.get_time()
@@ -205,9 +210,9 @@ func on_time(action: String, value: String) -> void:
 			tick_val = value.to_float()
 		else:
 			Console.print_line("Invalid time value: " + value)
-			Console.print_line("Use a number (0-24000) or a preset: day, noon, night, midnight")
+			Console.print_line("Use a number (0-24000), a preset (day, noon, night, midnight), or eclipse")
 			return
 		sky.set_time(tick_val)
 		Console.print_line("Time set to: %d ticks" % int(tick_val))
 	else:
-		Console.print_line("Usage: time set <ticks|day|noon|night|midnight>")
+		Console.print_line("Usage: time [set <ticks|day|noon|night|midnight> | eclipse]")
