@@ -5,7 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://ce0grov8ii452" path="res://mainMenu/scenes/windows/main_menu_options_window.tscn" id="3_eog7t"]
 [ext_resource type="PackedScene" uid="uid://umr1a6w6er5h" path="res://mainMenu/scenes/windows/main_menu_credits_window.tscn" id="4_shdm2"]
 [ext_resource type="AudioStream" uid="uid://calsw3vpura5v" path="res://music/when bro asks for a neo future title theme.tres" id="5_bdw0q"]
-[ext_resource type="VideoStream" uid="uid://gg05j0mpxc22" path="res://images/temp.ogv" id="5_h5b51"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w50h3"]
 content_margin_left = 16.0
@@ -457,16 +456,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="BG" index="0" unique_id=199471642]
-layout_mode = 0
-offset_left = -52.0
-offset_right = 1228.0
-offset_bottom = 720.0
-stream = ExtResource("5_h5b51")
-autoplay = true
-loop = true
-
-[node name="ColorRect" type="ColorRect" parent="BG" index="1" unique_id=636565926]
+[node name="ColorRect" type="ColorRect" parent="BG" index="0" unique_id=636565926]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
