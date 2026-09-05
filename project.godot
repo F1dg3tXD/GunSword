@@ -226,11 +226,14 @@ copy_path="res://mainMenu/"
 textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
 textures/vram_compression/import_etc2_astc=true
+lights_and_shadows/directional_shadow/size=8192
+lights_and_shadows/directional_shadow/size.mobile=8192
 viewport/hdr_2d=true
 scaling_3d/mode=5
 scaling_3d/mode.ios=5
 scaling_3d/mode.macos=5
 occlusion_culling/use_occlusion_culling=true
+anti_aliasing/use_debanding=true
 
 [shader_globals]
 

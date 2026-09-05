@@ -272,10 +272,7 @@ func _on_scene_spawn() -> void:
 	if scene == null:
 		return
 	_refresh_world_boundary()
-	var is_gameplay: bool = \
-		not scene.find_children("*", "InfoPlayerStart", true, false).is_empty() \
-		or not scene.find_children("*", "PlayerMoveOutLocation", true, false).is_empty()
-	if not is_gameplay:
+	if not _in_gameplay_scene():
 		set_ui_visible(false)
 		return
 	if LevelTransition.arrival_handled:
@@ -1089,8 +1086,18 @@ func _update_camera_snapping(delta: float, orbit_active: bool) -> void:
 	spring_arm.rotation.x = lerp(spring_arm.rotation.x, _snap_target_pitch, factor)
 
 
+func _in_gameplay_scene() -> bool:
+	var scene := get_tree().current_scene
+	if scene == null:
+		return false
+	return not scene.find_children("*", "InfoPlayerStart", true, false).is_empty() \
+		or not scene.find_children("*", "PlayerMoveOutLocation", true, false).is_empty()
+
+
 func _update_pause() -> void:
 	if _dialogue_on_screen():
+		return
+	if not _in_gameplay_scene():
 		return
 	if Input.is_action_just_pressed("pause"):
 		pause_menu_layer.show()

@@ -75,15 +75,31 @@ script = ExtResource("1_mms15")
 environment = SubResource("Environment_42yok")
 
 [node name="sun" type="DirectionalLight3D" parent="." unique_id=244332905]
-transform = Transform3D(-0.8054543, -0.55828327, 0.19890551, -0.23873278, 0.61281484, 0.7533023, -0.5424483, 0.5592653, -0.62687516, 0.153, 2.502, 0)
+transform = Transform3D(1.0000001, -1.7763568e-15, -2.9802322e-08, 0, -1, -8.742278e-08, -2.9802322e-08, 8.742278e-08, -1.0000001, 0, 0, 0)
 light_color = Color(0.99266464, 0.9589121, 0.6178834, 1)
 shadow_enabled = true
-shadow_bias = 0.0
+shadow_bias = 0.01
+shadow_normal_bias = 1.5
+shadow_transmittance_bias = 0.0
 shadow_blur = 0.0
+directional_shadow_blend_splits = true
+directional_shadow_fade_start = 0.2
+directional_shadow_max_distance = 40.0
+directional_shadow_pancake_size = 0.0
 
 [node name="moon" type="DirectionalLight3D" parent="sun" unique_id=16656613]
-transform = Transform3D(0.3094811, 0.8325405, -0.45945385, 0.9355016, -0.35318565, -0.009840608, -0.17046523, -0.42677438, -0.8881472, 0, 0, 0)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1.0000001, 0, -8.742278e-08, 0, -1, 0, 0, 0)
 light_color = Color(0, 0.71071976, 0.86188847, 1)
 shadow_enabled = true
-shadow_bias = 0.0
+shadow_bias = 0.01
+shadow_normal_bias = 1.5
+shadow_transmittance_bias = 0.0
 shadow_blur = 0.0
+directional_shadow_blend_splits = true
+directional_shadow_fade_start = 0.2
+directional_shadow_max_distance = 40.0
+directional_shadow_pancake_size = 0.0
+
+[node name="debug" type="CSGBox3D" parent="." unique_id=416457565 groups=["debug"]]
+autosmooth = true
+smoothing_angle = 156.9

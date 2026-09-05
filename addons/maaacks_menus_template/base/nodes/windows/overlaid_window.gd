@@ -22,6 +22,8 @@ var _scene_tree : SceneTree
 var _exclusive_control_node : ColorRect
 
 func _set_focus_none(node : Node) -> void:
+	if node == null:
+		return
 	var all_children := node.get_children()
 	for child in all_children:
 		if child == self or (child is Control and not child.visible):
