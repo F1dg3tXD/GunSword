@@ -193,28 +193,30 @@ void sky()
 		{
 			// How closely the moon lines up with the sun (solar eclipse detection)
 			float _sun_moon_alignment = clamp( 1.0 - distance( LIGHT0_DIRECTION, LIGHT1_DIRECTION ) / _moon_size, 0.0, 1.0 );
-			if( _sun_moon_alignment > 0.99 )
-			{
-				// Solar eclipse: moon face is drawn black (soft shadow) with the sun
-				// color glowing as a rim light around its edge (corona effect).
-				float _eclipse = _sun_moon_alignment;
-				// Black moon disc with a soft edge
-				COLOR = mix( COLOR, vec3( 0.0 ), _moon_amount );
-				// Sun-color rim light hugging the moon's outer edge
-				float _rim = clamp(( _moon_distance - 1.0 + 0.08 ) / ( moon_size * 0.15 ), 0.0, 1.0 );
-				COLOR = mix( COLOR, sun_color * _rim, _rim * _eclipse );
-			}
-			else
-			{
-				// Moon illumination depending on the position of the sun
-				float _moon_intersect = sphere_intersect( EYEDIR, LIGHT1_DIRECTION, _moon_size );
-				vec3 _moon_normal = normalize( LIGHT1_DIRECTION - EYEDIR * _moon_intersect );
-				// Power on the result gives a better effect
-				float _moon_n_dot_l = pow( clamp( dot( _moon_normal, -LIGHT0_DIRECTION ), 0.05, 1.0 ), 2 );
-				// Hiding the moon behind the horizon
-				_moon_amount *= 1.0 - _horizon_amount;
-				COLOR = mix( COLOR, moon_color, _moon_n_dot_l * _moon_amount );
-			}
+			// Ease between the eclipse look and the ordinary look instead of a hard
+			// switch, so the moon's color fades back smoothly as it drifts away from
+			// the sun after an eclipse (or during the natural new-moon pass) instead
+			// of instantly popping.
+			float _eclipse = smoothstep( 0.8, 1.0, _sun_moon_alignment );
+
+			// Eclipse look: black moon disc with a soft edge plus a sun-color rim
+			// light hugging the outer edge (corona effect, brightest when exactly
+			// aligned).
+			vec3 _eclipse_look = mix( COLOR, vec3( 0.0 ), _moon_amount );
+			float _rim = clamp(( _moon_distance - 1.0 + 0.08 ) / ( moon_size * 0.15 ), 0.0, 1.0 );
+			_eclipse_look = mix( _eclipse_look, sun_color * _rim, _rim * _eclipse );
+
+			// Ordinary look: moon disc illuminated by the position of the sun.
+			float _moon_intersect = sphere_intersect( EYEDIR, LIGHT1_DIRECTION, _moon_size );
+			vec3 _moon_normal = normalize( LIGHT1_DIRECTION - EYEDIR * _moon_intersect );
+			// Power on the result gives a better effect
+			float _moon_n_dot_l = pow( clamp( dot( _moon_normal, -LIGHT0_DIRECTION ), 0.05, 1.0 ), 2 );
+			vec3 _moon_look = mix( COLOR, moon_color, _moon_n_dot_l * _moon_amount );
+
+			COLOR = mix( _moon_look, _eclipse_look, _eclipse );
+
+			// Hiding the moon behind the horizon
+			_moon_amount *= 1.0 - _horizon_amount;
 		}
 	}
 
